@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-25",
+  "scope": "Pre-first-commit ignore and staged-content audit",
+  "localBranch": "master (no commits yet)",
+  "stagedAudit": {
+    "files": 492,
+    "totalBytes": 4588309,
+    "filesOver2MiB": 0,
+    "stagedPathsMatchingUpdatedIgnoreRules": [],
+    "credentialPatternMatches": 3,
+    "reviewedMatches": [
+      "apps/api/src/worker-env.d.ts: generated URLPatternResult password type",
+      "apps/web/src/worker-env.d.ts: generated URLPatternResult password type",
+      "tests/contracts/api-client.test.mjs: intentionally fake credential URL rejection fixture"
+    ],
+    "actualCredentialsFoundInPatternMatches": 0
+  },
+  "ignoreContract": {
+    "beforeFix": "failed: newly required paths were not ignored",
+    "afterFix": "passed",
+    "ignoredFixtures": 39,
+    "retainedFixtures": 9,
+    "command": "node --test --test-name-pattern='Git excludes' tests/foundation/workspace.test.mjs"
+  },
+  "retainedIntentionally": [
+    ".env.example with empty credential fields",
+    "pnpm-lock.yaml and uv.lock",
+    "generated contract/runtime type declarations used by checks",
+    "CI configuration, source, tests and captured verification evidence"
+  ],
+  "newProtection": [
+    "Cloudflare .dev.vars files with safe-example exception",
+    "mobile signing credentials and native release archives",
+    "local databases and journals",
+    "additional Python environment/test artifacts",
+    "Playwright output and editor temporary files"
+  ],
+  "limits": [
+    "Pattern scanning cannot prove absence of every possible secret",
+    "Audit describes the index at the time scanned; new or edited files need review",
+    "No commit or push performed by the agent; .git is read-only in this session"
+  ]
+}

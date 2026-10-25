@@ -1,0 +1,6 @@
+
+> polymatik-ai@0.0.0 lint C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+> eslint . --max-warnings 0 && prettier --check . "!**/{.cache,.pnpm-store,.venv,.pytest_cache,.ruff_cache,.mypy_cache,__pycache__,.next,.expo,.wrangler,.vinext,dist,build,coverage,playwright-report,test-results}/**"
+
+Checking formatting...
+All matched files use Prettier code style!

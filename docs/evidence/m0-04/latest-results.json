@@ -1,0 +1,22 @@
+{
+  "full-lint": {
+    "exitCode": 0,
+    "elapsedSeconds": 29.66
+  },
+  "full-test": {
+    "exitCode": 0,
+    "elapsedSeconds": 9.12
+  },
+  "worker-runtime-current": {
+    "exitCode": 1,
+    "elapsedSeconds": 6.84
+  },
+  "api-packaging": {
+    "exitCode": 1,
+    "elapsedSeconds": 6.75
+  },
+  "frozen-lock": {
+    "exitCode": 0,
+    "elapsedSeconds": 1.73
+  }
+}

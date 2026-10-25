@@ -1,0 +1,48 @@
+F.                                                                       [100%]
+================================== FAILURES ===================================
+____________ test_import_has_no_network_or_file_write_side_effects ____________
+
+tmp_path = WindowsPath('C:/Users/HP 240 G9/AppData/Local/Temp/pytest-of-HP 240 G9/pytest-2/test_import_has_no_network_or_0')
+
+    def test_import_has_no_network_or_file_write_side_effects(tmp_path: Path) -> None:
+        source = Path(__file__).resolve().parents[1] / "src"
+        environment = {
+            **os.environ,
+            "PYTHONPATH": str(source),
+            "PYTHONDONTWRITEBYTECODE": "1",
+            "LANGSMITH_TRACING": "true",
+        }
+        result = subprocess.run(
+            [sys.executable, "-c", """
+    import sys
+    
+    def deny_external_effects(event, args):
+        if event in {"socket.connect", "socket.bind", "subprocess.Popen"}:
+            raise AssertionError(f"unexpected external operation: {event}")
+        if event == "open":
+            mode = args[1]
+            if isinstance(mode, str) and any(flag in mode for flag in "wax+"):
+                raise AssertionError("unexpected file write")
+    
+    sys.addaudithook(deny_external_effects)
+    import polymatik_agent
+    assert polymatik_agent.__file__ is not None
+    """],
+            cwd=tmp_path,
+            env=environment,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+>       assert result.returncode == 0, result.stderr
+E       AssertionError: Traceback (most recent call last):
+E           File "<string>", line 13, in <module>
+E         ModuleNotFoundError: No module named 'polymatik_agent'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['C:\\Python312\\python.exe', '-c', '\nimport sys\n\ndef deny_external_effects(event, args):\n  ...cent call last):\n  File "<string>", line 13, in <module>\nModuleNotFoundError: No module named \'polymatik_agent\'\n').returncode
+
+services\agent\tests\test_bootstrap.py:40: AssertionError
+=========================== short test summary info ===========================
+FAILED services/agent/tests/test_bootstrap.py::test_import_has_no_network_or_file_write_side_effects
+1 failed, 1 passed in 1.27s

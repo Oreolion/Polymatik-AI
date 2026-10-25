@@ -1,0 +1,17 @@
+[
+  {
+    "check": "lint",
+    "exit": 0,
+    "evidence": "docs/evidence/ui-02/sdk58-lint.txt"
+  },
+  {
+    "check": "typecheck",
+    "exit": 2,
+    "evidence": "docs/evidence/ui-02/sdk58-typecheck.txt"
+  },
+  {
+    "check": "test",
+    "exit": 1,
+    "evidence": "docs/evidence/ui-02/sdk58-test.txt"
+  }
+]

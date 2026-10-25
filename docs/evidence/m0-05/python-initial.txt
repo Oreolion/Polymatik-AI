@@ -1,0 +1,130 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.6, pytest-9.0.3, pluggy-1.6.0
+rootdir: C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+configfile: pyproject.toml
+testpaths: services/agent/tests
+plugins: anyio-4.15.1, langsmith-0.14.12
+collected 26 items
+
+services\agent\tests\test_app.py ............                            [ 46%]
+services\agent\tests\test_bootstrap.py ..                                [ 53%]
+services\agent\tests\test_graph.py FF.......                             [ 88%]
+services\agent\tests\test_tracing.py ...                                 [100%]
+
+================================== FAILURES ===================================
+_____________ test_graph_is_bounded_and_request_state_is_isolated _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000232757B2810>
+
+    def test_graph_is_bounded_and_request_state_is_isolated(monkeypatch) -> None:
+        monkeypatch.setenv("LANGSMITH_TRACING", "true")
+    
+        def deny_network(*args, **kwargs):
+            raise AssertionError("network forbidden in deterministic graph")
+    
+        monkeypatch.setattr(socket.socket, "connect", deny_network)
+        runner = GraphRunner(fixture_model)
+    
+        async def scenario():
+            first, second = await asyncio.gather(
+                runner.run("First private question", "alice", uuid4()),
+                runner.run("Second private question", "bob", uuid4()),
+            )
+            assert first.answer == second.answer == "Fixture answer."
+            assert first.request_id != second.request_id
+            assert first.graph_version == GRAPH_VERSION
+            assert first.citations == []
+            assert first.steps == second.steps == 2
+            assert first.limitations
+            assert "alice" not in first.model_dump_json()
+            assert "Second private question" not in first.model_dump_json()
+    
+>       asyncio.run(scenario())
+
+services\agent\tests\test_graph.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Python312\Lib\asyncio\runners.py:193: in run
+    with Runner(debug=debug, loop_factory=loop_factory) as runner:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Python312\Lib\asyncio\runners.py:58: in __enter__
+    self._lazy_init()
+C:\Python312\Lib\asyncio\runners.py:137: in _lazy_init
+    self._loop = events.new_event_loop()
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+C:\Python312\Lib\asyncio\events.py:823: in new_event_loop
+    return get_event_loop_policy().new_event_loop()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Python312\Lib\asyncio\events.py:720: in new_event_loop
+    return self._loop_factory()
+           ^^^^^^^^^^^^^^^^^^^^
+C:\Python312\Lib\asyncio\windows_events.py:316: in __init__
+    super().__init__(proactor)
+C:\Python312\Lib\asyncio\proactor_events.py:640: in __init__
+    self._make_self_pipe()
+C:\Python312\Lib\asyncio\proactor_events.py:787: in _make_self_pipe
+    self._ssock, self._csock = socket.socketpair()
+                               ^^^^^^^^^^^^^^^^^^^
+C:\Python312\Lib\socket.py:623: in _fallback_socketpair
+    csock.connect((addr, port))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = (<socket.socket [closed] fd=-1, family=2, type=1, proto=0>, ('127.0.0.1', 61522))
+kwargs = {}
+
+    def deny_network(*args, **kwargs):
+>       raise AssertionError("network forbidden in deterministic graph")
+E       AssertionError: network forbidden in deterministic graph
+
+services\agent\tests\test_graph.py:19: AssertionError
+______________ test_graph_times_out_and_propagates_cancellation _______________
+
+    def test_graph_times_out_and_propagates_cancellation() -> None:
+        cancelled = []
+    
+        async def stalled(question: str) -> str:
+            try:
+                await asyncio.sleep(30)
+            finally:
+                cancelled.append(True)
+            return "unreachable"
+    
+        runner = GraphRunner(stalled, timeout_seconds=0.02)
+        with pytest.raises(TimeoutError):
+            asyncio.run(runner.run("Question", "alice", uuid4()))
+        assert cancelled == [True]
+    
+        async def scenario():
+            task = asyncio.create_task(GraphRunner(stalled).run("Question", "alice", uuid4()))
+            await asyncio.sleep(0.02)
+            task.cancel()
+            with pytest.raises(asyncio.CancelledError):
+                await task
+    
+        asyncio.run(scenario())
+>       assert len(cancelled) == 2
+E       assert 1 == 2
+E        +  where 1 = len([True])
+
+services\agent\tests\test_graph.py:64: AssertionError
+=========================== short test summary info ===========================
+FAILED services/agent/tests/test_graph.py::test_graph_is_bounded_and_request_state_is_isolated
+FAILED services/agent/tests/test_graph.py::test_graph_times_out_and_propagates_cancellation
+======================== 2 failed, 24 passed in 19.28s ========================
+C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\.venv\Lib\site-packages\_pytest\unraisableexception.py:33: RuntimeWarning: coroutine 'test_graph_is_bounded_and_request_state_is_isolated.<locals>.scenario' was never awaited
+  gc.collect()
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\.venv\Lib\site-packages\_pytest\unraisableexception.py:67: PytestUnraisableExceptionWarning: Exception ignored in: <function BaseEventLoop.__del__ at 0x0000023270002C00>
+
+Traceback (most recent call last):
+  File "C:\Python312\Lib\asyncio\base_events.py", line 728, in __del__
+    self.close()
+  File "C:\Python312\Lib\asyncio\proactor_events.py", line 697, in close
+    self._close_self_pipe()
+  File "C:\Python312\Lib\asyncio\proactor_events.py", line 779, in _close_self_pipe
+    self._ssock.close()
+    ^^^^^^^^^^^
+AttributeError: 'ProactorEventLoop' object has no attribute '_ssock'
+
+Enable tracemalloc to get traceback where the object was allocated.
+See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+  warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))

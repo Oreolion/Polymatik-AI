@@ -1,0 +1,13 @@
+{
+  "recordedDate": "2026-10-24",
+  "reportedBy": "owner normal Git Bash terminal",
+  "command": "bash scripts/node24.sh npx.cmd --yes pnpm@10.34.2 --version",
+  "reportedStdout": "10.34.2",
+  "reportedWarnings": [
+    "npm warns that manage-package-manager-versions is an unknown project config",
+    "npm warns that package-manager-strict-version is an unknown project config"
+  ],
+  "result": "exact pnpm invocation confirmed by owner; warnings did not prevent version output",
+  "scope": "version check only; no dependency backup, fresh install, native test or device startup result supplied",
+  "next": "close Polymatik servers/editor; retry tested dependency backup in external Git Bash; preserve and report any rename failure before install"
+}

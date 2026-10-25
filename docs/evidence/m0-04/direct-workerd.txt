@@ -1,0 +1,16 @@
+C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\miniflare@5.20261019.2-beta_@types+node@26.6.5\node_modules\miniflare\dist\src\index.js:136641
+      const error123 = new MiniflareCoreError(
+                       ^
+
+MiniflareCoreError [ERR_VALIDATION]: Unexpected options passed to `new Miniflare()` constructor:
+✖ Unrecognized keys: "compatibilityDate", "modules", "bindings"
+✖ Invalid input: expected array, received undefined
+  → at workers
+    at validateOptions (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\miniflare@5.20261019.2-beta_@types+node@26.6.5\node_modules\miniflare\dist\src\index.js:136641:24)
+    at new _Miniflare (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\miniflare@5.20261019.2-beta_@types+node@26.6.5\node_modules\miniflare\dist\src\index.js:137028:38)
+    at file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/.cache/m0-04-workerd-check.mjs:10:12 {
+  code: 'ERR_VALIDATION',
+  cause: [Getter]
+}
+
+Node.js v24.22.1

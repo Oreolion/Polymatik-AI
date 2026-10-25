@@ -1,0 +1,33 @@
+FAIL iOS tests/navigation.test.tsx (253.677 s)
+  mobile route boundaries
+    × opens Discover, follows sign-in, and returns without creating a session (48070 ms)
+    √ opens the /search tab by deep link (498 ms)
+    √ opens the /library tab by deep link (428 ms)
+    √ opens the /learn tab by deep link (431 ms)
+    √ opens the /profile tab by deep link (320 ms)
+    √ rejects a fabricated sign-in parameter as a session (395 ms)
+    √ offers a recovery link for an unknown route (791 ms)
+
+  ● mobile route boundaries › opens Discover, follows sign-in, and returns without creating a session
+
+    thrown: "Exceeded timeout of 5000 ms for a test.
+    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout."
+
+       8 |
+       9 | describe('mobile route boundaries', () => {
+    > 10 |   it('opens Discover, follows sign-in, and returns without creating a session', async () => {
+         |   ^
+      11 |     const rendered = renderRouter('./src/app', { initialUrl: '/' });
+      12 |     expect(
+      13 |       await screen.findByText('A place for your curiosity.'),
+
+      at it (tests/navigation.test.tsx:10:3)
+      at Object.describe (tests/navigation.test.tsx:9:1)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 6 passed, 7 total
+Snapshots:   0 total
+Time:        263.272 s
+Ran all test suites.
+
+Exit: 1

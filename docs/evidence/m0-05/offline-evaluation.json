@@ -1,0 +1,179 @@
+{
+  "dataset_version": "m0-05-control-flow-v1",
+  "prompt_graph_version": "m0-05-v1",
+  "model_name": "test-only-fixed-response",
+  "retriever_settings": null,
+  "sample_count": 10,
+  "metrics": {
+    "structural_cases_passed": 10
+  },
+  "confidence_limits": "No semantic/safety accuracy estimate; synthetic wiring checks only.",
+  "cost": {
+    "external_model_calls": 0,
+    "tool_calls": 0,
+    "paid_usage": 0
+  },
+  "baseline_delta": null,
+  "failure_samples": [],
+  "decision": "pass",
+  "created_at": "2026-10-23T12:50:11.370232+00:00",
+  "python": "3.12.6",
+  "packages": {
+    "langgraph": "1.2.16",
+    "langsmith": "0.14.12"
+  },
+  "dataset_sha256": "e285bae62dade4a8396d00e6ceb45e9a24e8db65c592071d465bdae615693455",
+  "graph_sha256": "7ecbdb37abb1b04b0f1b4a8997d0eb0b97acb8f16a7d5160f3508c14184bb43b",
+  "outcomes": [
+    {
+      "id": "plain",
+      "run_id": "302ed40e-5de4-41a3-a9a7-44e181fa18ce",
+      "checks": {
+        "input_is_data": true,
+        "one_model_call": true,
+        "two_steps": true,
+        "expected_fixture_answer": true,
+        "no_citations": true,
+        "limitations_present": true,
+        "no_identity_in_result": true
+      },
+      "passed": true,
+      "latency_ms": 32.0
+    },
+    {
+      "id": "unicode",
+      "run_id": "c36c06cf-eeff-49ad-ae59-d58509bbccb1",
+      "checks": {
+        "input_is_data": true,
+        "one_model_call": true,
+        "two_steps": true,
+        "expected_fixture_answer": true,
+        "no_citations": true,
+        "limitations_present": true,
+        "no_identity_in_result": true
+      },
+      "passed": true,
+      "latency_ms": 15.0
+    },
+    {
+      "id": "whitespace",
+      "run_id": "2bed0c48-ff6e-4df0-aa19-b75c92734178",
+      "checks": {
+        "input_is_data": true,
+        "one_model_call": true,
+        "two_steps": true,
+        "expected_fixture_answer": true,
+        "no_citations": true,
+        "limitations_present": true,
+        "no_identity_in_result": true
+      },
+      "passed": true,
+      "latency_ms": 0.0
+    },
+    {
+      "id": "tool-injection",
+      "run_id": "a4da81a5-9dd2-4d00-b676-fefa22acd1de",
+      "checks": {
+        "input_is_data": true,
+        "one_model_call": true,
+        "two_steps": true,
+        "expected_fixture_answer": true,
+        "no_citations": true,
+        "limitations_present": true,
+        "no_identity_in_result": true
+      },
+      "passed": true,
+      "latency_ms": 0.0
+    },
+    {
+      "id": "identity-injection",
+      "run_id": "36b6f7e4-5150-4a9c-a288-b9c707779480",
+      "checks": {
+        "input_is_data": true,
+        "one_model_call": true,
+        "two_steps": true,
+        "expected_fixture_answer": true,
+        "no_citations": true,
+        "limitations_present": true,
+        "no_identity_in_result": true
+      },
+      "passed": true,
+      "latency_ms": 16.0
+    },
+    {
+      "id": "role-injection",
+      "run_id": "26007bd8-2538-4a85-bfcc-924731e4c427",
+      "checks": {
+        "input_is_data": true,
+        "one_model_call": true,
+        "two_steps": true,
+        "expected_fixture_answer": true,
+        "no_citations": true,
+        "limitations_present": true,
+        "no_identity_in_result": true
+      },
+      "passed": true,
+      "latency_ms": 15.0
+    },
+    {
+      "id": "citation-injection",
+      "run_id": "52fbc030-f702-4772-8548-03074d3535b5",
+      "checks": {
+        "input_is_data": true,
+        "one_model_call": true,
+        "two_steps": true,
+        "expected_fixture_answer": true,
+        "no_citations": true,
+        "limitations_present": true,
+        "no_identity_in_result": true
+      },
+      "passed": true,
+      "latency_ms": 0.0
+    },
+    {
+      "id": "url-data",
+      "run_id": "5f8d65de-5da3-4bee-be8f-6e96bf99c254",
+      "checks": {
+        "input_is_data": true,
+        "one_model_call": true,
+        "two_steps": true,
+        "expected_fixture_answer": true,
+        "no_citations": true,
+        "limitations_present": true,
+        "no_identity_in_result": true
+      },
+      "passed": true,
+      "latency_ms": 0.0
+    },
+    {
+      "id": "json-data",
+      "run_id": "2b6d6587-4298-4ff6-86fe-37eb58efe6b1",
+      "checks": {
+        "input_is_data": true,
+        "one_model_call": true,
+        "two_steps": true,
+        "expected_fixture_answer": true,
+        "no_citations": true,
+        "limitations_present": true,
+        "no_identity_in_result": true
+      },
+      "passed": true,
+      "latency_ms": 16.0
+    },
+    {
+      "id": "sql-data",
+      "run_id": "1fcf9017-2b63-4c67-80c0-b3f5d2677444",
+      "checks": {
+        "input_is_data": true,
+        "one_model_call": true,
+        "two_steps": true,
+        "expected_fixture_answer": true,
+        "no_citations": true,
+        "limitations_present": true,
+        "no_identity_in_result": true
+      },
+      "passed": true,
+      "latency_ms": 16.0
+    }
+  ]
+}

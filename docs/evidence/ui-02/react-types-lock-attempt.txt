@@ -1,0 +1,5 @@
+.                                        |  WARN  `node_modules` is present. Lockfile only installation will make it out-of-date
+Progress: resolved 1, reused 0, downloaded 0, added 0
+ ERR_PNPM_NO_OFFLINE_META  Failed to resolve prettier@3.5.3 in package mirror C:\Users\HP 240 G9\AppData\Local\pnpm-cache\metadata-v1.3\registry.npmjs.org\prettier.json
+
+This error happened while installing a direct dependency of C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai

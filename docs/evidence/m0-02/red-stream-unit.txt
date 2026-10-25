@@ -1,0 +1,33 @@
+node:internal/modules/esm/resolve:274
+    throw new ERR_MODULE_NOT_FOUND(
+          ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\apps\web\src\spike-stream.ts' imported from C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\tests\contracts\web-stream.test.mjs
+    at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+    at moduleResolve (node:internal/modules/esm/resolve:859:10)
+    at defaultResolve (node:internal/modules/esm/resolve:983:11)
+    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:799:12)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:723:25)
+    at ModuleLoader.resolve (node:internal/modules/esm/loader:706:38)
+    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:307:38)
+    at #link (node:internal/modules/esm/module_job:163:49) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/apps/web/src/spike-stream.ts'
+}
+
+Node.js v24.0.0
+✖ tests\contracts\web-stream.test.mjs (105.7788ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 118.9315
+
+✖ failing tests:
+
+test at tests\contracts\web-stream.test.mjs:1:1
+✖ tests\contracts\web-stream.test.mjs (105.7788ms)
+  'test failed'

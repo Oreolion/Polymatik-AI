@@ -1,0 +1,11 @@
+{
+  "source": "owner-reported normal terminal output",
+  "date": "2026-10-23",
+  "command": "bash scripts/node24.sh pnpm.cmd install --frozen-lockfile --ignore-scripts --prefer-offline",
+  "pnpm": "10.4.1",
+  "lockfile": "up to date; resolution skipped",
+  "packages": 997,
+  "downloaded": 0,
+  "seconds": 132.2,
+  "completed": true
+}

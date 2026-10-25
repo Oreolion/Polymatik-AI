@@ -1,0 +1,43 @@
+ WARN  Unsupported engine: wanted: {"node":">=24.3.0 <25"} (current: {"node":"v24.0.0","pnpm":"10.4.1"})
+
+> polymatik-ai@0.0.0 test C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+> node --test tests/foundation/*.test.mjs tests/contracts/web-stream.test.mjs tests/contracts/web-config.test.mjs tests/contracts/ui-tokens.test.mjs tests/contracts/mobile-config.test.mjs
+
+✔ mobile has a native Router entry and resolves shared tokens through the workspace (5.7959ms)
+✔ mobile keeps auth outside the canonical five tabs and provides unknown-route recovery (6.7543ms)
+(node:39264) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ contrast oracle agrees with black/white reference pairs (2.7072ms)
+✔ both themes expose matching semantic roles and accessible foregrounds (6.14ms)
+✔ theme preference honors an explicit choice and handles an absent system scheme (0.6637ms)
+✔ reduced motion removes transitions without changing normal feedback settings (0.9464ms)
+✔ layout and text tokens preserve usable touch targets and reading space (7.1078ms)
+✔ shared tokens cannot be mutated by a consumer and leak into another screen (2.4693ms)
+✔ Worker compatibility date is supported by every locked workerd runtime (65.1273ms)
+(node:38016) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ stream input is bounded and rejects duplicate or unexpected parameters (3.2316ms)
+✔ stream emits ordered events and closes at the requested count (99.094ms)
+✔ request abort closes a stream before remaining events are emitted (12.5449ms)
+✔ consumer cancellation releases its timer without enqueueing after close (14.9013ms)
+✔ an already aborted request emits nothing and invalid bounds are rejected (2.6903ms)
+✔ launcher uses the project pin without changing the parent PATH (852.6933ms)
+✔ explicit installed Node 24 override preserves working directory, arguments and exit code (706.4702ms)
+✔ missing or mismatched runtime fails instead of using the global Node (692.7628ms)
+✔ invalid version override is rejected (912.7078ms)
+✔ formatting checks prune unreadable caches and still reject unformatted source (826.3872ms)
+✔ lint ignores generated Python caches while checking maintained sources (2823.2294ms)
+✔ all six workspace boundaries are private and typechecked (173.6383ms)
+✔ root commands run real checks and pin direct dependencies (2.3768ms)
+✔ Python service and future infrastructure retain separate ownership (152.2419ms)
+✔ Git excludes secrets and generated artifacts but retains safe examples and locks (72.3716ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14816.4836
+
+Exit: 0

@@ -1,0 +1,83 @@
+
+> polymatik-ai@0.0.0 test:mobile C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+> pnpm --filter mobile test
+
+
+> mobile@0.0.0 test C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\apps\mobile
+> jest --runInBand
+
+C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\apps\mobile:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  mobile@0.0.0 test: `jest --runInBand`
+Exit status 1
+ ELIFECYCLE  Command failed with exit code 1.
+FAIL iOS tests/navigation.test.tsx
+  ● Test suite failed to run
+
+    SyntaxError: C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\@react-native+jest-preset@0_0ba93b051f560a52862ce585819a0663\node_modules\@react-native\jest-preset\jest\setup.js: Unexpected token, expected "," (31:12)
+
+      29 |     configurable: true,
+      30 |     enumerable: true,
+    > 31 |     value(id: TimeoutID): void {
+         |             ^
+      32 |       return clearTimeout(id);
+      33 |     },
+      34 |     writable: true,
+
+      at constructor (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:369:19)
+      at Parser.raise (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:6622:19)
+      at Parser.unexpected (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:6642:16)
+      at Parser.expect (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:6922:12)
+      at Parser.parseBindingList (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:7389:14)
+      at Parser.parseFunctionParams (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:13495:24)
+      at Parser.parseMethod (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:12077:10)
+      at Parser.parseObjectMethod (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11978:19)
+      at Parser.parseObjPropValue (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:12012:23)
+      at Parser.parsePropertyDefinition (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11949:17)
+      at Parser.parseObjectLike (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11866:21)
+      at Parser.parseExprAtom (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11370:23)
+      at Parser.parseExprSubscripts (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11107:23)
+      at Parser.parseUpdate (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11092:21)
+      at Parser.parseMaybeUnary (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11072:23)
+      at Parser.parseMaybeUnaryOrPrivate (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:10925:61)
+      at Parser.parseExprOps (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:10930:23)
+      at Parser.parseMaybeConditional (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:10907:23)
+      at Parser.parseMaybeAssign (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:10857:21)
+      at ../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:10826:39
+      at Parser.allowInAnd (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:12460:12)
+      at Parser.parseMaybeAssignAllowIn (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:10826:17)
+      at Parser.parseMaybeAssignAllowInOrVoidPattern (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:12527:17)
+      at Parser.parseObjectProperty (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11984:83)
+      at Parser.parseObjPropValue (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:12012:100)
+      at Parser.parsePropertyDefinition (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11949:17)
+      at Parser.parseObjectLike (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11866:21)
+      at Parser.parseExprAtom (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11370:23)
+      at Parser.parseExprSubscripts (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11107:23)
+      at Parser.parseUpdate (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11092:21)
+      at Parser.parseMaybeUnary (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11072:23)
+      at Parser.parseMaybeUnaryOrPrivate (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:10925:61)
+      at Parser.parseExprOps (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:10930:23)
+      at Parser.parseMaybeConditional (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:10907:23)
+      at Parser.parseMaybeAssign (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:10857:21)
+      at ../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:10826:39
+      at Parser.allowInAnd (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:12460:12)
+      at Parser.parseMaybeAssignAllowIn (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:10826:17)
+      at Parser.parseMaybeAssignAllowInOrVoidPattern (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:12527:17)
+      at Parser.parseExprListItem (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:12209:18)
+      at Parser.parseCallExpressionArguments (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11283:22)
+      at Parser.parseCoverCallAndAsyncArrowHead (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11217:29)
+      at Parser.parseSubscript (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11146:19)
+      at Parser.parseSubscripts (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11120:19)
+      at Parser.parseExprSubscripts (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11111:17)
+      at Parser.parseUpdate (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11092:21)
+      at Parser.parseMaybeUnary (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:11072:23)
+      at Parser.parseMaybeUnaryOrPrivate (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:10925:61)
+      at Parser.parseExprOps (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:10930:23)
+      at Parser.parseMaybeConditional (../../node_modules/.pnpm/@babel+parser@7.29.9/node_modules/@babel/parser/lib/index.js:10907:23)
+
+Test Suites: 1 failed, 1 total
+Tests:       0 total
+Snapshots:   0 total
+Time:        7.761 s
+Ran all test suites.
+
+Exit: 1

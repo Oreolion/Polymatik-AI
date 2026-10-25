@@ -1,0 +1,40 @@
+
+> polymatik-ai@0.0.0 test C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+> node --test tests/foundation/*.test.mjs tests/contracts/web-stream.test.mjs tests/contracts/web-config.test.mjs tests/contracts/ui-tokens.test.mjs tests/contracts/mobile-config.test.mjs
+
+✔ mobile has a native Router entry and resolves shared tokens through the workspace (16.9594ms)
+✔ mobile keeps auth outside the canonical five tabs and provides unknown-route recovery (4.2687ms)
+✔ mobile native peers follow the installed Expo Go SDK instead of the newest peer release (93.2607ms)
+✔ the native CLI resolves its matching Metro config and mobile DOM types match React types (45.9128ms)
+✔ contrast oracle agrees with black/white reference pairs (3.1707ms)
+✔ both themes expose matching semantic roles and accessible foregrounds (17.7205ms)
+✔ theme preference honors an explicit choice and handles an absent system scheme (0.6314ms)
+✔ reduced motion removes transitions without changing normal feedback settings (0.5603ms)
+✔ layout and text tokens preserve usable touch targets and reading space (0.6764ms)
+✔ shared tokens cannot be mutated by a consumer and leak into another screen (1.0232ms)
+✔ Worker compatibility date is supported by every locked workerd runtime (71.9447ms)
+✔ stream input is bounded and rejects duplicate or unexpected parameters (6.4607ms)
+✔ stream emits ordered events and closes at the requested count (102.9512ms)
+✔ request abort closes a stream before remaining events are emitted (13.1415ms)
+✔ consumer cancellation releases its timer without enqueueing after close (15.9695ms)
+✔ an already aborted request emits nothing and invalid bounds are rejected (1.2043ms)
+✔ launcher uses the project pin without changing the parent PATH (650.8139ms)
+✔ explicit installed Node 24 override preserves working directory, arguments and exit code (639.4375ms)
+✔ missing or mismatched runtime fails instead of using the global Node (837.6013ms)
+✔ invalid version override is rejected (824.2045ms)
+✔ formatting checks prune unreadable caches and still reject unformatted source (1251.5326ms)
+✔ lint ignores generated Python caches while checking maintained sources (6301.3695ms)
+✔ all six workspace boundaries are private and typechecked (241.9863ms)
+✔ root commands run real checks and pin direct dependencies (6.3443ms)
+✔ Python service and future infrastructure retain separate ownership (235.3725ms)
+✔ Git excludes secrets and generated artifacts but retains safe examples and locks (71.2654ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 22430.8632
+
+Exit: 0

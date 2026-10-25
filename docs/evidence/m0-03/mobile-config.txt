@@ -1,0 +1,12 @@
+✔ mobile has a native Router entry and resolves shared tokens through the workspace (5.9788ms)
+✔ mobile keeps auth outside the canonical five tabs and provides unknown-route recovery (8.1457ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 237.6758
+
+Exit: 0

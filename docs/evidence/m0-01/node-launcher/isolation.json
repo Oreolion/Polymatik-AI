@@ -1,0 +1,6 @@
+{
+  "before": "v25.9.0",
+  "launcher": "v24.0.0",
+  "after": "v25.9.0",
+  "parent_unchanged": true
+}

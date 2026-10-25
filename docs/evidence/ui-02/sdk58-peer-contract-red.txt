@@ -1,0 +1,41 @@
+✖ critical Expo runtime and test packages resolve compatible peers (654.3374ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1205.6528
+
+✖ failing tests:
+
+test at tests\contracts\mobile-config.test.mjs:136:1
+✖ critical Expo runtime and test packages resolve compatible peers (654.3374ms)
+  AssertionError [ERR_ASSERTION]: installed native/runtime/testing peer edges
+  + actual - expected
+  
+  + [
+  +   '@expo/log-box resolves @expo/dom-webview@57.0.1, expected ^58.0.2',
+  +   '@expo/router-server resolves @expo/metro-runtime@57.0.17, expected ^58.0.15',
+  +   '@expo/router-server resolves expo-constants@58.0.12, expected ^58.0.13',
+  +   'expo-router resolves @expo/metro-runtime@57.0.17, expected ^58.0.14',
+  +   '@expo/metro-runtime resolves @expo/log-box@58.0.13, expected ^57.0.4',
+  +   'react-server-dom-webpack resolves react@19.3.0, expected ^19.3.1',
+  +   'react-server-dom-webpack resolves react-dom@19.3.0, expected ^19.3.1',
+  +   'jest-watch-typeahead resolves jest@29.7.0, expected ^30.0.0'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/tests/contracts/mobile-config.test.mjs:163:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ '@expo/log-box resolves @expo/dom-webview@57.0.1, expected ^58.0.2', '@expo/router-server resolves @expo/metro-runtime@57.0.17, expected ^58.0.15', '@expo/router-server resolves expo-constants@58.0.12, expected ^58.0.13', 'expo-router resolves @expo/metro-runtime@57.0.17, expected ^58.0.14', '@expo/metro-runtime resolves @expo/log-box@58.0.13, expected ^57.0.4', 'react-server-dom-webpack resolves react@19.3.0, expected ^19.3.1', 'react-server-dom-webpack resolves react-dom@19.3.0, expected ^19.3.1', 'jest-watch-typeahead resolves jest@29.7.0, expected ^30.0.0' ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

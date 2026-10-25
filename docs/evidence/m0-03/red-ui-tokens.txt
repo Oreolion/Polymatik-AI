@@ -1,0 +1,29 @@
+(node:24248) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/tests/contracts/ui-tokens.test.mjs:9
+  getMotionTokens,
+  ^^^^^^^^^^^^^^^
+SyntaxError: The requested module '../../packages/ui-tokens/src/index.ts' does not provide an export named 'getMotionTokens'
+    at #_instantiate (node:internal/modules/esm/module_job:210:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:295:5)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:663:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:99:5)
+
+Node.js v24.0.0
+✖ tests\contracts\ui-tokens.test.mjs (467.7949ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 508.0399
+
+✖ failing tests:
+
+test at tests\contracts\ui-tokens.test.mjs:1:1
+✖ tests\contracts\ui-tokens.test.mjs (467.7949ms)
+  'test failed'
+
+EXIT_CODE=1

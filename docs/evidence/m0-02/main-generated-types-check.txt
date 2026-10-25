@@ -1,0 +1,7 @@
+
+ ⛅️ wrangler 4.152.0
+────────────────────
+✨ Types at src/worker-env.d.ts are up to date.
+
+
+EXIT_CODE=0

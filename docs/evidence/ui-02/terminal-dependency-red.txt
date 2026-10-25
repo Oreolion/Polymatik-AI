@@ -1,0 +1,12 @@
+{
+  "hyperlinksPath": "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\node_modules\\.pnpm\\supports-hyperlinks@2.3.0\\node_modules\\supports-hyperlinks\\index.js",
+  "colorResolved": "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\node_modules\\.pnpm\\supports-color@10.2.2\\node_modules\\supports-color\\index.js",
+  "version": "10.2.2",
+  "keys": [
+    "__esModule",
+    "createSupportsColor",
+    "default"
+  ],
+  "directColorLinkExists": false
+}
+supportsColor.supportsColor is not a function

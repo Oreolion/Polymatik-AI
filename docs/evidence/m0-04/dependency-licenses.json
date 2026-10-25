@@ -1,0 +1,348 @@
+{
+  "scope": "Installed package manifests absent from the prior M0-03 license inventory; package declarations only, not vulnerability or distribution compliance clearance. Includes any previously uninspected installed packages.",
+  "count": 57,
+  "packages": [
+    {
+      "name": "@cloudflare/unenv-preset",
+      "version": "2.16.2",
+      "license": "MIT OR Apache-2.0",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "@cloudflare/vite-plugin",
+      "version": "1.64.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "@radix-ui/react-collection",
+      "version": "1.2.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "@radix-ui/react-context",
+      "version": "1.3.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "@radix-ui/react-dialog",
+      "version": "1.3.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "@radix-ui/react-direction",
+      "version": "1.2.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "@radix-ui/react-portal",
+      "version": "1.2.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "@radix-ui/react-presence",
+      "version": "1.1.11",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "@radix-ui/react-primitive",
+      "version": "2.2.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "@react-native/babel-plugin-codegen",
+      "version": "0.88.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "@react-native/babel-preset",
+      "version": "0.88.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "@react-native/codegen",
+      "version": "0.88.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "@react-native/jest-preset",
+      "version": "0.86.3",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "@react-native/js-polyfills",
+      "version": "0.88.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "@react-native/metro-config",
+      "version": "0.88.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "@redocly/ajv",
+      "version": "8.11.2",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "@redocly/config",
+      "version": "0.22.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "@redocly/openapi-core",
+      "version": "1.34.22",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "ansi-colors",
+      "version": "4.1.3",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "brace-expansion",
+      "version": "2.1.7",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "change-case",
+      "version": "5.4.4",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "colorette",
+      "version": "1.4.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "flow-estree",
+      "version": "0.327.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "flow-estree",
+      "version": "0.331.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "flow-parser",
+      "version": "0.327.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "flow-parser",
+      "version": "0.331.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "index-to-position",
+      "version": "1.2.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "js-levenshtein",
+      "version": "1.1.6",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "js-yaml",
+      "version": "4.3.2",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "metro",
+      "version": "0.87.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "metro-babel-transformer",
+      "version": "0.87.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "metro-cache",
+      "version": "0.87.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "metro-cache-key",
+      "version": "0.87.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "metro-config",
+      "version": "0.87.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "metro-core",
+      "version": "0.87.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "metro-file-map",
+      "version": "0.87.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "metro-minify-terser",
+      "version": "0.87.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "metro-resolver",
+      "version": "0.87.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "metro-runtime",
+      "version": "0.87.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "metro-source-map",
+      "version": "0.87.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "metro-symbolicate",
+      "version": "0.87.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "metro-transform-plugins",
+      "version": "0.87.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "metro-transform-worker",
+      "version": "0.87.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "minimatch",
+      "version": "5.1.9",
+      "license": "ISC",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "minimizer-webpack-plugin",
+      "version": "5.13.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "ob1",
+      "version": "0.87.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "openapi-typescript",
+      "version": "7.13.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "parse-json",
+      "version": "8.3.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "pluralize",
+      "version": "8.0.0",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "react-native-drawer-layout",
+      "version": "4.2.12",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "react-native-reanimated",
+      "version": "4.5.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "react-native-worklets",
+      "version": "0.10.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "react-remove-scroll-bar",
+      "version": "2.3.8",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "react-server-dom-webpack",
+      "version": "19.3.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "type-fest",
+      "version": "4.41.0",
+      "license": "(MIT OR CC0-1.0)",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "uri-js-replace",
+      "version": "1.0.1",
+      "license": "MIT",
+      "hasLifecycleInstall": false
+    },
+    {
+      "name": "yaml-ast-parser",
+      "version": "0.0.43",
+      "license": "Apache-2.0",
+      "hasLifecycleInstall": false
+    }
+  ]
+}

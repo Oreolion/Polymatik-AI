@@ -1,0 +1,12 @@
+✔ dependency backup preserves generated files, source manifests, lockfile and Python environment (119.4473ms)
+✔ dependency backup rejects an unexpected project before moving files (61.9045ms)
+✔ dependency backup rejects a cache junction outside the workspace before moving files (49.5267ms)
+✔ dependency backup restores earlier moves if a later directory is locked (72.6381ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 603.534

@@ -1,0 +1,25 @@
+Runtime: Node 24.0.0 via project launcher (pin 24.22.1 remains unverified)
+Command: pnpm.cmd test
+Exit code: 0
+
+> polymatik-ai@0.0.0 test C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+> node --test tests/foundation/*.test.mjs
+
+✔ launcher uses the project pin without changing the parent PATH (668.3351ms)
+✔ explicit installed Node 24 override preserves working directory, arguments and exit code (819.7542ms)
+✔ missing or mismatched runtime fails instead of using the global Node (788.5287ms)
+✔ invalid version override is rejected (716.3624ms)
+✔ formatting checks prune unreadable caches and still reject unformatted source (993.9878ms)
+✔ lint ignores generated Python caches while checking maintained sources (318.3491ms)
+✔ all six workspace boundaries are private and typechecked (14.7059ms)
+✔ root commands run real checks and pin direct dependencies (2.4136ms)
+✔ Python service and future infrastructure retain separate ownership (11.4658ms)
+✔ Git excludes secrets and generated artifacts but retains safe examples and locks (82.3898ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3168.1123

@@ -1,0 +1,11 @@
+{
+  "healthStatus": 200,
+  "health": {
+    "status": "ok",
+    "service": "polymatik-agent",
+    "version": "0.0.0"
+  },
+  "port": 60916,
+  "host": "127.0.0.1",
+  "forgedIdentityStatus": 401
+}

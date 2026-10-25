@@ -1,0 +1,135 @@
+✖ SSR includes request-specific data in initial HTML and a client-component boundary (698.0772ms)
+✖ dynamic routing and not-found behavior work (128.9768ms)
+✖ JSON handlers validate input and reject unsupported methods (104.5352ms)
+✖ auth placeholder rejects absent and forged client identity (117.962ms)
+✖ SSE is incremental, bounded and ordered (92.7593ms)
+✖ disconnecting a stream leaves the Worker responsive (200.3605ms)
+✖ static assets and the local Worker binding are available (107.1678ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 0
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1850.4098
+
+✖ failing tests:
+
+test at tests\contracts\web-runtime.test.mjs:15:1
+✖ SSR includes request-specific data in initial HTML and a client-component boundary (698.0772ms)
+  AssertionError [ERR_ASSERTION]: request marker is rendered on the server
+      at TestContext.<anonymous> (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/tests/contracts/web-runtime.test.mjs:20:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1069:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:332:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '=='
+  }
+
+test at tests\contracts\web-runtime.test.mjs:29:1
+✖ dynamic routing and not-found behavior work (128.9768ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  404 !== 200
+  
+      at TestContext.<anonymous> (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/tests/contracts/web-runtime.test.mjs:31:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1069:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:752:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 404,
+    expected: 200,
+    operator: 'strictEqual'
+  }
+
+test at tests\contracts\web-runtime.test.mjs:37:1
+✖ JSON handlers validate input and reject unsupported methods (104.5352ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  404 !== 200
+  
+      at TestContext.<anonymous> (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/tests/contracts/web-runtime.test.mjs:39:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1069:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:752:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 404,
+    expected: 200,
+    operator: 'strictEqual'
+  }
+
+test at tests\contracts\web-runtime.test.mjs:50:1
+✖ auth placeholder rejects absent and forged client identity (117.962ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  404 !== 401
+  
+      at TestContext.<anonymous> (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/tests/contracts/web-runtime.test.mjs:53:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1069:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:752:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 404,
+    expected: 401,
+    operator: 'strictEqual'
+  }
+
+test at tests\contracts\web-runtime.test.mjs:59:1
+✖ SSE is incremental, bounded and ordered (92.7593ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  404 !== 200
+  
+      at TestContext.<anonymous> (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/tests/contracts/web-runtime.test.mjs:61:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1069:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:752:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 404,
+    expected: 200,
+    operator: 'strictEqual'
+  }
+
+test at tests\contracts\web-runtime.test.mjs:85:1
+✖ disconnecting a stream leaves the Worker responsive (200.3605ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  404 !== 200
+  
+      at TestContext.<anonymous> (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/tests/contracts/web-runtime.test.mjs:93:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1069:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:752:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 404,
+    expected: 200,
+    operator: 'strictEqual'
+  }
+
+test at tests\contracts\web-runtime.test.mjs:96:1
+✖ static assets and the local Worker binding are available (107.1678ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  404 !== 200
+  
+      at TestContext.<anonymous> (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/tests/contracts/web-runtime.test.mjs:98:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1069:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:752:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 404,
+    expected: 200,
+    operator: 'strictEqual'
+  }
+
+EXIT_CODE=1

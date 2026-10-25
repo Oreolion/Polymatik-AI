@@ -1,0 +1,26 @@
+# The original planning package is preserved, including its formatting.
+# package.json also excludes generated directories during CLI glob expansion,
+# which happens before Prettier applies the file-level rules below.
+AGENTS.md
+CLAUDE.md
+README.md
+START_CODING_AGENT_HERE.md
+MANIFEST.json
+docs/
+pnpm-lock.yaml
+uv.lock
+node_modules/
+.pnpm-store/
+.cache/
+.venv/
+**/.venv/
+**/__pycache__/
+**/.pytest_cache/
+**/.ruff_cache/
+**/.next/
+**/.expo/
+**/.wrangler/
+**/.vinext/
+apps/web/src/worker-env.d.ts
+apps/api/src/worker-env.d.ts
+apps/web/next-env.d.ts

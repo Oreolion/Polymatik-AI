@@ -1,0 +1,16 @@
+✔ retry preserves save/remove intent after another tab completes the same action (23.705ms)
+✔ explicit save changes preserve malformed data and reject unknown resources (1.2905ms)
+✔ preview filters intersect topic, search, dismissed and saved selections (3.9543ms)
+✔ device saves store only known resource IDs and deduplicate (1.5307ms)
+✔ blocked writes fail before saved state can be acknowledged (2.5171ms)
+✔ malformed or future save data is preserved rather than silently overwritten (6.3526ms)
+✔ shared preview filtering never mutates or retains another session selection (70.833ms)
+✔ preview originals remain fixed public HTTPS links with unique identifiers (1.2513ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5267.7133

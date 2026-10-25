@@ -1,0 +1,31 @@
+
+  create-vinext-app - Create a vinext app
+
+  Usage: create-vinext-app [directory] [options]
+
+  The generated app always uses the App Router, TypeScript, Tailwind CSS, and a
+  top-level app/ directory. vinext and Cloudflare options are resolved through
+  the same prompts and flags as vinext init.
+
+  Options:
+    --platform <target>          Deployment target: cloudflare or node
+    --data-cache <type>          Cloudflare data cache: kv or none
+    --cdn-cache <type>           Cloudflare CDN cache: none, response-store, workers-cache, or data-cache
+    --response-store-mode <type> Workers Response Store mode: service-binding or self-contained
+    --image-optimization <type>  Cloudflare image optimization: cloudflare-images or none
+    --prerender                  Configure vinext to pre-render static routes
+    --no-prerender               Do not configure pre-rendering
+    --experimental-warm-cdn-cache
+                                 Add experimental CDN pre-warming to the Cloudflare deploy script
+    --no-experimental-warm-cdn-cache
+                                 Do not add experimental CDN pre-warming to the deploy script
+    --use-npm                    Use npm
+    --use-pnpm                   Use pnpm
+    --use-yarn                   Use Yarn
+    --use-bun                    Use Bun
+    --skip-install               Write files but do not install dependencies
+    --disable-git                Do not initialize a git repository
+    --yes                        Use defaults for prompts
+    -v, --version                Show the create-vinext-app version
+    -h, --help                   Show this help
+

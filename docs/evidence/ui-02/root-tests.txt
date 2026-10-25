@@ -1,0 +1,56 @@
+
+> polymatik-ai@0.0.0 test C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+> node --test tests/foundation/*.test.mjs tests/contracts/web-stream.test.mjs tests/contracts/discover.test.mjs tests/contracts/discovery-preview.test.mjs tests/contracts/web-config.test.mjs tests/contracts/ui-tokens.test.mjs tests/contracts/mobile-config.test.mjs tests/contracts/api.test.mjs tests/contracts/api-client.test.mjs
+
+✔ both presentation boundaries consume the same typed client and actual API contract (287.9783ms)
+✔ client returns typed errors and never retains or forwards a prior call identity (7.9055ms)
+✔ malformed successes/errors and network failures cannot become successful data (4.3567ms)
+✔ client supports caller cancellation and bounded network deadlines (116.3051ms)
+✔ client rejects credential URLs, unsafe protocols and implicit insecure origins (2.5195ms)
+✔ standard OpenAPI generation detects schema/type drift (21507.8837ms)
+✔ health is a bounded liveness response with safe request correlation (293.7544ms)
+✔ routing rejects unknown routes, methods and query parameters consistently (5.9732ms)
+✔ default Worker denies missing, malformed and forged identity (7.9986ms)
+✔ server-verified subject and scope govern access independently of client identity (2.5128ms)
+✔ failed verification is closed and sanitized; request state stays isolated (48.493ms)
+✔ CORS allows exact configured origins and bounded preflight only (3.8401ms)
+✔ preview filters intersect topic, search, dismissed and saved selections (4.6882ms)
+✔ device saves store only known resource IDs and deduplicate (1.1624ms)
+✔ blocked writes fail before saved state can be acknowledged (1.3129ms)
+✔ malformed or future save data is preserved rather than silently overwritten (0.7948ms)
+✔ shared preview filtering never mutates or retains another session selection (9.7947ms)
+✔ preview originals remain fixed public HTTPS links with unique identifiers (0.8884ms)
+✔ mobile has a native Router entry and resolves shared tokens through the workspace (72.6662ms)
+✔ mobile keeps auth outside the canonical five tabs and provides unknown-route recovery (69.1395ms)
+✔ mobile native peers follow the installed Expo Go SDK instead of the newest peer release (159.3764ms)
+✔ the native CLI resolves its matching Metro config and mobile DOM types match React types (74.6256ms)
+✔ contrast oracle agrees with black/white reference pairs (3.0633ms)
+✔ both themes expose matching semantic roles and accessible foregrounds (6.6635ms)
+✔ theme preference honors an explicit choice and handles an absent system scheme (0.4364ms)
+✔ reduced motion removes transitions without changing normal feedback settings (0.5694ms)
+✔ layout and text tokens preserve usable touch targets and reading space (0.6238ms)
+✔ shared tokens cannot be mutated by a consumer and leak into another screen (2.146ms)
+✔ Worker compatibility date is supported by every locked workerd runtime (64.9819ms)
+✔ stream input is bounded and rejects duplicate or unexpected parameters (5.7744ms)
+✔ stream emits ordered events and closes at the requested count (150.2551ms)
+✔ request abort closes a stream before remaining events are emitted (12.7412ms)
+✔ consumer cancellation releases its timer without enqueueing after close (15.0021ms)
+✔ an already aborted request emits nothing and invalid bounds are rejected (1.9871ms)
+✔ launcher uses the project pin without changing the parent PATH (1342.1628ms)
+✔ explicit installed Node 24 override preserves working directory, arguments and exit code (1400.0646ms)
+✔ missing or mismatched runtime fails instead of using the global Node (1954.7205ms)
+✔ invalid version override is rejected (1655.1021ms)
+✔ formatting checks prune unreadable caches and still reject unformatted source (2439.4354ms)
+✔ lint ignores generated Python caches while checking maintained sources (611.1287ms)
+✔ all six workspace boundaries are private and typechecked (229.3917ms)
+✔ root commands run real checks and pin direct dependencies (2.963ms)
+✔ Python service and future infrastructure retain separate ownership (130.2825ms)
+✔ Git excludes secrets and generated artifacts but retains safe examples and locks (137.8994ms)
+ℹ tests 44
+ℹ suites 0
+ℹ pass 44
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 23104.8491

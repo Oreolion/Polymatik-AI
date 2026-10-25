@@ -1,0 +1,5 @@
+apps/api/src/index.ts(1,43): error TS2307: Cannot find module '@polymatik/domain-types' or its corresponding type declarations.
+apps/mobile/src/api.ts(1,56): error TS2307: Cannot find module '@polymatik/api-client' or its corresponding type declarations.
+apps/web/src/api.ts(1,56): error TS2307: Cannot find module '@polymatik/api-client' or its corresponding type declarations.
+packages/api-client/src/index.ts(1,50): error TS2307: Cannot find module '@polymatik/domain-types' or its corresponding type declarations.
+packages/api-client/src/index.ts(3,43): error TS2307: Cannot find module '@polymatik/domain-types' or its corresponding type declarations.

@@ -1,0 +1,63 @@
+name: Workspace checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  WRANGLER_SEND_METRICS: 'false'
+  EXPO_NO_TELEMETRY: '1'
+  EXPO_OFFLINE: '1'
+  LANGSMITH_TRACING: 'false'
+  LANGCHAIN_TRACING_V2: 'false'
+
+jobs:
+  checks:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: .node-version
+      - name: Install pinned pnpm
+        run: npm install --global pnpm@10.4.1
+      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          version: '0.11.7'
+      - run: uv python install
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - run: uv sync --locked --all-packages
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - name: Verify shared OpenAPI generation
+        run: pnpm check:api
+      - name: Test API Worker locally
+        run: pnpm test:api:runtime
+      - name: Check API packaging without uploading
+        run: pnpm build:api:check
+      - name: Test mobile navigation with mocked native modules
+        run: pnpm test:mobile
+      - name: Check iOS and Android bundle export
+        run: pnpm build:mobile:check
+      - name: Build web Worker
+        run: pnpm build:web
+      - name: Test built Worker locally
+        run: pnpm test:web
+      - name: Check Worker packaging without uploading
+        run: pnpm --filter web exec wrangler deploy --dry-run --config dist/server/wrangler.json --outdir ../../.cache/m0-02-worker-dry-run
+      - run: uv run --locked ruff check .
+      - run: uv run --locked ruff format --check .
+      - run: uv run --locked pytest
+      - name: Evaluate deterministic agent baseline without keys
+        run: uv run --locked python tests/evaluation/run_baseline.py --output .cache/m0-05-evaluation.json

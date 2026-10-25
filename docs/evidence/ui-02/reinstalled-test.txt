@@ -1,0 +1,62 @@
+
+> polymatik-ai@0.0.0 test C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+> node --test tests/foundation/*.test.mjs tests/contracts/web-stream.test.mjs tests/contracts/discover.test.mjs tests/contracts/discovery-preview.test.mjs tests/contracts/web-config.test.mjs tests/contracts/ui-tokens.test.mjs tests/contracts/mobile-config.test.mjs tests/contracts/mobile-toolchain.test.mjs tests/contracts/api.test.mjs tests/contracts/api-client.test.mjs
+
+✔ both presentation boundaries consume the same typed client and actual API contract (419.3778ms)
+✔ client returns typed errors and never retains or forwards a prior call identity (61.1683ms)
+✔ malformed successes/errors and network failures cannot become successful data (8.2905ms)
+✔ client supports caller cancellation and bounded network deadlines (55.4805ms)
+✔ client rejects credential URLs, unsafe protocols and implicit insecure origins (7.8121ms)
+✔ standard OpenAPI generation detects schema/type drift (26051.0766ms)
+✔ health is a bounded liveness response with safe request correlation (293.15ms)
+✔ routing rejects unknown routes, methods and query parameters consistently (7.461ms)
+✔ default Worker denies missing, malformed and forged identity (8.1504ms)
+✔ server-verified subject and scope govern access independently of client identity (3.5732ms)
+✔ failed verification is closed and sanitized; request state stays isolated (3.7898ms)
+✔ CORS allows exact configured origins and bounded preflight only (25.3718ms)
+✔ preview filters intersect topic, search, dismissed and saved selections (76.1143ms)
+✔ device saves store only known resource IDs and deduplicate (1.7154ms)
+✔ blocked writes fail before saved state can be acknowledged (1.8428ms)
+✔ malformed or future save data is preserved rather than silently overwritten (1.4107ms)
+✔ shared preview filtering never mutates or retains another session selection (60.4959ms)
+✔ preview originals remain fixed public HTTPS links with unique identifiers (2.3799ms)
+✔ mobile has a native Router entry and resolves shared tokens through the workspace (47.4803ms)
+✔ mobile keeps auth outside the canonical five tabs and provides unknown-route recovery (21.3742ms)
+✔ mobile native packages and test preset satisfy the installed Expo SDK ranges (561.9289ms)
+✔ the native CLI resolves its matching Metro config and mobile DOM types match React types (65.5354ms)
+✔ critical Expo runtime and test packages resolve compatible peers (185.4308ms)
+✔ Expo terminal dependencies load their compatible isolated color API (954.998ms)
+✔ contrast oracle agrees with black/white reference pairs (3.3141ms)
+✔ both themes expose matching semantic roles and accessible foregrounds (93.3671ms)
+✔ theme preference honors an explicit choice and handles an absent system scheme (2.489ms)
+✔ reduced motion removes transitions without changing normal feedback settings (0.951ms)
+✔ layout and text tokens preserve usable touch targets and reading space (51.7531ms)
+✔ shared tokens cannot be mutated by a consumer and leak into another screen (3.0649ms)
+✔ Worker compatibility date is supported by every locked workerd runtime (7.5966ms)
+✔ stream input is bounded and rejects duplicate or unexpected parameters (22.8896ms)
+✔ stream emits ordered events and closes at the requested count (146.6985ms)
+✔ request abort closes a stream before remaining events are emitted (13.0894ms)
+✔ consumer cancellation releases its timer without enqueueing after close (14.0586ms)
+✔ an already aborted request emits nothing and invalid bounds are rejected (1.6523ms)
+✔ dependency backup preserves generated files, source manifests, lockfile and Python environment (273.1944ms)
+✔ dependency backup rejects an unexpected project before moving files (88.7578ms)
+✔ dependency backup rejects a cache junction outside the workspace before moving files (62.5427ms)
+✔ dependency backup restores earlier moves if a later directory is locked (197.58ms)
+✔ launcher uses the project pin without changing the parent PATH (1768.4548ms)
+✔ explicit installed Node 24 override preserves working directory, arguments and exit code (1265.5061ms)
+✔ missing or mismatched runtime fails instead of using the global Node (1348.4168ms)
+✔ invalid version override is rejected (1268.7154ms)
+✔ formatting checks prune unreadable caches and still reject unformatted source (1839.7513ms)
+✔ lint ignores generated Python caches while checking maintained sources (1607.4246ms)
+✔ all six workspace boundaries are private and typechecked (413.0702ms)
+✔ root commands run real checks and pin direct dependencies (27.4856ms)
+✔ Python service and future infrastructure retain separate ownership (246.3817ms)
+✔ Git excludes secrets and generated artifacts but retains safe examples and locks (135.6854ms)
+ℹ tests 50
+ℹ suites 0
+ℹ pass 50
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 27328.5058

@@ -1,0 +1,7 @@
+{
+  "version": "v24.22.1",
+  "arch": "x64",
+  "platform": "win32",
+  "executable": "C:\\Users\\HP 240 G9\\AppData\\Roaming\\nvm\\v24.22.1\\node.exe",
+  "source": "Owner installed through nvm install, agent inspected explicit executable. No nvm use or shared selection change."
+}

@@ -1,0 +1,1 @@
+PASS: CI YAML and mirrored template, read-only permissions, all API entry points, no publishing, explicit local dry-run.

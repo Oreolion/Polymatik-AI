@@ -1,0 +1,4 @@
+Static YAML validation passed: mirrored workflow; pinned actions; Linux/Windows matrix; build -> local Worker tests -> no-upload packaging.
+No GitHub workflow was executed.
+
+EXIT_CODE=0

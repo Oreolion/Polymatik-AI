@@ -1,0 +1,15 @@
+apps/api/src/index.ts(1,43): error TS2307: Cannot find module '@polymatik/domain-types' or its corresponding type declarations.
+apps/mobile/src/api.ts(1,56): error TS2307: Cannot find module '@polymatik/api-client' or its corresponding type declarations.
+apps/web/src/api.ts(1,56): error TS2307: Cannot find module '@polymatik/api-client' or its corresponding type declarations.
+packages/api-client/src/index.ts(1,50): error TS2307: Cannot find module '@polymatik/domain-types' or its corresponding type declarations.
+packages/api-client/src/index.ts(3,43): error TS2307: Cannot find module '@polymatik/domain-types' or its corresponding type declarations.
+packages/api-client/src/index.ts(76,17): error TS2345: Argument of type 'string | number | symbol' is not assignable to parameter of type 'string | URL'.
+  Type 'number' is not assignable to type 'string | URL'.
+tests/contracts/api-client.test.mjs(56,48): error TS2412: Type 'number | {} | { status: string; } | { error: { message: string; }; } | undefined' is not assignable to type 'number | undefined' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the type of the target.
+tests/contracts/api-runtime.test.mjs(39,32): error TS18048: 'worker' is possibly 'undefined'.
+tests/contracts/api-runtime.test.mjs(61,7): error TS2412: Type 'string | number | {} | { authorization: string; 'x-user-id': string; } | { origin: string; } | undefined' is not assignable to type 'HeadersInit | undefined' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the type of the target.
+tests/contracts/api-runtime.test.mjs(61,7): error TS2769: No overload matches this call.
+  Type 'string | number | {} | { authorization: string; 'x-user-id': string; } | { origin: string; } | undefined' is not assignable to type 'HeadersInit | undefined' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the type of the target.
+  Type 'string | number | {} | { authorization: string; 'x-user-id': string; } | { origin: string; } | undefined' is not assignable to type 'HeadersInit | undefined' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the type of the target.
+tests/contracts/api.test.mjs(42,46): error TS2345: Argument of type 'string | number | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.

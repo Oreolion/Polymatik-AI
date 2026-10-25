@@ -1,0 +1,6 @@
+CSS diagnostic started
+Tailwind module loaded
+PostCSS module loaded
+CSS compiled bytes: 9647
+
+Exit: 0

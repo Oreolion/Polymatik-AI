@@ -1,0 +1,3 @@
+Both workflows match; native gates ordered, offline/no telemetry, read-only permissions and no publication command. Remote CI has not run.
+
+Exit: 0

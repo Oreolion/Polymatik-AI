@@ -1,0 +1,49 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261022162716
+Username: RA\CodexSandboxOffline
+RunAs User: RA\CodexSandboxOffline
+Configuration Name: 
+Machine: RA (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -Command try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}
+$env:PATH = 'C:/Users/HP 240 G9/AppData/Roaming/nvm/v24.0.0;' + $env:PATH
+$env:WRANGLER_SEND_METRICS = 'false'
+$env:WRANGLER_LOG_PATH = 'C:/Users/HP 240 G9/Desktop/Agents/polymatik_ai/polymatik_ai/.cache/wrangler-logs'
+Start-Transcript -Path 'C:/Users/HP 240 G9/Desktop/Agents/polymatik_ai/polymatik_ai/docs/evidence/m0-02/main-vite-dev.txt' -Force
+try { & 'C:/Users/HP 240 G9/AppData/Roaming/nvm/v24.0.0/node.exe' 'node_modules/vite/bin/vite.js' --host 127.0.0.1 --port 8788 --strictPort } finally { Stop-Transcript }
+Process ID: 12980
+PSVersion: 5.1.26100.9711
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9711
+BuildVersion: 10.0.26100.9711
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:/Users/HP 240 G9/Desktop/Agents/polymatik_ai/polymatik_ai/docs/evidence/m0-02/main-vite-dev.txt
+les\miniflare\dist\src\index.js:135007:23)
+    at #assembleAndUpdateConfigInternal (C:\Users\HP 240 G9\Desktop\Agents\polym
+atik_ai\polymatik_ai\node_modules\.pnpm\miniflare@5.20261012.0-beta_@types+node@
+26.6.5\node_modules\miniflare\dist\src\index.js:134893:32)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:
+5)
+    at async #assembleAndUpdateConfig (C:\Users\HP 240 G9\Desktop\Agents\polymat
+ik_ai\polymatik_ai\node_modules\.pnpm\miniflare@5.20261012.0-beta_@types+node@26
+.6.5\node_modules\miniflare\dist\src\index.js:134728:7)
+    at async C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_mo
+dules\.pnpm\miniflare@5.20261012.0-beta_@types+node@26.6.5\node_modules\miniflar
+e\dist\src\index.js:133505:7
+    at async Mutex.runWith (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polym
+atik_ai\node_modules\.pnpm\miniflare@5.20261012.0-beta_@types+node@26.6.5\node_m
+odules\miniflare\dist\src\index.js:80699:16) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'open',
+  path: 'C:\\Users\\HP 240 G9\\AppData\\Roaming\\xdg.config\\.wrangler\\registry
+\\polymatik-web-spike'
+}
+**********************
+Windows PowerShell transcript end
+End time: 20261022162726
+**********************

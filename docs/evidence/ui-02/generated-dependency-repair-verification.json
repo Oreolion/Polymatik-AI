@@ -1,0 +1,38 @@
+{
+  "recordedUtc": "2026-10-23T19:10:50.440990+00:00",
+  "ticket": "UI-02 generated dependency repair",
+  "ownerStrictInstall": {
+    "status": "passed; no peer conflicts",
+    "seconds": 55.1,
+    "added": 68,
+    "downloaded": 56
+  },
+  "ownerTerminalRegression": "failed: supports-hyperlinks resolves supports-color 10.2.2 instead of required 7 API",
+  "agentChecks": {
+    "lint": "passed before one void-return test mock correction",
+    "rootTests": "45 passed / 1 failed terminal dependency contract",
+    "mobileTypes": "passed after mock correction; other workspace types passed before that correction",
+    "nativeTests": "0 tests executed; 2 suite imports fail on Chalk 4 resolving ESM supports-color 10",
+    "backupHelperTests": 4,
+    "foundationTests": 6,
+    "rootContractTypes": "passed"
+  },
+  "pnpmTarget": "10.34.2; project/engine/CI pins, managed per project; actual manager bootstrap unverified",
+  "backupAttempt": "agent access denied; zero moved folders; actual mapping/status in generated-dependency-repair.json",
+  "sourceSha256": {
+    "package.json": "73c32cd42a59dc0007af6344bcce9d65af1d964ae2e51170847e37706867529a",
+    ".npmrc": "f499c5042ba4a99171ce3cb842856cb07ab585fdb63aea4dcc61aa8c80793389",
+    ".github/workflows/ci.yml": "af0ab3e0e68659a51d354fd432a8996182ecb46da60f202fb87c2dbeb0ee5728",
+    "scripts/backup-dependencies.mjs": "95acfb25c70194fd08fba695e0039db6fb3d24b1f2def4e94ac63c208c7cf4a8",
+    "tests/foundation/dependency-backup.test.mjs": "e414e8c831b2cd716c32c822db631a0f902e54b3ed37d102822958ef1d92d724",
+    "tests/foundation/workspace.test.mjs": "3f24bd264dff9373b3b6a27a16e463f831ebafa4e442b68be8e93daff6b72841",
+    "apps/mobile/tests/discovery.test.tsx": "0896cbcf304b388fe9ca84eb25ee7b627979292603d67b52041f477fd87bf75e",
+    "pnpm-lock.yaml": "03e34659a5cda232d41c1f15a60df18bd47d73ecb1557312c60f268fedbc9e83"
+  },
+  "next": "owner bootstrap pinned pnpm, run tested backup helper, fresh frozen strict install; terminal regression, full checks, export and iPhone proof",
+  "securitySources": [
+    "https://github.com/pnpm/pnpm/security/advisories/GHSA-hwx4-2j3j-g496",
+    "https://github.com/pnpm/pnpm/releases/tag/v10.34.2"
+  ],
+  "release": "none; milestone commit/push pending"
+}

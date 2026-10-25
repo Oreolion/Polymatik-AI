@@ -1,0 +1,19 @@
+ WARN  Unsupported engine: wanted: {"node":">=24.3.0 <25"} (current: {"node":"v24.0.0","pnpm":"10.4.1"})
+
+> polymatik-ai@0.0.0 test:mobile C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+> pnpm --filter mobile test
+
+.                                        |  WARN  Unsupported engine: wanted: {"node":">=24.3.0 <25"} (current: {"node":"v24.0.0","pnpm":"10.4.1"})
+
+> mobile@0.0.0 test C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\apps\mobile
+> jest --runInBand
+
+C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\apps\mobile:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  mobile@0.0.0 test: `jest --runInBand`
+Exit status 1
+ WARN   Local package.json exists, but node_modules missing, did you mean to install?
+ ELIFECYCLE  Command failed with exit code 1.
+'jest' is not recognized as an internal or external command,
+operable program or batch file.
+
+Exit: 1

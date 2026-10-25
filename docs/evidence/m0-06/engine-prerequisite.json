@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-23",
+  "ticket": "M0-06",
+  "dockerClientInstalled": true,
+  "agentContext": "default",
+  "engineReachableByAgent": false,
+  "observedErrors": [
+    "Access denied reading saved .docker/config.json (contents not read)",
+    "Default Docker engine named pipe not found"
+  ],
+  "interpretation": "Cannot establish engine state or saved context from this agent; not proof that administrator elevation is required.",
+  "nextAction": "Owner opens Docker Desktop normally, waits for engine running, then reports normal-terminal docker version.",
+  "sideEffects": {
+    "dockerDesktopStarted": false,
+    "containersCreated": false,
+    "imagesPulled": false,
+    "databasesCreated": false,
+    "dataDeleted": false,
+    "privilegeEscalation": false
+  }
+}

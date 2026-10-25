@@ -1,0 +1,4 @@
+Scope: all 7 workspace projects
+Done in 979ms using pnpm v10.4.1
+
+Exit: 0

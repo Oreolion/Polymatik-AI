@@ -1,0 +1,40 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.6, pytest-9.0.3, pluggy-1.6.0
+rootdir: C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+configfile: pyproject.toml
+testpaths: services/agent/tests
+plugins: anyio-4.15.1, langsmith-0.14.12
+collected 27 items
+
+services\agent\tests\test_app.py ............                            [ 44%]
+services\agent\tests\test_bootstrap.py ..                                [ 51%]
+services\agent\tests\test_graph.py .F.......                             [ 85%]
+services\agent\tests\test_tracing.py ....                                [100%]
+
+================================== FAILURES ===================================
+______________ test_graph_times_out_and_propagates_cancellation _______________
+
+    def test_graph_times_out_and_propagates_cancellation() -> None:
+        cancelled = []
+    
+        async def stalled(question: str) -> str:
+            try:
+                await asyncio.sleep(30)
+            finally:
+                cancelled.append(True)
+            return "unreachable"
+    
+        runner = GraphRunner(stalled, timeout_seconds=0.02)
+        with pytest.raises(TimeoutError):
+            asyncio.run(runner.run("Question", "alice", uuid4()))
+>       assert cancelled == [True]
+E       assert [] == [True]
+E         
+E         Right contains one more item: True
+E         Use -v to get more diff
+
+services\agent\tests\test_graph.py:62: AssertionError
+- generated xml file: C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\docs\evidence\m0-05\python-tests.xml -
+=========================== short test summary info ===========================
+FAILED services/agent/tests/test_graph.py::test_graph_times_out_and_propagates_cancellation
+======================== 1 failed, 26 passed in 7.68s =========================

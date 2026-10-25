@@ -1,0 +1,7 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
+managePackageManagerVersions: true
+packageManagerStrictVersion: true
+strictPeerDependencies: true

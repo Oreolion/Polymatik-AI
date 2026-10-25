@@ -1,0 +1,26 @@
+[tool.uv.workspace]
+members = ["services/agent"]
+
+# Exact metadata read from the cached published Ruff 0.15.14 wheel.
+# Allows universal offline resolution from a Windows-only wheel cache.
+[[tool.uv.dependency-metadata]]
+name = "ruff"
+version = "0.15.14"
+requires-python = ">=3.7"
+requires-dist = []
+
+[dependency-groups]
+dev = ["pytest==9.0.3", "ruff==0.15.14", "httpx==0.28.1"]
+
+[tool.pytest.ini_options]
+testpaths = ["services/agent/tests"]
+# Two deterministic tests do not need persistent last-failed/node-ID caching.
+# Avoid sharing a permission-restricted cache between Windows user accounts.
+addopts = "--strict-config --strict-markers -ra -p no:cacheprovider"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

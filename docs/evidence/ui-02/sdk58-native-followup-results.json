@@ -1,0 +1,12 @@
+[
+  {
+    "check": "mobile-types",
+    "exit": 0,
+    "evidence": "docs/evidence/ui-02/sdk58-followup-mobile-types.txt"
+  },
+  {
+    "check": "native-tests",
+    "exit": null,
+    "evidence": "docs/evidence/ui-02/sdk58-followup-native-tests.txt"
+  }
+]

@@ -1,0 +1,7 @@
+
+> polymatik-ai@0.0.0 typecheck C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+> tsc -p tsconfig.json && pnpm -r typecheck
+
+'tsc' is not recognized as an internal or external command,
+operable program or batch file.
+ ELIFECYCLE  Command failed with exit code 1.

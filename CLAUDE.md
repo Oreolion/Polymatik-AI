@@ -1,0 +1,2 @@
+# Claude Code instructions
+Read and follow [`AGENTS.md`](AGENTS.md), including its current checkpoint. The authoritative project documentation starts at [`README.md`](README.md). Work on the current authorized ticket using [`docs/21_AGENT_SESSION_PROMPTS.md`](docs/21_AGENT_SESSION_PROMPTS.md); do not restart completed tickets or implement multiple milestones. Anatomy is an authoring skill for curated scene creation, **not** an unconstrained production runtime tool.

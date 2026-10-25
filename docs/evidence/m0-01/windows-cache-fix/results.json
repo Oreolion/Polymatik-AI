@@ -1,0 +1,9 @@
+{
+  "lint": 0,
+  "typecheck": 0,
+  "test-typescript": 0,
+  "lint-python": 0,
+  "format-python": 0,
+  "test-python": 0,
+  "lock-python": 0
+}

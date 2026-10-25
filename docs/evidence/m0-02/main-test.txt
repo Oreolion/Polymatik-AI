@@ -1,0 +1,32 @@
+
+> polymatik-ai@0.0.0 test C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+> node --test tests/foundation/*.test.mjs tests/contracts/web-stream.test.mjs tests/contracts/web-config.test.mjs
+
+✔ Worker compatibility date is supported by every locked workerd runtime (8.8215ms)
+(node:35452) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ stream input is bounded and rejects duplicate or unexpected parameters (3.8008ms)
+✔ stream emits ordered events and closes at the requested count (69.0534ms)
+✔ request abort closes a stream before remaining events are emitted (12.5598ms)
+✔ consumer cancellation releases its timer without enqueueing after close (14.802ms)
+✔ an already aborted request emits nothing and invalid bounds are rejected (2.8236ms)
+✔ launcher uses the project pin without changing the parent PATH (710.9165ms)
+✔ explicit installed Node 24 override preserves working directory, arguments and exit code (692.9743ms)
+✔ missing or mismatched runtime fails instead of using the global Node (773.3812ms)
+✔ invalid version override is rejected (688.4697ms)
+✔ formatting checks prune unreadable caches and still reject unformatted source (886.9131ms)
+✔ lint ignores generated Python caches while checking maintained sources (333.5082ms)
+✔ all six workspace boundaries are private and typechecked (11.8485ms)
+✔ root commands run real checks and pin direct dependencies (1.7662ms)
+✔ Python service and future infrastructure retain separate ownership (8.6376ms)
+✔ Git excludes secrets and generated artifacts but retains safe examples and locks (75.5364ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3113.0281
+
+EXIT_CODE=0

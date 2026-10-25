@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-23",
+  "reporter": "owner",
+  "command": "bash scripts/node24.sh pnpm.cmd install --ignore-scripts --prefer-offline",
+  "result": "Done in 27.5s using pnpm v10.4.1; returned shell prompt",
+  "exactExitCodeCaptured": false,
+  "resolved": 1117,
+  "reused": 995,
+  "downloaded": 0,
+  "addedOnRetry": 1,
+  "additionalPackageSet": 22,
+  "generator": "openapi-typescript 7.13.0",
+  "peerWarningsReported": false,
+  "deprecatedTransitiveWarnings": 5,
+  "agentInspection": "Generator loads, shared types generate, workspace links typecheck, frozen offline lock consistency passes.",
+  "previousRenameCause": "not established; successful retry resolves the installation blocker"
+}

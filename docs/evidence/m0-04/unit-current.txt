@@ -1,0 +1,98 @@
+✖ both presentation boundaries consume the same typed client and actual API contract (16.2015ms)
+✔ client returns typed errors and never retains or forwards a prior call identity (98.4063ms)
+✔ malformed successes/errors and network failures cannot become successful data (5.4911ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'openapi-typescript' imported from C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\scripts\generate-api.mjs
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.22.1
+✔ client supports caller cancellation and bounded network deadlines (35.0718ms)
+✔ client rejects credential URLs, unsafe protocols and implicit insecure origins (0.9685ms)
+✖ standard OpenAPI generation detects schema/type drift (176.7955ms)
+✔ health is a bounded liveness response with safe request correlation (122.2701ms)
+✔ routing rejects unknown routes, methods and query parameters consistently (6.4756ms)
+✔ default Worker denies missing, malformed and forged identity (6.2974ms)
+✔ server-verified subject and scope govern access independently of client identity (1.6915ms)
+✔ failed verification is closed and sanitized; request state stays isolated (4.6392ms)
+✔ CORS allows exact configured origins and bounded preflight only (2.7321ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 10
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 729.2941
+
+✖ failing tests:
+
+test at tests\contracts\api-client.test.mjs:8:1
+✖ both presentation boundaries consume the same typed client and actual API contract (16.2015ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@polymatik/api-client' imported from C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\apps\web\src\api.ts
+      at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+      at packageResolve (node:internal/modules/esm/resolve:784:25)
+      at moduleResolve (node:internal/modules/esm/resolve:873:18)
+      at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+      at #resolve (node:internal/modules/esm/loader:687:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+      at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+    code: 'ERR_MODULE_NOT_FOUND'
+  }
+
+test at tests\contracts\api-client.test.mjs:112:1
+✖ standard OpenAPI generation detects schema/type drift (176.7955ms)
+  Error: Command failed: C:\Users\HP 240 G9\AppData\Roaming\nvm\v24.22.1\node.exe scripts/generate-api.mjs --check
+  node:internal/modules/package_json_reader:331
+    throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+          ^
+  
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'openapi-typescript' imported from C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\scripts\generate-api.mjs
+      at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+      at packageResolve (node:internal/modules/esm/resolve:784:25)
+      at moduleResolve (node:internal/modules/esm/resolve:873:18)
+      at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+      at #resolve (node:internal/modules/esm/loader:687:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+      at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+    code: 'ERR_MODULE_NOT_FOUND'
+  }
+  
+  Node.js v24.22.1
+  
+      at genericNodeError (node:internal/errors:986:15)
+      at wrappedFn (node:internal/errors:540:14)
+      at checkExecSyncError (node:child_process:943:11)
+      at execFileSync (node:child_process:979:15)
+      at TestContext.<anonymous> (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/tests/contracts/api-client.test.mjs:114:18)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12) {
+    status: 1,
+    signal: null,
+    output: [ null, '', "node:internal/modules/package_json_reader:331\r\n  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);\r\n        ^\r\n\r\nError [ERR_MODULE_NOT_FOUND]: Cannot find package 'openapi-typescript' imported from C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\scripts\\generate-api.mjs\r\n    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)\r\n    at packageResolve (node:internal/modules/esm/resolve:784:25)\r\n    at moduleResolve (node:internal/modules/esm/resolve:873:18)\r\n    at defaultResolve (node:internal/modules/esm/resolve:1006:11)\r\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)\r\n    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)\r\n    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)\r\n    at #resolve (node:internal/modules/esm/loader:687:17)\r\n    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)\r\n    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {\r\n  code: 'ERR_MODULE_NOT_FOUND'\r\n}\r\n\r\nNode.js v24.22.1\r\n" ],
+    pid: 34632,
+    stdout: '',
+    stderr: "node:internal/modules/package_json_reader:331\r\n  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);\r\n        ^\r\n\r\nError [ERR_MODULE_NOT_FOUND]: Cannot find package 'openapi-typescript' imported from C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\scripts\\generate-api.mjs\r\n    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)\r\n    at packageResolve (node:internal/modules/esm/resolve:784:25)\r\n    at moduleResolve (node:internal/modules/esm/resolve:873:18)\r\n    at defaultResolve (node:internal/modules/esm/resolve:1006:11)\r\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)\r\n    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)\r\n    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)\r\n    at #resolve (node:internal/modules/esm/loader:687:17)\r\n    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)\r\n    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {\r\n  code: 'ERR_MODULE_NOT_FOUND'\r\n}\r\n\r\nNode.js v24.22.1\r\n"
+  }

@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-23",
+  "reporter": "owner",
+  "device": "iPhone with Expo Go",
+  "reply": "yes all verified",
+  "requestedChecks": [
+    "Discover startup",
+    "five tabs",
+    "Profile -> Sign in -> Back to Discover",
+    "light/dark appearance",
+    "larger text legibility"
+  ],
+  "result": "owner confirms all requested checks",
+  "deviceModel": null,
+  "iosVersion": null,
+  "expoGoVersion": null,
+  "screenshotsCaptured": false,
+  "voiceOverVerified": false,
+  "androidDeviceVerified": false,
+  "nativeBinaryReleaseVerified": false,
+  "sourceEvidence": "owner-native-export.json",
+  "scope": "M0-03 local development gate; not production readiness"
+}

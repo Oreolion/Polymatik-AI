@@ -1,0 +1,24 @@
+{
+  "ownerCommand": "bash scripts/node24.sh pnpm.cmd install --ignore-scripts",
+  "ownerResult": "Done in 1m 33.7s using pnpm v10.4.1; no unsupported engine warning",
+  "ownerPeerWarnings": {
+    "@react-native/metro-config": {
+      "required": "0.86.3",
+      "found": "0.88.0"
+    },
+    "@types/react-dom@19.3.0": {
+      "requiredReactTypes": "^19.3.0",
+      "foundReactTypes": "19.2.2"
+    }
+  },
+  "fix": {
+    "@react-native/metro-config": "0.86.3",
+    "@types/react-dom": "19.2.7",
+    "@babel/runtime": "7.29.10"
+  },
+  "regressionRed": "red-metro-peer.txt",
+  "lockResult": "final-peer-lock-retry.txt: exit 0, 1100 resolved, no peer warnings, 28.8 seconds, offline lock-only",
+  "installStatus": "Owner asked for exact-pin frozen install; Metro config 0.86.3 and React DOM types 19.2.7 absent from inspected global store indexes",
+  "nativeTests": "Prior run completed after parent timeout: 5 passed, 2 failed querying button role while Router supplies link. Link roles/scoped query/path recovery assertions corrected; subsequent run blocked by missing explicit Babel runtime link. No green current native suite claim.",
+  "typecheck": "Prior check exited 134 out of memory while the native child still ran. Later checks must run sequentially with owned process-tree cleanup."
+}

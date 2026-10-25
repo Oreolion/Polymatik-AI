@@ -1,0 +1,24 @@
+
+> polymatik-ai@0.0.0 test:api C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+> node --test tests/contracts/api.test.mjs tests/contracts/api-client.test.mjs
+
+✔ both presentation boundaries consume the same typed client and actual API contract (204.3366ms)
+✔ client returns typed errors and never retains or forwards a prior call identity (6.8208ms)
+✔ malformed successes/errors and network failures cannot become successful data (5.607ms)
+✔ client supports caller cancellation and bounded network deadlines (42.5413ms)
+✔ client rejects credential URLs, unsafe protocols and implicit insecure origins (1.8854ms)
+✔ standard OpenAPI generation detects schema/type drift (3223.1141ms)
+✔ health is a bounded liveness response with safe request correlation (116.8774ms)
+✔ routing rejects unknown routes, methods and query parameters consistently (5.6737ms)
+✔ default Worker denies missing, malformed and forged identity (17.0598ms)
+✔ server-verified subject and scope govern access independently of client identity (2.871ms)
+✔ failed verification is closed and sanitized; request state stays isolated (8.6023ms)
+✔ CORS allows exact configured origins and bounded preflight only (2.7015ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4159.0326

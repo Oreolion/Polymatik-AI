@@ -1,0 +1,52 @@
+✖ mobile has a native Router entry and resolves shared tokens through the workspace (5.8005ms)
+✖ mobile keeps auth outside the canonical five tabs and provides unknown-route recovery (1.0664ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 259.4405
+
+✖ failing tests:
+
+test at tests\contracts\mobile-config.test.mjs:11:1
+✖ mobile has a native Router entry and resolves shared tokens through the workspace (5.8005ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'expo-router/entry'
+  
+      at TestContext.<anonymous> (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/tests/contracts/mobile-config.test.mjs:13:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1062:25)
+      at Test.start (node:internal/test_runner/test:959:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:332:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'expo-router/entry',
+    operator: 'strictEqual'
+  }
+
+test at tests\contracts\mobile-config.test.mjs:33:1
+✖ mobile keeps auth outside the canonical five tabs and provides unknown-route recovery (1.0664ms)
+  Error: ENOENT: no such file or directory, open 'C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\apps\mobile\src\app\(tabs)\index.tsx'
+      at readFileSync (node:fs:434:20)
+      at read (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/tests/contracts/mobile-config.test.mjs:7:24)
+      at TestContext.<anonymous> (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/tests/contracts/mobile-config.test.mjs:35:5)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1062:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:752:18)
+      at Test.postRun (node:internal/test_runner/test:1191:19)
+      at Test.run (node:internal/test_runner/test:1119:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:332:3) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\apps\\mobile\\src\\app\\(tabs)\\index.tsx'
+  }
+
+Exit: 1

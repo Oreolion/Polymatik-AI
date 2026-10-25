@@ -1,0 +1,30 @@
+✖ mobile has a native Router entry and resolves shared tokens through the workspace (4.0899ms)
+✔ mobile keeps auth outside the canonical five tabs and provides unknown-route recovery (2.7916ms)
+✔ mobile native peers follow the installed Expo Go SDK instead of the newest peer release (125.1539ms)
+✔ the native CLI resolves its matching Metro config and mobile DOM types match React types (17.6872ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 328.0977
+
+✖ failing tests:
+
+test at tests\contracts\mobile-config.test.mjs:12:1
+✖ mobile has a native Router entry and resolves shared tokens through the workspace (4.0899ms)
+  AssertionError [ERR_ASSERTION]: the project SDK must match the owner iPhone Expo Go SDK 58 client
+      at TestContext.<anonymous> (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/tests/contracts/mobile-config.test.mjs:22:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '57.0.31',
+    expected: /^58\./,
+    operator: 'match',
+    diff: 'simple'
+  }

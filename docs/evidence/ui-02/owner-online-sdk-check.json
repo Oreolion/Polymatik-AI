@@ -1,0 +1,7 @@
+{
+  "mobileReactTypes": "19.2.2",
+  "lockfileUnchanged": true,
+  "ownerOnlineSdkCheck": "only @types/react 19.2.2 expected ~19.2.4; nonzero CI check",
+  "runtimeFix": "not established; phone Expo Go version still required",
+  "agentLockAttempt": "offline metadata unavailable; no lock update completed"
+}

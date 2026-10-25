@@ -1,0 +1,25 @@
+Clean temporary copy, runtime Node 24.0.0
+Command: C:\Users\HP 240 G9\AppData\Roaming\nvm\v24.0.0\node.exe C:\Users\HP 240 G9\AppData\Roaming\npm\node_modules\pnpm\bin\pnpm.cjs --dir C:\Users\HP240G~1\AppData\Local\Temp\polymatik-foundation-clean-u4es04_u test
+Exit code: 0
+
+> polymatik-ai@0.0.0 test C:\Users\HP 240 G9\AppData\Local\Temp\polymatik-foundation-clean-u4es04_u
+> node --test tests/foundation/*.test.mjs
+
+✔ launcher uses the project pin without changing the parent PATH (730.6197ms)
+✔ explicit installed Node 24 override preserves working directory, arguments and exit code (906.9111ms)
+✔ missing or mismatched runtime fails instead of using the global Node (1120.7125ms)
+✔ invalid version override is rejected (1022.7278ms)
+✔ formatting checks prune unreadable caches and still reject unformatted source (1328.5384ms)
+✔ lint ignores generated Python caches while checking maintained sources (485.844ms)
+✔ all six workspace boundaries are private and typechecked (142.4106ms)
+✔ root commands run real checks and pin direct dependencies (3.4928ms)
+✔ Python service and future infrastructure retain separate ownership (172.6179ms)
+✔ Git excludes secrets and generated artifacts but retains safe examples and locks (121.1895ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3974.1286

@@ -1,0 +1,18 @@
+{
+  "runtime": "Node 24.22.1, installed pnpm 10.4.1",
+  "scope": "Offline temporary fixtures; no manager download/install. Mismatched manager rejected, matching manager accepted.",
+  "results": [
+    {
+      "fixturePin": "10.34.2",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "\u2009ERROR\u2009 This project is configured to use v10.34.2 of pnpm. Your current pnpm is v10.4.1\nIf you want to bypass this version check, you can set the \"package-manager-strict\" configuration to \"false\" or set the \"COREPACK_ENABLE_STRICT\" environment variable to \"0\"\n"
+    },
+    {
+      "fixturePin": "10.4.1",
+      "exitCode": 0,
+      "stdout": "10.4.1\n",
+      "stderr": ""
+    }
+  ]
+}

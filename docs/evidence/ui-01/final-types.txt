@@ -1,0 +1,17 @@
+
+> polymatik-ai@0.0.0 typecheck C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+> tsc -p tsconfig.json && pnpm -r typecheck
+
+Scope: 6 of 7 workspace projects
+packages/domain-types typecheck$ tsc -p tsconfig.json
+packages/ui-tokens typecheck$ tsc -p tsconfig.json
+packages/ui-tokens typecheck: Done
+packages/domain-types typecheck: Done
+packages/api-client typecheck$ tsc -p tsconfig.json
+apps/api typecheck$ tsc -p tsconfig.json
+apps/api typecheck: Done
+packages/api-client typecheck: Done
+apps/mobile typecheck$ tsc -p tsconfig.json
+apps/web typecheck$ tsc -p tsconfig.json
+apps/web typecheck: Done
+apps/mobile typecheck: Done

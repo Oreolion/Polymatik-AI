@@ -1,0 +1,21 @@
+FAIL iOS tests/navigation.test.tsx
+  ● Test suite failed to run
+
+    Cannot find module '@babel/runtime/helpers/interopRequireDefault' from 'tests/navigation.test.tsx'
+
+    > 1 | import { fireEvent, renderRouter, screen, within, waitFor } from 'expo-router/testing-library';
+        |                                                                                                ^
+      2 |
+      3 | describe('mobile route boundaries', () => {
+      4 |   it('opens Discover, follows sign-in, and returns without creating a session', async () => {
+
+      at Resolver._throwModNotFoundError (../../node_modules/.pnpm/jest-resolve@29.7.0/node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (tests/navigation.test.tsx:1:132)
+
+Test Suites: 1 failed, 1 total
+Tests:       0 total
+Snapshots:   0 total
+Time:        31.33 s, estimated 153 s
+Ran all test suites.
+
+Exit: 1

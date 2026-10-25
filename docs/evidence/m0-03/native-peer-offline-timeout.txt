@@ -1,0 +1,2 @@
+Command: Node 24.22.1 pnpm install --offline --ignore-scripts --cache-dir .cache/pnpm --reporter append-only
+Result: subprocess.TimeoutExpired after 90 seconds; pnpm child was terminated by subprocess.run. No success or frozen-lock consistency claim. Earlier capture wrapper did not retain pnpm output on timeout.

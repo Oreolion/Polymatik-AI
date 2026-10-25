@@ -1,0 +1,3 @@
+Runtime: Node 24.0.0 via project launcher (pin 24.22.1 remains unverified)
+Command: bash -n scripts/node24.sh
+Exit code: 0

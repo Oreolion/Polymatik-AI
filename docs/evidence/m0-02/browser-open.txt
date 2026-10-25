@@ -1,0 +1,23 @@
+C:\Users\HP 240 G9\AppData\Local\npm-cache\_npx\31e32ef8478fbf80\node_modules\playwright-core\lib\tools\cli-client\session.js:172
+    const rejectWithPid = (reject, message) => reject(Object.assign(new Error(`Daemon pid=${child.pid}: ${message}`), { daemonPid: child.pid }));
+                                                                    ^
+
+Error: Daemon pid=38500: Daemon process exited with code 1
+[PlaywrightError: EPERM: operation not permitted, open 'C:\Users\HP 240 G9\AppData\Local\ms-playwright\b\browser@c400777eea2e7a1bde3a91b328062318'] {
+  log: [],
+  code: 'EPERM',
+  errno: -4048,
+  syscall: 'open'
+}
+
+    at rejectWithPid (C:\Users\HP 240 G9\AppData\Local\npm-cache\_npx\31e32ef8478fbf80\node_modules\playwright-core\lib\tools\cli-client\session.js:172:69)
+    at ChildProcess.<anonymous> (C:\Users\HP 240 G9\AppData\Local\npm-cache\_npx\31e32ef8478fbf80\node_modules\playwright-core\lib\tools\cli-client\session.js:182:11)
+    at ChildProcess.emit (node:events:507:28)
+    at maybeClose (node:internal/child_process:1101:16)
+    at ChildProcess._handle.onexit (node:internal/child_process:305:5) {
+  daemonPid: 38500
+}
+
+Node.js v24.0.0
+
+EXIT_CODE=1

@@ -1,0 +1,5 @@
+Offline standalone seed resolution; no install scripts
+Exit: 1
+â€‰ERR_PNPM_NO_OFFLINE_METAâ€‰ Failed to resolve @tailwindcss/postcss@latest in package mirror C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\.cache\pnpm\metadata-v1.3\registry.npmjs.org\@tailwindcss\postcss.json
+
+This error happened while installing a direct dependency of C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\.cache\polymatik-m0-02-seed

@@ -1,0 +1,40 @@
+{
+  "runtime": "Node 24.22.1 / pnpm 10.34.2",
+  "checks": [
+    {
+      "check": "lint",
+      "exitCode": 0,
+      "timedOut": false,
+      "seconds": 49.17,
+      "log": "docs/evidence/ui-02/reinstalled-lint.txt"
+    },
+    {
+      "check": "typecheck",
+      "exitCode": 0,
+      "timedOut": false,
+      "seconds": 84.89,
+      "log": "docs/evidence/ui-02/reinstalled-typecheck.txt"
+    },
+    {
+      "check": "test",
+      "exitCode": 0,
+      "timedOut": false,
+      "seconds": 28.75,
+      "log": "docs/evidence/ui-02/reinstalled-test.txt"
+    },
+    {
+      "check": "check:api",
+      "exitCode": 0,
+      "timedOut": false,
+      "seconds": 3.19,
+      "log": "docs/evidence/ui-02/reinstalled-check-api.txt"
+    },
+    {
+      "check": "test:mobile",
+      "exitCode": 0,
+      "timedOut": false,
+      "seconds": 214.78,
+      "log": "docs/evidence/ui-02/reinstalled-test-mobile.txt"
+    }
+  ]
+}

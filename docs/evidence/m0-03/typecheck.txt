@@ -1,0 +1,34 @@
+ WARN  Unsupported engine: wanted: {"node":">=24.3.0 <25"} (current: {"node":"v24.0.0","pnpm":"10.4.1"})
+
+> polymatik-ai@0.0.0 typecheck C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+> tsc -p tsconfig.json && pnpm -r typecheck
+
+.                                        |  WARN  Unsupported engine: wanted: {"node":">=24.3.0 <25"} (current: {"node":"v24.0.0","pnpm":"10.4.1"})
+Scope: 6 of 7 workspace projects
+apps/api typecheck$ tsc -p tsconfig.json
+apps/web typecheck$ tsc -p tsconfig.json
+packages/api-client typecheck$ tsc -p tsconfig.json
+packages/domain-types typecheck$ tsc -p tsconfig.json
+packages/api-client typecheck: Done
+packages/ui-tokens typecheck$ tsc -p tsconfig.json
+apps/api typecheck: Done
+packages/domain-types typecheck: Done
+apps/web typecheck: Done
+packages/ui-tokens typecheck: Done
+apps/mobile typecheck$ tsc -p tsconfig.json
+apps/mobile typecheck: error TS2688: Cannot find type definition file for 'jest'.
+apps/mobile typecheck:   The file is in the program because:
+apps/mobile typecheck:     Entry point of type library 'jest' specified in compilerOptions
+apps/mobile typecheck: error TS2688: Cannot find type definition file for 'react'.
+apps/mobile typecheck:   The file is in the program because:
+apps/mobile typecheck:     Entry point of type library 'react' specified in compilerOptions
+apps/mobile typecheck: error TS2688: Cannot find type definition file for 'react-native'.
+apps/mobile typecheck:   The file is in the program because:
+apps/mobile typecheck:     Entry point of type library 'react-native' specified in compilerOptions
+apps/mobile typecheck: Failed
+C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\apps\mobile:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  mobile@0.0.0 typecheck: `tsc -p tsconfig.json`
+Exit status 2
+ ELIFECYCLE  Command failed with exit code 2.
+
+Exit: 2

@@ -1,0 +1,26 @@
+
+> polymatik-ai@0.0.0 typecheck C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+> tsc -p tsconfig.json && pnpm -r typecheck
+
+Scope: 6 of 7 workspace projects
+apps/api typecheck$ tsc -p tsconfig.json
+packages/api-client typecheck$ tsc -p tsconfig.json
+packages/domain-types typecheck$ tsc -p tsconfig.json
+apps/web typecheck$ tsc -p tsconfig.json
+packages/domain-types typecheck: Done
+packages/ui-tokens typecheck$ tsc -p tsconfig.json
+apps/api typecheck: Done
+packages/api-client typecheck: Done
+packages/ui-tokens typecheck: Done
+apps/web typecheck: Done
+apps/mobile typecheck$ tsc -p tsconfig.json
+apps/mobile typecheck: tests/navigation.test.tsx(13,20): error TS2339: Property 'toHavePathname' does not exist on type 'JestMatchers<Screen>'.
+apps/mobile typecheck: tests/navigation.test.tsx(19,20): error TS2339: Property 'toHavePathname' does not exist on type 'JestMatchers<Screen>'.
+apps/mobile typecheck: tests/navigation.test.tsx(30,20): error TS2339: Property 'toHavePathname' does not exist on type 'JestMatchers<Screen>'.
+apps/mobile typecheck: Failed
+C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\apps\mobile:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  mobile@0.0.0 typecheck: `tsc -p tsconfig.json`
+Exit status 2
+ ELIFECYCLE  Command failed with exit code 2.
+
+Exit: 2

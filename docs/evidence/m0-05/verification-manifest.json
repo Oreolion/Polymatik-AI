@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-23",
+  "commit": null,
+  "runtime": "Python 3.12.6 / uv 0.11.7 / Windows",
+  "status": "M0-05 local development gate passed",
+  "sourceFiles": {
+    ".github/workflows/ci.yml": "5275ed27dbbcb5b961a5739c765bad5ab649b043c35b9533c4c53697520312ee",
+    "infra/github/workflows/ci.yml": "5275ed27dbbcb5b961a5739c765bad5ab649b043c35b9533c4c53697520312ee",
+    "pyproject.toml": "54787e8715e793fa98af31a229f90d3bcab80e88301fac07f0588c8a67f0bb8d",
+    "services/agent/pyproject.toml": "448c1f290319c04e50e879e1505f133b5dbb6beb9e277adb9979f5eae210658c",
+    "services/agent/src/polymatik_agent/__init__.py": "e83b795e116691829572d105e7a8e57b2fe614c19a3e352e69a22fc54296a61b",
+    "services/agent/src/polymatik_agent/__main__.py": "9421ac4940021ffbac5029e5069f5e98beab6710987ce26144e87ebb650fa176",
+    "services/agent/src/polymatik_agent/app.py": "62722179991e83e2e6735a8963b1d6ade4e3320fa1e0ddfbd90ada84fb708e40",
+    "services/agent/src/polymatik_agent/graph.py": "7ecbdb37abb1b04b0f1b4a8997d0eb0b97acb8f16a7d5160f3508c14184bb43b",
+    "services/agent/src/polymatik_agent/tracing.py": "6b6fb3e7a198a6d50172b190ee0fd4e00652a07891218ba4d9d3f576b807996a",
+    "services/agent/tests/test_app.py": "37f6c93bbd7913d805231740f777ce9e27ef830f2b8b0b67b06ce9aa06a7843e",
+    "services/agent/tests/test_bootstrap.py": "e65845b46a852638e7af6429a454bf59df3e51a2dabbff6023140c418001a9b8",
+    "services/agent/tests/test_graph.py": "31f38547578a6398e9c96351a14a7d15122ac5b5914f7ab39b7e7b1a15ab7d15",
+    "services/agent/tests/test_tracing.py": "83c0557d55020d5088e5e94d7a84c1119b247026fc05dabb00d1b9a9e41a5d5e",
+    "tests/evaluation/m0-05-control-flow.json": "e285bae62dade4a8396d00e6ceb45e9a24e8db65c592071d465bdae615693455",
+    "tests/evaluation/run_baseline.py": "8c0f132561e050f81d6187f409147f7c311c02e0095541ab02e5eeb5b6b1b81b",
+    "uv.lock": "c6a71484519f91159a8f2ba2df2dd8ed396edfd207aa616cb361e045a39d0d62"
+  },
+  "checks": {
+    "pytestPassed": 27,
+    "pytestFailed": 0,
+    "evalCasesPassed": 10,
+    "ruffLint": 0,
+    "ruffFormat": 0,
+    "lockedOfflineCheck": 0,
+    "rootLint": 0,
+    "realLoopback": {
+      "health": 200,
+      "forgedIdentity": 401
+    },
+    "ciStatic": 0
+  },
+  "evaluation": "offline-evaluation.json",
+  "baselineDelta": null,
+  "liveModel": false,
+  "liveLangSmith": false,
+  "remoteCI": "unrun",
+  "published": false
+}

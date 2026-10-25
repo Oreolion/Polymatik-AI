@@ -1,0 +1,20 @@
+Clean temporary copy, runtime Node 24.0.0
+Command: C:\Users\HP 240 G9\AppData\Roaming\nvm\v24.0.0\node.exe C:\Users\HP 240 G9\AppData\Roaming\npm\node_modules\pnpm\bin\pnpm.cjs --dir C:\Users\HP240G~1\AppData\Local\Temp\polymatik-foundation-clean-u4es04_u typecheck
+Exit code: 0
+
+> polymatik-ai@0.0.0 typecheck C:\Users\HP 240 G9\AppData\Local\Temp\polymatik-foundation-clean-u4es04_u
+> tsc -p tsconfig.json && pnpm -r typecheck
+
+Scope: 6 of 7 workspace projects
+apps/api typecheck$ tsc -p tsconfig.json
+apps/mobile typecheck$ tsc -p tsconfig.json
+apps/web typecheck$ tsc -p tsconfig.json
+packages/api-client typecheck$ tsc -p tsconfig.json
+apps/web typecheck: Done
+apps/mobile typecheck: Done
+packages/domain-types typecheck$ tsc -p tsconfig.json
+packages/ui-tokens typecheck$ tsc -p tsconfig.json
+apps/api typecheck: Done
+packages/api-client typecheck: Done
+packages/domain-types typecheck: Done
+packages/ui-tokens typecheck: Done

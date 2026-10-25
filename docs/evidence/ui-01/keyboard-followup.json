@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-25",
+  "runtime": "Node 24.22.1 / pnpm 10.34.2",
+  "scope": "Local web skip-link focus target and collection search semantics",
+  "ownerReported": {
+    "webSaveReloadLibrary": "passed",
+    "narrowWidthsBothThemesKeyboardAndZoom": "requested; pending"
+  },
+  "agentChecks": {
+    "focusContractBeforeFix": "failed on missing focusable skip-link target",
+    "focusContractAfterFix": "1 passed",
+    "developmentHttpContracts": "9 passed",
+    "rootTypeScript": "passed",
+    "webTypeScript": "passed",
+    "targetedEslint": "passed",
+    "targetedPrettier": "passed"
+  },
+  "logs": [
+    "focus-contract-red.txt",
+    "focus-contract-green.txt",
+    "web-dev-followup.txt"
+  ],
+  "browserAutomation": "Blocked before page open by EPERM writing Playwright browser registration in AppData",
+  "limits": [
+    "No rendered keyboard or responsive automation pass",
+    "No screenshot or screen-reader pass",
+    "No new built-Worker packaging or production release",
+    "Git commit/push blocked by read-only .git permission"
+  ]
+}

@@ -1,0 +1,174 @@
+{
+  "package_version": "6.0",
+  "created": "2026-10-20",
+  "type": "implementation planning documents \u2014 no code implemented",
+  "file_count": 33,
+  "total_words": 17425,
+  "documents": [
+    {
+      "path": "AGENTS.md",
+      "words": 474,
+      "sha256": "5bcbb78b525bb473fd419a0b8e96932e82b58872f821d73e2410ff15ab1431c1"
+    },
+    {
+      "path": "CLAUDE.md",
+      "words": 44,
+      "sha256": "d73b48d2e67de78bad812c387e78d06c07cc8f2ec37e01a7cdccea340380eb06"
+    },
+    {
+      "path": "README.md",
+      "words": 525,
+      "sha256": "5c6623a7eb41c1c1ff74f0c9c3c80b745e654c69abffc4c8f6c068e457ab4398"
+    },
+    {
+      "path": "START_CODING_AGENT_HERE.md",
+      "words": 259,
+      "sha256": "36638972f59f0d7a4dd0cf325e3a7f7753d315d5c84d185700739d6fe301b39f"
+    },
+    {
+      "path": "docs/00_SOURCE_OF_TRUTH.md",
+      "words": 440,
+      "sha256": "0f93048aa2da62c7997bf48c5af7a6d69403652e8efcbcf2ba398617d9afaf29"
+    },
+    {
+      "path": "docs/01_PRODUCT_PRD.md",
+      "words": 647,
+      "sha256": "22a1fe46ce1886e6873bda568aab6c825d4c395bf5341844fa750c422cfdbde8"
+    },
+    {
+      "path": "docs/02_REQUIREMENTS_SRS.md",
+      "words": 995,
+      "sha256": "181bc7f0e23d39e528c165effcf22901f5003aed029b3e2a2897c9c0aeaae3d6"
+    },
+    {
+      "path": "docs/03_USER_JOURNEYS_AND_INFORMATION_ARCHITECTURE.md",
+      "words": 459,
+      "sha256": "4de765b61c4dad4772ad53a28f175c56045eed58e7ea1025b3f8940a73c9f0db"
+    },
+    {
+      "path": "docs/04_ARCHITECTURE.md",
+      "words": 660,
+      "sha256": "1764959abeb0bc703c7fc5319db275d0a8cd29fdcf44f984dc6235b24992d7d2"
+    },
+    {
+      "path": "docs/05_REPOSITORY_AND_ENVIRONMENT.md",
+      "words": 707,
+      "sha256": "3b5c903a594194b5a2d49fff089bb059f91631c2ac6d17ac0ed156f73775f079"
+    },
+    {
+      "path": "docs/06_DATABASE_AND_DOMAIN_MODEL.md",
+      "words": 604,
+      "sha256": "e970fe44ec42e6ec442ebfeba005f27e7418b7a099a0fd6afa1d935a55c70c52"
+    },
+    {
+      "path": "docs/07_API_AND_EVENT_CONTRACTS.md",
+      "words": 650,
+      "sha256": "d04a093a8d36778298e25075a9f2da6c63dc38862bb214ce39ce733bab7a4dd9"
+    },
+    {
+      "path": "docs/08_LANGGRAPH_AGENTS_AND_LANGSMITH.md",
+      "words": 550,
+      "sha256": "fae76281fc6c615419519c176b1bb990bbb08ccddf7e494eeeab33e67dc290db"
+    },
+    {
+      "path": "docs/09_MEMORY_AND_PERSONAL_INTELLECTUAL_MODEL.md",
+      "words": 373,
+      "sha256": "e5d831419d130eee8ae56c1896e9e80de3d3bd1462dd3a426780500fba20edd9"
+    },
+    {
+      "path": "docs/10_RAG_AND_KNOWLEDGE_GRAPH.md",
+      "words": 456,
+      "sha256": "348d10a75007a697f7402e344f69139e6682f3e8e1bda1ff08b0e3036251e339"
+    },
+    {
+      "path": "docs/11_CONNECTORS_AND_CONTENT_INGESTION.md",
+      "words": 480,
+      "sha256": "d9301a87afd278348d459c4f5b960f34869e2f278ed5ec392214deec7daf7eed"
+    },
+    {
+      "path": "docs/12_RECOMMENDATIONS_AND_DISCOVERY_FEED.md",
+      "words": 443,
+      "sha256": "9997ff65da6989ed198ef9740a21b4fb9ea49ca878333623be2ecd035ea7809b"
+    },
+    {
+      "path": "docs/13_ADAPTIVE_LEARNING_AND_ASSESSMENT.md",
+      "words": 313,
+      "sha256": "742d8e45c2ad5c647528006ab44c201a481da85623af222e63cdc0f0a1382691"
+    },
+    {
+      "path": "docs/14_ANATOMY_SYSTEMS_EXPLORER.md",
+      "words": 442,
+      "sha256": "b8c988cdfdee071b5cb62c978c90bbf4c6f50792e6fa11cab73311289ecb3622"
+    },
+    {
+      "path": "docs/15_DESIGN_SYSTEM_AND_UI_QUALITY.md",
+      "words": 657,
+      "sha256": "479c5e71eb224155cb15100652add195fcf3ac89ff45581f88fe5d36ae81d5b2"
+    },
+    {
+      "path": "docs/16_SECURITY_PRIVACY_AND_COMPLIANCE.md",
+      "words": 526,
+      "sha256": "ed47fb269661b1323bc8cf278104d2a62b2caddc29a0ad0a93a83f6df07b70a6"
+    },
+    {
+      "path": "docs/17_CLOUDFLARE_DEPLOYMENT_AND_DEVOPS.md",
+      "words": 540,
+      "sha256": "9fc5fc1dfa4884f9de90a4d3e7b9cd609277dba3136edddba757cbaa39a6f790"
+    },
+    {
+      "path": "docs/18_TEST_EVAL_STRATEGY.md",
+      "words": 621,
+      "sha256": "9a06a2ab4cd7ec27b9aee38322651de023c5d350bf78cb687f839c14443c1933"
+    },
+    {
+      "path": "docs/19_SLOS_CAPACITY_COST_AND_SCALING.md",
+      "words": 512,
+      "sha256": "053e6912da434bfd2b36130a3b3d0f5e0133b6183c454ff2e75d0211d7475d39"
+    },
+    {
+      "path": "docs/20_IMPLEMENTATION_BACKLOG.md",
+      "words": 991,
+      "sha256": "387f7f8f432619810e15bc8560a0352816a06c1a367df665d49c36efb45e3758"
+    },
+    {
+      "path": "docs/21_AGENT_SESSION_PROMPTS.md",
+      "words": 970,
+      "sha256": "c34b659bb1404f6e0a5fa8d63601004b735cf2e5229f4ebaa276db94c5cc5da6"
+    },
+    {
+      "path": "docs/22_ADR_AND_DECISION_LOG.md",
+      "words": 405,
+      "sha256": "bd7d9ff1ccae73bce01da25bd9016e773baf108bbaa6e7b4f6591b06c61ca99f"
+    },
+    {
+      "path": "docs/23_COMPETITION_VALIDATION_AND_GROWTH.md",
+      "words": 375,
+      "sha256": "57d66e0ba7a1ccf8f97e5cca48248d43b329f66c4e9b169f101d7b6a00c5a2ed"
+    },
+    {
+      "path": "docs/24_IMPLEMENTATION_LOG.md",
+      "words": 336,
+      "sha256": "fb4da06986a0350254b2108b81e5ec4b57d2474c0e873989af6a37a2be19ea7e"
+    },
+    {
+      "path": "docs/25_DEFINITION_OF_DONE_AND_CHECKLISTS.md",
+      "words": 434,
+      "sha256": "131a70aeba80362e57d584171e62c3769ec90ec11fa9ab2b3e1c977aed12df32"
+    },
+    {
+      "path": "docs/26_SOURCE_REFERENCES.md",
+      "words": 245,
+      "sha256": "72351deb1a81eb4972f2bf13404552339dcd49ede0fdfb79a8ff0dbb6b7dee02"
+    },
+    {
+      "path": "docs/27_ACCEPTANCE_SCENARIOS_AND_EVAL_FIXTURES.md",
+      "words": 766,
+      "sha256": "15d218ea2bff6296e3ad76052e448cf52bbdfb906930cf2aece50f6aabed7872"
+    },
+    {
+      "path": "docs/28_FIRST_SPRINT_EXECUTION.md",
+      "words": 526,
+      "sha256": "d6a7a7f9242b5de5a6cc372227737bd5f52070df39f230627e8df58668123c29"
+    }
+  ]
+}

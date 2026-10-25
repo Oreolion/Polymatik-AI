@@ -1,0 +1,54 @@
+
+> polymatik-ai@0.0.0 test C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+> node --test tests/foundation/*.test.mjs tests/contracts/web-stream.test.mjs tests/contracts/discover.test.mjs tests/contracts/web-config.test.mjs tests/contracts/ui-tokens.test.mjs tests/contracts/mobile-config.test.mjs tests/contracts/api.test.mjs tests/contracts/api-client.test.mjs
+
+✔ both presentation boundaries consume the same typed client and actual API contract (245.8833ms)
+✔ client returns typed errors and never retains or forwards a prior call identity (38.181ms)
+✔ malformed successes/errors and network failures cannot become successful data (14.6317ms)
+✔ client supports caller cancellation and bounded network deadlines (44.9973ms)
+✔ client rejects credential URLs, unsafe protocols and implicit insecure origins (2.2695ms)
+✔ standard OpenAPI generation detects schema/type drift (24305.5765ms)
+✔ health is a bounded liveness response with safe request correlation (249.3538ms)
+✔ routing rejects unknown routes, methods and query parameters consistently (9.51ms)
+✔ default Worker denies missing, malformed and forged identity (12.1166ms)
+✔ server-verified subject and scope govern access independently of client identity (2.7167ms)
+✔ failed verification is closed and sanitized; request state stays isolated (6.404ms)
+✔ CORS allows exact configured origins and bounded preflight only (4.5206ms)
+✔ preview filters intersect topic, search, dismissed and saved selections (6.7379ms)
+✔ device saves store only known resource IDs and deduplicate (2.7937ms)
+✔ blocked writes fail before saved state can be acknowledged (3.2452ms)
+✔ malformed or future save data is preserved rather than silently overwritten (1.6762ms)
+✔ mobile has a native Router entry and resolves shared tokens through the workspace (30.529ms)
+✔ mobile keeps auth outside the canonical five tabs and provides unknown-route recovery (4.2891ms)
+✔ mobile native peers follow the installed Expo Go SDK instead of the newest peer release (114.5249ms)
+✔ the native CLI resolves its matching Metro config and mobile DOM types match React types (109.6939ms)
+✔ contrast oracle agrees with black/white reference pairs (4.2036ms)
+✔ both themes expose matching semantic roles and accessible foregrounds (6.8919ms)
+✔ theme preference honors an explicit choice and handles an absent system scheme (0.4226ms)
+✔ reduced motion removes transitions without changing normal feedback settings (0.5147ms)
+✔ layout and text tokens preserve usable touch targets and reading space (0.6166ms)
+✔ shared tokens cannot be mutated by a consumer and leak into another screen (3.6927ms)
+✔ Worker compatibility date is supported by every locked workerd runtime (7.6855ms)
+✔ stream input is bounded and rejects duplicate or unexpected parameters (8.8035ms)
+✔ stream emits ordered events and closes at the requested count (147.2778ms)
+✔ request abort closes a stream before remaining events are emitted (12.1114ms)
+✔ consumer cancellation releases its timer without enqueueing after close (16.648ms)
+✔ an already aborted request emits nothing and invalid bounds are rejected (2.319ms)
+✔ launcher uses the project pin without changing the parent PATH (795.0238ms)
+✔ explicit installed Node 24 override preserves working directory, arguments and exit code (623.3287ms)
+✔ missing or mismatched runtime fails instead of using the global Node (765.3076ms)
+✔ invalid version override is rejected (800.7299ms)
+✔ formatting checks prune unreadable caches and still reject unformatted source (608.3063ms)
+✔ lint ignores generated Python caches while checking maintained sources (6065.368ms)
+✔ all six workspace boundaries are private and typechecked (148.5143ms)
+✔ root commands run real checks and pin direct dependencies (9.6375ms)
+✔ Python service and future infrastructure retain separate ownership (289.9425ms)
+✔ Git excludes secrets and generated artifacts but retains safe examples and locks (121.4481ms)
+ℹ tests 42
+ℹ suites 0
+ℹ pass 42
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 24995.3881

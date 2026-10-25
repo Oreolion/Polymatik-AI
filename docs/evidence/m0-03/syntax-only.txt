@@ -1,0 +1,4 @@
+TypeScript syntax/transpilation only: 14 files, 0 errors.
+This does not resolve imports or establish type/native/runtime correctness.
+
+Exit: 0

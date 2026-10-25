@@ -1,0 +1,418 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Polymatik Product API",
+    "version": "0.1.0",
+    "description": "M0-04 local contract. Query parameters are rejected. No writes, database or identity provider is configured. Protected success paths use server-injected deterministic verifiers in tests only."
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8789",
+      "description": "Local development only"
+    }
+  ],
+  "paths": {
+    "/v1/health": {
+      "get": {
+        "operationId": "getHealth",
+        "summary": "Public liveness",
+        "security": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Liveness only; no downstream readiness guarantee.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin or permission denied.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Unsupported method.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unsupported query parameters.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Sanitized internal error.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "options": {
+        "operationId": "getHealthPreflight",
+        "summary": "Exact-origin CORS preflight; GET with authorization/content-type only.",
+        "security": [],
+        "responses": {
+          "204": {
+            "description": "Allowed preflight."
+          },
+          "403": {
+            "description": "Origin, method or request headers denied.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/me": {
+      "get": {
+        "operationId": "getMe",
+        "summary": "Verified subject boundary",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Verified subject only; profile persistence is not implemented.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Me"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin or permission denied.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Unsupported method.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unsupported query parameters.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Sanitized internal error.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid verified identity. Default Worker denies all tokens until OIDC integration.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Identity verifier unavailable; retryable.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "options": {
+        "operationId": "getMePreflight",
+        "summary": "Exact-origin CORS preflight; GET with authorization/content-type only.",
+        "security": [],
+        "responses": {
+          "204": {
+            "description": "Allowed preflight."
+          },
+          "403": {
+            "description": "Origin, method or request headers denied.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "Health": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["status", "service", "version"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["ok"]
+          },
+          "service": {
+            "type": "string",
+            "enum": ["polymatik-api"]
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "Me": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["user_id"],
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      },
+      "ApiError": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["error"],
+        "properties": {
+          "error": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["code", "message", "request_id", "retryable"],
+            "properties": {
+              "code": {
+                "type": "string",
+                "minLength": 1
+              },
+              "message": {
+                "type": "string",
+                "minLength": 1
+              },
+              "request_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "retryable": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "NotFound": {
+        "description": "Unknown route.",
+        "headers": {
+          "X-Request-Id": {
+            "description": "Server-generated correlation ID.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiError"
+            }
+          }
+        }
+      }
+    }
+  }
+}

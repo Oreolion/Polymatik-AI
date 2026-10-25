@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-23",
+  "reporter": "owner",
+  "command": "bash scripts/node24.sh pnpm.cmd install --ignore-scripts",
+  "result": "ERR_PNPM_EPERM during package directory rename",
+  "package": "@redocly/ajv@8.11.2",
+  "temporaryDirectory": "ajv_tmp_30548",
+  "resolved": 1117,
+  "reused": 980,
+  "downloaded": 15,
+  "added": 21,
+  "requestedAdditionalPackages": 22,
+  "deprecatedTransitiveWarnings": 5,
+  "exactCause": "unverified; local lock or filesystem restriction possible",
+  "agentInspection": {
+    "generatorLinked": false,
+    "rootLockContainsGenerator": false,
+    "reportedTemporaryAndDestinationDirectoriesPresent": false,
+    "activeNodeAndWorkerProcessesSeen": true,
+    "processOwnershipUnavailable": true
+  },
+  "recovery": "Owner stops only Polymatik Metro/Wrangler processes with Ctrl+C and retries standard install with --prefer-offline. No deletion, ACL change, process termination or concurrent install performed.",
+  "gate": "M0-04 remains incomplete"
+}

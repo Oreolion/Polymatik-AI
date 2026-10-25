@@ -1,0 +1,459 @@
+node_modules/.pnpm/@cloudflare+vite-plugin@1.6_07e7a0c165fb6bbdfb3e7df077df9448/node_modules/@cloudflare/vite-plugin/dist/index.d.mts(4,28): error TS2307: Cannot find module '@cloudflare/workers-utils' or its corresponding type declarations.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(1357,5): error TS2687: All declarations of 'kty' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(2489,5): error TS2687: All declarations of 'mode' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(3352,11): error TS2300: Duplicate identifier 'AbortController'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(3367,13): error TS2300: Duplicate identifier 'AbortController'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(3381,11): error TS2300: Duplicate identifier 'AbortSignal'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(3408,13): error TS2300: Duplicate identifier 'AbortSignal'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(5038,11): error TS2300: Duplicate identifier 'Blob'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(5083,13): error TS2300: Duplicate identifier 'Blob'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(5181,11): error TS2300: Duplicate identifier 'ByteLengthQueuingStrategy'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(5192,13): error TS2300: Duplicate identifier 'ByteLengthQueuingStrategy'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(10149,11): error TS2300: Duplicate identifier 'Cache'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(10194,13): error TS2300: Duplicate identifier 'Cache'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(10205,11): error TS2300: Duplicate identifier 'CacheStorage'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(10238,13): error TS2300: Duplicate identifier 'CacheStorage'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(10786,11): error TS2300: Duplicate identifier 'CloseEvent'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(10807,13): error TS2300: Duplicate identifier 'CloseEvent'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(10842,11): error TS2430: Interface 'Comment' incorrectly extends interface 'CharacterData'.
+  Types of property 'after' are incompatible.
+    Type '(content: string, options?: ContentOptions | undefined) => Comment' is not assignable to type '(...nodes: (string | Node)[]) => void'.
+      Types of parameters 'options' and 'nodes' are incompatible.
+        Type 'string | Node' is not assignable to type 'ContentOptions | undefined'.
+          Type 'string' has no properties in common with type 'ContentOptions'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(10881,11): error TS2300: Duplicate identifier 'CompressionStream'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(10888,13): error TS2300: Duplicate identifier 'CompressionStream'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(11075,11): error TS2300: Duplicate identifier 'CountQueuingStrategy'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(11086,13): error TS2300: Duplicate identifier 'CountQueuingStrategy'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(11160,11): error TS2300: Duplicate identifier 'Crypto'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(11183,13): error TS2300: Duplicate identifier 'Crypto'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(11194,11): error TS2300: Duplicate identifier 'CryptoKey'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(11221,13): error TS2300: Duplicate identifier 'CryptoKey'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(11275,11): error TS2300: Duplicate identifier 'CustomEvent'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(11291,13): error TS2300: Duplicate identifier 'CustomEvent'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(11315,11): error TS2300: Duplicate identifier 'DOMException'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(11362,13): error TS2300: Duplicate identifier 'DOMException'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(12365,11): error TS2300: Duplicate identifier 'DecompressionStream'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(12372,13): error TS2300: Duplicate identifier 'DecompressionStream'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(13098,101): error TS2344: Type 'HTMLElementTagNameMap[K]' does not satisfy the constraint 'Element'.
+  Type 'HTMLAnchorElement | HTMLAreaElement | HTMLAudioElement | HTMLBRElement | HTMLBaseElement | ... 57 more ... | HTMLVideoElement' is not assignable to type 'Element'.
+    Type 'HTMLSelectElement' is not assignable to type 'Element'.
+      The types returned by 'remove()' are incompatible between these types.
+        Type 'void' is not assignable to type 'Element'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(13508,11): error TS2430: Interface 'Element' incorrectly extends interface 'ChildNode'.
+  Types of property 'after' are incompatible.
+    Type '(content: string | ReadableStream<any> | Response, options?: ContentOptions | undefined) => Element' is not assignable to type '(...nodes: (string | Node)[]) => void'.
+      Types of parameters 'content' and 'nodes' are incompatible.
+        Type 'string | Node' is not assignable to type 'string | ReadableStream<any> | Response'.
+          Type 'Node' is not assignable to type 'string | ReadableStream<any> | Response'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(13508,11): error TS2430: Interface 'Element' incorrectly extends interface 'ParentNode'.
+  Types of property 'append' are incompatible.
+    Type '(content: string | ReadableStream<any> | Response, options?: ContentOptions | undefined) => Element' is not assignable to type '(...nodes: (string | Node)[]) => void'.
+      Types of parameters 'content' and 'nodes' are incompatible.
+        Type 'string | Node' is not assignable to type 'string | ReadableStream<any> | Response'.
+          Type 'Node' is not assignable to type 'string | ReadableStream<any> | Response'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(13648,14): error TS2687: All declarations of 'tagName' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(13729,101): error TS2344: Type 'HTMLElementTagNameMap[K]' does not satisfy the constraint 'Element'.
+  Type 'HTMLAnchorElement | HTMLAreaElement | HTMLAudioElement | HTMLBRElement | HTMLBaseElement | ... 57 more ... | HTMLVideoElement' is not assignable to type 'Element'.
+    Type 'HTMLSelectElement' is not assignable to type 'Element'.
+      The types returned by 'remove()' are incompatible between these types.
+        Type 'void' is not assignable to type 'Element'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(14115,11): error TS2300: Duplicate identifier 'ErrorEvent'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(14148,13): error TS2300: Duplicate identifier 'ErrorEvent'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(14158,11): error TS2300: Duplicate identifier 'Event'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(14277,13): error TS2300: Duplicate identifier 'Event'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(14300,11): error TS2300: Duplicate identifier 'EventListener'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(14319,11): error TS2300: Duplicate identifier 'EventSource'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(14361,13): error TS2300: Duplicate identifier 'EventSource'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(14374,11): error TS2300: Duplicate identifier 'EventTarget'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(14395,13): error TS2300: Duplicate identifier 'EventTarget'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(14419,11): error TS2300: Duplicate identifier 'File'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(14440,13): error TS2300: Duplicate identifier 'File'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(15036,11): error TS2300: Duplicate identifier 'FormData'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(15080,13): error TS2300: Duplicate identifier 'FormData'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(20478,11): error TS2430: Interface 'HTMLSelectElement' incorrectly extends interface 'HTMLElement'.
+  The types returned by 'remove()' are incompatible between these types.
+    Type 'void' is not assignable to type 'Element'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(21824,11): error TS2300: Duplicate identifier 'Headers'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(21864,13): error TS2300: Duplicate identifier 'Headers'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(24830,11): error TS2300: Duplicate identifier 'MessageChannel'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(24845,13): error TS2300: Duplicate identifier 'MessageChannel'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(24855,11): error TS2300: Duplicate identifier 'MessageEvent'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(24890,13): error TS2300: Duplicate identifier 'MessageEvent'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(24921,11): error TS2300: Duplicate identifier 'MessagePort'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(24947,13): error TS2300: Duplicate identifier 'MessagePort'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(25780,11): error TS2300: Duplicate identifier 'Navigator'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(25908,13): error TS2300: Duplicate identifier 'Navigator'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(27439,11): error TS2300: Duplicate identifier 'Performance'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(27546,13): error TS2300: Duplicate identifier 'Performance'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(28610,11): error TS2300: Duplicate identifier 'PromiseRejectionEvent'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(28625,13): error TS2300: Duplicate identifier 'PromiseRejectionEvent'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30199,11): error TS2300: Duplicate identifier 'ReadableByteStreamController'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30232,13): error TS2300: Duplicate identifier 'ReadableByteStreamController'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30242,11): error TS2451: Cannot redeclare block-scoped variable 'ReadableStream'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30283,13): error TS2451: Cannot redeclare block-scoped variable 'ReadableStream'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30295,11): error TS2300: Duplicate identifier 'ReadableStreamBYOBReader'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30310,13): error TS2300: Duplicate identifier 'ReadableStreamBYOBReader'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30320,11): error TS2300: Duplicate identifier 'ReadableStreamBYOBRequest'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30341,13): error TS2300: Duplicate identifier 'ReadableStreamBYOBRequest'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30351,11): error TS2300: Duplicate identifier 'ReadableStreamDefaultController'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30378,13): error TS2300: Duplicate identifier 'ReadableStreamDefaultController'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30388,11): error TS2300: Duplicate identifier 'ReadableStreamDefaultReader'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30403,13): error TS2300: Duplicate identifier 'ReadableStreamDefaultReader'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30510,14): error TS2687: All declarations of 'cache' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30528,14): error TS2687: All declarations of 'headers' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30534,14): error TS2687: All declarations of 'integrity' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30540,14): error TS2687: All declarations of 'keepalive' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30546,14): error TS2687: All declarations of 'method' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30558,14): error TS2687: All declarations of 'redirect' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30576,14): error TS2687: All declarations of 'signal' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30582,14): error TS2687: All declarations of 'url' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30706,14): error TS2687: All declarations of 'headers' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30712,14): error TS2687: All declarations of 'ok' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30718,14): error TS2687: All declarations of 'redirected' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30724,14): error TS2687: All declarations of 'status' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30730,14): error TS2687: All declarations of 'statusText' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30736,14): error TS2687: All declarations of 'type' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(30742,14): error TS2687: All declarations of 'url' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(36237,11): error TS2300: Duplicate identifier 'SubtleCrypto'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(36319,13): error TS2300: Duplicate identifier 'SubtleCrypto'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(36402,11): error TS2430: Interface 'Text' incorrectly extends interface 'CharacterData'.
+  Types of property 'after' are incompatible.
+    Type '(content: string | ReadableStream<any> | Response, options?: ContentOptions | undefined) => Text' is not assignable to type '(...nodes: (string | Node)[]) => void'.
+      Types of parameters 'content' and 'nodes' are incompatible.
+        Type 'string | Node' is not assignable to type 'string | ReadableStream<any> | Response'.
+          Type 'Node' is not assignable to type 'string | ReadableStream<any> | Response'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(36427,11): error TS2300: Duplicate identifier 'TextDecoder'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(36436,13): error TS2300: Duplicate identifier 'TextDecoder'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(36467,11): error TS2300: Duplicate identifier 'TextDecoderStream'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(36474,13): error TS2300: Duplicate identifier 'TextDecoderStream'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(36484,11): error TS2300: Duplicate identifier 'TextEncoder'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(36499,13): error TS2300: Duplicate identifier 'TextEncoder'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(36518,11): error TS2300: Duplicate identifier 'TextEncoderStream'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(36525,13): error TS2300: Duplicate identifier 'TextEncoderStream'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(37103,11): error TS2300: Duplicate identifier 'TransformStream'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(37118,13): error TS2300: Duplicate identifier 'TransformStream'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(37128,11): error TS2300: Duplicate identifier 'TransformStreamDefaultController'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(37155,13): error TS2300: Duplicate identifier 'TransformStreamDefaultController'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(37314,11): error TS2300: Duplicate identifier 'URL'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(37396,13): error TS2300: Duplicate identifier 'URL'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(37433,11): error TS2300: Duplicate identifier 'URLPattern'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(37502,13): error TS2300: Duplicate identifier 'URLPattern'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(37513,11): error TS2300: Duplicate identifier 'URLSearchParams'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(37566,13): error TS2300: Duplicate identifier 'URLSearchParams'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(40856,11): error TS2300: Duplicate identifier 'WebSocketEventMap'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(40886,14): error TS2687: All declarations of 'extensions' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(40900,14): error TS2687: All declarations of 'protocol' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(40906,14): error TS2687: All declarations of 'readyState' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(40912,14): error TS2687: All declarations of 'url' must have identical modifiers.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(41815,11): error TS2300: Duplicate identifier 'WritableStream'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(41842,13): error TS2300: Duplicate identifier 'WritableStream'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(41852,11): error TS2300: Duplicate identifier 'WritableStreamDefaultController'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(41867,13): error TS2300: Duplicate identifier 'WritableStreamDefaultController'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(41877,11): error TS2300: Duplicate identifier 'WritableStreamDefaultWriter'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(41922,13): error TS2300: Duplicate identifier 'WritableStreamDefaultWriter'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42496,15): error TS2300: Duplicate identifier 'CompileError'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42499,9): error TS2300: Duplicate identifier 'CompileError'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42541,15): error TS2300: Duplicate identifier 'Global'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42546,9): error TS2300: Duplicate identifier 'Global'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42556,15): error TS2300: Duplicate identifier 'Instance'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42565,9): error TS2300: Duplicate identifier 'Instance'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42585,15): error TS2300: Duplicate identifier 'Memory'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42602,9): error TS2300: Duplicate identifier 'Memory'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42612,15): error TS2300: Duplicate identifier 'Module'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42615,9): error TS2300: Duplicate identifier 'Module'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42639,15): error TS2300: Duplicate identifier 'RuntimeError'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42642,9): error TS2300: Duplicate identifier 'RuntimeError'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42653,15): error TS2300: Duplicate identifier 'Table'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42680,9): error TS2300: Duplicate identifier 'Table'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42757,10): error TS2300: Duplicate identifier 'ImportExportKind'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42758,10): error TS2300: Duplicate identifier 'TableKind'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42760,10): error TS2300: Duplicate identifier 'ExportValue'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42761,10): error TS2300: Duplicate identifier 'Exports'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42762,10): error TS2300: Duplicate identifier 'ImportValue'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42763,10): error TS2300: Duplicate identifier 'Imports'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42764,10): error TS2300: Duplicate identifier 'ModuleImports'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42765,10): error TS2300: Duplicate identifier 'ValueType'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(42905,13): error TS2451: Cannot redeclare block-scoped variable 'console'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(43480,13): error TS2451: Cannot redeclare block-scoped variable 'navigator'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(43605,13): error TS2451: Cannot redeclare block-scoped variable 'self'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(44088,13): error TS2451: Cannot redeclare block-scoped variable 'caches'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(44092,13): error TS2451: Cannot redeclare block-scoped variable 'crypto'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(44098,13): error TS2451: Cannot redeclare block-scoped variable 'origin'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(44100,13): error TS2451: Cannot redeclare block-scoped variable 'performance'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(44102,13): error TS2451: Cannot redeclare block-scoped variable 'scheduler'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(44140,6): error TS2300: Duplicate identifier 'BodyInit'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(44141,6): error TS2300: Duplicate identifier 'BufferSource'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(44158,6): error TS2300: Duplicate identifier 'EventListenerOrEventListenerObject'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(44202,6): error TS2300: Duplicate identifier 'HeadersInit'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(44223,6): error TS2300: Duplicate identifier 'ReadableStreamReadResult'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(44227,6): error TS2300: Duplicate identifier 'RequestInfo'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(44543,11): error TS2300: Duplicate identifier 'Cache'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(44613,11): error TS2300: Duplicate identifier 'FormData'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(44712,11): error TS2300: Duplicate identifier 'Headers'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(44780,11): error TS2300: Duplicate identifier 'MessageEvent'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(44793,11): error TS2300: Duplicate identifier 'Navigator'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(44896,11): error TS2300: Duplicate identifier 'SubtleCrypto'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(44944,11): error TS2300: Duplicate identifier 'URLSearchParams'.
+node_modules/.pnpm/@typescript+typescript-win32-x64@7.0.2/node_modules/@typescript/typescript-win32-x64/lib/lib.dom.d.ts(45122,11): error TS2451: Cannot redeclare block-scoped variable 'ReadableStream'.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(2,51): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(3,34): error TS2307: Cannot find module '@cloudflare/workers-shared' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(4,37): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(7,53): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(8,10): error TS2305: Module '"@cspotcode/source-map-support"' has no exported member 'cspotcodeSourceMapSupport'.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(9,49): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(11,73): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(12,43): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(13,37): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(14,45): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(17,43): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(21,55): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(22,83): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(23,51): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(24,65): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(26,27): error TS7016: Could not find a declaration file for module 'ws'. 'C:/Users/HP 240 G9/Desktop/Agents/polymatik_ai/polymatik_ai/.cache/polymatik-m0-02-seed/node_modules/.pnpm/ws@8.21.0/node_modules/ws/wrapper.mjs' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/ws` if it exists or add a new declaration (.d.ts) file containing `declare module 'ws';`
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(27,36): error TS2307: Cannot find module './shared' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(28,25): error TS2307: Cannot find module '@puppeteer/browsers' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(29,39): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(30,45): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(31,57): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(35,43): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(42,51): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(43,75): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(47,45): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(51,35): error TS2307: Cannot find module '@cloudflare/workers-shared' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(52,34): error TS2307: Cannot find module '@cloudflare/config' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(54,77): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(55,49): error TS2307: Cannot find module '@cloudflare/workers-types' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(56,59): error TS2307: Cannot find module '@cloudflare/workers-types' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(57,55): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(60,37): error TS2307: Cannot find module '@cloudflare/config' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(62,35): error TS2307: Cannot find module '@cloudflare/config' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(63,19): error TS2307: Cannot find module 'zod' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261012.0-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(7976,434): error TS2370: A rest parameter must be of an array type.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(2,51): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(3,34): error TS2307: Cannot find module '@cloudflare/workers-shared' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(4,37): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(7,53): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(8,10): error TS2305: Module '"@cspotcode/source-map-support"' has no exported member 'cspotcodeSourceMapSupport'.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(9,49): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(11,73): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(12,43): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(13,37): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(14,45): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(17,43): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(21,55): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(22,83): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(23,51): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(24,65): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(26,27): error TS7016: Could not find a declaration file for module 'ws'. 'C:/Users/HP 240 G9/Desktop/Agents/polymatik_ai/polymatik_ai/.cache/polymatik-m0-02-seed/node_modules/.pnpm/ws@8.21.0/node_modules/ws/wrapper.mjs' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/ws` if it exists or add a new declaration (.d.ts) file containing `declare module 'ws';`
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(27,36): error TS2307: Cannot find module './shared' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(28,25): error TS2307: Cannot find module '@puppeteer/browsers' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(29,39): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(30,45): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(31,57): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(35,43): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(42,51): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(43,75): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(47,45): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(51,35): error TS2307: Cannot find module '@cloudflare/workers-shared' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(52,34): error TS2307: Cannot find module '@cloudflare/config' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(54,77): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(55,49): error TS2307: Cannot find module '@cloudflare/workers-types' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(56,59): error TS2307: Cannot find module '@cloudflare/workers-types' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(57,55): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(60,37): error TS2307: Cannot find module '@cloudflare/config' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(62,35): error TS2307: Cannot find module '@cloudflare/config' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(63,19): error TS2307: Cannot find module 'zod' or its corresponding type declarations.
+node_modules/.pnpm/miniflare@5.20261019.2-beta_@types+node@26.6.5/node_modules/miniflare/dist/src/index.d.ts(8081,434): error TS2370: A rest parameter must be of an array type.
+node_modules/.pnpm/wrangler@4.152.0_@types+node@26.6.5/node_modules/wrangler/wrangler-dist/cli.d.ts(1,423): error TS2307: Cannot find module '@cloudflare/workers-utils' or its corresponding type declarations.
+node_modules/.pnpm/wrangler@4.152.0_@types+node@26.6.5/node_modules/wrangler/wrangler-dist/cli.d.ts(2,270): error TS2307: Cannot find module '@cloudflare/workers-utils' or its corresponding type declarations.
+node_modules/.pnpm/wrangler@4.152.0_@types+node@26.6.5/node_modules/wrangler/wrangler-dist/cli.d.ts(7,22): error TS2307: Cannot find module 'devtools-protocol/types/protocol-mapping' or its corresponding type declarations.
+node_modules/.pnpm/wrangler@4.152.0_@types+node@26.6.5/node_modules/wrangler/wrangler-dist/cli.d.ts(8,24): error TS2307: Cannot find module 'devtools-protocol' or its corresponding type declarations.
+node_modules/.pnpm/wrangler@4.152.0_@types+node@26.6.5/node_modules/wrangler/wrangler-dist/cli.d.ts(10,61): error TS2307: Cannot find module '@cloudflare/containers-shared' or its corresponding type declarations.
+node_modules/.pnpm/wrangler@4.152.0_@types+node@26.6.5/node_modules/wrangler/wrangler-dist/cli.d.ts(11,93): error TS2307: Cannot find module '@cloudflare/workers-types' or its corresponding type declarations.
+node_modules/.pnpm/wrangler@4.152.0_@types+node@26.6.5/node_modules/wrangler/wrangler-dist/cli.d.ts(12,94): error TS2307: Cannot find module '@cloudflare/workers-types/experimental' or its corresponding type declarations.
+node_modules/.pnpm/wrangler@4.152.0_@types+node@26.6.5/node_modules/wrangler/wrangler-dist/cli.d.ts(13,43): error TS2307: Cannot find module '@cloudflare/workers-shared' or its corresponding type declarations.
+node_modules/.pnpm/wrangler@4.152.0_@types+node@26.6.5/node_modules/wrangler/wrangler-dist/cli.d.ts(14,148): error TS2307: Cannot find module '@cloudflare/remote-bindings' or its corresponding type declarations.
+node_modules/.pnpm/wrangler@4.152.0_@types+node@26.6.5/node_modules/wrangler/wrangler-dist/cli.d.ts(15,36): error TS2307: Cannot find module '@cloudflare/remote-bindings' or its corresponding type declarations.
+node_modules/.pnpm/wrangler@4.152.0_@types+node@26.6.5/node_modules/wrangler/wrangler-dist/cli.d.ts(17,111): error TS2307: Cannot find module 'yargs' or its corresponding type declarations.
+node_modules/.pnpm/wrangler@4.152.0_@types+node@26.6.5/node_modules/wrangler/wrangler-dist/cli.d.ts(18,24): error TS2307: Cannot find module 'cloudflare' or its corresponding type declarations.
+node_modules/.pnpm/wrangler@4.152.0_@types+node@26.6.5/node_modules/wrangler/wrangler-dist/cli.d.ts(371,32): error TS2339: Property 'scheduled' does not exist on type 'Request_2<any>'.
+node_modules/.pnpm/wrangler@4.152.0_@types+node@26.6.5/node_modules/wrangler/wrangler-dist/cli.d.ts(372,28): error TS2339: Property 'queue' does not exist on type 'Request_2<any>'.
+src/worker-env.d.ts(59,13): error TS2403: Subsequent variable declarations must have the same type.  Variable 'onmessage' must be of type '((this: Window, ev: MessageEvent<any>) => any) | null', but here has type 'never'.
+src/worker-env.d.ts(65,15): error TS2300: Duplicate identifier 'DOMException'.
+src/worker-env.d.ts(121,50): error TS2508: No base constructor has the specified number of type arguments.
+src/worker-env.d.ts(242,15): error TS2451: Cannot redeclare block-scoped variable 'console'.
+src/worker-env.d.ts(243,6): error TS2300: Duplicate identifier 'BufferSource'.
+src/worker-env.d.ts(246,11): error TS2300: Duplicate identifier 'CompileError'.
+src/worker-env.d.ts(249,11): error TS2300: Duplicate identifier 'RuntimeError'.
+src/worker-env.d.ts(252,10): error TS2300: Duplicate identifier 'ValueType'.
+src/worker-env.d.ts(254,9): error TS2717: Subsequent property declarations must have the same type.  Property 'value' must be of type 'T', but here has type 'keyof ValueTypeMap'.
+src/worker-env.d.ts(257,11): error TS2300: Duplicate identifier 'Global'.
+src/worker-env.d.ts(262,10): error TS2300: Duplicate identifier 'ImportValue'.
+src/worker-env.d.ts(263,10): error TS2300: Duplicate identifier 'ModuleImports'.
+src/worker-env.d.ts(264,10): error TS2300: Duplicate identifier 'Imports'.
+src/worker-env.d.ts(265,10): error TS2300: Duplicate identifier 'ExportValue'.
+src/worker-env.d.ts(266,10): error TS2300: Duplicate identifier 'Exports'.
+src/worker-env.d.ts(267,11): error TS2300: Duplicate identifier 'Instance'.
+src/worker-env.d.ts(276,11): error TS2300: Duplicate identifier 'Memory'.
+src/worker-env.d.ts(281,10): error TS2300: Duplicate identifier 'ImportExportKind'.
+src/worker-env.d.ts(291,20): error TS2300: Duplicate identifier 'Module'.
+src/worker-env.d.ts(296,10): error TS2300: Duplicate identifier 'TableKind'.
+src/worker-env.d.ts(302,11): error TS2300: Duplicate identifier 'Table'.
+src/worker-env.d.ts(399,102): error TS2315: Type 'EventListenerOrEventListenerObject' is not generic.
+src/worker-env.d.ts(400,105): error TS2315: Type 'EventListenerOrEventListenerObject' is not generic.
+src/worker-env.d.ts(431,15): error TS2451: Cannot redeclare block-scoped variable 'self'.
+src/worker-env.d.ts(440,15): error TS2451: Cannot redeclare block-scoped variable 'crypto'.
+src/worker-env.d.ts(446,15): error TS2451: Cannot redeclare block-scoped variable 'caches'.
+src/worker-env.d.ts(448,15): error TS2451: Cannot redeclare block-scoped variable 'scheduler'.
+src/worker-env.d.ts(455,15): error TS2451: Cannot redeclare block-scoped variable 'performance'.
+src/worker-env.d.ts(457,15): error TS2451: Cannot redeclare block-scoped variable 'origin'.
+src/worker-env.d.ts(458,15): error TS2451: Cannot redeclare block-scoped variable 'navigator'.
+src/worker-env.d.ts(491,5): error TS2717: Subsequent property declarations must have the same type.  Property 'transfer' must be of type 'Transferable[] | undefined', but here has type 'any[] | undefined'.
+src/worker-env.d.ts(493,24): error TS2300: Duplicate identifier 'Navigator'.
+src/worker-env.d.ts(681,15): error TS2300: Duplicate identifier 'Event'.
+src/worker-env.d.ts(805,6): error TS2300: Duplicate identifier 'EventListener'.
+src/worker-env.d.ts(809,6): error TS2300: Duplicate identifier 'EventListenerOrEventListenerObject'.
+src/worker-env.d.ts(809,76): error TS2315: Type 'EventListener' is not generic.
+src/worker-env.d.ts(815,15): error TS2300: Duplicate identifier 'EventTarget'.
+src/worker-env.d.ts(822,72): error TS2315: Type 'EventListenerOrEventListenerObject' is not generic.
+src/worker-env.d.ts(828,75): error TS2315: Type 'EventListenerOrEventListenerObject' is not generic.
+src/worker-env.d.ts(853,15): error TS2300: Duplicate identifier 'AbortController'.
+src/worker-env.d.ts(873,24): error TS2300: Duplicate identifier 'AbortSignal'.
+src/worker-env.d.ts(944,15): error TS2300: Duplicate identifier 'CustomEvent'.
+src/worker-env.d.ts(964,15): error TS2300: Duplicate identifier 'Blob'.
+src/worker-env.d.ts(1017,15): error TS2300: Duplicate identifier 'File'.
+src/worker-env.d.ts(1041,24): error TS2300: Duplicate identifier 'CacheStorage'.
+src/worker-env.d.ts(1055,24): error TS2300: Duplicate identifier 'Cache'.
+src/worker-env.d.ts(1074,24): error TS2300: Duplicate identifier 'Crypto'.
+src/worker-env.d.ts(1103,24): error TS2300: Duplicate identifier 'SubtleCrypto'.
+src/worker-env.d.ts(1184,24): error TS2300: Duplicate identifier 'CryptoKey'.
+src/worker-env.d.ts(1215,5): error TS2687: All declarations of 'kty' must have identical modifiers.
+src/worker-env.d.ts(1215,5): error TS2717: Subsequent property declarations must have the same type.  Property 'kty' must be of type 'string | undefined', but here has type 'string'.
+src/worker-env.d.ts(1324,15): error TS2300: Duplicate identifier 'TextDecoder'.
+src/worker-env.d.ts(1341,15): error TS2300: Duplicate identifier 'TextEncoder'.
+src/worker-env.d.ts(1373,15): error TS2300: Duplicate identifier 'ErrorEvent'.
+src/worker-env.d.ts(1421,15): error TS2300: Duplicate identifier 'MessageEvent'.
+src/worker-env.d.ts(1458,5): error TS2717: Subsequent property declarations must have the same type.  Property 'data' must be of type 'T | undefined', but here has type 'any'.
+src/worker-env.d.ts(1461,5): error TS2717: Subsequent property declarations must have the same type.  Property 'source' must be of type 'MessageEventSource | null | undefined', but here has type 'MessagePort | null | undefined'.
+src/worker-env.d.ts(1469,24): error TS2300: Duplicate identifier 'PromiseRejectionEvent'.
+src/worker-env.d.ts(1488,15): error TS2300: Duplicate identifier 'FormData'.
+src/worker-env.d.ts(1587,11): error TS2430: Interface 'Element' incorrectly extends interface 'ChildNode'.
+  Types of property 'after' are incompatible.
+    Type '(content: string | ReadableStream<any> | Response, options?: ContentOptions | undefined) => Element' is not assignable to type '(...nodes: (string | Node)[]) => void'.
+      Types of parameters 'content' and 'nodes' are incompatible.
+        Type 'string | Node' is not assignable to type 'string | ReadableStream<any> | Response'.
+          Type 'Node' is not assignable to type 'string | ReadableStream<any> | Response'.
+src/worker-env.d.ts(1587,11): error TS2430: Interface 'Element' incorrectly extends interface 'ParentNode'.
+  Types of property 'append' are incompatible.
+    Type '(content: string | ReadableStream<any> | Response, options?: ContentOptions | undefined) => Element' is not assignable to type '(...nodes: (string | Node)[]) => void'.
+      Types of parameters 'content' and 'nodes' are incompatible.
+        Type 'string | Node' is not assignable to type 'string | ReadableStream<any> | Response'.
+          Type 'Node' is not assignable to type 'string | ReadableStream<any> | Response'.
+src/worker-env.d.ts(1588,5): error TS2687: All declarations of 'tagName' must have identical modifiers.
+src/worker-env.d.ts(1589,14): error TS2717: Subsequent property declarations must have the same type.  Property 'attributes' must be of type 'NamedNodeMap', but here has type 'IterableIterator<string[]>'.
+src/worker-env.d.ts(1591,14): error TS2717: Subsequent property declarations must have the same type.  Property 'namespaceURI' must be of type 'string | null', but here has type 'string'.
+src/worker-env.d.ts(1612,11): error TS2430: Interface 'Comment' incorrectly extends interface 'CharacterData'.
+  Types of property 'after' are incompatible.
+    Type '(content: string, options?: ContentOptions | undefined) => Comment' is not assignable to type '(...nodes: (string | Node)[]) => void'.
+      Types of parameters 'options' and 'nodes' are incompatible.
+        Type 'string | Node' is not assignable to type 'ContentOptions | undefined'.
+          Type 'string' has no properties in common with type 'ContentOptions'.
+src/worker-env.d.ts(1620,11): error TS2430: Interface 'Text' incorrectly extends interface 'CharacterData'.
+  Types of property 'after' are incompatible.
+    Type '(content: string | ReadableStream<any> | Response, options?: ContentOptions | undefined) => Text' is not assignable to type '(...nodes: (string | Node)[]) => void'.
+      Types of parameters 'content' and 'nodes' are incompatible.
+        Type 'string | Node' is not assignable to type 'string | ReadableStream<any> | Response'.
+          Type 'Node' is not assignable to type 'string | ReadableStream<any> | Response'.
+src/worker-env.d.ts(1652,6): error TS2300: Duplicate identifier 'HeadersInit'.
+src/worker-env.d.ts(1658,15): error TS2300: Duplicate identifier 'Headers'.
+src/worker-env.d.ts(1709,6): error TS2300: Duplicate identifier 'BodyInit'.
+src/worker-env.d.ts(1733,13): error TS2403: Subsequent variable declarations must have the same type.  Variable 'Response' must be of type '{ new (body?: BodyInit | null | undefined, init?: ResponseInit | undefined): Response; prototype: Response; error(): Response; json(data: any, init?: ResponseInit | undefined): Response; redirect(url: string | URL, status?: number | undefined): Response; }', but here has type '{ new (body?: BodyInit | null | undefined, init?: ResponseInit | undefined): Response; prototype: Response; error(): Response; redirect(url: string, status?: number | undefined): Response; json(any: any, maybeInit?: Response | ... 1 more ... | undefined): Response; }'.
+src/worker-env.d.ts(1757,5): error TS2687: All declarations of 'status' must have identical modifiers.
+src/worker-env.d.ts(1763,5): error TS2687: All declarations of 'statusText' must have identical modifiers.
+src/worker-env.d.ts(1769,5): error TS2687: All declarations of 'headers' must have identical modifiers.
+src/worker-env.d.ts(1775,5): error TS2687: All declarations of 'ok' must have identical modifiers.
+src/worker-env.d.ts(1781,5): error TS2687: All declarations of 'redirected' must have identical modifiers.
+src/worker-env.d.ts(1787,5): error TS2687: All declarations of 'url' must have identical modifiers.
+src/worker-env.d.ts(1795,5): error TS2687: All declarations of 'type' must have identical modifiers.
+src/worker-env.d.ts(1795,5): error TS2717: Subsequent property declarations must have the same type.  Property 'type' must be of type 'ResponseType', but here has type '"default" | "error"'.
+src/worker-env.d.ts(1805,6): error TS2300: Duplicate identifier 'RequestInfo'.
+src/worker-env.d.ts(1811,13): error TS2403: Subsequent variable declarations must have the same type.  Variable 'Request' must be of type '{ new (input: URL | RequestInfo, init?: RequestInit<CfProperties<unknown>> | undefined): Request<unknown, CfProperties<unknown>>; prototype: Request<...>; }', but here has type '{ new <CfHostMetadata = unknown, Cf = CfProperties<CfHostMetadata>>(input: any, init?: RequestInit<Cf> | undefined): Request<CfHostMetadata, Cf>; prototype: Request<...>; }'.
+src/worker-env.d.ts(1813,78): error TS2315: Type 'RequestInfo' is not generic.
+src/worker-env.d.ts(1832,5): error TS2687: All declarations of 'method' must have identical modifiers.
+src/worker-env.d.ts(1838,5): error TS2687: All declarations of 'url' must have identical modifiers.
+src/worker-env.d.ts(1844,5): error TS2687: All declarations of 'headers' must have identical modifiers.
+src/worker-env.d.ts(1850,5): error TS2687: All declarations of 'redirect' must have identical modifiers.
+src/worker-env.d.ts(1850,5): error TS2717: Subsequent property declarations must have the same type.  Property 'redirect' must be of type 'RequestRedirect', but here has type 'string'.
+src/worker-env.d.ts(1857,5): error TS2687: All declarations of 'signal' must have identical modifiers.
+src/worker-env.d.ts(1864,5): error TS2687: All declarations of 'integrity' must have identical modifiers.
+src/worker-env.d.ts(1870,5): error TS2687: All declarations of 'keepalive' must have identical modifiers.
+src/worker-env.d.ts(1876,5): error TS2687: All declarations of 'cache' must have identical modifiers.
+src/worker-env.d.ts(1876,5): error TS2717: Subsequent property declarations must have the same type.  Property 'cache' must be of type 'RequestCache', but here has type '"no-cache" | "no-store" | undefined'.
+src/worker-env.d.ts(1886,5): error TS2717: Subsequent property declarations must have the same type.  Property 'redirect' must be of type 'RequestRedirect | undefined', but here has type 'string | undefined'.
+src/worker-env.d.ts(1890,5): error TS2717: Subsequent property declarations must have the same type.  Property 'cache' must be of type 'RequestCache | undefined', but here has type '"no-cache" | "no-store" | undefined'.
+src/worker-env.d.ts(2197,5): error TS2717: Subsequent property declarations must have the same type.  Property 'highWaterMark' must be of type 'number | undefined', but here has type 'number | bigint | undefined'.
+src/worker-env.d.ts(2198,5): error TS2717: Subsequent property declarations must have the same type.  Property 'size' must be of type 'QueuingStrategySize<T> | undefined', but here has type '((chunk: T) => number | bigint) | undefined'.
+src/worker-env.d.ts(2201,5): error TS2717: Subsequent property declarations must have the same type.  Property 'type' must be of type 'undefined', but here has type 'string | undefined'.
+src/worker-env.d.ts(2202,5): error TS2717: Subsequent property declarations must have the same type.  Property 'start' must be of type 'UnderlyingSinkStartCallback | undefined', but here has type '((controller: WritableStreamDefaultController) => void | Promise<void>) | undefined'.
+src/worker-env.d.ts(2203,5): error TS2717: Subsequent property declarations must have the same type.  Property 'write' must be of type 'UnderlyingSinkWriteCallback<W> | undefined', but here has type '((chunk: W, controller: WritableStreamDefaultController) => void | Promise<void>) | undefined'.
+src/worker-env.d.ts(2204,5): error TS2717: Subsequent property declarations must have the same type.  Property 'abort' must be of type 'UnderlyingSinkAbortCallback | undefined', but here has type '((reason: any) => void | Promise<void>) | undefined'.
+src/worker-env.d.ts(2205,5): error TS2717: Subsequent property declarations must have the same type.  Property 'close' must be of type 'UnderlyingSinkCloseCallback | undefined', but here has type '(() => void | Promise<void>) | undefined'.
+src/worker-env.d.ts(2210,5): error TS2717: Subsequent property declarations must have the same type.  Property 'start' must be of type '((controller: ReadableByteStreamController) => any) | undefined', but here has type '((controller: ReadableByteStreamController) => void | Promise<void>) | undefined'.
+src/worker-env.d.ts(2211,5): error TS2717: Subsequent property declarations must have the same type.  Property 'pull' must be of type '((controller: ReadableByteStreamController) => void | PromiseLike<void>) | undefined', but here has type '((controller: ReadableByteStreamController) => void | Promise<void>) | undefined'.
+src/worker-env.d.ts(2212,5): error TS2717: Subsequent property declarations must have the same type.  Property 'cancel' must be of type 'UnderlyingSourceCancelCallback | undefined', but here has type '((reason: any) => void | Promise<void>) | undefined'.
+src/worker-env.d.ts(2215,5): error TS2717: Subsequent property declarations must have the same type.  Property 'type' must be of type '"bytes" | undefined', but here has type '"" | undefined'.
+src/worker-env.d.ts(2216,5): error TS2717: Subsequent property declarations must have the same type.  Property 'start' must be of type 'UnderlyingSourceStartCallback<R> | undefined', but here has type '((controller: ReadableStreamDefaultController<R>) => void | Promise<void>) | undefined'.
+src/worker-env.d.ts(2217,5): error TS2717: Subsequent property declarations must have the same type.  Property 'pull' must be of type 'UnderlyingSourcePullCallback<R> | undefined', but here has type '((controller: ReadableStreamDefaultController<R>) => void | Promise<void>) | undefined'.
+src/worker-env.d.ts(2218,5): error TS2717: Subsequent property declarations must have the same type.  Property 'cancel' must be of type 'UnderlyingSourceCancelCallback | undefined', but here has type '((reason: any) => void | Promise<void>) | undefined'.
+src/worker-env.d.ts(2222,5): error TS2717: Subsequent property declarations must have the same type.  Property 'readableType' must be of type 'undefined', but here has type 'string | undefined'.
+src/worker-env.d.ts(2223,5): error TS2717: Subsequent property declarations must have the same type.  Property 'writableType' must be of type 'undefined', but here has type 'string | undefined'.
+src/worker-env.d.ts(2224,5): error TS2717: Subsequent property declarations must have the same type.  Property 'start' must be of type 'TransformerStartCallback<O> | undefined', but here has type '((controller: TransformStreamDefaultController<O>) => void | Promise<void>) | undefined'.
+src/worker-env.d.ts(2225,5): error TS2717: Subsequent property declarations must have the same type.  Property 'transform' must be of type 'TransformerTransformCallback<I, O> | undefined', but here has type '((chunk: I, controller: TransformStreamDefaultController<O>) => void | Promise<void>) | undefined'.
+src/worker-env.d.ts(2226,5): error TS2717: Subsequent property declarations must have the same type.  Property 'flush' must be of type 'TransformerFlushCallback<O> | undefined', but here has type '((controller: TransformStreamDefaultController<O>) => void | Promise<void>) | undefined'.
+src/worker-env.d.ts(2253,6): error TS2300: Duplicate identifier 'ReadableStreamReadResult'.
+src/worker-env.d.ts(2265,11): error TS2451: Cannot redeclare block-scoped variable 'ReadableStream'.
+src/worker-env.d.ts(2319,15): error TS2451: Cannot redeclare block-scoped variable 'ReadableStream'.
+src/worker-env.d.ts(2329,15): error TS2300: Duplicate identifier 'ReadableStreamDefaultReader'.
+src/worker-env.d.ts(2351,15): error TS2300: Duplicate identifier 'ReadableStreamBYOBReader'.
+src/worker-env.d.ts(2378,5): error TS2687: All declarations of 'mode' must have identical modifiers.
+src/worker-env.d.ts(2378,5): error TS2717: Subsequent property declarations must have the same type.  Property 'mode' must be of type '"byob" | undefined', but here has type '"byob"'.
+src/worker-env.d.ts(2385,24): error TS2300: Duplicate identifier 'ReadableStreamBYOBRequest'.
+src/worker-env.d.ts(2411,24): error TS2300: Duplicate identifier 'ReadableStreamDefaultController'.
+src/worker-env.d.ts(2442,24): error TS2300: Duplicate identifier 'ReadableByteStreamController'.
+src/worker-env.d.ts(2479,24): error TS2300: Duplicate identifier 'WritableStreamDefaultController'.
+src/worker-env.d.ts(2498,24): error TS2300: Duplicate identifier 'TransformStreamDefaultController'.
+src/worker-env.d.ts(2538,15): error TS2300: Duplicate identifier 'WritableStream'.
+src/worker-env.d.ts(2570,15): error TS2300: Duplicate identifier 'WritableStreamDefaultWriter'.
+src/worker-env.d.ts(2620,15): error TS2300: Duplicate identifier 'TransformStream'.
+src/worker-env.d.ts(2652,15): error TS2300: Duplicate identifier 'CompressionStream'.
+src/worker-env.d.ts(2660,15): error TS2300: Duplicate identifier 'DecompressionStream'.
+src/worker-env.d.ts(2668,15): error TS2300: Duplicate identifier 'TextEncoderStream'.
+src/worker-env.d.ts(2677,15): error TS2300: Duplicate identifier 'TextDecoderStream'.
+src/worker-env.d.ts(2692,15): error TS2300: Duplicate identifier 'ByteLengthQueuingStrategy'.
+src/worker-env.d.ts(2708,15): error TS2300: Duplicate identifier 'CountQueuingStrategy'.
+src/worker-env.d.ts(2852,15): error TS2300: Duplicate identifier 'URL'.
+src/worker-env.d.ts(3024,15): error TS2300: Duplicate identifier 'URLSearchParams'.
+src/worker-env.d.ts(3093,15): error TS2300: Duplicate identifier 'URLPattern'.
+src/worker-env.d.ts(3175,5): error TS2717: Subsequent property declarations must have the same type.  Property 'groups' must be of type 'Record<string, string | undefined>', but here has type 'Record<string, string>'.
+src/worker-env.d.ts(3196,15): error TS2300: Duplicate identifier 'CloseEvent'.
+src/worker-env.d.ts(3225,6): error TS2300: Duplicate identifier 'WebSocketEventMap'.
+src/worker-env.d.ts(3236,13): error TS2403: Subsequent variable declarations must have the same type.  Variable 'WebSocket' must be of type '{ new (url: string | URL, protocols?: string | string[] | undefined): WebSocket; prototype: WebSocket; readonly CONNECTING: 0; readonly OPEN: 1; readonly CLOSING: 2; readonly CLOSED: 3; }', but here has type '{ new (url: string, protocols?: string | string[] | undefined): WebSocket; prototype: WebSocket; readonly READY_STATE_CONNECTING: number; readonly CONNECTING: number; ... 5 more ...; readonly CLOSED: number; }'.
+src/worker-env.d.ts(3253,29): error TS2315: Type 'EventTarget' is not generic.
+src/worker-env.d.ts(3274,5): error TS2687: All declarations of 'readyState' must have identical modifiers.
+src/worker-env.d.ts(3274,5): error TS2717: Subsequent property declarations must have the same type.  Property 'readyState' must be of type '0 | 1 | 2 | 3', but here has type 'number'.
+src/worker-env.d.ts(3280,5): error TS2687: All declarations of 'url' must have identical modifiers.
+src/worker-env.d.ts(3280,5): error TS2717: Subsequent property declarations must have the same type.  Property 'url' must be of type 'string', but here has type 'string | null'.
+src/worker-env.d.ts(3286,5): error TS2687: All declarations of 'protocol' must have identical modifiers.
+src/worker-env.d.ts(3286,5): error TS2717: Subsequent property declarations must have the same type.  Property 'protocol' must be of type 'string', but here has type 'string | null'.
+src/worker-env.d.ts(3292,5): error TS2687: All declarations of 'extensions' must have identical modifiers.
+src/worker-env.d.ts(3292,5): error TS2717: Subsequent property declarations must have the same type.  Property 'extensions' must be of type 'string', but here has type 'string | null'.
+src/worker-env.d.ts(3366,15): error TS2300: Duplicate identifier 'EventSource'.
+src/worker-env.d.ts(3511,24): error TS2300: Duplicate identifier 'MessagePort'.
+src/worker-env.d.ts(3538,15): error TS2300: Duplicate identifier 'MessageChannel'.
+src/worker-env.d.ts(3631,24): error TS2300: Duplicate identifier 'Performance'.
+
+EXIT_CODE=1

@@ -1,0 +1,14 @@
+✔ formatting checks prune unreadable caches and still reject unformatted source (972.8087ms)
+✔ lint ignores generated Python caches while checking maintained sources (8218.9476ms)
+✔ all six workspace boundaries are private and typechecked (445.2571ms)
+✔ root commands run real checks and pin direct dependencies (6.8549ms)
+✔ Python service and future infrastructure retain separate ownership (167.8933ms)
+✔ Git excludes secrets and generated artifacts but retains safe examples and locks (91.2032ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 27117.4814

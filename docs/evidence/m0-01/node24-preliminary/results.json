@@ -1,0 +1,10 @@
+{
+  "runtime": "v24.0.0",
+  "exact_pin_verified": false,
+  "checks": {
+    "lint": 0,
+    "typecheck": 0,
+    "test": 0,
+    "python-test": 0
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "expo-modules-core": "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\node_modules\\.pnpm\\expo-modules-core@57.0.24_r_3bbee278a5abd2e3a0817a8a131a278c\\node_modules\\expo-modules-core\\package.json",
+    "react-native": "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\node_modules\\.pnpm\\react-native@0.86.3_@babel+_7eeaef4687b6d7298add7b6014b965dc\\node_modules\\react-native\\package.json"
+  },
+  "asset": {
+    "expo-modules-core": "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\node_modules\\.pnpm\\expo-modules-core@57.0.24_r_3bbee278a5abd2e3a0817a8a131a278c\\node_modules\\expo-modules-core\\package.json",
+    "react-native": "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\node_modules\\.pnpm\\react-native@0.86.3_@babel+_7eeaef4687b6d7298add7b6014b965dc\\node_modules\\react-native\\package.json"
+  },
+  "constants": {
+    "expo-modules-core": "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\node_modules\\.pnpm\\expo-modules-core@57.0.24_r_3bbee278a5abd2e3a0817a8a131a278c\\node_modules\\expo-modules-core\\package.json",
+    "react-native": "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\node_modules\\.pnpm\\react-native@0.86.3_@babel+_7eeaef4687b6d7298add7b6014b965dc\\node_modules\\react-native\\package.json"
+  },
+  "router": {
+    "expo-modules-core": "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\node_modules\\.pnpm\\expo-modules-core@57.0.24_r_3bbee278a5abd2e3a0817a8a131a278c\\node_modules\\expo-modules-core\\package.json",
+    "react-native": "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\node_modules\\.pnpm\\react-native@0.86.3_@babel+_7eeaef4687b6d7298add7b6014b965dc\\node_modules\\react-native\\package.json"
+  }
+}

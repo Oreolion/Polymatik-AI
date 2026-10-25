@@ -1,0 +1,18 @@
+apps/mobile/src/app/_layout.tsx 735ms (unchanged)
+apps/mobile/src/app/(auth)/sign-in.tsx 12ms (unchanged)
+apps/mobile/src/app/(tabs)/_layout.tsx 27ms (unchanged)
+apps/mobile/src/app/(tabs)/index.tsx 8ms (unchanged)
+apps/mobile/src/app/(tabs)/learn.tsx 4ms (unchanged)
+apps/mobile/src/app/(tabs)/library.tsx 2ms (unchanged)
+apps/mobile/src/app/(tabs)/profile.tsx 4ms (unchanged)
+apps/mobile/src/app/(tabs)/search.tsx 6ms (unchanged)
+apps/mobile/src/app/+not-found.tsx 6ms (unchanged)
+apps/mobile/src/components/page.tsx 42ms (unchanged)
+apps/mobile/src/components/route-button.tsx 20ms (unchanged)
+apps/mobile/src/components/use-palette.ts 6ms (unchanged)
+apps/mobile/src/index.ts 7ms (unchanged)
+apps/mobile/tests/navigation.test.tsx 20ms (unchanged)
+apps/mobile/babel.config.json 3838ms (unchanged)
+tests/contracts/mobile-config.test.mjs 399ms
+
+Exit: 0

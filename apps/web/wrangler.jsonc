@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "polymatik-web-spike",
+  "compatibility_date": "2026-10-12",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "vinext/server/fetch-handler",
+  "assets": {
+    "directory": "dist/client",
+    "not_found_handling": "none",
+    "binding": "ASSETS",
+  },
+  "vars": { "SPIKE_FIXTURE": "local-only-fixture" },
+  "dev": { "ip": "127.0.0.1", "port": 8787 },
+}

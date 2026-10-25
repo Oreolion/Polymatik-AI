@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-23",
+  "commit": null,
+  "runtime": "Node v24.22.1 / pnpm 10.4.1 / Windows",
+  "status": "M0-04 source/contract gate passed; native runtime/packaging pending owner check",
+  "sourceFiles": {
+    "package.json": "caa877b3bbf4c6aa19ab49d32a31e03629761371dea4fe4eb7e390e704dc7f4f",
+    ".prettierignore": "6d8f295967f16806189277d8754e7b3010366e23db9d69733e456206f99c0b7d",
+    ".github/workflows/ci.yml": "154804a64ea2a63b8afee314f2bc20c135bce3623f282810c266bf53d1df858c",
+    "infra/github/workflows/ci.yml": "154804a64ea2a63b8afee314f2bc20c135bce3623f282810c266bf53d1df858c",
+    "scripts/generate-api.mjs": "9e88f997cb42c3bfb003dcc7185253cdae3933619d4903777ec4b0761ef14ee3",
+    "apps/api/package.json": "186bc21810865fee709e7dc20cb52f5373451e5686c1452a9893e9a83e7577a4",
+    "apps/api/tsconfig.json": "087cdcbe1b66e02127560c50230b677973c48a7126d00f2de08a6e12c4fe535f",
+    "apps/api/wrangler.jsonc": "4c4d66c9dc9350dca025fc92d8ecc8f75313e37a1ff2b5168629aa39d36dee17",
+    "apps/api/src/index.ts": "578d69630058593db0d2d8963aaa59be992b4535bb119ef6da1cd90ac3ba064c",
+    "apps/api/src/worker.ts": "5f9faa88a38d58a0eac47aff16bbfd5f051324f7bf92d377246c5f00890c978c",
+    "apps/api/src/worker-env.d.ts": "a04ba7126f7675cfdadb439099c4447f93187bd885fcce787758a491bd7e9b14",
+    "apps/web/package.json": "58c5e401cd65838ed3db20fbcfd03f1fb4ed79b60f23ba79fbd3e7a10a53aa04",
+    "apps/web/src/api.ts": "f0a81561b131c8b06f5636861f01025c1d76ac1a8234712bc778660f11e0f740",
+    "apps/mobile/package.json": "206855154267e80b4612d2d9f37e9d15151f26be213040e2844f200ae9213c14",
+    "apps/mobile/tsconfig.json": "3d565d44c810d8f8067124feb81d029f4bc8a0f9a9549b896749d0e82ab7b425",
+    "apps/mobile/src/api.ts": "81028a1957ea89b8d2a4c5913e844a0d20c26b739448f0a579049c8c94e893bc",
+    "packages/domain-types/package.json": "9542a960b80619dcf2cb6701c06406a2dc411ac997a4b4ad42b20d38c63a8637",
+    "packages/domain-types/openapi/v1.json": "2751da6dc4a144cc3f782a6ce906697eb0fec72de9279f164b2fc07ffdaae717",
+    "packages/domain-types/src/index.ts": "dbf832f9e9dbe3d78f33da873bc1b77a2c1d764c74761a81befeb196ec6b7b38",
+    "packages/api-client/package.json": "40750515636704ad9c2eab3de3b77266426e090142c5a9e380b28262b522cbac",
+    "packages/api-client/tsconfig.json": "b6e120017b1dcbfe14a78bb322f050ce7220fe57ac0e90d26df12b504d535354",
+    "packages/api-client/src/index.ts": "5a032dbf4774f0ddd886e674c2968c9483c2284e9a932196145e574b1bd6f4ce",
+    "tests/contracts/api.test.mjs": "eefb129f29c4dc486a123128ad18c88dade90ba9d2f76b15d5b9b45308162315",
+    "tests/contracts/api-client.test.mjs": "5920d48dca3862ad20fa1189395d368a6ea4504b7b1ba61fd8c945880a34d0ce",
+    "tests/contracts/api-runtime.test.mjs": "af79b3718d375bc312c369d10cf0b553c6afc04d0962dc50300fc159ef97b565",
+    "packages/domain-types/src/api.generated.ts": "060af4194de9de1643203918942ecdfc1a783d804c740f433c5a89755de825b8",
+    "pnpm-lock.yaml": "f22032f7bc53f5e0bb014dfb0b2b4671103b73b4d9dce21e2db4cb8eef3fb266"
+  },
+  "results": {
+    "generation": 0,
+    "apiClientContracts": {
+      "passed": 12,
+      "failed": 0
+    },
+    "fullLint": 0,
+    "fullTypecheck": 0,
+    "rootSuite": {
+      "passed": 38,
+      "failed": 0,
+      "skipped": 0
+    },
+    "frozenLockConsistency": 0,
+    "ciStatic": 0,
+    "nativeWorkerRuntime": 1,
+    "nativePackagingInitial": 1,
+    "nativePackagingExplicitLocal": "pending owner check"
+  },
+  "lockfileUpdated": true,
+  "remoteCI": "unrun",
+  "deployment": "none",
+  "ownerInstallRequested": false,
+  "ownerNativeChecksRequested": true
+}

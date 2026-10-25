@@ -1,0 +1,28 @@
+✖ Worker compatibility date is supported by every locked workerd runtime (9.8616ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 269.4244
+
+✖ failing tests:
+
+test at tests\contracts\web-config.test.mjs:5:1
+✖ Worker compatibility date is supported by every locked workerd runtime (9.8616ms)
+  AssertionError [ERR_ASSERTION]: 2026-10-22 exceeds the locked runtime date 2026-10-12
+      at TestContext.<anonymous> (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/tests/contracts/web-config.test.mjs:14:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1062:25)
+      at Test.start (node:internal/test_runner/test:959:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:332:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '=='
+  }
+
+EXIT_CODE=1

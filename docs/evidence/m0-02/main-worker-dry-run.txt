@@ -1,0 +1,17 @@
+
+ ⛅️ wrangler 4.152.0
+────────────────────
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mBuild failed with 2 errors:[0m
+
+  [31mX [41;31m[[41;97mERROR[41;31m][0m [1mCannot read directory "../../../../../../../..": Access is denied.[0m
+  
+  
+  [31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\apps\\web\\dist\\server\\index.js"[0m
+  
+  
+
+
+🪵  Logs were written to "C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\.cache\wrangler-logs\wrangler-2026-10-22_23-23-47_433.log"
+
+EXIT_CODE=1

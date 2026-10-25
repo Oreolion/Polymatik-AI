@@ -1,0 +1,29 @@
+{
+  "recordedUtc": "2026-10-23T18:24:33.994854+00:00",
+  "ticket": "UI-02 SDK 58 peer repair",
+  "ownerInstall": "first SDK 58 install completed in 5m 40.9s; 202 added, 118 downloaded; peer mismatches remain",
+  "evidence": [
+    "sdk58-installed-peer-diagnosis.json",
+    "sdk58-peer-contract-red.txt",
+    "sdk58-root-contract-types.txt",
+    "sdk58-peer-format.txt"
+  ],
+  "redResult": "new peer contract reproduces all eight mismatches",
+  "agentValidation": "root TypeScript contract check passed; full workspace/runtime checks pending",
+  "targetPins": {
+    "@expo/dom-webview": "58.0.2",
+    "@expo/metro-runtime": "58.0.15",
+    "expo-constants": "58.0.13",
+    "react-server-dom-webpack": "19.3.0",
+    "jest": "30.4.2",
+    "@types/jest": "30.0.0"
+  },
+  "sourceSha256": {
+    "apps/mobile/package.json": "ac9be6ba4c347fdf7246d77c7a5911da597d0e440effe8660206e3d0a6207620",
+    "tests/contracts/mobile-config.test.mjs": "6517e59e5df8121095b35051706024d83e10be6c604ef4849624363d144ffca9",
+    "pnpm-lock.yaml": "176e5d47dd65bdeaa2670b3eac3fe0df8194c80b1ac18960b2ecda526f7f7bb1"
+  },
+  "next": "owner strict non-frozen install; then full checks and phone startup",
+  "source": "https://github.com/jestjs/jest/blob/v30.4.2/packages/jest/package.json",
+  "release": "none"
+}

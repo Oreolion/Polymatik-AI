@@ -1,0 +1,30 @@
+[
+  {
+    "check": "format",
+    "exitCode": 0,
+    "timedOut": false,
+    "seconds": 0.69,
+    "log": "docs\\evidence\\ui-02\\recovery-format.txt"
+  },
+  {
+    "check": "lint",
+    "exitCode": 1,
+    "timedOut": false,
+    "seconds": 2.69,
+    "log": "docs\\evidence\\ui-02\\recovery-lint.txt"
+  },
+  {
+    "check": "typecheck",
+    "exitCode": 1,
+    "timedOut": false,
+    "seconds": 1.05,
+    "log": "docs\\evidence\\ui-02\\recovery-typecheck.txt"
+  },
+  {
+    "check": "tests",
+    "exitCode": 1,
+    "timedOut": false,
+    "seconds": 30.28,
+    "log": "docs\\evidence\\ui-02\\recovery-tests.txt"
+  }
+]

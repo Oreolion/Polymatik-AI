@@ -1,0 +1,17 @@
+✔ SSR includes request-specific data in initial HTML and a client-component boundary (564.7483ms)
+✔ dynamic routing and not-found behavior work (774.3187ms)
+✔ JSON handlers validate input and reject unsupported methods (426.104ms)
+✔ auth placeholder rejects absent and forged client identity (137.8116ms)
+✔ SSE is incremental, bounded and ordered (365.616ms)
+✔ disconnecting a stream leaves the Worker responsive (132.6389ms)
+✔ static assets and the local Worker binding are available (301.0804ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2917.5404
+
+EXIT_CODE=0

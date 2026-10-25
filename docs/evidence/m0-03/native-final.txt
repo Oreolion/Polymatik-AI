@@ -1,0 +1,17 @@
+PASS iOS tests/navigation.test.tsx (53.024 s)
+  mobile route boundaries
+    √ opens Discover, follows sign-in, and returns without creating a session (9376 ms)
+    √ opens the /search tab by deep link (314 ms)
+    √ opens the /library tab by deep link (288 ms)
+    √ opens the /learn tab by deep link (266 ms)
+    √ opens the /profile tab by deep link (278 ms)
+    √ rejects a fabricated sign-in parameter as a session (334 ms)
+    √ offers a recovery link for an unknown route (894 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       7 passed, 7 total
+Snapshots:   0 total
+Time:        56.354 s, estimated 254 s
+Ran all test suites.
+
+Exit: 0

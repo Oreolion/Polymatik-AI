@@ -1,0 +1,12 @@
+✔ preview filters intersect topic, search, dismissed and saved selections (2.5957ms)
+✔ device saves store only known resource IDs and deduplicate (0.7416ms)
+✔ blocked writes fail before saved state can be acknowledged (0.7294ms)
+✔ malformed or future save data is preserved rather than silently overwritten (0.401ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 236.2497

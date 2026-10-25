@@ -1,0 +1,25 @@
+file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/tests/contracts/api.test.mjs:3
+import { createApi } from '../../apps/api/src/index.ts';
+         ^^^^^^^^^
+SyntaxError: The requested module '../../apps/api/src/index.ts' does not provide an export named 'createApi'
+    at #asyncInstantiate (node:internal/modules/esm/module_job:455:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:553:5)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.22.1
+✖ tests\contracts\api.test.mjs (277.4576ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 299.6754
+
+✖ failing tests:
+
+test at tests\contracts\api.test.mjs:1:1
+✖ tests\contracts\api.test.mjs (277.4576ms)
+  'test failed'

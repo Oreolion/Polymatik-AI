@@ -1,0 +1,32 @@
+{
+  "os": "Windows-11-10.0.26200-SP0",
+  "shell": "Windows PowerShell 5.1.26100.9711",
+  "tools": {
+    "node": {
+      "exit_code": 0,
+      "version": "v25.9.0"
+    },
+    "pnpm.cmd": {
+      "exit_code": 0,
+      "version": "10.4.1"
+    },
+    "python": {
+      "exit_code": 0,
+      "version": "Python 3.12.6"
+    },
+    "uv": {
+      "exit_code": 0,
+      "version": "uv 0.11.7 (9d177269e 2026-04-15 x86_64-pc-windows-msvc)"
+    },
+    "git": {
+      "exit_code": 0,
+      "version": "git version 2.47.0.windows.2"
+    }
+  },
+  "docker": {
+    "observed_version": "28.2.2",
+    "note": "initial probe could not read user Docker config; Docker not used"
+  },
+  "wrangler_on_path": false,
+  "java_on_path": false
+}

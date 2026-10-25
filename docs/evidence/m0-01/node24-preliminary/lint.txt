@@ -1,0 +1,9 @@
+Runtime: v24.0.0 (preliminary; exact pin is 24.22.1)
+Command: pnpm.cmd lint
+Exit code: 0
+
+> polymatik-ai@0.0.0 lint C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+> eslint . --max-warnings 0 && prettier --check . "!**/{.cache,.pnpm-store,.venv,.pytest_cache,.ruff_cache,.mypy_cache,__pycache__,.next,.expo,.wrangler,dist,build,coverage,playwright-report,test-results}/**"
+
+Checking formatting...
+All matched files use Prettier code style!

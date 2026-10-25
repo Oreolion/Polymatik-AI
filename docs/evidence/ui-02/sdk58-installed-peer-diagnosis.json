@@ -1,0 +1,385 @@
+{
+  "expo": {
+    "name": "expo",
+    "version": "58.0.16",
+    "path": "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\node_modules\\.pnpm\\expo@58.0.16_@babel+core@7._f4d26a32b9dd9efa626a72031bf07aa1\\node_modules\\expo\\package.json",
+    "dependencies": {
+      "@babel/runtime": "^7.20.0",
+      "@expo/cli": "^58.1.13",
+      "@expo/config": "~58.0.6",
+      "@expo/config-plugins": "~58.0.9",
+      "@expo/devtools": "~58.0.2",
+      "@expo/dom-webview": "~58.0.2",
+      "@expo/fingerprint": "^0.21.5",
+      "@expo/local-build-cache-provider": "^58.0.6",
+      "@expo/log-box": "^58.0.12",
+      "@expo/log-box-utils": "^58.0.2",
+      "@expo/metro": "~58.0.0",
+      "@expo/metro-config": "~58.0.15",
+      "@ungap/structured-clone": "^1.3.0",
+      "babel-preset-expo": "~58.0.18",
+      "expo-asset": "~58.0.17",
+      "expo-constants": "~58.0.12",
+      "expo-file-system": "~58.0.10",
+      "expo-font": "~58.0.9",
+      "expo-keep-awake": "~58.0.3",
+      "expo-modules-autolinking": "~58.0.13",
+      "expo-modules-cli": "~0.3.1",
+      "expo-modules-core": "~58.0.23",
+      "pretty-format": "^29.7.0",
+      "react-refresh": "^0.14.2",
+      "whatwg-url-minimum": "^0.2.0"
+    },
+    "peerDependencies": {
+      "@expo/dom-webview": "*",
+      "@expo/metro-runtime": "*",
+      "react": "*",
+      "react-dom": "*",
+      "react-native": "*",
+      "react-native-web": "*",
+      "react-native-webview": "*"
+    },
+    "peerDependenciesMeta": {
+      "@expo/dom-webview": {
+        "optional": true
+      },
+      "@expo/metro-runtime": {
+        "optional": true
+      },
+      "react-dom": {
+        "optional": true
+      },
+      "react-native-web": {
+        "optional": true
+      },
+      "react-native-webview": {
+        "optional": true
+      }
+    },
+    "license": "MIT"
+  },
+  "cli": {
+    "name": "@expo/cli",
+    "version": "58.1.14",
+    "path": "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\node_modules\\.pnpm\\@expo+cli@58.1.14_@expo+dom_57e3bed639fd68741a1860bfddb13c93\\node_modules\\@expo\\cli\\package.json",
+    "dependencies": {
+      "2g": "^1.0.1",
+      "@expo/code-signing-certificates": "^0.0.7",
+      "@expo/config": "~58.0.7",
+      "@expo/config-plugins": "~58.0.10",
+      "@expo/devcert": "^1.2.2",
+      "@expo/env": "~2.5.3",
+      "@expo/image-utils": "^0.12.5",
+      "@expo/inline-modules": "^0.2.7",
+      "@expo/json-file": "^11.2.1",
+      "@expo/log-box": "^58.0.13",
+      "@expo/log-box-utils": "^58.0.2",
+      "@expo/metro": "~58.0.0",
+      "@expo/metro-config": "58.0.16",
+      "@expo/metro-file-map": "^58.0.5",
+      "@expo/osascript": "^2.8.1",
+      "@expo/package-manager": "^1.14.2",
+      "@expo/platforms": "^58.0.1",
+      "@expo/plist": "^0.10.1",
+      "@expo/prebuild-config": "^58.0.15",
+      "@expo/require-utils": "^58.0.4",
+      "@expo/router-server": "^58.0.16",
+      "@expo/schema-utils": "^58.0.2",
+      "@expo/spawn-async": "^1.8.0",
+      "@expo/ws-tunnel": "^2.0.1",
+      "@expo/xcpretty": "^4.4.6",
+      "@react-native/asset-utils": "0.88.0",
+      "@react-native/dev-middleware": "0.88.0",
+      "@react-native/js-polyfills": "0.88.0",
+      "accepts": "^1.3.8",
+      "agent-cli-detector": "0.1.7",
+      "arg": "^5.0.2",
+      "bplist-creator": "0.1.0",
+      "bplist-parser": "^0.3.1",
+      "chalk": "^4.0.0",
+      "ci-info": "^3.3.0",
+      "compression": "^1.7.4",
+      "connect": "^3.7.0",
+      "dnssd-advertise": "^1.1.6",
+      "expo-server": "^58.0.5",
+      "fetch-nodeshim": "^0.4.10",
+      "getenv": "^2.0.0",
+      "glob": "^13.0.0",
+      "lan-network": "^0.2.1",
+      "multitars": "^1.0.2",
+      "node-forge": "^1.4.0",
+      "npm-package-arg": "^11.0.0",
+      "ora": "^3.4.0",
+      "picomatch": "^4.0.4",
+      "pretty-format": "^29.7.0",
+      "progress": "^2.0.3",
+      "prompts": "^2.3.2",
+      "resolve-from": "^5.0.0",
+      "sandbox-cli-detector": "^0.2.0",
+      "semver": "^7.7.4",
+      "send": "^0.19.0",
+      "slugify": "^1.3.4",
+      "stacktrace-parser": "^0.1.10",
+      "structured-headers": "^0.4.1",
+      "terminal-link": "^2.1.1",
+      "toqr": "^0.1.1",
+      "wrap-ansi": "^7.0.0",
+      "ws": "^8.12.1",
+      "zod": "^3.25.76"
+    },
+    "peerDependencies": {
+      "expo": "*",
+      "expo-router": "*",
+      "react-native": "*"
+    },
+    "peerDependenciesMeta": {
+      "expo-router": {
+        "optional": true
+      },
+      "react-native": {
+        "optional": true
+      }
+    },
+    "license": "MIT"
+  },
+  "server": {
+    "name": "@expo/router-server",
+    "version": "58.0.16",
+    "path": "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\node_modules\\.pnpm\\@expo+router-server@58.0.16_3600a91bd3b669449cf0f5a887df8d31\\node_modules\\@expo\\router-server\\package.json",
+    "dependencies": {
+      "debug": "^4.3.4"
+    },
+    "peerDependencies": {
+      "@expo/metro-runtime": "^58.0.15",
+      "expo": "*",
+      "expo-constants": "^58.0.13",
+      "expo-font": "^58.0.9",
+      "expo-router": "*",
+      "expo-server": "^58.0.5",
+      "react": "*",
+      "react-dom": "*",
+      "react-server-dom-webpack": "~19.0.1 || ~19.1.2 || ~19.2.1 || ~19.3.0"
+    },
+    "peerDependenciesMeta": {
+      "@expo/metro-runtime": {
+        "optional": true
+      },
+      "expo-router": {
+        "optional": true
+      },
+      "react-dom": {
+        "optional": true
+      },
+      "react-server-dom-webpack": {
+        "optional": true
+      }
+    },
+    "license": "MIT"
+  },
+  "router": {
+    "name": "expo-router",
+    "version": "58.0.24",
+    "path": "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\node_modules\\.pnpm\\expo-router@58.0.24_20bd7e9e3fe37b066573fc8c082e78ad\\node_modules\\expo-router\\package.json",
+    "dependencies": {
+      "@expo/log-box": "^58.0.12",
+      "@expo/metro-runtime": "^58.0.14",
+      "@expo/schema-utils": "^58.0.2",
+      "@radix-ui/react-slot": "^1.2.0",
+      "@radix-ui/react-tabs": "^1.1.12",
+      "@react-native-masked-view/masked-view": "^0.3.2",
+      "@react-native/normalize-colors": "0.88.0",
+      "client-only": "^0.0.1",
+      "expo-glass-effect": "^58.0.4",
+      "expo-server": "^58.0.5",
+      "nanoid": "^3.3.18",
+      "react-fast-compare": "^3.2.2",
+      "react-is": "^19.1.0",
+      "react-native-drawer-layout": "^4.2.12",
+      "react-native-screens": "^4.30.0 || ^5.0.0-alpha.3",
+      "server-only": "^0.0.1",
+      "sf-symbols-typescript": "^2.1.0",
+      "standard-navigation": "^0.0.5"
+    },
+    "peerDependencies": {
+      "@expo/log-box": "^58.0.12",
+      "@expo/metro-runtime": "^58.0.14",
+      "@expo/ui": "^58.0.21",
+      "@testing-library/react-native": ">= 14.0.0",
+      "expo": "*",
+      "expo-constants": "^58.0.12",
+      "expo-linking": "^58.0.13",
+      "expo-symbols": "^58.0.4",
+      "react": "*",
+      "react-dom": "*",
+      "react-native": "*",
+      "react-native-gesture-handler": "*",
+      "react-native-reanimated": "*",
+      "react-native-safe-area-context": ">= 5.4.0",
+      "react-native-screens": "^4.30.0 || ^5.0.0-alpha.3",
+      "react-native-web": "*",
+      "react-native-worklets": "*",
+      "react-server-dom-webpack": "~19.0.4 || ~19.1.5 || ~19.2.4 || ~19.3.0"
+    },
+    "peerDependenciesMeta": {
+      "@expo/ui": {
+        "optional": true
+      },
+      "expo-symbols": {
+        "optional": true
+      },
+      "@testing-library/react-native": {
+        "optional": true
+      },
+      "react-dom": {
+        "optional": true
+      },
+      "react-native-gesture-handler": {
+        "optional": true
+      },
+      "react-native-reanimated": {
+        "optional": true
+      },
+      "react-native-web": {
+        "optional": true
+      },
+      "react-native-worklets": {
+        "optional": true
+      },
+      "react-server-dom-webpack": {
+        "optional": true
+      }
+    },
+    "license": "MIT"
+  },
+  "metroRuntime": {
+    "name": "@expo/metro-runtime",
+    "version": "57.0.17",
+    "path": "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\node_modules\\.pnpm\\@expo+metro-runtime@57.0.17_0427d473c1d14eed2992928324a66258\\node_modules\\@expo\\metro-runtime\\package.json",
+    "dependencies": {
+      "@expo/log-box": "^57.0.4",
+      "anser": "^1.4.9",
+      "stacktrace-parser": "^0.1.10",
+      "pretty-format": "^29.7.0",
+      "whatwg-fetch": "^3.0.0"
+    },
+    "peerDependencies": {
+      "@expo/log-box": "^57.0.4",
+      "expo": "*",
+      "react": "*",
+      "react-dom": "*",
+      "react-native": "*"
+    },
+    "peerDependenciesMeta": {
+      "react-dom": {
+        "optional": true
+      }
+    },
+    "license": "MIT"
+  },
+  "logBox": {
+    "name": "@expo/log-box",
+    "version": "58.0.13",
+    "path": "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\node_modules\\.pnpm\\@expo+log-box@58.0.13_@expo_a7046858f5139126a1e9a85643418508\\node_modules\\@expo\\log-box\\package.json",
+    "dependencies": {
+      "@expo/dom-webview": "^58.0.2",
+      "@expo/log-box-utils": "^58.0.2",
+      "anser": "^1.4.9",
+      "stacktrace-parser": "^0.1.10"
+    },
+    "peerDependencies": {
+      "@expo/dom-webview": "^58.0.2",
+      "expo": "*",
+      "react": "*",
+      "react-native": "*"
+    },
+    "peerDependenciesMeta": {
+      "expo": {
+        "optional": true
+      }
+    },
+    "license": "MIT"
+  },
+  "domWebview": {
+    "name": "@expo/dom-webview",
+    "version": "57.0.1",
+    "path": "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\node_modules\\.pnpm\\@expo+dom-webview@57.0.1_ex_0b725371ded01794068aa40d502e67b0\\node_modules\\@expo\\dom-webview\\package.json",
+    "dependencies": {},
+    "peerDependencies": {
+      "expo": "*",
+      "react": "*",
+      "react-native": "*"
+    },
+    "license": "MIT"
+  },
+  "reactServerDom": {
+    "name": "react-server-dom-webpack",
+    "version": "19.3.1",
+    "path": "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\node_modules\\.pnpm\\react-server-dom-webpack@19_880ed6c61bbd3eefea7552f888cc4958\\node_modules\\react-server-dom-webpack\\package.json",
+    "dependencies": {
+      "acorn-loose": "^8.3.0",
+      "neo-async": "^2.6.1",
+      "webpack-sources": "^3.2.0"
+    },
+    "peerDependencies": {
+      "react": "^19.3.1",
+      "react-dom": "^19.3.1",
+      "webpack": "^5.59.0"
+    },
+    "license": "MIT"
+  },
+  "jestExpo": {
+    "name": "jest-expo",
+    "version": "58.0.11",
+    "path": "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\node_modules\\.pnpm\\jest-expo@58.0.11_@babel+co_c3caac99615cd020b0ece9da812ec0f7\\node_modules\\jest-expo\\package.json",
+    "dependencies": {
+      "@jest/create-cache-key-function": "^30.0.0",
+      "@jest/globals": "^30.0.0",
+      "babel-jest": "^30.0.0",
+      "jest-environment-jsdom": "^30.0.0",
+      "jest-environment-node": "^30.0.0",
+      "jest-mock": "^30.0.0",
+      "jest-snapshot": "^30.0.0",
+      "jest-watch-select-projects": "^2.0.0",
+      "jest-watch-typeahead": "^3.0.1",
+      "json5": "^2.2.3",
+      "lodash": "^4.18.1",
+      "server-only": "^0.0.1",
+      "stacktrace-js": "^2.0.2",
+      "test-renderer": "1.3.0"
+    },
+    "peerDependencies": {
+      "@react-native/jest-preset": "^0.88.0",
+      "expo": "*",
+      "jest": "^29.0.0 || ^30.0.0",
+      "react-native": "*",
+      "react-server-dom-webpack": "~19.0.4 || ~19.1.5 || ~19.2.4 || ~19.3.0"
+    },
+    "peerDependenciesMeta": {
+      "expo": {
+        "optional": true
+      },
+      "react-server-dom-webpack": {
+        "optional": true
+      }
+    },
+    "license": "MIT"
+  },
+  "jestWatch": {
+    "name": "jest-watch-typeahead",
+    "version": "3.0.1",
+    "path": "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\node_modules\\.pnpm\\jest-watch-typeahead@3.0.1_jest@29.7.0_@types+node@26.6.5_\\node_modules\\jest-watch-typeahead\\package.json",
+    "dependencies": {
+      "ansi-escapes": "^7.0.0",
+      "chalk": "^5.2.0",
+      "jest-regex-util": "^30.0.0",
+      "jest-watcher": "^30.0.0",
+      "slash": "^5.0.0",
+      "string-length": "^6.0.0",
+      "strip-ansi": "^7.0.1"
+    },
+    "peerDependencies": {
+      "jest": "^30.0.0"
+    },
+    "license": "MIT"
+  }
+}

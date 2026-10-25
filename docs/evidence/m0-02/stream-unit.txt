@@ -1,0 +1,17 @@
+(node:32208) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ stream input is bounded and rejects duplicate or unexpected parameters (2.3314ms)
+✔ stream emits ordered events and closes at the requested count (91.2113ms)
+✔ request abort closes a stream before remaining events are emitted (10.8339ms)
+✔ consumer cancellation releases its timer without enqueueing after close (14.9819ms)
+✔ an already aborted request emits nothing and invalid bounds are rejected (2.4739ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 486.9389
+
+EXIT_CODE=0

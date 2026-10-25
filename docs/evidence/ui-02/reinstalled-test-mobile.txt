@@ -1,0 +1,14 @@
+
+> polymatik-ai@0.0.0 test:mobile C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+> pnpm --filter mobile test
+
+
+> mobile@0.0.0 test C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\apps\mobile
+> jest --runInBand
+
+
+Test Suites: 2 passed, 2 total
+Tests:       15 passed, 15 total
+Snapshots:   0 total
+Time:        189.904 s
+Ran all test suites.

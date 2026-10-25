@@ -1,0 +1,17 @@
+﻿✔ SSR includes request-specific data in initial HTML and a client-component boundary (1339.8162ms)
+✔ Discover renders source-attributed preview content before hydration (484.7045ms)
+✔ browser bootstrap module graph has no missing hydration dependencies (6277.1418ms)
+✔ dynamic routing and not-found behavior work (3605.9137ms)
+✔ JSON handlers validate input and reject unsupported methods (5887.8347ms)
+✔ auth placeholder rejects absent and forged client identity (328.4244ms)
+✔ SSE is incremental, bounded and ordered (713.8887ms)
+✔ disconnecting a stream leaves the Worker responsive (518.6071ms)
+✔ static assets and the local Worker binding are available (628.5481ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 28384.8382

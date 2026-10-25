@@ -1,0 +1,4 @@
+
+> mobile@0.0.0 typecheck C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\apps\mobile
+> tsc -p tsconfig.json
+

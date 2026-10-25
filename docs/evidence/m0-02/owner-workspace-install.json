@@ -1,0 +1,9 @@
+{
+  "source": "Owner-pasted terminal output",
+  "date": "2026-10-22",
+  "runtime": "Node 24.0.0 in isolated Git Bash",
+  "packageManager": "pnpm 10.4.1",
+  "command": "pnpm.cmd install --offline --frozen-lockfile --ignore-scripts",
+  "exit": "success reported by owner",
+  "output": "Scope: all 7 workspace projects\nLockfile is up to date, resolution step is skipped\nPackages: +284\nProgress: resolved 284, reused 283, downloaded 0, added 195, done\nDone in 21.9s using pnpm v10.4.1"
+}

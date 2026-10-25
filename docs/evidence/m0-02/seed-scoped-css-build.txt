@@ -1,0 +1,185 @@
+Build with app-scoped Tailwind source, Node 24.0.0
+(node:23464) ExperimentalWarning: glob is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/5] analyze client references...
+vite v8.3.5 building rsc environment for production...
+transforming...
+✓ 305 modules transformed.
+rendering chunks...
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mFailed to write to log file Error: EPERM: operation not permitted, open 'C:\Users\HP 240 G9\AppData\Roaming\xdg.config\.wrangler\logs\wrangler-2026-10-22_22-34-52_456.log'[0m
+
+      at async open (node:internal/fs/promises:634:25)
+      at async writeFile (node:internal/fs/promises:1208:14)
+      at async C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\.cache\polymatik-m0-02-seed\node_modules\.pnpm\wrangler@4.152.0_@types+node@26.6.5\node_modules\wrangler\wrangler-dist\cli.js:69690:7
+      at async Mutex.runWith (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\.cache\polymatik-m0-02-seed\node_modules\.pnpm\miniflare@5.20261019.2-beta_@types+node@26.6.5\node_modules\miniflare\dist\src\index.js:80712:16)
+      at async appendToDebugLogFile (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\.cache\polymatik-m0-02-seed\node_modules\.pnpm\wrangler@4.152.0_@types+node@26.6.5\node_modules\wrangler\wrangler-dist\cli.js:69687:3) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'open',
+    path: 'C:\\Users\\HP 240 G9\\AppData\\Roaming\\xdg.config\\.wrangler\\logs\\wrangler-2026-10-22_22-34-52_456.log'
+  }
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mWould have written: [0m
+
+  --- 2026-10-22T22:34:58.785Z debug
+  🪵  Writing logs to "C:\Users\HP 240 G9\AppData\Roaming\xdg.config\.wrangler\logs\wrangler-2026-10-22_22-34-52_456.log"
+  ---
+  
+
+
+[plugin rsc:virtual:vite-rsc/assets-manifest] [33m[SOURCEMAP_BROKEN] [0mSourcemap is likely to be incorrect: a plugin (rsc:virtual:vite-rsc/assets-manifest) was used to transform files, but didn't generate a sourcemap for the transformation. Consult the plugin documentation for help: https://rolldown.rs/guide/troubleshooting#warning-sourcemap-is-likely-to-be-incorrect
+
+[plugin vinext:action-owner-manifest] [33m[SOURCEMAP_BROKEN] [0mSourcemap is likely to be incorrect: a plugin (vinext:action-owner-manifest) was used to transform files, but didn't generate a sourcemap for the transformation. Consult the plugin documentation for help: https://rolldown.rs/guide/troubleshooting#warning-sourcemap-is-likely-to-be-incorrect
+
+✓ built in 3.39s
+[33m[PLUGIN_TIMINGS] [0mJavaScript callbacks ran for 2.6s of this 3.3s build (79%).
+5 callbacks are listed without a time. Their calls overlapped, so the time inside one call includes work from other calls. To find their cost, profile the build with `node --cpu-prof`:
+  - plugin rsc:virtual-client-package resolveId (1087 calls)
+  - plugin vinext:og-inline-fetch-assets resolveId (1101 calls)
+  - plugin alias resolveId (1189 calls)
+  … and 2 more
+See https://rolldown.rs/reference/InputOptions.checks#bundlertimings for more details.
+
+[2/5] analyze server references...
+vite v8.3.5 building ssr environment for production...
+transforming...
+✓ 140 modules transformed.
+rendering chunks...
+[plugin rsc:virtual:vite-rsc/assets-manifest] [33m[SOURCEMAP_BROKEN] [0mSourcemap is likely to be incorrect: a plugin (rsc:virtual:vite-rsc/assets-manifest) was used to transform files, but didn't generate a sourcemap for the transformation. Consult the plugin documentation for help: https://rolldown.rs/guide/troubleshooting#warning-sourcemap-is-likely-to-be-incorrect
+
+✓ built in 843ms
+[3/5] build rsc environment...
+vite v8.3.5 building rsc environment for production...
+transforming...
+✓ 291 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/server/__vinext_cacheability_manifest.js                                                                                                0.02 kB
+dist/server/__vinext_cacheability_request_projection.js                                                                                      0.02 kB
+dist/server/__vinext_pregenerated_concrete_paths.js                                                                                          0.05 kB
+dist/server/wrangler.json                                                                                                                    1.49 kB │ gzip:  0.72 kB
+dist/server/.vite/manifest.json                                                                                                             21.08 kB │ gzip:  2.19 kB
+dist/server/_next/static/css/DWuQiXOa.css                                                                                                    8.43 kB │ gzip:  2.63 kB
+dist/server/_next/static/cacheability-limits-BTpP4ZoO.js                                                                                     0.11 kB │ gzip:  0.13 kB │ map:   1.04 kB
+dist/server/_next/static/route-D_sXMioO.js                                                                                                   0.14 kB │ gzip:  0.15 kB │ map:   0.32 kB
+dist/server/_next/static/work-unit-async-storage-DYfPVooM.js                                                                                 0.19 kB │ gzip:  0.17 kB │ map:   1.29 kB
+dist/server/_next/static/cache-headers-DYPVL_Q8.js                                                                                           0.19 kB │ gzip:  0.18 kB │ map:   1.17 kB
+dist/server/_next/static/isolate-shared-promise-CjXkRvTD.js                                                                                  0.29 kB │ gzip:  0.24 kB │ map:   2.11 kB
+dist/server/_next/static/app-prerender-static-params-Ckr_Obvc.js                                                                             0.34 kB │ gzip:  0.26 kB │ map:   5.60 kB
+dist/server/_next/static/base-path-Cmiu3HvG.js                                                                                               0.36 kB │ gzip:  0.26 kB │ map:   2.65 kB
+dist/server/_next/static/client-trace-metadata-DUR2PiYt.js                                                                                   0.40 kB │ gzip:  0.25 kB │ map:   5.91 kB
+dist/server/_next/static/asset-prefix-DG5zdfn4.js                                                                                            0.44 kB │ gzip:  0.29 kB │ map:   7.52 kB
+dist/server/_next/static/rolldown-runtime-XKyaHtl9.js                                                                                        0.72 kB │ gzip:  0.42 kB
+dist/server/_next/static/implicit-tags-Cn45X2NT.js                                                                                           0.76 kB │ gzip:  0.47 kB │ map:   3.87 kB
+dist/server/_next/static/root-params-T3x6DAKf.js                                                                                             0.76 kB │ gzip:  0.45 kB │ map:   5.47 kB
+dist/server/_next/static/isr-decision-BdUwJ4KV.js                                                                                            0.82 kB │ gzip:  0.42 kB │ map:   4.71 kB
+dist/server/_next/static/worker-prerender-discovery-TW2cq1-d.js                                                                              0.89 kB │ gzip:  0.52 kB │ map:   4.52 kB
+dist/server/_next/static/framework~index~layout~page~app-route-handler-dispatch~app-page-cache~app-page-cache-render-B-96GoJQ.js             0.95 kB │ gzip:  0.60 kB │ map:   2.79 kB
+dist/server/_next/static/app-static-generation-BX8cz43B.js                                                                                   0.97 kB │ gzip:  0.55 kB │ map:   2.29 kB
+dist/server/_next/static/http-error-responses-B2gV-Vqb.js                                                                                    1.01 kB │ gzip:  0.47 kB │ map:   6.13 kB
+dist/server/_next/static/cdn-cache-DgdnKDeR.js                                                                                               1.34 kB │ gzip:  0.73 kB │ map:   8.32 kB
+dist/server/_next/static/worker-image-optimization-C2J2YjGL.js                                                                               1.57 kB │ gzip:  0.85 kB │ map:   8.17 kB
+dist/server/_next/static/headers-DzMKYtev.js                                                                                                 2.62 kB │ gzip:  1.12 kB │ map:  21.69 kB
+dist/server/_next/static/app-prerender-endpoints-C45qwI2x.js                                                                                 2.62 kB │ gzip:  1.06 kB │ map:   8.86 kB
+dist/server/_next/static/page-Bnx90Ag8.js                                                                                                    2.67 kB │ gzip:  0.90 kB │ map:   4.64 kB
+dist/server/_next/static/app-page-cache-render-B6NjnEnw.js                                                                                   2.69 kB │ gzip:  1.24 kB │ map:   9.92 kB
+dist/server/_next/static/isr-cache-BsdHuPAT.js                                                                                               3.55 kB │ gzip:  1.78 kB │ map:  24.84 kB
+dist/server/_next/static/app-page-tracing-C08axIkv.js                                                                                        3.90 kB │ gzip:  1.94 kB │ map:  15.12 kB
+dist/server/_next/static/cache-handler-DIg1hzTU.js                                                                                           4.14 kB │ gzip:  1.58 kB │ map:  18.02 kB
+dist/server/_next/static/request-context-Dxts8gVm.js                                                                                         4.24 kB │ gzip:  1.70 kB │ map:  18.66 kB
+dist/server/_next/static/request-pipeline-g599yyfP.js                                                                                        5.03 kB │ gzip:  2.02 kB │ map:  45.28 kB
+dist/server/_next/static/middleware-response-headers-3_jawy1H.js                                                                             5.62 kB │ gzip:  2.27 kB │ map:  31.23 kB
+dist/server/_next/static/framework~index~layout~page~app-rsc-response-stage~app-route-handler-dispatch~app-page-cach~lmpojghk-CcOTYhCj.js    5.85 kB │ gzip:  2.44 kB │ map:  24.01 kB
+dist/server/_next/static/client-build-files-ctBGczC9.js                                                                                      6.34 kB │ gzip:  2.65 kB │ map:  35.73 kB
+dist/server/_next/static/response-stage-policy-DN8aiHhH.js                                                                                   7.00 kB │ gzip:  2.43 kB │ map:  32.54 kB
+dist/server/_next/static/app-page-cache-finalizer-BrmK1Ql9.js                                                                                7.19 kB │ gzip:  2.57 kB │ map:  26.33 kB
+dist/server/_next/static/app-rsc-response-stage-BfNH-Xoj.js                                                                                  7.60 kB │ gzip:  2.65 kB │ map:  23.47 kB
+dist/server/_next/static/app-page-cache-CzFOf0Zy.js                                                                                          7.64 kB │ gzip:  2.60 kB │ map:  52.83 kB
+dist/server/_next/static/config-headers-BC3mFoQW.js                                                                                          8.58 kB │ gzip:  3.50 kB │ map:  81.82 kB
+dist/server/_next/static/artifact-compatibility-CK7aCbQS.js                                                                                 10.23 kB │ gzip:  3.55 kB │ map:  64.16 kB
+dist/server/_next/static/cacheability-request-hVYiUSWP.js                                                                                   10.75 kB │ gzip:  3.71 kB │ map:  43.49 kB
+dist/server/_next/static/app-elements-DfqYnyJ5.js                                                                                           12.05 kB │ gzip:  4.12 kB │ map:  47.62 kB
+dist/server/_next/static/app-page-execution-6oLays8-.js                                                                                     12.13 kB │ gzip:  4.38 kB │ map:  60.70 kB
+dist/server/_next/static/prerender-work-unit-setup-DrRxVi3d.js                                                                              12.51 kB │ gzip:  4.72 kB │ map:  76.04 kB
+dist/server/_next/static/rsc-completion-metadata-C6gUVPyG.js                                                                                15.00 kB │ gzip:  5.44 kB │ map:  87.73 kB
+dist/server/_next/static/framework~index-Dx1du99X.js                                                                                        18.95 kB │ gzip:  6.26 kB │ map: 106.98 kB
+dist/server/_next/static/text-stream-B5rDJXzj.js                                                                                            19.60 kB │ gzip:  5.99 kB │ map:  71.51 kB
+dist/server/_next/static/fetch-cache-CEQfskS6.js                                                                                            34.42 kB │ gzip: 11.42 kB │ map: 184.57 kB
+dist/server/_next/static/app-route-handler-dispatch-DDEb_bx0.js                                                                             55.53 kB │ gzip: 19.54 kB │ map: 324.10 kB
+dist/server/_next/static/framework~index~app-route-handler-dispatch-DxhPEZok.js                                                             56.47 kB │ gzip: 17.26 kB │ map:  16.79 kB
+dist/server/index.js                                                                                                                       221.99 kB │ gzip: 64.30 kB │ map: 980.96 kB
+
+[33m[INEFFECTIVE_DYNAMIC_IMPORT] [0mapp/layout.tsx is dynamically imported by \0virtual:vinext-rsc-entry but also statically imported by \0virtual:vinext-rsc-entry, dynamic import will not move module into another chunk.
+
+[plugin rsc:inject-async-local-storage] [33m[SOURCEMAP_BROKEN] [0mSourcemap is likely to be incorrect: a plugin (rsc:inject-async-local-storage) was used to transform files, but didn't generate a sourcemap for the transformation. Consult the plugin documentation for help: https://rolldown.rs/guide/troubleshooting#warning-sourcemap-is-likely-to-be-incorrect
+
+[plugin rsc:inject-async-local-storage] [33m[SOURCEMAP_BROKEN] [0mSourcemap is likely to be incorrect: a plugin (rsc:inject-async-local-storage) was used to transform files, but didn't generate a sourcemap for the transformation. Consult the plugin documentation for help: https://rolldown.rs/guide/troubleshooting#warning-sourcemap-is-likely-to-be-incorrect
+
+[plugin rsc:virtual:vite-rsc/assets-manifest] [33m[SOURCEMAP_BROKEN] [0mSourcemap is likely to be incorrect: a plugin (rsc:virtual:vite-rsc/assets-manifest) was used to transform files, but didn't generate a sourcemap for the transformation. Consult the plugin documentation for help: https://rolldown.rs/guide/troubleshooting#warning-sourcemap-is-likely-to-be-incorrect
+
+[plugin vinext:action-owner-manifest] [33m[SOURCEMAP_BROKEN] [0mSourcemap is likely to be incorrect: a plugin (vinext:action-owner-manifest) was used to transform files, but didn't generate a sourcemap for the transformation. Consult the plugin documentation for help: https://rolldown.rs/guide/troubleshooting#warning-sourcemap-is-likely-to-be-incorrect
+
+✓ built in 2.52s
+[4/5] build client environment...
+vite v8.3.5 building client environment for production...
+`output.codeSplitting.groups[0].name` is a function. Set `output.codeSplitting.groups[0].debugName` so the bundler timing report can identify this group.
+transforming...
+✓ 148 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/client/.assetsignore                        0.02 kB
+dist/client/vinext-client-entry-manifest.json    0.05 kB │ gzip:  0.07 kB
+dist/client/.vite/manifest.json                  1.68 kB │ gzip:  0.43 kB
+dist/client/_next/static/css/DWuQiXOa.css        8.43 kB │ gzip:  2.63 kB
+dist/client/_next/static/chunks/DFqxsIZv.js      0.46 kB │ gzip:  0.31 kB
+dist/client/_next/static/chunks/q2j-RTo-.js      0.49 kB │ gzip:  0.30 kB
+dist/client/_next/static/chunks/XKyaHtl9.js      0.72 kB │ gzip:  0.42 kB
+dist/client/_next/static/chunks/COP9ITTX.js    111.05 kB │ gzip: 33.23 kB
+dist/client/_next/static/chunks/C--se8fB.js    119.91 kB │ gzip: 35.96 kB
+dist/client/_next/static/chunks/CLvDmS2G.js    219.24 kB │ gzip: 68.39 kB
+
+✓ built in 1.48s
+[5/5] build ssr environment...
+vite v8.3.5 building ssr environment for production...
+transforming...
+✓ 144 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/server/ssr/_next/static/app-prefetch-fetch-queue-CopZIb6O.js    0.12 kB │ gzip:  0.13 kB │ map:   5.04 kB
+dist/server/ssr/_next/static/static.edge-Ecj_PjJ1.js                 0.25 kB │ gzip:  0.19 kB │ map:   0.72 kB
+dist/server/ssr/_next/static/layout-segment-context-ByvUVady.js      0.46 kB │ gzip:  0.33 kB │ map:   3.49 kB
+dist/server/ssr/_next/static/streamed-icons-BtBaR2ok.js              0.74 kB │ gzip:  0.48 kB │ map:   2.86 kB
+dist/server/ssr/_next/static/client-page-root-DobDlFcK.js            1.37 kB │ gzip:  0.83 kB │ map: 116.32 kB
+dist/server/ssr/_next/static/app-router-scroll-cb3Z1c_b.js           2.86 kB │ gzip:  1.28 kB │ map:  15.93 kB
+dist/server/ssr/_next/static/error-boundary-II6ZEgDJ.js              5.95 kB │ gzip:  1.82 kB │ map:  27.88 kB
+dist/server/ssr/_next/static/react-1cso1KEy.js                       8.30 kB │ gzip:  3.23 kB │ map:  30.74 kB
+dist/server/ssr/index.js                                           302.05 kB │ gzip: 94.45 kB │ map: 913.58 kB
+
+[33m[INEFFECTIVE_DYNAMIC_IMPORT] [0mnode_modules/.pnpm/vinext@1.3.0_@types+node@26_9b67beee02f5bd8fb2f115da2f2e1598/node_modules/vinext/dist/shims/default-global-error.js is dynamically imported by \0virtual:vite-rsc/client-references but also statically imported by node_modules/.pnpm/vinext@1.3.0_@types+node@26_9b67beee02f5bd8fb2f115da2f2e1598/node_modules/vinext/dist/server/app-ssr-entry.js, node_modules/.pnpm/vinext@1.3.0_@types+node@26_9b67beee02f5bd8fb2f115da2f2e1598/node_modules/vinext/dist/shims/error-boundary.js, dynamic import will not move module into another chunk.
+
+[33m[INEFFECTIVE_DYNAMIC_IMPORT] [0mnode_modules/.pnpm/vinext@1.3.0_@types+node@26_9b67beee02f5bd8fb2f115da2f2e1598/node_modules/vinext/dist/shims/slot.js is dynamically imported by \0virtual:vite-rsc/client-references but also statically imported by node_modules/.pnpm/vinext@1.3.0_@types+node@26_9b67beee02f5bd8fb2f115da2f2e1598/node_modules/vinext/dist/server/app-route-tree.js, node_modules/.pnpm/vinext@1.3.0_@types+node@26_9b67beee02f5bd8fb2f115da2f2e1598/node_modules/vinext/dist/server/app-ssr-entry.js, node_modules/.pnpm/vinext@1.3.0_@types+node@26_9b67beee02f5bd8fb2f115da2f2e1598/node_modules/vinext/dist/shims/client-page-root.js, dynamic import will not move module into another chunk.
+
+[plugin rsc:inject-async-local-storage] [33m[SOURCEMAP_BROKEN] [0mSourcemap is likely to be incorrect: a plugin (rsc:inject-async-local-storage) was used to transform files, but didn't generate a sourcemap for the transformation. Consult the plugin documentation for help: https://rolldown.rs/guide/troubleshooting#warning-sourcemap-is-likely-to-be-incorrect
+
+[plugin rsc:inject-async-local-storage] [33m[SOURCEMAP_BROKEN] [0mSourcemap is likely to be incorrect: a plugin (rsc:inject-async-local-storage) was used to transform files, but didn't generate a sourcemap for the transformation. Consult the plugin documentation for help: https://rolldown.rs/guide/troubleshooting#warning-sourcemap-is-likely-to-be-incorrect
+
+[plugin rsc:virtual:vite-rsc/assets-manifest] [33m[SOURCEMAP_BROKEN] [0mSourcemap is likely to be incorrect: a plugin (rsc:virtual:vite-rsc/assets-manifest) was used to transform files, but didn't generate a sourcemap for the transformation. Consult the plugin documentation for help: https://rolldown.rs/guide/troubleshooting#warning-sourcemap-is-likely-to-be-incorrect
+
+✓ built in 3.42s
+
+  Route (app)
+  ┌ ? /         
+  └ λ /api/hello
+
+  λ API  ? Unknown
+
+  ? Some routes could not be classified. vinext currently uses static analysis
+    and cannot detect dynamic API usage (headers(), cookies(), etc.) at build time.
+    Automatic classification will be improved in a future release.
+
+  Build complete.
+
+🪵  Logs were written to "C:\Users\HP 240 G9\AppData\Roaming\xdg.config\.wrangler\logs\wrangler-2026-10-22_22-34-52_456.log"
+
+Exit: 0

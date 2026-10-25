@@ -1,0 +1,13 @@
+Runtime: v24.0.0 (preliminary; exact pin is 24.22.1)
+Command: uv --cache-dir .cache/uv run --locked --offline pytest
+Exit code: 0
+============================= test session starts =============================
+platform win32 -- Python 3.12.6, pytest-9.0.3, pluggy-1.6.0
+rootdir: C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+configfile: pyproject.toml
+testpaths: services/agent/tests
+collected 2 items
+
+services\agent\tests\test_bootstrap.py ..                                [100%]
+
+============================== 2 passed in 0.20s ==============================

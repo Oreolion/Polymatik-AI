@@ -1,0 +1,30 @@
+
+> polymatik-ai@0.0.0 build:mobile:check C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+> pnpm --filter mobile export:check
+
+
+> mobile@0.0.0 export:check C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\apps\mobile
+> expo export --platform ios --platform android --max-workers 2 --output-dir ../../.cache/mobile-export
+
+Using src/app as the root directory for Expo Router.
+Expo Autolinking module resolution enabled
+Starting Metro Bundler
+
+| (node:11772) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+| (Use `node --trace-warnings ...` to show where the warning was created)
+| (node:11772) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+| (Use `node --trace-warnings ...` to show where the warning was created)
+
+Failed to generate Hermes bytecode for: C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\expo-router@57.0.29_e572e64923e9c4325daa4df71d047670\node_modules\expo-router\entry.js
+
+C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\hermes-compiler@250829098.0.17\node_modules\hermes-compiler/hermesc/win64-bin/hermesc.exe: permission denied
+
+iOS Bundling failed 136176ms node_modules\.pnpm\expo-router@57.0.29_e572e64923e9c4325daa4df71d047670\node_modules\expo-router\entry.js (1128 modules)
+
+Error: C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\hermes-compiler@250829098.0.17\node_modules\hermes-compiler/hermesc/win64-bin/hermesc.exe -emit-binary -out C:\Users\HP240G~1\AppData\Local\Temp\expo-bundler-0.6397016807556521-1792752328544\index.hbc C:\Users\HP240G~1\AppData\Local\Temp\expo-bundler-0.6397016807556521-1792752328544\index.js -O exited with non-zero code: 1
+C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\apps\mobile:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  mobile@0.0.0 export:check: `expo export --platform ios --platform android --max-workers 2 --output-dir ../../.cache/mobile-export`
+Exit status 1
+ ELIFECYCLE  Command failed with exit code 1.
+
+Exit: 1

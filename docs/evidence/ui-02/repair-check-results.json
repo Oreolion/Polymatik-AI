@@ -1,0 +1,27 @@
+[
+  {
+    "command": "lint",
+    "exit": 0,
+    "evidence": "docs/evidence/ui-02/repair-lint.txt"
+  },
+  {
+    "command": "typecheck",
+    "exit": 0,
+    "evidence": "docs/evidence/ui-02/repair-typecheck.txt"
+  },
+  {
+    "command": "test",
+    "exit": 0,
+    "evidence": "docs/evidence/ui-02/repair-test.txt"
+  },
+  {
+    "command": "test:mobile",
+    "exit": 0,
+    "evidence": "docs/evidence/ui-02/repair-test-mobile.txt"
+  },
+  {
+    "command": "build:mobile:check",
+    "exit": 1,
+    "evidence": "docs/evidence/ui-02/repair-build-mobile-check.txt"
+  }
+]

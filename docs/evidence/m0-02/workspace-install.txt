@@ -1,0 +1,4 @@
+Scope: all 7 workspace projects
+Lockfile is up to date, resolution step is skipped
+
+EXIT_CODE=124 (240-second local timeout)

@@ -1,0 +1,33 @@
+✔ SSR includes request-specific data in initial HTML and a client-component boundary (5710.628ms)
+✖ dynamic routing and not-found behavior work (345.0297ms)
+✔ JSON handlers validate input and reject unsupported methods (1631.8355ms)
+✔ auth placeholder rejects absent and forged client identity (148.3841ms)
+✔ SSE is incremental, bounded and ordered (406.8759ms)
+✔ disconnecting a stream leaves the Worker responsive (139.1476ms)
+✔ static assets and the local Worker binding are available (328.3857ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8936.7191
+
+✖ failing tests:
+
+test at tests\contracts\web-runtime.test.mjs:86:1
+✖ dynamic routing and not-found behavior work (345.0297ms)
+  AssertionError [ERR_ASSERTION]: false == true
+      at TestContext.<anonymous> (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/tests/contracts/web-runtime.test.mjs:89:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1069:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:752:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '=='
+  }
+
+EXIT_CODE=1

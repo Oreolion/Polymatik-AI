@@ -1,0 +1,44 @@
+{
+  "recordedUtc": "2026-10-23T17:01:02.171521+00:00",
+  "ticket": "UI-02 terminal dependency repair",
+  "runtime": {
+    "node": "24.22.1",
+    "pnpm": "10.4.1",
+    "os": "Windows"
+  },
+  "baselineManifest": "verification-manifest.json (prior source/test set)",
+  "sourceSha256": {
+    "package.json": "890ece24c2b1ca1b1ac8606b01b846360e5b3c6bfd04cb73faac08ca8fd78a28",
+    "pnpm-lock.yaml": "65caa02015af2222ccb9d50f27cd00a9883a8e6722d6d2f9daa2327a97d3cb49",
+    "tests/contracts/mobile-toolchain.test.mjs": "ad4546685cd27536d54cdeb7d46aa2c20aa3956f1771d247e63c43bcbcb82a9c"
+  },
+  "lockfileUnchangedFromBaseline": true,
+  "ownerReported": {
+    "forcedFrozenInstall": "EBUSY renaming resolve after repairing terminal dependencies; incomplete",
+    "terminalRegression": "1 passed, 0 failed, 621.0143ms",
+    "subsequentFrozenInstall": "exit success, 3 cached packages, 11.3 seconds"
+  },
+  "agentChecks": "repair-check-results.json",
+  "cliHelpEvidence": "expo-cli-after-repair.txt",
+  "terminalRegressionEvidence": "terminal-regression-after-repair.txt",
+  "git": {
+    "existingBranch": "main",
+    "commits": 0,
+    "requestedMilestoneBranch": "master",
+    "requestedRemote": "https://github.com/Oreolion/Polymatik-AI.git",
+    "status": "not committed/pushed; GitHub unreachable and .git/config write denied; remote history check requested"
+  },
+  "release": "none; current device verification remains pending",
+  "changedBaselineSourcePaths": [
+    "package.json"
+  ],
+  "agentResults": {
+    "rootTests": 45,
+    "nativeTests": 15,
+    "nativeDurationSeconds": 176.075,
+    "lint": "passed",
+    "fullWorkspaceTypes": "passed",
+    "export": "exit 1: agent execution of hermesc.exe denied after 1135 iOS / 1267 Android modules"
+  },
+  "nextVerification": "owner normal-terminal export, iPhone UI checks, remote history inspection; then milestone commit/push on master"
+}

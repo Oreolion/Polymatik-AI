@@ -1,0 +1,26 @@
+{
+  "command": "pnpm.cmd install --ignore-scripts",
+  "reportedNode": "v25.9.0",
+  "pnpm": "10.4.1",
+  "outputSummary": {
+    "resolved": 1116,
+    "reused": 418,
+    "downloaded": 576,
+    "added": 718,
+    "removed": 1
+  },
+  "reportedDeprecated": [
+    "abab@2.0.6",
+    "domexception@4.0.0",
+    "glob@7.2.3",
+    "inflight@1.0.6",
+    "whatwg-encoding@2.0.0"
+  ],
+  "exitCode": null,
+  "limits": "Owner excerpt ends at progress done, without final Done line/returned prompt. Filesystem inspection confirms Expo 57.0.31 and initial mobile lock importer exist. Not a clean supported-Node install claim.",
+  "observedPeerMismatch": {
+    "react-dom": "19.3.1 with mobile React 19.2.3",
+    "react-native-worklets": "0.13.0 versus SDK 57 bundled 0.10.1"
+  },
+  "followup": "Explicit mobile pins added for React DOM, gesture handler, reanimated and worklets. Offline refinement timed out at 90 seconds; owner normal-shell install requested through the exact-pin launcher."
+}

@@ -1,0 +1,9 @@
+﻿{
+    "root":  "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai",
+    "error":  "Access to the path is denied.",
+    "backup":  "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\.cache\\generated-dependencies-20261023-115611",
+    "status":  "move failed; rollback attempted",
+    "movesAttempted":  [
+
+                       ]
+}

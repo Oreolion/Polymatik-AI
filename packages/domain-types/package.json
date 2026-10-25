@@ -1,0 +1,13 @@
+{
+  "name": "@polymatik/domain-types",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./discovery-preview": "./src/discovery-preview.ts"
+  }
+}

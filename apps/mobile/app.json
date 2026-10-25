@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "Polymatik AI",
+    "slug": "polymatik-ai",
+    "version": "0.0.0",
+    "scheme": "polymatik",
+    "userInterfaceStyle": "automatic",
+    "plugins": ["expo-router"],
+    "ios": { "supportsTablet": true }
+  }
+}

@@ -1,0 +1,8 @@
+Scope: all 7 workspace projects
+ WARN  `node_modules` is present. Lockfile only installation will make it out-of-date
+C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\apps\mobile:
+ ERR_PNPM_NO_OFFLINE_META  Failed to resolve @react-native/jest-preset@0.86.3 in package mirror .cache\pnpm\metadata-v1.3\registry.npmjs.org\@react-native\jest-preset.json
+
+This error happened while installing a direct dependency of C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\apps\mobile
+
+Exit: 1

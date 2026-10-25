@@ -1,0 +1,8 @@
+PASS iOS tests/discovery.test.tsx (32.692 s)
+PASS iOS tests/navigation.test.tsx (9.657 s)
+
+Test Suites: 2 passed, 2 total
+Tests:       15 passed, 15 total
+Snapshots:   0 total
+Time:        44.121 s, estimated 100 s
+Ran all test suites.

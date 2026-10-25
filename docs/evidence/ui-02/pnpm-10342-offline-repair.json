@@ -1,0 +1,10 @@
+{
+  "exitCode": null,
+  "timedOut": true,
+  "command": "pnpm 10.34.2 install --offline --frozen-lockfile --ignore-scripts --strict-peer-dependencies --reporter=append-only",
+  "runtime": "Node 24.22.1",
+  "seconds": 180.22,
+  "lockBefore": "03e34659a5cda232d41c1f15a60df18bd47d73ecb1557312c60f268fedbc9e83",
+  "lockAfter": "03e34659a5cda232d41c1f15a60df18bd47d73ecb1557312c60f268fedbc9e83",
+  "output": "docs/evidence/ui-02/pnpm-10342-offline-repair.txt"
+}

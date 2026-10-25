@@ -1,0 +1,28 @@
+{
+  "recordedUtc": "2026-10-23T17:21:31.176760+00:00",
+  "ownerExport": "passed: ios 1127 modules, android 1267 modules; Exported ../../.cache/mobile-export",
+  "artifactInspection": {
+    ".cache/mobile-export/_expo/static/js/ios/entry-f3985c991fa3069795a3f5f5c8f92f16.hbc": {
+      "exists": true,
+      "sizeBytes": 2398021,
+      "sha256": "b02d7dc7b933737bdceb45f651aeba21dd17fc52b97548ead39db18750952f27"
+    },
+    ".cache/mobile-export/_expo/static/js/android/entry-51efa8271db0d0fc9047d7f7efdfea6c.hbc": {
+      "exists": true,
+      "sizeBytes": 2704192,
+      "sha256": "aa9eb1db9d778501526aa0728d2e4ceba40088c24bdbe5c1fb09ee8c55ecaca0"
+    },
+    ".cache/mobile-export/metadata.json": {
+      "exists": true,
+      "sizeBytes": 3442,
+      "sha256": "3d5773fde6f084f37e75034394ba7dd7dc5d5c7ca5c290a52bbe9bd60fcf792a"
+    }
+  },
+  "ownerDevice": "failed startup: ExponentConstants warning; ExpoAsset missing; main registration consequent failure",
+  "projectSdk": "57.0.31",
+  "diagnosis": "pending Expo Go client SDK/version; offline dependency check passes but explicitly warns validation unreliable offline",
+  "evidence": [
+    "expo-sdk-check.txt",
+    "native-module-resolution.json"
+  ]
+}

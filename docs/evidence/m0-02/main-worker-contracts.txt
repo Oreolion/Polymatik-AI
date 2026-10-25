@@ -1,0 +1,162 @@
+
+> polymatik-ai@0.0.0 test:web C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+> node --test tests/contracts/web-runtime.test.mjs
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1munstable_dev() is experimental[0m
+
+  unstable_dev()'s behaviour will likely change in future releases
+
+
+✖ SSR includes request-specific data in initial HTML and a client-component boundary (3600.1418ms)
+✖ dynamic routing and not-found behavior work (2.3748ms)
+✖ JSON handlers validate input and reject unsupported methods (0.2419ms)
+✖ auth placeholder rejects absent and forged client identity (0.122ms)
+✖ SSE is incremental, bounded and ordered (0.1943ms)
+✖ disconnecting a stream leaves the Worker responsive (0.1773ms)
+✖ static assets and the local Worker binding are available (0.292ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 0
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4198.5324
+
+✖ failing tests:
+
+test at tests\contracts\web-runtime.test.mjs:65:1
+✖ SSR includes request-specific data in initial HTML and a client-component boundary (3600.1418ms)
+  Error: Build failed with 2 errors:
+  error: Cannot read directory "../../../..": Access is denied.
+  error: Could not resolve "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\apps\\web\\dist\\server\\index.js"
+      at failureErrorWithLog (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1752:15)
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1211:25
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1163:52
+      at buildResponseToResult (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1209:7)
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1236:16
+      at responseCallbacks.<computed> (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:886:9)
+      at handleIncomingPacket (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:941:12)
+      at Socket.readFromStdout (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:864:7)
+      at Socket.emit (node:events:507:28)
+      at Socket.emit (node:domain:489:12) {
+    errors: [ { detail: undefined, id: '', location: null, notes: [], pluginName: '', text: 'Cannot read directory "../../../..": Access is denied.' }, { detail: undefined, id: '', location: null, notes: [], pluginName: '', text: 'Could not resolve "C:\\\\Users\\\\HP 240 G9\\\\Desktop\\\\Agents\\\\polymatik_ai\\\\polymatik_ai\\\\apps\\\\web\\\\dist\\\\server\\\\index.js"' } ],
+    warnings: []
+  }
+
+test at tests\contracts\web-runtime.test.mjs:86:1
+✖ dynamic routing and not-found behavior work (2.3748ms)
+  Error: Build failed with 2 errors:
+  error: Cannot read directory "../../../..": Access is denied.
+  error: Could not resolve "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\apps\\web\\dist\\server\\index.js"
+      at failureErrorWithLog (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1752:15)
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1211:25
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1163:52
+      at buildResponseToResult (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1209:7)
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1236:16
+      at responseCallbacks.<computed> (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:886:9)
+      at handleIncomingPacket (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:941:12)
+      at Socket.readFromStdout (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:864:7)
+      at Socket.emit (node:events:507:28)
+      at Socket.emit (node:domain:489:12) {
+    errors: [ { detail: undefined, id: '', location: null, notes: [], pluginName: '', text: 'Cannot read directory "../../../..": Access is denied.' }, { detail: undefined, id: '', location: null, notes: [], pluginName: '', text: 'Could not resolve "C:\\\\Users\\\\HP 240 G9\\\\Desktop\\\\Agents\\\\polymatik_ai\\\\polymatik_ai\\\\apps\\\\web\\\\dist\\\\server\\\\index.js"' } ],
+    warnings: []
+  }
+
+test at tests\contracts\web-runtime.test.mjs:94:1
+✖ JSON handlers validate input and reject unsupported methods (0.2419ms)
+  Error: Build failed with 2 errors:
+  error: Cannot read directory "../../../..": Access is denied.
+  error: Could not resolve "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\apps\\web\\dist\\server\\index.js"
+      at failureErrorWithLog (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1752:15)
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1211:25
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1163:52
+      at buildResponseToResult (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1209:7)
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1236:16
+      at responseCallbacks.<computed> (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:886:9)
+      at handleIncomingPacket (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:941:12)
+      at Socket.readFromStdout (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:864:7)
+      at Socket.emit (node:events:507:28)
+      at Socket.emit (node:domain:489:12) {
+    errors: [ { detail: undefined, id: '', location: null, notes: [], pluginName: '', text: 'Cannot read directory "../../../..": Access is denied.' }, { detail: undefined, id: '', location: null, notes: [], pluginName: '', text: 'Could not resolve "C:\\\\Users\\\\HP 240 G9\\\\Desktop\\\\Agents\\\\polymatik_ai\\\\polymatik_ai\\\\apps\\\\web\\\\dist\\\\server\\\\index.js"' } ],
+    warnings: []
+  }
+
+test at tests\contracts\web-runtime.test.mjs:115:1
+✖ auth placeholder rejects absent and forged client identity (0.122ms)
+  Error: Build failed with 2 errors:
+  error: Cannot read directory "../../../..": Access is denied.
+  error: Could not resolve "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\apps\\web\\dist\\server\\index.js"
+      at failureErrorWithLog (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1752:15)
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1211:25
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1163:52
+      at buildResponseToResult (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1209:7)
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1236:16
+      at responseCallbacks.<computed> (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:886:9)
+      at handleIncomingPacket (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:941:12)
+      at Socket.readFromStdout (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:864:7)
+      at Socket.emit (node:events:507:28)
+      at Socket.emit (node:domain:489:12) {
+    errors: [ { detail: undefined, id: '', location: null, notes: [], pluginName: '', text: 'Cannot read directory "../../../..": Access is denied.' }, { detail: undefined, id: '', location: null, notes: [], pluginName: '', text: 'Could not resolve "C:\\\\Users\\\\HP 240 G9\\\\Desktop\\\\Agents\\\\polymatik_ai\\\\polymatik_ai\\\\apps\\\\web\\\\dist\\\\server\\\\index.js"' } ],
+    warnings: []
+  }
+
+test at tests\contracts\web-runtime.test.mjs:131:1
+✖ SSE is incremental, bounded and ordered (0.1943ms)
+  Error: Build failed with 2 errors:
+  error: Cannot read directory "../../../..": Access is denied.
+  error: Could not resolve "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\apps\\web\\dist\\server\\index.js"
+      at failureErrorWithLog (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1752:15)
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1211:25
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1163:52
+      at buildResponseToResult (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1209:7)
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1236:16
+      at responseCallbacks.<computed> (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:886:9)
+      at handleIncomingPacket (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:941:12)
+      at Socket.readFromStdout (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:864:7)
+      at Socket.emit (node:events:507:28)
+      at Socket.emit (node:domain:489:12) {
+    errors: [ { detail: undefined, id: '', location: null, notes: [], pluginName: '', text: 'Cannot read directory "../../../..": Access is denied.' }, { detail: undefined, id: '', location: null, notes: [], pluginName: '', text: 'Could not resolve "C:\\\\Users\\\\HP 240 G9\\\\Desktop\\\\Agents\\\\polymatik_ai\\\\polymatik_ai\\\\apps\\\\web\\\\dist\\\\server\\\\index.js"' } ],
+    warnings: []
+  }
+
+test at tests\contracts\web-runtime.test.mjs:166:1
+✖ disconnecting a stream leaves the Worker responsive (0.1773ms)
+  Error: Build failed with 2 errors:
+  error: Cannot read directory "../../../..": Access is denied.
+  error: Could not resolve "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\apps\\web\\dist\\server\\index.js"
+      at failureErrorWithLog (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1752:15)
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1211:25
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1163:52
+      at buildResponseToResult (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1209:7)
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1236:16
+      at responseCallbacks.<computed> (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:886:9)
+      at handleIncomingPacket (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:941:12)
+      at Socket.readFromStdout (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:864:7)
+      at Socket.emit (node:events:507:28)
+      at Socket.emit (node:domain:489:12) {
+    errors: [ { detail: undefined, id: '', location: null, notes: [], pluginName: '', text: 'Cannot read directory "../../../..": Access is denied.' }, { detail: undefined, id: '', location: null, notes: [], pluginName: '', text: 'Could not resolve "C:\\\\Users\\\\HP 240 G9\\\\Desktop\\\\Agents\\\\polymatik_ai\\\\polymatik_ai\\\\apps\\\\web\\\\dist\\\\server\\\\index.js"' } ],
+    warnings: []
+  }
+
+test at tests\contracts\web-runtime.test.mjs:183:1
+✖ static assets and the local Worker binding are available (0.292ms)
+  Error: Build failed with 2 errors:
+  error: Cannot read directory "../../../..": Access is denied.
+  error: Could not resolve "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\apps\\web\\dist\\server\\index.js"
+      at failureErrorWithLog (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1752:15)
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1211:25
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1163:52
+      at buildResponseToResult (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1209:7)
+      at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1236:16
+      at responseCallbacks.<computed> (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:886:9)
+      at handleIncomingPacket (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:941:12)
+      at Socket.readFromStdout (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:864:7)
+      at Socket.emit (node:events:507:28)
+      at Socket.emit (node:domain:489:12) {
+    errors: [ { detail: undefined, id: '', location: null, notes: [], pluginName: '', text: 'Cannot read directory "../../../..": Access is denied.' }, { detail: undefined, id: '', location: null, notes: [], pluginName: '', text: 'Could not resolve "C:\\\\Users\\\\HP 240 G9\\\\Desktop\\\\Agents\\\\polymatik_ai\\\\polymatik_ai\\\\apps\\\\web\\\\dist\\\\server\\\\index.js"' } ],
+    warnings: []
+  }
+ ELIFECYCLE  Command failed with exit code 1.
+
+EXIT_CODE=1

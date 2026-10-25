@@ -1,0 +1,18 @@
+(node:8352) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ contrast oracle agrees with black/white reference pairs (3.0445ms)
+✔ both themes expose matching semantic roles and accessible foregrounds (5.1781ms)
+✔ theme preference honors an explicit choice and handles an absent system scheme (0.4531ms)
+✔ reduced motion removes transitions without changing normal feedback settings (0.5605ms)
+✔ layout and text tokens preserve usable touch targets and reading space (3.4631ms)
+✔ shared tokens cannot be mutated by a consumer and leak into another screen (1.7588ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 443.0809
+
+EXIT_CODE=0

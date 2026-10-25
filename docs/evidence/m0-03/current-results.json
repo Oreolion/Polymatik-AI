@@ -1,0 +1,7 @@
+{
+  "native-final": 0,
+  "full-typecheck": 0,
+  "full-test": 0,
+  "full-lint": 0,
+  "native-export": 1
+}

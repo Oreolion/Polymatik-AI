@@ -1,0 +1,29 @@
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1munstable_dev() is experimental[0m
+
+  unstable_dev()'s behaviour will likely change in future releases
+
+
+node:internal/modules/run_main:105
+    triggerUncaughtException(
+    ^
+
+Error: Build failed with 2 errors:
+error: Cannot read directory "../../../..": Access is denied.
+error: Could not resolve "C:\\Users\\HP 240 G9\\Desktop\\Agents\\polymatik_ai\\polymatik_ai\\.cache\\polymatik-m0-02-seed\\dist\\server\\index.js"
+    at failureErrorWithLog (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\.cache\polymatik-m0-02-seed\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1752:15)
+    at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\.cache\polymatik-m0-02-seed\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1211:25
+    at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\.cache\polymatik-m0-02-seed\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1163:52
+    at buildResponseToResult (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\.cache\polymatik-m0-02-seed\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1209:7)
+    at C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\.cache\polymatik-m0-02-seed\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:1236:16
+    at responseCallbacks.<computed> (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\.cache\polymatik-m0-02-seed\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:886:9)
+    at handleIncomingPacket (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\.cache\polymatik-m0-02-seed\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:941:12)
+    at Socket.readFromStdout (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\.cache\polymatik-m0-02-seed\node_modules\.pnpm\esbuild@0.28.2\node_modules\esbuild\lib\main.js:864:7)
+    at Socket.emit (node:events:507:28)
+    at Socket.emit (node:domain:489:12) {
+  errors: [Getter/Setter],
+  warnings: [Getter/Setter]
+}
+
+Node.js v24.0.0
+
+Exit: 1

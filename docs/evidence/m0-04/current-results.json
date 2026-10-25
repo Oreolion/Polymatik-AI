@@ -1,0 +1,19 @@
+{
+  "generation": 0,
+  "apiClientContracts": {
+    "passed": 12,
+    "failed": 0
+  },
+  "fullLint": 0,
+  "fullTypecheck": 0,
+  "rootSuite": {
+    "passed": 38,
+    "failed": 0,
+    "skipped": 0
+  },
+  "frozenLockConsistency": 0,
+  "ciStatic": 0,
+  "nativeWorkerRuntime": 1,
+  "nativePackagingInitial": 1,
+  "nativePackagingExplicitLocal": "pending owner check"
+}

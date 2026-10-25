@@ -1,0 +1,6 @@
+Started server process [39440]
+Waiting for application startup.
+Application startup complete.
+Uvicorn running on http://127.0.0.1:60916 (Press CTRL+C to quit)
+{"request_id": "57c0dcba-360e-413a-854f-56941615147d", "route": "/v1/health", "status": 200, "duration_ms": 15.0}
+{"request_id": "7ddf436d-f485-46d0-9ced-15f707091546", "route": "/v1/baseline/runs", "status": 401, "duration_ms": 0.0}

@@ -1,0 +1,151 @@
+[1/5] analyze client references...
+vite v8.3.5 building rsc environment for production...
+transforming...
+✓ 316 modules transformed.
+rendering chunks...
+[plugin rsc:virtual:vite-rsc/assets-manifest] [33m[SOURCEMAP_BROKEN] [0mSourcemap is likely to be incorrect: a plugin (rsc:virtual:vite-rsc/assets-manifest) was used to transform files, but didn't generate a sourcemap for the transformation. Consult the plugin documentation for help: https://rolldown.rs/guide/troubleshooting#warning-sourcemap-is-likely-to-be-incorrect
+
+[plugin vinext:action-owner-manifest] [33m[SOURCEMAP_BROKEN] [0mSourcemap is likely to be incorrect: a plugin (vinext:action-owner-manifest) was used to transform files, but didn't generate a sourcemap for the transformation. Consult the plugin documentation for help: https://rolldown.rs/guide/troubleshooting#warning-sourcemap-is-likely-to-be-incorrect
+
+✓ built in 13.41s
+[33m[PLUGIN_TIMINGS] [0mJavaScript callbacks ran for 13.2s of this 13.3s build (99%).
+The slowest callbacks, timed inside each callback (the wait before a callback starts is excluded, the time it awaits is included):
+  - plugin vite:css-post renderChunk (19%, 2.5s, 1 call)
+Additional callback time came from the callbacks below and from callbacks under 1s.
+4 callbacks are listed without a time. Their calls overlapped, so the time inside one call includes work from other calls. To find their cost, profile the build with `node --cpu-prof`:
+  - plugin rsc:virtual-client-package resolveId (1117 calls)
+  - plugin vinext:og-inline-fetch-assets resolveId (1130 calls)
+  - plugin rsc:use-client transform (316 calls)
+  … and 1 more
+See https://rolldown.rs/reference/InputOptions.checks#bundlertimings for more details.
+
+[2/5] analyze server references...
+vite v8.3.5 building ssr environment for production...
+transforming...
+✓ 168 modules transformed.
+rendering chunks...
+[plugin rsc:virtual:vite-rsc/assets-manifest] [33m[SOURCEMAP_BROKEN] [0mSourcemap is likely to be incorrect: a plugin (rsc:virtual:vite-rsc/assets-manifest) was used to transform files, but didn't generate a sourcemap for the transformation. Consult the plugin documentation for help: https://rolldown.rs/guide/troubleshooting#warning-sourcemap-is-likely-to-be-incorrect
+
+✓ built in 2.12s
+[3/5] build rsc environment...
+vite v8.3.5 building rsc environment for production...
+transforming...
+✓ 302 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/server/__vinext_cacheability_manifest.js                                                                                                0.02 kB
+dist/server/__vinext_cacheability_request_projection.js                                                                                      0.02 kB
+dist/server/__vinext_pregenerated_concrete_paths.js                                                                                          0.05 kB
+dist/server/wrangler.json                                                                                                                    1.49 kB │ gzip:  0.76 kB
+dist/server/.vite/manifest.json                                                                                                             25.10 kB │ gzip:  2.63 kB
+dist/server/_next/static/css/CXi-ywDU.css                                                                                                   19.60 kB │ gzip:  4.98 kB
+dist/server/_next/static/navigation.react-server-C2JP42mX.js                                                                                 0.04 kB │ gzip:  0.06 kB
+dist/server/_next/static/cacheability-limits-BTpP4ZoO.js                                                                                     0.11 kB │ gzip:  0.13 kB │ map:   1.04 kB
+dist/server/_next/static/cache-headers-BIgvnIjp.js                                                                                           0.19 kB │ gzip:  0.18 kB │ map:   1.18 kB
+dist/server/_next/static/work-unit-async-storage-Ci9D6p_d.js                                                                                 0.20 kB │ gzip:  0.18 kB │ map:   1.29 kB
+dist/server/_next/static/link-c5dMdTx4.js                                                                                                    0.21 kB │ gzip:  0.20 kB │ map:  40.56 kB
+dist/server/_next/static/route-BcF10Mzn.js                                                                                                   0.28 kB │ gzip:  0.24 kB │ map:   0.64 kB
+dist/server/_next/static/route-BQ_17fAx.js                                                                                                   0.34 kB │ gzip:  0.26 kB │ map:   0.79 kB
+dist/server/_next/static/base-path-Cmiu3HvG.js                                                                                               0.36 kB │ gzip:  0.26 kB │ map:   2.66 kB
+dist/server/_next/static/isolate-shared-promise-CGHEva37.js                                                                                  0.36 kB │ gzip:  0.28 kB │ map:   2.57 kB
+dist/server/_next/static/page-DpxjOZAh.js                                                                                                    0.39 kB │ gzip:  0.31 kB │ map:  23.11 kB
+dist/server/_next/static/client-trace-metadata-DUR2PiYt.js                                                                                   0.40 kB │ gzip:  0.25 kB │ map:   5.91 kB
+dist/server/_next/static/asset-prefix-DG5zdfn4.js                                                                                            0.44 kB │ gzip:  0.29 kB │ map:   7.53 kB
+dist/server/_next/static/route-D32_9SXU.js                                                                                                   0.45 kB │ gzip:  0.36 kB │ map:   1.29 kB
+dist/server/_next/static/navigation-errors-BlLuZo5V.js                                                                                       0.45 kB │ gzip:  0.35 kB │ map:   5.95 kB
+dist/server/_next/static/request-context-BThF-RdR.js                                                                                         0.61 kB │ gzip:  0.39 kB │ map:   3.82 kB
+dist/server/_next/static/page-DDhPLMRt.js                                                                                                    0.62 kB │ gzip:  0.43 kB │ map:   1.06 kB
+dist/server/_next/static/rolldown-runtime-XKyaHtl9.js                                                                                        0.72 kB │ gzip:  0.42 kB
+dist/server/_next/static/implicit-tags-Bartch8r.js                                                                                           0.76 kB │ gzip:  0.46 kB │ map:   3.88 kB
+dist/server/_next/static/server-CP0lIcFv.js                                                                                                  0.77 kB │ gzip:  0.49 kB │ map:   7.74 kB
+dist/server/_next/static/root-params-LKNbadxv.js                                                                                             0.77 kB │ gzip:  0.46 kB │ map:   5.48 kB
+dist/server/_next/static/isr-decision-BRUsE8vn.js                                                                                            0.82 kB │ gzip:  0.42 kB │ map:   4.72 kB
+dist/server/_next/static/worker-prerender-discovery-DLql9EfP.js                                                                              0.89 kB │ gzip:  0.52 kB │ map:   4.52 kB
+dist/server/_next/static/framework~index~page~layout~not-found~page~page~app-route-handler-dispatch~app-page-cache~a~dtob0aev-vEOKmRno.js    0.96 kB │ gzip:  0.61 kB │ map:   2.81 kB
+dist/server/_next/static/app-static-generation-BX8cz43B.js                                                                                   0.97 kB │ gzip:  0.55 kB │ map:   2.30 kB
+dist/server/_next/static/navigation-context-state-CHIxHI-U.js                                                                                0.99 kB │ gzip:  0.51 kB │ map:   6.84 kB
+dist/server/_next/static/http-error-responses-B2gV-Vqb.js                                                                                    1.01 kB │ gzip:  0.47 kB │ map:   6.14 kB
+dist/server/_next/static/route-DLFzqaZG.js                                                                                                   1.26 kB │ gzip:  0.76 kB │ map:   4.45 kB
+dist/server/_next/static/cdn-cache-CC1cBNp7.js                                                                                               1.34 kB │ gzip:  0.74 kB │ map:   8.33 kB
+dist/server/_next/static/worker-image-optimization-ByGMcbVE.js                                                                               1.57 kB │ gzip:  0.86 kB │ map:   8.18 kB
+dist/server/_next/static/page-D_qmo2cc.js                                                                                                    1.64 kB │ gzip:  0.81 kB │ map:   3.19 kB
+dist/server/_next/static/app-prerender-static-params-D9q3Iser.js                                                                             1.72 kB │ gzip:  0.76 kB │ map:   8.01 kB
+dist/server/_next/static/app-prerender-endpoints-CD2_m-FG.js                                                                                 2.62 kB │ gzip:  1.06 kB │ map:   8.86 kB
+dist/server/_next/static/headers-BUAhKXqP.js                                                                                                 2.69 kB │ gzip:  1.14 kB │ map:  21.79 kB
+dist/server/_next/static/app-page-cache-render-D7a5YajA.js                                                                                   2.72 kB │ gzip:  1.25 kB │ map:   9.92 kB
+dist/server/_next/static/isr-cache-BMMRINPe.js                                                                                               3.55 kB │ gzip:  1.78 kB │ map:  24.86 kB
+dist/server/_next/static/unified-request-context-j9pueOfY.js                                                                                 3.77 kB │ gzip:  1.50 kB │ map:  15.06 kB
+dist/server/_next/static/app-page-tracing-Bxz8go2e.js                                                                                        3.90 kB │ gzip:  1.94 kB │ map:  15.14 kB
+dist/server/_next/static/cache-handler-Dc39X6I9.js                                                                                           4.09 kB │ gzip:  1.56 kB │ map:  17.62 kB
+dist/server/_next/static/request-pipeline-DvRa2crm.js                                                                                        5.03 kB │ gzip:  2.02 kB │ map:  45.30 kB
+dist/server/_next/static/middleware-response-headers-Drly5KMQ.js                                                                             5.62 kB │ gzip:  2.27 kB │ map:  31.25 kB
+dist/server/_next/static/framework~index~page~layout~not-found~page~page~app-rsc-response-stage~app-route-handler-di~my75n44j-CcOTYhCj.js    5.85 kB │ gzip:  2.45 kB │ map:  24.02 kB
+dist/server/_next/static/client-build-files-8quKCVIN.js                                                                                      6.34 kB │ gzip:  2.65 kB │ map:  35.75 kB
+dist/server/_next/static/response-stage-policy-DGeWxlCK.js                                                                                   7.01 kB │ gzip:  2.44 kB │ map:  32.56 kB
+dist/server/_next/static/app-page-cache-finalizer-CCX-nm_d.js                                                                                7.19 kB │ gzip:  2.57 kB │ map:  26.34 kB
+dist/server/_next/static/app-page-cache-7IalrVwY.js                                                                                          7.64 kB │ gzip:  2.60 kB │ map:  52.86 kB
+dist/server/_next/static/app-rsc-response-stage-BFWYibCn.js                                                                                  7.69 kB │ gzip:  2.67 kB │ map:  23.48 kB
+dist/server/_next/static/config-headers-B9T79R78.js                                                                                          8.58 kB │ gzip:  3.50 kB │ map:  81.85 kB
+dist/server/_next/static/artifact-compatibility-C1zZn8wf.js                                                                                 10.25 kB │ gzip:  3.58 kB │ map:  64.23 kB
+dist/server/_next/static/cacheability-request-BAMb6JV4.js                                                                                   10.75 kB │ gzip:  3.72 kB │ map:  43.50 kB
+dist/server/_next/static/app-page-execution-3ztARLEg.js                                                                                     11.97 kB │ gzip:  4.34 kB │ map:  55.17 kB
+dist/server/_next/static/app-elements-DOrNI8Cc.js                                                                                           12.07 kB │ gzip:  4.14 kB │ map:  47.65 kB
+dist/server/_next/static/headers-BE_FSstC.js                                                                                                12.20 kB │ gzip:  4.15 kB │ map:  74.51 kB
+dist/server/_next/static/prerender-work-unit-setup-F_fngY5t.js                                                                              12.52 kB │ gzip:  4.73 kB │ map:  76.10 kB
+dist/server/_next/static/rsc-completion-metadata-D3Z2uu0l.js                                                                                13.41 kB │ gzip:  4.84 kB │ map:  73.37 kB
+dist/server/_next/static/framework~index-s39ydzwm.js                                                                                        18.98 kB │ gzip:  6.28 kB │ map: 107.00 kB
+dist/server/_next/static/text-stream-Clslqu7M.js                                                                                            19.63 kB │ gzip:  6.00 kB │ map:  71.55 kB
+dist/server/_next/static/fetch-cache-BUdD_6Dq.js                                                                                            24.30 kB │ gzip:  8.46 kB │ map: 113.43 kB
+dist/server/_next/static/app-route-handler-dispatch-CL4oD62Z.js                                                                             55.69 kB │ gzip: 19.59 kB │ map: 324.21 kB
+dist/server/_next/static/framework~index~page~not-found~page~page~app-route-handler-dispatch-BZBfwOqM.js                                    56.50 kB │ gzip: 17.27 kB │ map:  16.83 kB
+dist/server/index.js                                                                                                                       231.14 kB │ gzip: 65.81 kB │ map: 984.96 kB
+
+[33m[INEFFECTIVE_DYNAMIC_IMPORT] [0mapp/not-found.tsx is dynamically imported by \0virtual:vinext-rsc-entry but also statically imported by \0virtual:vinext-rsc-entry, dynamic import will not move module into another chunk.
+
+[33m[INEFFECTIVE_DYNAMIC_IMPORT] [0mapp/layout.tsx is dynamically imported by \0virtual:vinext-rsc-entry but also statically imported by \0virtual:vinext-rsc-entry, dynamic import will not move module into another chunk.
+
+[plugin rsc:inject-async-local-storage] [33m[SOURCEMAP_BROKEN] [0mSourcemap is likely to be incorrect: a plugin (rsc:inject-async-local-storage) was used to transform files, but didn't generate a sourcemap for the transformation. Consult the plugin documentation for help: https://rolldown.rs/guide/troubleshooting#warning-sourcemap-is-likely-to-be-incorrect
+
+[plugin rsc:inject-async-local-storage] [33m[SOURCEMAP_BROKEN] [0mSourcemap is likely to be incorrect: a plugin (rsc:inject-async-local-storage) was used to transform files, but didn't generate a sourcemap for the transformation. Consult the plugin documentation for help: https://rolldown.rs/guide/troubleshooting#warning-sourcemap-is-likely-to-be-incorrect
+
+[plugin rsc:virtual:vite-rsc/assets-manifest] [33m[SOURCEMAP_BROKEN] [0mSourcemap is likely to be incorrect: a plugin (rsc:virtual:vite-rsc/assets-manifest) was used to transform files, but didn't generate a sourcemap for the transformation. Consult the plugin documentation for help: https://rolldown.rs/guide/troubleshooting#warning-sourcemap-is-likely-to-be-incorrect
+
+[plugin vinext:action-owner-manifest] [33m[SOURCEMAP_BROKEN] [0mSourcemap is likely to be incorrect: a plugin (vinext:action-owner-manifest) was used to transform files, but didn't generate a sourcemap for the transformation. Consult the plugin documentation for help: https://rolldown.rs/guide/troubleshooting#warning-sourcemap-is-likely-to-be-incorrect
+
+✓ built in 5.76s
+[33m[PLUGIN_TIMINGS] [0mJavaScript callbacks ran for 3.6s of this 5.7s build (63%).
+5 callbacks are listed without a time. Their calls overlapped, so the time inside one call includes work from other calls. To find their cost, profile the build with `node --cpu-prof`:
+  - plugin rsc:virtual-client-package resolveId (1019 calls)
+  - plugin vinext:og-inline-fetch-assets resolveId (1032 calls)
+  - plugin rsc:use-client transform (302 calls)
+  … and 2 more
+See https://rolldown.rs/reference/InputOptions.checks#bundlertimings for more details.
+
+[4/5] build client environment...
+vite v8.3.5 building client environment for production...
+`output.codeSplitting.groups[0].name` is a function. Set `output.codeSplitting.groups[0].debugName` so the bundler timing report can identify this group.
+transforming...
+✓ 166 modules transformed.
+✗ Build failed in 1.25s
+error during build:
+Build failed with 1 error:
+
+[31m[UNLOADABLE_DEPENDENCY] [0mCould not load ../../node_modules/.pnpm/vinext@1.3.0_@types+node@26_5656061e1ceaa2a69e042f47dcf575e7/node_modules/vinext/dist/client/empty-module.ts
+   [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m ../../node_modules/.pnpm/vinext@1.3.0_@types+node@26_5656061e1ceaa2a69e042f47dcf575e7/node_modules/vinext/dist/client/instrumentation-client.js:2:45 [38;5;246m][0m
+   [38;5;246m│[0m
+ [38;5;246m2 │[0m [38;5;249mi[0m[38;5;249mm[0m[38;5;249mp[0m[38;5;249mo[0m[38;5;249mr[0m[38;5;249mt[0m[38;5;249m [0m[38;5;249m*[0m[38;5;249m [0m[38;5;249ma[0m[38;5;249ms[0m[38;5;249m [0m[38;5;249mi[0m[38;5;249mn[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249mr[0m[38;5;249mu[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249mn[0m[38;5;249mt[0m[38;5;249ma[0m[38;5;249mt[0m[38;5;249mi[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249mC[0m[38;5;249ml[0m[38;5;249mi[0m[38;5;249me[0m[38;5;249mn[0m[38;5;249mt[0m[38;5;249mH[0m[38;5;249mo[0m[38;5;249mo[0m[38;5;249mk[0m[38;5;249ms[0m[38;5;249m [0m[38;5;249mf[0m[38;5;249mr[0m[38;5;249mo[0m[38;5;249mm[0m[38;5;249m [0m"private-next-instrumentation-client"[38;5;249m;[0m
+ [38;5;240m  │[0m                                             ──────────────────┬──────────────────  
+ [38;5;240m  │[0m                                                               ╰──────────────────── The system cannot find the file specified. (os error 2)
+[38;5;246m───╯[0m
+
+    at aggregateBindingErrorsIntoJsError (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/node_modules/.pnpm/rolldown@1.2.15/node_modules/rolldown/dist/shared/error-D0SD8_tL.mjs:49:18)
+    at unwrapBindingResult (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/node_modules/.pnpm/rolldown@1.2.15/node_modules/rolldown/dist/shared/error-D0SD8_tL.mjs:19:128)
+    at #build (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/node_modules/.pnpm/rolldown@1.2.15/node_modules/rolldown/dist/shared/rolldown-CMhwwZPA.mjs:145:34)
+    at async buildEnvironment (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/node_modules/.pnpm/vite@8.3.5_@types+node@26.6_d6351376fbee37e64d202b9559db93c3/node_modules/vite/dist/node/chunks/node.js:34849:66)
+    at async Object.build (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/node_modules/.pnpm/vite@8.3.5_@types+node@26.6_d6351376fbee37e64d202b9559db93c3/node_modules/vite/dist/node/chunks/node.js:35270:19)
+    at async buildApp (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/node_modules/.pnpm/@vitejs+plugin-rsc@0.5.38_r_1bf6eaa804051d8b9c424b38a34dd3a2/node_modules/@vitejs/plugin-rsc/dist/plugin-DJhdAGBA.js:742:3)
+    at async BasicMinimalPluginContext.handler (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/node_modules/.pnpm/@vitejs+plugin-rsc@0.5.38_r_1bf6eaa804051d8b9c424b38a34dd3a2/node_modules/@vitejs/plugin-rsc/dist/plugin-DJhdAGBA.js:856:43)
+    at async Object.buildApp (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/node_modules/.pnpm/vite@8.3.5_@types+node@26.6_d6351376fbee37e64d202b9559db93c3/node_modules/vite/dist/node/chunks/node.js:35264:5)
+    at async CAC.<anonymous> (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/node_modules/.pnpm/vite@8.3.5_@types+node@26.6_d6351376fbee37e64d202b9559db93c3/node_modules/vite/dist/node/cli.js:790:3) {
+  errors: [Getter/Setter]
+}

@@ -1,0 +1,14 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.6, pytest-9.0.3, pluggy-1.6.0
+rootdir: C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+configfile: pyproject.toml
+testpaths: services/agent/tests
+plugins: anyio-4.15.1, langsmith-0.14.12
+collected 26 items
+
+services\agent\tests\test_app.py ............                            [ 46%]
+services\agent\tests\test_bootstrap.py ..                                [ 53%]
+services\agent\tests\test_graph.py .........                             [ 88%]
+services\agent\tests\test_tracing.py ...                                 [100%]
+
+============================= 26 passed in 6.66s ==============================

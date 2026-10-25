@@ -1,0 +1,22 @@
+{
+  "generator": "create-vinext-app@1.0.0-beta.3",
+  "runtime": "v24.0.0",
+  "license": "MIT",
+  "archive_bytes": 52942,
+  "sha512_integrity_measured": "sha512-kabbIPYlGBptQerCEdAaeKO4lGlsOhO1khr1naYoo+0xF5xow1JZGD4Nkx/DkvTfpiDiFjg2D4YCKjEEAho4wQ==",
+  "md5_matches_owner_reported_http_etag": true,
+  "npm_published_sri_comparison": "not performed",
+  "archive_members": 18,
+  "generator_help_exit": 0,
+  "seed_generation_exit": 0,
+  "standalone_offline_resolution_exit": 1,
+  "root_lock_unchanged": true,
+  "apps_web_manifest_unchanged": true,
+  "dependencies_installed": false,
+  "git_initialized_in_seed": false,
+  "deployed": false,
+  "seed_checks": "required files and absence of remote resource identifiers pass",
+  "adjustments": [
+    "seed packageManager normalized to root pnpm@10.4.1; generated value was pnpm"
+  ]
+}

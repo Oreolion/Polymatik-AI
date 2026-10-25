@@ -1,0 +1,26 @@
+[
+  {
+    "url": "http://127.0.0.1:8787/",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8787/",
+    "visibleText": {
+      "title": "vinext on Cloudflare Workers",
+      "h1": "Build Next.js-style apps with Vite and deploy them to the edge.",
+      "button": ""
+    },
+    "counterPresent": false,
+    "topicLinkPresent": false
+  },
+  {
+    "url": "http://127.0.0.1:8788/",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8788/",
+    "visibleText": {
+      "title": "Polymatik AI \u2014 Compatibility Check",
+      "h1": "Polymatik AI",
+      "button": "Clicks: 0"
+    },
+    "counterPresent": true,
+    "topicLinkPresent": true
+  }
+]

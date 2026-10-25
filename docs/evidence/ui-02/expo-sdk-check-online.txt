@@ -1,0 +1,4 @@
+AggregateError
+AggregateError [EACCES]: 
+    at internalConnectMultiple (node:net:1492:18)
+    at afterConnectMultiple (node:net:2161:7)

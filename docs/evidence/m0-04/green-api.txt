@@ -1,0 +1,14 @@
+✔ health is a bounded liveness response with safe request correlation (50.2538ms)
+✔ routing rejects unknown routes, methods and query parameters consistently (2.6042ms)
+✔ default Worker denies missing, malformed and forged identity (4.5844ms)
+✔ server-verified subject and scope govern access independently of client identity (1.6609ms)
+✔ failed verification is closed and sanitized; request state stays isolated (3.719ms)
+✔ CORS allows exact configured origins and bounded preflight only (1.2864ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 318.7491

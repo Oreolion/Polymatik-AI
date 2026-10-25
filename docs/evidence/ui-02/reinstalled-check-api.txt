@@ -1,0 +1,5 @@
+
+> polymatik-ai@0.0.0 check:api C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai
+> node scripts/generate-api.mjs --check
+
+OpenAPI generation is current.
