@@ -1,4 +1,9 @@
 import type { ApiError, Health, Me } from '@polymatik/domain-types';
+import {
+  getResource,
+  resources,
+  type Resource,
+} from '@polymatik/domain-types/discovery-preview';
 
 export type Principal = Readonly<{ userId: string; scopes: readonly string[] }>;
 type RequestLog = {
@@ -20,7 +25,10 @@ export function createApi(options: Options = {}) {
       const started = Date.now();
       const requestId = crypto.randomUUID();
       const url = new URL(request.url);
-      const knownRoute = ['/v1/health', '/v1/me'].includes(url.pathname);
+      const resourceMatch = /^\/v1\/resources\/([^/]+)$/.exec(url.pathname);
+      const knownRoute =
+        ['/v1/health', '/v1/me', '/v1/resources'].includes(url.pathname) ||
+        resourceMatch !== null;
       const origin = request.headers.get('origin');
       const originAllowed =
         origin !== null && (options.allowedOrigins ?? []).includes(origin);
@@ -34,8 +42,15 @@ export function createApi(options: Options = {}) {
         headers.set('access-control-allow-origin', origin);
         headers.set('access-control-expose-headers', 'x-request-id');
       }
-      const json = (body: Health | Me | ApiError, status = 200) =>
-        Response.json(body, { status, headers });
+      const json = (
+        body:
+          | Health
+          | Me
+          | ApiError
+          | Resource
+          | { items: readonly Resource[] },
+        status = 200,
+      ) => Response.json(body, { status, headers });
       const error = (
         status: number,
         code: string,
@@ -118,6 +133,20 @@ export function createApi(options: Options = {}) {
           );
         }
         if (principal) return json({ user_id: principal.userId });
+        if (url.pathname === '/v1/resources') return json({ items: resources });
+        if (resourceMatch) {
+          let id: string;
+          try {
+            id = decodeURIComponent(resourceMatch[1] ?? '');
+          } catch {
+            return error(422, 'validation_error', 'Invalid resource ID.');
+          }
+          if (!/^[a-z][a-z0-9-]{0,47}$/.test(id))
+            return error(422, 'validation_error', 'Invalid resource ID.');
+          const resource = getResource(id);
+          if (!resource) return error(404, 'not_found', 'Resource not found.');
+          return json(resource);
+        }
         return json({
           status: 'ok',
           service: 'polymatik-api',
@@ -136,7 +165,11 @@ export function createApi(options: Options = {}) {
       }
       const entry: RequestLog = {
         request_id: requestId,
-        route: knownRoute ? url.pathname : 'unmatched',
+        route: resourceMatch
+          ? '/v1/resources/{id}'
+          : knownRoute
+            ? url.pathname
+            : 'unmatched',
         status: response.status,
         duration_ms: Date.now() - started,
       };

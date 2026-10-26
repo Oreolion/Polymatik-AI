@@ -51,6 +51,11 @@ export const resources = [
 ] as const;
 
 export type Resource = (typeof resources)[number];
+export function getResource(id: unknown): Resource | undefined {
+  return typeof id === 'string'
+    ? resources.find((item) => item.id === id)
+    : undefined;
+}
 export const topics = [
   'All subjects',
   'Physics',

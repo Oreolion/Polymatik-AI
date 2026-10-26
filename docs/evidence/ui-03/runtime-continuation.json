@@ -1,0 +1,185 @@
+{
+    "date":  "2026-10-26T02:42:49.8201475-07:00",
+    "baseCommit":  "086de86441386a1265bf3dc832502821e3d6f09e",
+    "state":  "uncommitted working tree",
+    "runtime":  "Node 24.22.1 / pnpm 10.34.2",
+    "ownerReported":  {
+                          "webBeforeFixPassed":  10,
+                          "evidence":  "owner-runtime-before-redirect-fix.md",
+                          "webBeforeFixFailed":  1,
+                          "apiTestsPassed":  3,
+                          "freshStandardWebResult":  "pending"
+                      },
+    "focusedContracts":  {
+                             "log":  "feature-tests-after-runtime-fix.txt",
+                             "exitCode":  0,
+                             "failed":  0,
+                             "passed":  27
+                         },
+    "supplementalRuntime":  {
+                                "mode":  "Installed Miniflare/workerd; API bundled with Vite/Rolldown; existing built web artifact with generated asset-first routing",
+                                "webContractsSkipped":  1,
+                                "separateOutageAssertionsPassed":  2,
+                                "procedureSha256":  "70e8d299fc90f440f1adbee11fc16cc515d6540dcae12abaa0bf3d6ac5ea62ff",
+                                "apiCasesPassed":  11,
+                                "procedure":  "runtime-probe.mjs",
+                                "exitCode":  0,
+                                "webContractsPassed":  10,
+                                "log":  "web-direct-runtime.txt"
+                            },
+    "apiTypeGeneration":  {
+                              "exitCode":  0,
+                              "log":  "api-worker-types.txt"
+                          },
+    "apiTypes":  {
+                     "exitCode":  0,
+                     "log":  "api-types-after-date-fix.txt"
+                 },
+    "rootTypes":  {
+                      "exitCode":  0,
+                      "log":  "root-types-final-continuation.txt"
+                  },
+    "javascriptLint":  {
+                           "exitCode":  0,
+                           "log":  "runtime-fix-lint.txt"
+                       },
+    "webBuild":  {
+                     "exitCode":  0,
+                     "log":  "web-build-after-redirect-fix.txt"
+                 },
+    "webArtifactManifestSha256":  "186ac863f72f8c158e991c8737b324171286a63f05f1038e2eeb5a31be97dba1",
+    "browserInteraction":  "pending; HTTP evidence is not rendered UI evidence",
+    "earlierRootSuite":  "56 pass / 1 existing mobile toolchain-link failure; not rerun or disabled",
+    "gitMutation":  "not performed; .git read-only in session",
+    "deployment":  "not performed",
+    "sourceHashes":  [
+                         {
+                             "path":  "apps/web/.dev.vars.example",
+                             "sha256":  "66575d47b9e328aae183edb469bb59c8d405a95c4cf67d1b913db7246f3ab115"
+                         },
+                         {
+                             "path":  "apps/web/app/resource-detail-view.tsx",
+                             "sha256":  "78d3d8b23c149637c9a43785734cc9ac753bb3679a85e9128f4406e517d937e5"
+                         },
+                         {
+                             "path":  "apps/web/app/resource/[id]/error.tsx",
+                             "sha256":  "8ddb4bffe937a67f30be3c5875853e5966ee6a0b984821a974ede25f013183fa"
+                         },
+                         {
+                             "path":  "apps/web/app/resource/[id]/layout.tsx",
+                             "sha256":  "1622f3304b9d22ed76c401716ab73b38871f7672003ad4f16174cdcd9dca9828"
+                         },
+                         {
+                             "path":  "apps/web/app/resource/[id]/loading.tsx",
+                             "sha256":  "020c2015307d3d38d74d5f87822ad403cb267cd8f1f5c994c7a181434ab31920"
+                         },
+                         {
+                             "path":  "apps/web/app/resource/[id]/not-found.tsx",
+                             "sha256":  "9950ae20026b051c08c15fc39276f9382b4562bb6c00482bf8109388d202232c"
+                         },
+                         {
+                             "path":  "apps/web/app/resource/[id]/page.tsx",
+                             "sha256":  "a70b3843558987eaacfbb57de30aba81f1047536a3ee2f543820e6d2d6798353"
+                         },
+                         {
+                             "path":  "apps/web/src/resource-detail.ts",
+                             "sha256":  "6eac23a95519fcbc0515d1f7283873e598fe63a74a3af0a8f2b5645bf41bdeaa"
+                         },
+                         {
+                             "path":  "apps/web/src/resource-navigation.ts",
+                             "sha256":  "b78c5db3f986a3bd76d5b3cb866cb0c663532b6a177abf0efbfb52506ac31ce4"
+                         },
+                         {
+                             "path":  "docs/38_WEB_RESOURCE_CHECKPOINT.md",
+                             "sha256":  "b0a884c061856c0f43801a25cf66cbcaaa2814d28d01abc2aeff51b176dff731"
+                         },
+                         {
+                             "path":  "tests/contracts/resource-detail.test.mjs",
+                             "sha256":  "848ed0a4a9bf207f72bbf3edceed96fc5fbc7b34ab56d5a3777618cd4075ba09"
+                         },
+                         {
+                             "path":  "README.md",
+                             "sha256":  "1e311f164630eb389f578710ff7bb528bae88f2091b71aff0009d94e527e0441"
+                         },
+                         {
+                             "path":  "apps/api/src/index.ts",
+                             "sha256":  "f5a61e7bd9f0fae76b1b0f9419f848ffdac9416a634231638d99df7215913198"
+                         },
+                         {
+                             "path":  "apps/api/src/worker-env.d.ts",
+                             "sha256":  "30c11b6302ea2e6c7728c4d3d7af2c95686ff4f40b34814706fcb9ae0cc49b5c"
+                         },
+                         {
+                             "path":  "apps/api/wrangler.jsonc",
+                             "sha256":  "9d4307072131df4656e6423db16fdfd9b5bd3a5096708ef2bb7cbdf43674f5c7"
+                         },
+                         {
+                             "path":  "apps/web/app/discover-client.tsx",
+                             "sha256":  "8863cebc377f825c37bcbec534c2d27e7ce66496d2e47d4a2ee95f112cc03e45"
+                         },
+                         {
+                             "path":  "apps/web/app/globals.css",
+                             "sha256":  "06444f3e057bbaca9db9349c6c83a0caf996205215df688662b804a3d1827aa5"
+                         },
+                         {
+                             "path":  "docs/20_IMPLEMENTATION_BACKLOG.md",
+                             "sha256":  "f398bf32c118c505cafc14b78ba8bf26f21371d0911dfc9a7f61bab7e5dba8d7"
+                         },
+                         {
+                             "path":  "docs/22_ADR_AND_DECISION_LOG.md",
+                             "sha256":  "7f7458f11b713dcda0b138a0beeb19612844fc6703d019335d51c8eead78ae02"
+                         },
+                         {
+                             "path":  "docs/24_IMPLEMENTATION_LOG.md",
+                             "sha256":  "c0381a46beec111104e5f016e7087703251a7ccbbb474598650bb1abd3ec73f2"
+                         },
+                         {
+                             "path":  "docs/30_LOCAL_DEVELOPMENT.md",
+                             "sha256":  "025e865d83260273d6700e0f53d598f853056b57fd29a202153531feaa852bd9"
+                         },
+                         {
+                             "path":  "package.json",
+                             "sha256":  "f0b13c005dfbf2f8d3a1da6486bbef48ea1a8b288705c366edb403c2253cb396"
+                         },
+                         {
+                             "path":  "packages/api-client/src/index.ts",
+                             "sha256":  "d22dd62350593608d53d873be7407d2686e7cb9ba5a693d88781eee5a36a331d"
+                         },
+                         {
+                             "path":  "packages/domain-types/openapi/v1.json",
+                             "sha256":  "e8643b43527979989c57f8d58bac7f9e4680df7f0406653124d920b58a017090"
+                         },
+                         {
+                             "path":  "packages/domain-types/src/api.generated.ts",
+                             "sha256":  "ac3ebff14203bab89269ba4d44c712789376e4d5a9d996cc227eb350b9ce4ea2"
+                         },
+                         {
+                             "path":  "packages/domain-types/src/discovery-preview.ts",
+                             "sha256":  "04a840180cc5c6a598e41c94fe2d0ac919c3bf02a6be286baedb49b52561963c"
+                         },
+                         {
+                             "path":  "packages/domain-types/src/index.ts",
+                             "sha256":  "f0c18a6baa3c477a7f08235992f93dbb1dca0e4ccdd9fc9a47d532bba4541f96"
+                         },
+                         {
+                             "path":  "scripts/README.md",
+                             "sha256":  "3e0a7d538dbd183226cef9a7ef1824f20a452acfecb6d94572ca40bdc02bd51b"
+                         },
+                         {
+                             "path":  "tests/contracts/api-client.test.mjs",
+                             "sha256":  "50574511b05df3d6a5363cba9d7a53a1a1a855bc44161727d21df2b7232cdacf"
+                         },
+                         {
+                             "path":  "tests/contracts/api-runtime.test.mjs",
+                             "sha256":  "3d93ac725e7d91d27a8ab8bf2eabefc4b2300410c923800af4f2bced6329b707"
+                         },
+                         {
+                             "path":  "tests/contracts/api.test.mjs",
+                             "sha256":  "f9f5256aaa53282c13689b6b50beeff3ddb67d0c7247a0071c624a9211a84b56"
+                         },
+                         {
+                             "path":  "tests/contracts/web-runtime.test.mjs",
+                             "sha256":  "fc5a798924e7c2b4caa244a6c7ff8f608c514f61d52836f821e42bd6524b9f9a"
+                         }
+                     ]
+}

@@ -1,4 +1,15 @@
-import type { ApiError, Health, Me, paths } from '@polymatik/domain-types';
+import type {
+  ApiError,
+  Health,
+  Me,
+  paths,
+  PreviewResource,
+  ResourceList,
+} from '@polymatik/domain-types';
+import {
+  getResource,
+  resources,
+} from '@polymatik/domain-types/discovery-preview';
 
 export type { ApiError, Health, Me } from '@polymatik/domain-types';
 type Result<T> = { data: T; error?: never } | { data?: never; error: ApiError };
@@ -23,6 +34,23 @@ const isMe = (value: unknown): value is Me =>
   typeof value.user_id === 'string' &&
   value.user_id.length > 0 &&
   value.user_id.length <= 128;
+const isResource = (value: unknown): value is PreviewResource => {
+  if (!object(value)) return false;
+  const known = getResource(value.id);
+  return (
+    known !== undefined &&
+    Object.keys(value).length === Object.keys(known).length &&
+    Object.entries(known).every(([key, expected]) => value[key] === expected)
+  );
+};
+const isResourceList = (value: unknown): value is ResourceList =>
+  object(value) &&
+  Object.keys(value).length === 1 &&
+  Array.isArray(value.items) &&
+  value.items.length <= resources.length &&
+  value.items.every(isResource) &&
+  new Set(value.items.map((item: PreviewResource) => item.id)).size ===
+    value.items.length;
 const isError = (value: unknown): value is ApiError =>
   object(value) &&
   Object.keys(value).length === 1 &&
@@ -61,7 +89,7 @@ export function createApiClient(options: ApiClientOptions) {
     throw new TypeError('API timeout must be between 0 and 60000ms.');
   }
   async function get<T>(
-    path: Extract<keyof paths, string>,
+    path: Extract<keyof paths, string> | `/v1/resources/${string}`,
     validate: (value: unknown) => value is T,
     signal?: AbortSignal,
     token?: string,
@@ -81,10 +109,18 @@ export function createApiClient(options: ApiClientOptions) {
             ...(token ? { authorization: `Bearer ${token}` } : {}),
           },
           credentials: 'omit',
-          redirect: 'error',
+          // Workers supports manual/follow, while browsers may return an opaque
+          // redirect. Reject both forms below without contacting a destination.
+          redirect: 'manual',
           signal: controller.signal,
         },
       );
+      if (
+        response.type === 'opaqueredirect' ||
+        (response.status >= 300 && response.status < 400)
+      ) {
+        throw new TypeError('API redirects are not allowed.');
+      }
       const value: unknown = await response.json();
       if (response.ok && validate(value)) return { data: value };
       if (!response.ok && isError(value)) return { error: value };
@@ -98,5 +134,21 @@ export function createApiClient(options: ApiClientOptions) {
     health: (signal?: AbortSignal) => get('/v1/health', isHealth, signal),
     me: (token: string, signal?: AbortSignal) =>
       get('/v1/me', isMe, signal, token),
+    resources: (signal?: AbortSignal) =>
+      get('/v1/resources', isResourceList, signal),
+    resource: async (id: string, signal?: AbortSignal) => {
+      if (!/^[a-z][a-z0-9-]{0,47}$/.test(id))
+        throw new TypeError('Invalid resource ID.');
+      const result = await get(
+        `/v1/resources/${encodeURIComponent(id)}`,
+        isResource,
+        signal,
+      );
+      if (result.data && result.data.id !== id)
+        throw new TypeError(
+          'API resource identity does not match its contract.',
+        );
+      return result;
+    },
   };
 }

@@ -1,6 +1,48 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { createApi } from '../../apps/api/src/index.ts';
+import { resources } from '../../packages/domain-types/src/discovery-preview.ts';
+
+test('public preview catalog serves bounded source metadata and a resource by ID', async () => {
+  const api = createApi({ log: () => {} });
+  const list = await api.fetch(new Request('https://api.test/v1/resources'));
+  assert.equal(list.status, 200);
+  assert.deepEqual(await list.json(), { items: resources });
+  for (const resource of resources) {
+    const response = await api.fetch(
+      new Request(`https://api.test/v1/resources/${resource.id}`),
+    );
+    assert.equal(response.status, 200);
+    assert.deepEqual(await response.json(), resource);
+    assert.equal(response.headers.get('cache-control'), 'no-store');
+  }
+});
+
+test('catalog rejects unknown IDs, invalid input and writes without exposing raw request paths', async () => {
+  /** @type {unknown[]} */
+  const logs = [];
+  const api = createApi({ log: (entry) => logs.push(entry) });
+  /** @type {[string, string, number][]} */
+  const cases = [
+    ['/v1/resources/missing', 'GET', 404],
+    ['/v1/resources/constructor', 'GET', 404],
+    ['/v1/resources/%3Cprivate-input%3E', 'GET', 422],
+    ['/v1/resources/%ZZ', 'GET', 422],
+    ['/v1/resources/atoms?user_id=private-input', 'GET', 422],
+    ['/v1/resources?limit=1000', 'GET', 422],
+    ['/v1/resources/atoms', 'POST', 405],
+  ];
+  for (const [path, method, status] of cases) {
+    const response = await api.fetch(
+      new Request(`https://api.test${path}`, { method }),
+    );
+    assert.equal(response.status, status, String(path));
+    const body = await response.json();
+    assert.equal(body.error.request_id, response.headers.get('x-request-id'));
+    assert.doesNotMatch(JSON.stringify(body), /private-input|stack/);
+  }
+  assert.doesNotMatch(JSON.stringify(logs), /private-input|constructor|%ZZ/);
+});
 
 /** @param {string} path @param {RequestInit} [init] */
 const request = (path, init) => new Request(`http://api.test${path}`, init);

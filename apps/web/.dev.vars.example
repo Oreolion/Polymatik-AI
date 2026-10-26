@@ -1,0 +1,2 @@
+# Trusted server-side API origin for local resource detail reads.
+PRODUCT_API_ORIGIN=http://127.0.0.1:8789

@@ -1,0 +1,43 @@
+﻿{"request_id":"435fca9e-ea23-4764-8766-3511d6941e0f","route":"/v1/health","status":200,"duration_ms":10}
+{"request_id":"3fa80a0a-2f14-419f-af8c-70e3af32bfea","route":"/v1/me","status":401,"duration_ms":0}
+{"request_id":"fad36923-5b08-4309-aca3-7a75c1fa9786","route":"/v1/resources","status":200,"duration_ms":0}
+{"request_id":"79460cb5-5902-4ea8-8aad-2dd529dca22e","route":"/v1/resources/{id}","status":200,"duration_ms":3}
+{"request_id":"4599d4af-fb21-4eee-b4cd-ec50320d8408","route":"/v1/resources/{id}","status":200,"duration_ms":0}
+{"request_id":"9ceae2d8-407a-4bf7-8b49-bd125c4340f7","route":"/v1/resources/{id}","status":404,"duration_ms":0}
+{"request_id":"070bc4e7-611a-44c6-98cd-e837193ffe50","route":"/v1/resources/{id}","status":422,"duration_ms":0}
+{"request_id":"50b84a9e-408c-4faf-b031-2d33a25a50ff","route":"/v1/resources/{id}","status":422,"duration_ms":1}
+{"request_id":"5b6005f3-20fd-4e2c-821e-cfb2dfef7031","route":"/v1/resources/{id}","status":405,"duration_ms":0}
+{"request_id":"2e8e3717-98ec-4281-abd3-2422ff01528d","route":"/v1/resources/{id}","status":403,"duration_ms":1}
+{"request_id":"8ece4a85-a064-4a62-9fa9-929f13df40eb","route":"/v1/resources/{id}","status":200,"duration_ms":7}
+PASS: 11 actual workerd HTTP cases; artifact 5299b74cf4155f56c0f4c12d75bf8edccdd232e3bf448d19f7c44aa77b019d03
+{"request_id":"a5008dc8-f041-464b-9bd2-13ade120a126","route":"/v1/resources/{id}","status":200,"duration_ms":0}
+API network probe: 200
+Configured local API origin: http://127.0.0.1:61849
+Direct asset binding: 200
+{"request_id":"919df3d6-10e4-4406-94a5-cf3800f86cdc","route":"/v1/resources/{id}","status":200,"duration_ms":0}
+Detail diagnostic: 200 { about: true, unavailable: false, error: false }
+✔ SSR includes request-specific data in initial HTML and a client-component boundary (306.4947ms)
+✔ Discover renders source-attributed preview content before hydration (432.8849ms)
+{"request_id":"03c64c00-7c8d-43ce-87d6-1044f01cc662","route":"/v1/resources/{id}","status":200,"duration_ms":0}
+{"request_id":"336f7941-6a16-496b-8ad1-d69c347a0112","route":"/v1/resources/{id}","status":200,"duration_ms":0}
+{"request_id":"41981a19-ed70-4023-afc0-692e468c6dd7","route":"/v1/resources/{id}","status":200,"duration_ms":0}
+{"request_id":"44df862f-78fd-4980-9aec-926f8024a006","route":"/v1/resources/{id}","status":200,"duration_ms":0}
+{"request_id":"1b7f1de8-c87a-4cc7-b528-22547cc79ec4","route":"/v1/resources/{id}","status":200,"duration_ms":0}
+✔ resource details render backend metadata, safe return navigation and original links (1065.5867ms)
+✔ browser bootstrap module graph has no missing hydration dependencies (1636.0256ms)
+✔ dynamic routing and not-found behavior work (329.5932ms)
+✔ JSON handlers validate input and reject unsupported methods (211.31ms)
+✔ auth placeholder rejects absent and forged client identity (70.9891ms)
+✔ SSE is incremental, bounded and ordered (369.084ms)
+✔ disconnecting a stream leaves the Worker responsive (57.7726ms)
+✔ static assets and the local Worker binding are available (136.6045ms)
+﹣ backend outage offers recovery without changing unknown-resource 404 behavior (0.8135ms) # Requires the test-managed API Worker
+ℹ tests 11
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 5670.0564
+PASS: built web contracts plus explicit API-outage recovery and unknown-resource 404 checks

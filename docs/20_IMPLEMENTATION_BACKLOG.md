@@ -2,7 +2,7 @@
 
 **Workflow:** implement one ticket, record tests/artifacts, update log, pass gate, proceed. Never build entire roadmap in one agent command. Relative planning windows only; progress depends on actual gates. Each ticket references docs and requirement IDs; owner may reprioritize via ADR.
 
-## Current owner priority - client verification after UI-02 startup
+## Current owner priority - web resource details and backend checkpoint
 
 Web Discover UI first, then mobile (23 October 2026). See the accepted owner
 reprioritization in docs/22 and acceptance scope in docs/36. M0-06 is deferred
@@ -10,12 +10,21 @@ at the Docker engine prerequisite; M0 remains incomplete. UI-01 requires source
 provenance, filter/save failure tests, responsive themes and browser evidence.
 No live catalog, account or recommendation service is implied.
 
+On 25 October the owner selected resource details and asked to finish a meaningful
+web checkpoint including backend before focusing on mobile. Current ticket is
+**UI-03 web resource details + read-only preview catalog API** (docs/38). Mobile
+resource work is parked; database/authenticated persistence remains separate.
+
 | Client ticket | Status / next verification |
 |---|---|
+| UI-03 web resource details + catalog API | Implemented; rendered UI gate pending. Owner standard API runtime 3/3 and web runtime 11/11 pass. Agent lint/full typechecks pass; current root tests 58/59 with the known mobile dependency-link failure. Evidence in docs/38 and docs/evidence/ui-03. Rendered detail interaction remains pending. Mobile stays parked. |
 | UI-01 web Discover | Owner confirms navigation, sun/moon appearance and Library saves surviving reload. Save retry preserves intent (8 discovery contracts pass). Focus-target/search semantics and all 9 dev HTTP contracts pass on 25 October. Root/web types pass. Responsive, keyboard, screenshot and screen-reader checks remain open; docs/36. |
 | UI-02 Expo Discover | Owner's cached frozen install, terminal regression and SDK 58 iOS/Android export pass; owner confirms iPhone startup/navigation/Library/appearance on 25 October. Earlier agent SDK 58 native tests: 15 pass. No further install needed. Android runtime, VoiceOver, larger-text and visual evidence remain open; docs/37. Next: finish UI-01 web persistence/retry and visual checks. |
 
 ## Milestone M0 — Prove the stack (Week 1–2 indicative)
+
+Current client slice: UI-03 (docs/38) is in progress under the owner's explicit
+web/backend priority. Its gate does not claim completion of M0 database/auth work.
 
 **23 October 2026:** M0-01's local gate passed. M0-02's local development
 gate passed: maintained Worker contracts/build, packaging dry run and

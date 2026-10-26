@@ -1,0 +1,25 @@
+﻿node.exe : C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\miniflare@5.20261012.0-beta_@
+types+node@26.6.5\node_modules\miniflare\dist\src\index.js:133013
+At line:2 char:73
++ ... +$env:PATH; & 'C:/Users/HP 240 G9/AppData/Roaming/nvm/v24.22.1/node.e ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (C:\Users\HP 240...index.js:133013:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+      const error123 = new MiniflareCoreError(
+                       ^
+
+MiniflareCoreError [ERR_VALIDATION]: Unexpected options passed to `new Miniflare()` constructor:
+✖ Unrecognized keys: "modules", "scriptPath", "compatibilityDate", "compatibilityFlags", "bindings"
+✖ Invalid input: expected array, received undefined
+  → at workers
+    at validateOptions (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\miniflare@5.2026
+1012.0-beta_@types+node@26.6.5\node_modules\miniflare\dist\src\index.js:133013:24)
+    at new _Miniflare (C:\Users\HP 240 G9\Desktop\Agents\polymatik_ai\polymatik_ai\node_modules\.pnpm\miniflare@5.20261
+012.0-beta_@types+node@26.6.5\node_modules\miniflare\dist\src\index.js:133404:38)
+    at file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/.cache/ui03-runtime-probe.mjs:33:12 {
+  code: 'ERR_VALIDATION',
+  cause: [Getter]
+}
+
+Node.js v24.22.1

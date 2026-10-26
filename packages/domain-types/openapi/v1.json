@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Polymatik Product API",
-    "version": "0.1.0",
-    "description": "M0-04 local contract. Query parameters are rejected. No writes, database or identity provider is configured. Protected success paths use server-injected deterministic verifiers in tests only."
+    "version": "0.2.0",
+    "description": "Local product contract with a finite public preview catalog. No writes, database or live identity provider is configured. Query parameters are rejected."
   },
   "servers": [
     {
@@ -176,6 +176,25 @@
               }
             }
           },
+          "401": {
+            "description": "Missing or invalid verified identity. Default Worker denies all tokens until OIDC integration.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "403": {
             "description": "Origin or permission denied.",
             "headers": {
@@ -252,25 +271,6 @@
               }
             }
           },
-          "401": {
-            "description": "Missing or invalid verified identity. Default Worker denies all tokens until OIDC integration.",
-            "headers": {
-              "X-Request-Id": {
-                "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
           "503": {
             "description": "Identity verifier unavailable; retryable.",
             "headers": {
@@ -321,6 +321,316 @@
           }
         }
       }
+    },
+    "/v1/resources": {
+      "get": {
+        "operationId": "listResources",
+        "summary": "Public finite preview catalog",
+        "security": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Reviewed metadata only; no article body or private user data.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceList"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin or permission denied.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Unsupported method.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unsupported query parameters.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Sanitized internal error.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "options": {
+        "operationId": "listResourcesPreflight",
+        "summary": "Exact-origin CORS preflight; GET with authorization/content-type only.",
+        "security": [],
+        "responses": {
+          "204": {
+            "description": "Allowed preflight."
+          },
+          "403": {
+            "description": "Origin, method or request headers denied.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/resources/{id}": {
+      "get": {
+        "operationId": "getResource",
+        "summary": "Public preview resource metadata",
+        "security": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,47}$",
+              "maxLength": 48
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reviewed metadata only; no article body or private user data.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PreviewResource"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin or permission denied.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Unsupported method.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unsupported query parameters.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Sanitized internal error.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "options": {
+        "operationId": "getResourcePreflight",
+        "summary": "Exact-origin CORS preflight; GET with authorization/content-type only.",
+        "security": [],
+        "responses": {
+          "204": {
+            "description": "Allowed preflight."
+          },
+          "403": {
+            "description": "Origin, method or request headers denied.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,47}$",
+            "maxLength": 48
+          }
+        }
+      ]
     }
   },
   "components": {
@@ -389,6 +699,82 @@
                 "type": "boolean"
               }
             }
+          }
+        }
+      },
+      "PreviewResource": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "source",
+          "publisher",
+          "kind",
+          "topic",
+          "url",
+          "description",
+          "note"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,47}$",
+            "maxLength": 48
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "publisher": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["Chapter", "Interactive", "Article", "Course"]
+          },
+          "topic": {
+            "type": "string",
+            "enum": ["Physics", "Mathematics", "Computing"]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "maxLength": 2048,
+            "description": "Fixed reviewed original HTTPS URL from the preview catalog."
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        }
+      },
+      "ResourceList": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["items"],
+        "properties": {
+          "items": {
+            "type": "array",
+            "maxItems": 4,
+            "items": {
+              "$ref": "#/components/schemas/PreviewResource"
+            },
+            "uniqueItems": true
           }
         }
       }

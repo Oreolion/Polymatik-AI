@@ -4,12 +4,15 @@ import { createRequire } from 'node:module';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import test, { after, before } from 'node:test';
 import ts from 'typescript';
+import { resources } from '../../packages/domain-types/src/discovery-preview.ts';
 
 let base = new URL(
   process.env.POLYMATIK_WEB_BASE_URL ?? 'http://127.0.0.1:8787',
 );
 /** @type {{port: number, stop: () => Promise<void>} | undefined} */
 let worker;
+/** @type {{port: number, stop: () => Promise<void>} | undefined} */
+let apiWorker;
 
 before(
   async () => {
@@ -23,10 +26,12 @@ before(
     const { unstable_dev } = await import(
       pathToFileURL(require.resolve('wrangler')).href
     );
-    worker = await unstable_dev(
-      fileURLToPath(new URL('dist/server/index.js', app)),
+    const api = new URL('../../apps/api/', import.meta.url);
+    apiWorker = await unstable_dev(
+      fileURLToPath(new URL('src/worker.ts', api)),
       {
-        config: fileURLToPath(new URL('dist/server/wrangler.json', app)),
+        config: fileURLToPath(new URL('wrangler.jsonc', api)),
+        env: 'local',
         local: true,
         ip: '127.0.0.1',
         port: 0,
@@ -41,14 +46,40 @@ before(
         },
       },
     );
+    assert.ok(apiWorker);
+    worker = await unstable_dev(
+      fileURLToPath(new URL('dist/server/index.js', app)),
+      {
+        config: fileURLToPath(new URL('dist/server/wrangler.json', app)),
+        local: true,
+        ip: '127.0.0.1',
+        port: 0,
+        inspectorPort: 0,
+        persist: false,
+        logLevel: 'error',
+        vars: {
+          PRODUCT_API_ORIGIN: `http://127.0.0.1:${apiWorker.port}`,
+        },
+        experimental: {
+          disableDevRegistry: true,
+          watch: false,
+          enableContainers: false,
+          showInteractiveDevSession: false,
+        },
+      },
+    );
     assert.ok(worker);
     base = new URL(`http://127.0.0.1:${worker.port}`);
   },
-  { timeout: 60_000 },
+  { timeout: 120_000 },
 );
 
 after(async () => {
-  await worker?.stop();
+  try {
+    await worker?.stop();
+  } finally {
+    await apiWorker?.stop();
+  }
 });
 assert.equal(base.protocol, 'http:');
 assert.ok(
@@ -63,20 +94,38 @@ const request = (path, options = {}) =>
     signal: options.signal ?? AbortSignal.timeout(10_000),
   });
 
-test('SSR includes request-specific data in initial HTML and a client-component boundary', async () => {
+test('SSR includes request-specific data in initial HTML and a client-component boundary', async (t) => {
+  /** @param {string} requestMarker @param {number} timeoutMs @param {string} label */
+  async function readSsr(requestMarker, timeoutMs, label) {
+    const started = performance.now();
+    let stage = 'response headers';
+    try {
+      const response = await request('/dev/runtime', {
+        headers: { 'x-spike-request': requestMarker },
+        signal: AbortSignal.timeout(timeoutMs),
+      });
+      assert.equal(response.status, 200);
+      stage = 'HTML body';
+      const html = await response.text();
+      t.diagnostic(
+        `${label}: ${Math.round(performance.now() - started)}ms; deadline ${timeoutMs}ms`,
+      );
+      return html;
+    } catch (error) {
+      t.diagnostic(
+        `${label} failed during ${stage} after ${Math.round(performance.now() - started)}ms; deadline ${timeoutMs}ms`,
+      );
+      throw error;
+    }
+  }
   const marker = randomUUID();
-  const response = await request('/dev/runtime', {
-    headers: { 'x-spike-request': marker },
-  });
-  assert.equal(response.status, 200);
-  const html = await response.text();
+  // First SSR can load the local Worker's lazy module graph. Its separate,
+  // bounded allowance is not a production latency target; no request is retried.
+  const html = await readSsr(marker, 30_000, 'first SSR');
   assert.ok(html.includes(marker), 'request marker is rendered on the server');
   assert.ok(html.includes('data-testid="counter"'));
   assert.ok(html.includes('Polymatik AI'));
-  const other = await request('/dev/runtime', {
-    headers: { 'x-spike-request': 'second-request' },
-  });
-  const secondHtml = await other.text();
+  const secondHtml = await readSsr('second-request', 10_000, 'repeat SSR');
   assert.ok(secondHtml.includes('second-request'));
   assert.ok(
     !secondHtml.includes(marker),
@@ -112,6 +161,39 @@ test('Discover renders source-attributed preview content before hydration', asyn
     ),
     'collection search has an explicit form name and autocomplete policy',
   );
+});
+
+test('resource details render backend metadata, safe return navigation and original links', async () => {
+  for (const resource of resources) {
+    const response = await request(`/resource/${resource.id}?from=library`);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    // Assert server-rendered text without matching Flight data or React's
+    // separators between adjacent literal and interpolated text nodes.
+    const text = html
+      .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, '')
+      .replace(/<!--[\s\S]*?-->/g, '')
+      .replace(/<[^>]*>/g, ' ')
+      .replace(/\s+/g, ' ');
+    for (const value of [
+      resource.title,
+      'About this resource',
+      `Published by ${resource.publisher}`,
+      'Open original',
+      'Back to Library',
+    ])
+      assert.ok(text.includes(value), `${resource.id}: ${value}`);
+    assert.ok(html.includes('href="/#library"'));
+    assert.ok(html.includes(`href="${resource.url}"`));
+    assert.ok(!text.includes('This resource is unavailable right now.'));
+  }
+  const unsafe = await (
+    await request('/resource/atoms?from=https%3A%2F%2Fevil.test')
+  ).text();
+  assert.ok(unsafe.includes('href="/#discover"'));
+  assert.ok(!unsafe.includes('href="https://evil.test"'));
+  assert.equal((await request('/resource/missing')).status, 404);
+  assert.equal((await request('/resource/%3Cinvalid%3E')).status, 404);
 });
 
 test(
@@ -286,3 +368,23 @@ test('static assets and the local Worker binding are available', async () => {
   assert.equal(binding.status, 200);
   assert.deepEqual(await binding.json(), { fixture: 'local-only-fixture' });
 });
+
+test(
+  'backend outage offers recovery without changing unknown-resource 404 behavior',
+  {
+    skip: process.env.POLYMATIK_WEB_BASE_URL
+      ? 'Requires the test-managed API Worker'
+      : false,
+  },
+  async () => {
+    await apiWorker?.stop();
+    apiWorker = undefined;
+    const response = await request('/resource/atoms?from=library');
+    const html = await response.text();
+    assert.ok(html.includes('This resource is unavailable right now.'));
+    assert.ok(html.includes('Retry loading resource'));
+    assert.ok(html.includes('Back to'));
+    assert.ok(html.includes('/#library'));
+    assert.equal((await request('/resource/missing')).status, 404);
+  },
+);

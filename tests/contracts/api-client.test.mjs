@@ -4,6 +4,38 @@ import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 import { createApi } from '../../apps/api/src/index.ts';
 import { createApiClient } from '../../packages/api-client/src/index.ts';
+import { resources } from '../../packages/domain-types/src/discovery-preview.ts';
+
+test('catalog client validates list/detail identity and original source links', async () => {
+  const api = createApi({ log: () => {} });
+  const client = createApiClient({
+    baseUrl: 'https://api.test',
+    fetch: async (input, init) => api.fetch(new Request(input, init)),
+  });
+  assert.deepEqual((await client.resources()).data, { items: resources });
+  assert.deepEqual((await client.resource('atoms')).data, resources[0]);
+  assert.equal(
+    (await client.resource('missing')).error?.error.code,
+    'not_found',
+  );
+  await assert.rejects(client.resource('../private'), /resource ID/);
+  for (const body of [
+    { ...resources[0], url: 'javascript:alert(1)' },
+    resources[1],
+    { ...resources[0], unexpected: 'extra' },
+  ]) {
+    const bad = createApiClient({
+      baseUrl: 'https://api.test',
+      fetch: async () => Response.json(body),
+    });
+    await assert.rejects(bad.resource('atoms'), /contract|identity/);
+  }
+  const duplicate = createApiClient({
+    baseUrl: 'https://api.test',
+    fetch: async () => Response.json({ items: [resources[0], resources[0]] }),
+  });
+  await assert.rejects(duplicate.resources(), /contract/);
+});
 
 test('both presentation boundaries consume the same typed client and actual API contract', async () => {
   const { loadApiHealth: webHealth } = await import(
@@ -35,7 +67,7 @@ test('client returns typed errors and never retains or forwards a prior call ide
       const request = new Request(input, init);
       identities.push(request.headers.get('authorization'));
       assert.equal(init?.credentials, 'omit');
-      assert.equal(init?.redirect, 'error');
+      assert.equal(init?.redirect, 'manual');
       return api.fetch(request);
     },
   });
@@ -87,6 +119,30 @@ test('client supports caller cancellation and bounded network deadlines', async 
   await assert.rejects(client.health(controller.signal), {
     name: 'AbortError',
   });
+});
+
+test('redirect responses are rejected before parsing their bodies or following destinations', async () => {
+  for (const status of [301, 302, 303, 307, 308]) {
+    let parsed = false;
+    const client = createApiClient({
+      baseUrl: 'https://api.test',
+      fetch: async (_input, init) => {
+        assert.equal(init?.redirect, 'manual');
+        assert.equal(init?.credentials, 'omit');
+        const response = Response.json(
+          { user_id: 'untrusted-redirect-body' },
+          { status, headers: { location: 'https://external.test/private' } },
+        );
+        response.json = async () => {
+          parsed = true;
+          return { user_id: 'untrusted-redirect-body' };
+        };
+        return response;
+      },
+    });
+    await assert.rejects(client.me('test-token'), /redirect/i);
+    assert.equal(parsed, false);
+  }
 });
 
 test('client rejects credential URLs, unsafe protocols and implicit insecure origins', () => {

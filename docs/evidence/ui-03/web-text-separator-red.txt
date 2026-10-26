@@ -1,0 +1,80 @@
+﻿{"request_id":"30541712-f986-4b47-a196-d5970a179c7d","route":"/v1/health","status":200,"duration_ms":3}
+{"request_id":"7ec90be9-7c18-4def-a36c-025d2ed0645b","route":"/v1/me","status":401,"duration_ms":1}
+{"request_id":"4dc7038b-9846-4fcb-93e5-12543f0ec83a","route":"/v1/resources","status":200,"duration_ms":0}
+{"request_id":"55fbc714-bb3b-47ba-9bee-1aaf08553b6d","route":"/v1/resources/{id}","status":200,"duration_ms":1}
+{"request_id":"d392fbcb-5ae8-4dff-9f4f-11cee630d710","route":"/v1/resources/{id}","status":200,"duration_ms":0}
+{"request_id":"bbc49321-d0ec-408c-82d2-6e50546a2fbf","route":"/v1/resources/{id}","status":404,"duration_ms":0}
+{"request_id":"5e1559d2-3e05-425e-bb78-0927fa4e225d","route":"/v1/resources/{id}","status":422,"duration_ms":0}
+{"request_id":"f8a81f79-9e89-4bad-8062-3e9f31f5654a","route":"/v1/resources/{id}","status":422,"duration_ms":1}
+{"request_id":"05206b5b-e155-4840-b252-70916bfc305c","route":"/v1/resources/{id}","status":405,"duration_ms":0}
+{"request_id":"47b4d3be-5130-42e6-a038-f029b159be69","route":"/v1/resources/{id}","status":403,"duration_ms":0}
+{"request_id":"3bf08546-1651-47fc-a2e6-4fe97e81d02e","route":"/v1/resources/{id}","status":200,"duration_ms":1}
+PASS: 11 actual workerd HTTP cases; artifact 5299b74cf4155f56c0f4c12d75bf8edccdd232e3bf448d19f7c44aa77b019d03
+{"request_id":"99784f34-1ca3-4f5d-a7fd-aee10cd1c40f","route":"/v1/resources/{id}","status":200,"duration_ms":1}
+API network probe: 200
+Configured local API origin: http://127.0.0.1:55787
+Direct asset binding: 200
+{"request_id":"d4b23941-2ad4-4ead-b0aa-d48aedef53d7","route":"/v1/resources/{id}","status":200,"duration_ms":0}
+Detail diagnostic: 200 { about: true, unavailable: false, error: false }
+✔ SSR includes request-specific data in initial HTML and a client-component boundary (450.5808ms)
+✔ Discover renders source-attributed preview content before hydration (368.2293ms)
+{"request_id":"ae5e5b4f-6cfb-4acc-a02e-03adf88b2675","route":"/v1/resources/{id}","status":200,"duration_ms":0}
+✖ resource details render backend metadata, safe return navigation and original links (176.0258ms)
+✔ browser bootstrap module graph has no missing hydration dependencies (1499.3321ms)
+✔ dynamic routing and not-found behavior work (513.3255ms)
+✔ JSON handlers validate input and reject unsupported methods (208.7817ms)
+✔ auth placeholder rejects absent and forged client identity (91.0147ms)
+✔ SSE is incremental, bounded and ordered (400.1706ms)
+✔ disconnecting a stream leaves the Worker responsive (124.3619ms)
+✔ static assets and the local Worker binding are available (852.5225ms)
+﹣ backend outage offers recovery without changing unknown-resource 404 behavior (3.7709ms) # Requires the test-managed API Worker
+ℹ tests 11
+ℹ suites 0
+ℹ pass 9
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 5946.5519
+
+✖ failing tests:
+
+test at tests\contracts\web-runtime.test.mjs:147:1
+✖ resource details render backend metadata, safe return navigation and original links (176.0258ms)
+  AssertionError [ERR_ASSERTION]: Published by Caltech
+      at TestContext.<anonymous> (file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/tests/contracts/web-runtime.test.mjs:159:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+node.exe : node:internal/modules/run_main:107
+At line:2 char:201
++ ... +$env:PATH; & 'C:/Users/HP 240 G9/AppData/Roaming/nvm/v24.22.1/node.e ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (node:internal/modules/run_main:107:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: built web HTTP contracts
+
+1 !== 0
+
+    at file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/.cache/ui03-runtime-probe.mjs:127:12
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 1,
+  expected: 0,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.22.1

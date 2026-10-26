@@ -5,6 +5,31 @@
 
 ## Accepted development-workflow decisions
 
+### 2026-10-25 — Match the API compatibility date to the locked local runtime
+
+Local implementation correction within UI-03, not a deployment decision.
+The API configured 2026-10-23, while direct execution with the installed
+Miniflare/workerd rejects dates after 2026-10-19. Set the existing API's date to
+2026-10-19 and regenerate its Worker types with the project Wrangler command.
+No compatibility flags, dependency versions, bindings or accounts change.
+
+Evidence: `docs/evidence/ui-03/miniflare-probe-date-red.txt` captures the actual
+runtime rejection; `miniflare-probe.txt` and `miniflare-probe.json` capture 11
+passing runtime cases after the correction. These exercise real workerd using
+a supplemental Vite/Rolldown API bundle. They do not substitute for the standard
+Wrangler packaging gate, still blocked by this agent's directory permissions.
+API type generation and TypeScript checking pass. The previous fixture source
+uses Fetch, Response.json and crypto.randomUUID; no newer API was introduced.
+
+Alternatives: retain an unsupported date and depend on tool-specific fallback,
+or change the locked toolchain mid-ticket. Aligning the date gives this local
+checkpoint an explicit supported target without another installation. Date
+updates remain deliberate runtime changes, as described in the
+[compatibility-date guidance](https://developers.cloudflare.com/workers/configuration/compatibility-dates/).
+Revisit the date when upgrading Wrangler/workerd and rerun runtime tests. Rollback
+requires restoring the date and regenerated types together only with evidence
+that the selected runtime supports it. No deployed Worker or private data changes.
+
 ### 2026-10-23 — Correct pnpm bootstrap without relaxing the project pin
 
 Owner's pnpm 10.4.1 fails the new engines.pnpm=10.34.2 gate during bootstrap.

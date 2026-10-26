@@ -1,0 +1,12 @@
+﻿{"request_id":"2109136e-36a4-4935-b766-d427f20ad421","route":"/v1/health","status":200,"duration_ms":12}
+{"request_id":"997762a9-3042-4809-a796-4670f0821612","route":"/v1/me","status":401,"duration_ms":3}
+{"request_id":"849aec90-cff7-47f6-a8aa-d2e6e5ae71e3","route":"/v1/resources","status":200,"duration_ms":0}
+{"request_id":"dbd69ef0-a802-45a8-848a-3e68210e0fe9","route":"/v1/resources/{id}","status":200,"duration_ms":3}
+{"request_id":"81514eac-6487-46ca-ae85-ef69a154c089","route":"/v1/resources/{id}","status":200,"duration_ms":0}
+{"request_id":"7a7892bb-8df8-431d-9286-13650123929a","route":"/v1/resources/{id}","status":404,"duration_ms":0}
+{"request_id":"c41b8280-d104-4200-bf02-40d8ea8f1489","route":"/v1/resources/{id}","status":422,"duration_ms":0}
+{"request_id":"358d1259-38e4-4cbf-af90-e434955a1eb5","route":"/v1/resources/{id}","status":422,"duration_ms":1}
+{"request_id":"2ed8b3cc-abec-4a0e-9489-636cfa26aa46","route":"/v1/resources/{id}","status":405,"duration_ms":1}
+{"request_id":"726ce583-32f3-4b0a-9213-99409e04a33b","route":"/v1/resources/{id}","status":403,"duration_ms":0}
+{"request_id":"f7273384-09c9-4049-a739-8c8d610c3f86","route":"/v1/resources/{id}","status":200,"duration_ms":0}
+PASS: 11 actual workerd HTTP cases; artifact 5299b74cf4155f56c0f4c12d75bf8edccdd232e3bf448d19f7c44aa77b019d03

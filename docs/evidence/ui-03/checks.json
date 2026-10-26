@@ -1,0 +1,33 @@
+{
+  "runtime": "Node 24.22.1 / pnpm 10.34.2",
+  "records": [
+    {
+      "command": "test",
+      "exitCode": 1,
+      "error": null,
+      "seconds": 47.232,
+      "log": "docs/evidence/ui-03/test.txt"
+    },
+    {
+      "command": "typecheck",
+      "exitCode": 0,
+      "error": null,
+      "seconds": 223.595,
+      "log": "docs/evidence/ui-03/typecheck.txt"
+    },
+    {
+      "command": "lint",
+      "exitCode": 0,
+      "error": null,
+      "seconds": 46.618,
+      "log": "docs/evidence/ui-03/lint.txt"
+    },
+    {
+      "command": "check:api",
+      "exitCode": 0,
+      "error": null,
+      "seconds": 7.734,
+      "log": "docs/evidence/ui-03/check-api.txt"
+    }
+  ]
+}

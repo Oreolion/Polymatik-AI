@@ -17,6 +17,7 @@ Discover, then mobile. Milestone M0 is incomplete.
 ## Ticket ledger
 | Ticket | Status | Commit/PR | Actual tests and results | ADR | Notes |
 |---|---|---|---|---|---|
+| UI-03 | Web resource details and catalog API implemented; rendered UI gate pending | Working tree after owner's first master push | 27 focused contracts; owner API runtime 3/3 and standard web runtime 11/11 pass; agent supplemental workerd checks retained separately. Browser interaction pending | Owner web/backend-first instruction; docs/38 | Stale pnpm install stopped; disconnect error remains unisolated; browser-local saves only; DB/auth private-alpha gate incomplete; mobile parked |
 | M0-01 | Local gate passed; CI configured | No commit/remote | Clean Node 24.0.0 install/checks; 10 TS / 2 Python tests | ADR-001 proposed | Exact patch and remote CI unverified |
 | M0-02 | Local development gate passed | No commit/remote | Main checks, 16 tests, 7 dev-Worker and 7 built-Worker contracts; dry run; owner counter interaction | ADR-002 proposed for deployment | Broader browser/staging/production proof outstanding |
 | M0-03 | Local gate passed | No commit/remote | Node 24.22.1: lint/full typechecks, 26 Node tests, 7 Router tests; owner iOS/Android Hermes exports, agent artifact inspection | ADR-001/012 proposed | Owner confirms requested iPhone checks; Android runtime/VoiceOver unverified |
@@ -28,6 +29,194 @@ Discover, then mobile. Milestone M0 is incomplete.
 | M1–M6 | Planned, not started | — | — | — | See backlog |
 
 ## Append a work entry after each session
+
+### 2026-10-26 — UI-03 milestone review for requested master push
+
+Owner requests master push when the work is done. Agent read-only Git review
+confirms master tracks origin/master at base 086de86, with the owner's Oreolion
+remote. No ignored files are tracked; representative credentials, dependencies,
+caches, local Worker variables and builds are ignored. A scoped credential-pattern
+scan of the source/evidence paths finds no matching private keys, common provider
+token forms or local proxy-secret fields. This is a limited scan, not a complete
+security audit. No .gitignore change is required for the inspected files.
+
+Fresh agent checks, pinned Node 24.22.1 / pnpm 10.34.2: root lint exit 0; all six
+workspace typechecks exit 0; root tests exit 1 with 58/59 passing. The one failure
+is the existing installed mobile supports-hyperlinks/supports-color API mismatch,
+not a web HTTP failure. Logs: `evidence/ui-03/milestone-lint.txt`,
+`milestone-types.txt`, `milestone-root-test.txt`. No repair/reinstall was started,
+and the test remains enabled. Owner web 11/11 and API 3/3 results remain separate
+owner-run evidence. Rendered UI acceptance and the unisolated disconnect log
+remain open; the whole repository is not claimed green.
+
+The session explicitly exposes .git read-only. No staging, commit, push, ownership
+change or protection bypass was attempted. The milestone remains uncommitted in
+this session; the owner must perform Git mutations from their normal terminal or
+provide a session with Git write access. This is an environment permission limit,
+not a new approval requirement or change in repository ownership.
+
+### 2026-10-26 — UI-03 standard HTTP gate passes after host contention investigation
+
+Owner identified the CPU/memory-heavy Node PID 19372 as an offline pnpm install
+left running since 23 October. Agent verified PID, Node executable and start
+date, stopped only that process (4.32 GB working set) and confirmed it exited.
+No dependency reinstall, deletion, rebuild or further deadline change occurred.
+The owner's unchanged standard `test:web` then passes 11/11, no skips, in
+21,777.8221 ms; first SSR 9,248 ms, repeat 103 ms. Before stopping it, the owner
+reported 7/11 passing with four early timeouts in 130,887.5882 ms. This strongly
+supports resource contention without claiming a fully isolated performance root
+cause. Earlier owner API runtime result remains 3/3.
+
+Evidence: `evidence/ui-03/owner-four-timeouts.md` and
+`evidence/ui-03/owner-web-runtime-pass.md`. The network-disconnect error remains
+visible near the intentional disconnect test; no logger or assertion was
+disabled and no clean-log claim is made. The standard HTTP rerun is complete.
+Next: rendered web resource-detail acceptance, including save/reload/Library,
+return links, source attribution, themes and keyboard/narrow/wide layout checks.
+Mobile work stays parked. No production, Git, dependency or AI behavior change.
+
+### 2026-10-26 — UI-03 first SSR deadline and diagnostics
+
+Owner's standard rerun passes resource details and all other feature cases:
+10/11 pass, with the first SSR case timing out. Recorded one reported run in
+`evidence/ui-03/owner-ssr-timeout.md`. Its two SSR requests shared the normal
+10-second request deadline; no per-request phase timing identified which stage
+was slow. The total reported case duration is not an SSR latency measurement.
+
+Test-only adjustment: first SSR has a bounded 30-second local startup allowance;
+repeat SSR and other normal requests keep 10 seconds. Success logs both elapsed
+times; failure identifies header/body stage and elapsed time. All request-marker,
+client-boundary and cross-request isolation assertions remain. No retries,
+standard-suite warm-up, application code, dependency, lockfile or build changes.
+This is not a production latency/SLO improvement claim.
+
+Controlled reproduction in actual workerd: hold only the first SSR response for
+11 seconds. Original test times out at 10,027 ms; updated test passes at 11,603 ms,
+with repeat SSR 80 ms under its existing 10-second limit. Logs:
+`ssr-cold-delay-red.txt` and `ssr-cold-delay-green.txt`. This reproduces the
+deadline boundary and does not prove the cause of the owner's original delay.
+Retained procedure: `ssr-startup-probe.mjs --web --cold-delay`.
+
+Also ran the direct built-Worker suite without diagnostic warm-up requests:
+10 HTTP contracts pass, one managed-API case is skipped in external-target mode,
+and separate real API-stop recovery/404 checks pass. Evidence:
+`ssr-startup-full-runtime.txt`; reproduce with
+`node docs/evidence/ui-03/ssr-startup-probe.mjs --web --no-warmup`.
+Root typecheck and focused JavaScript/probe lint pass. No unrelated full suite or
+mobile rebuild was repeated. The known earlier mobile-link failure remains open.
+
+Owner's `Network connection lost` log is retained; the exact emitting operation
+is unconfirmed and no logger was suppressed. Intentional disconnect/outage
+contracts pass. Mouse-reporting terminal fragments were treated as console
+input/output observations. A fresh owner standard web result and rendered UI
+review remain pending. No Git write, production action or AI behavior change.
+
+### 2026-10-26 — UI-03 runtime integration correction
+
+Continuing the same web/backend ticket; mobile stays parked. The owner reports
+3/3 standard API Worker tests and 10/11 built-web tests passing, with the detail
+page's unavailable state failing its success assertion. Recorded as owner
+evidence in `evidence/ui-03/owner-runtime-before-redirect-fix.md`.
+
+Agent direct workerd probing found the API's compatibility date beyond the
+installed runtime's maximum. Corrected 2026-10-23 to 2026-10-19, regenerated
+Worker types through the pinned Wrangler, and passed API typechecking. The
+unsupported date fails before the change; 11 API runtime HTTP cases pass after.
+The decision, alternatives and rollback are recorded in docs/22. No dependency
+install or version change was needed.
+
+The built web then reproduced the detail failure: Workers does not implement
+the shared client's `redirect: 'error'`. Switched to supported manual redirects
+and explicit rejection of every 3xx/opaque redirect before parsing. Retained
+credentials omission, bounded requests, cancellation and strict response checks.
+New redirect regression fails before and passes after. 27 focused API/client/
+detail/Library contracts pass, including generated OpenAPI drift checking.
+The web rebuild and root typecheck pass; JavaScript lint and source formatting
+pass. Follow-up typecheck evidence covers the normalized web HTTP assertions.
+
+Agent direct Miniflare/workerd execution of that built web artifact passes 10
+HTTP contracts, including all four resource pages, source/return links and the
+entire browser bootstrap module graph. Its managed-API outage test is explicitly
+skipped under external-target mode; equivalent API shutdown recovery and 404
+checks were separately executed and pass. Corrected supplemental setup to use
+generated asset-first routing; the initial chunk 404 came from its forced
+worker-first setting, not an app asset regression. React publisher text includes
+separator comments; HTTP tests now inspect SSR text without script/style data,
+so the publisher assertion remains meaningful. No screenshot or actual browser
+interaction is claimed by those HTTP checks.
+
+Evidence: `evidence/ui-03/miniflare-probe*.txt/json`,
+`web-direct-runtime.txt`, `redirect-red.txt`,
+`feature-tests-after-runtime-fix.txt`, `api-worker-types.txt`,
+`api-types-after-date-fix.txt`, `web-build-after-redirect-fix.txt` and final type/
+lint logs. The retained supplemental probe documents its separate bundling and
+asset setup. Agent standard Wrangler startup remains blocked by ancestor-directory
+permissions; owner was asked to rerun only `test:web` against the rebuilt output.
+
+No schema/DB/private Library write, model/provider, production action, dependency
+install, Git commit or push occurred. AI evaluation delta N/A: no orchestration,
+retrieval, prompt or ranking changes. The known mobile terminal-link failure in
+the earlier root run remains open. Next: fresh standard web result and rendered
+resource Save/Reload/Library/Original/theme checks, then resume database/user
+isolation prerequisites before any mobile feature work.
+
+### 2026-10-25 — UI-03 web resource details and public catalog API
+
+Owner requested a meaningful web/backend checkpoint before more mobile work.
+Inspected README, source-of-truth/design documents, existing API/client, preview
+catalog, Library state, runtime tests and Git status. The initial checkout was
+clean on master tracking origin/master; historical "No commit/remote" rows above
+describe their original sessions. This session cannot write .git.
+
+Added public GET catalog/detail endpoints, versioned OpenAPI and genuinely
+regenerated shared types, strict client response/identity validation and bounded
+server-side detail loading. The web detail page includes original source links,
+publisher/subject/format/note, existing local Save/Retry behavior and internal
+return navigation. Loading/error/not-found views avoid private error details.
+A finite-catalog layout guard returns 404 before the loading boundary, including
+when the API is offline. Cards now link to details and retain Open Original.
+README now covers setup, pinned tools, scripts, architecture, configuration,
+privacy, verification and contribution. The scripts guide uses the current pin.
+
+Tests first failed on missing routes/client methods, then passed after the
+implementation. Agent-run Node 24.22.1 / pnpm 10.34.2 evidence is in
+`evidence/ui-03/`: 26 focused API/client/detail/Library contracts pass, including
+real loopback HTTP and disconnected requests. Full workspace typecheck, root
+lint and generated-contract verification passed. The root suite passed 56/57;
+the one failure is the existing mobile terminal dependency link, not repaired
+or disabled in this web ticket. Final web-only typecheck also passed. A targeted
+ESLint attempt against TS directories reported they are outside its configured
+JavaScript file set; TypeScript checking covers those sources. The subsequent
+JavaScript-only lint result is recorded separately. Web build passed before the
+final route guard; final build evidence is recorded separately.
+
+Agent dev HTTP confirms unknown resource 404 and a valid resource's honest
+unavailable state while the API is absent. The actual API Worker runtime attempt
+failed before tests could execute because esbuild cannot read an ancestor
+directory under this sandbox. This is not a runtime pass. The web runtime harness
+now starts both local Workers with ephemeral ports and cleans both up; its
+ready-state, outage and browser interaction gates remain pending. Owner was asked
+to start the API in the normal terminal. Browser automation was unavailable due
+to its profile-registration permissions; no screenshots or visual/a11y pass are
+claimed. Do not infer this ticket's pass from earlier Discover browser checks.
+
+Security/privacy: reviewed fixed public HTTPS metadata only; no client-selected
+upstream or external return redirect; strict ID/query/method/CORS handling;
+sanitized correlation logs; no account/private Library endpoint or data write.
+Local `.dev.vars` is ignored; its safe example is tracked. Production should use
+an explicitly reviewed Worker service binding rather than assuming the local
+HTTP setup is deployment configuration. No dependency install, model/provider,
+database migration, Git mutation or deployment ran. AI evaluation delta is N/A:
+no prompt/retrieval/ranking change. Cost/latency were not benchmarked.
+
+Alternative: retain static-only details, rejected for this checkpoint because the
+owner requested backend integration. No generic catalog infrastructure or paid
+provider was added. Rollback UI routes, endpoints, OpenAPI/generated client and
+tests together; there is no migration or private data to reverse.
+
+Next: verify built web/API Workers and rendered detail Save/Reload/Back/Original
+in both appearances. Then return to the M0-06 database prerequisite and identity
+decision before claiming the authenticated private-alpha loop. Mobile stays parked.
 
 ### 2026-10-25 — Pre-first-commit Git hygiene
 

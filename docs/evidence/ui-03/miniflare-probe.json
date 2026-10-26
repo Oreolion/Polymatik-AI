@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-26T10:59:57.648Z",
+  "mode": "Supplemental Vite/Rolldown bundle executed by installed Miniflare/workerd; not the Wrangler packaging gate",
+  "node": "v24.22.1",
+  "compatibilityDate": "2026-10-19",
+  "artifact": ".cache/ui03-api-probe/worker.js",
+  "artifactSha256": "5299b74cf4155f56c0f4c12d75bf8edccdd232e3bf448d19f7c44aa77b019d03",
+  "records": [
+    {
+      "path": "/v1/health",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/me",
+      "method": "GET",
+      "status": 401
+    },
+    {
+      "path": "/v1/resources",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/resources/atoms",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/resources/browser",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/resources/missing",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "path": "/v1/resources/%3Cinvalid%3E",
+      "method": "GET",
+      "status": 422
+    },
+    {
+      "path": "/v1/resources/atoms?debug=1",
+      "method": "GET",
+      "status": 422
+    },
+    {
+      "path": "/v1/resources/atoms",
+      "method": "POST",
+      "status": 405
+    },
+    {
+      "path": "/v1/resources/atoms",
+      "method": "GET",
+      "status": 403
+    },
+    {
+      "path": "/v1/resources/atoms",
+      "method": "GET",
+      "status": 200
+    }
+  ]
+}

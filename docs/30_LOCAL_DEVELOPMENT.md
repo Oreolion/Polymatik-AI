@@ -1,6 +1,8 @@
 # Local development
 
-M0-04 and M0-05 local gates passed. Next ticket is **M0-06 only**. Python
+M0-04 and M0-05 local gates passed. Current ticket is **UI-03 web resource
+details and read-only catalog API** (docs/38). Mobile work is parked by the owner;
+database/auth integration remains open. Python
 service commands and exact gate evidence are in [the agent runbook](35_AGENT_LOCAL_VERIFICATION.md). The web compatibility fixture passes its local
 development gate. Expo/shared-token dependencies are installed; lint, full typechecks, 26 Node
 contracts and seven Router JavaScript tests pass on Node 24.22.1. The owner
@@ -11,14 +13,14 @@ iPhone startup/navigation/theme/larger-text checks. Follow
 
 ## Prerequisites
 
-- Node **24.22.1**, pinned in `.node-version`; pnpm **10.4.1**.
-- Node 24.3.0 is the new supported floor because React Native 0.86.3 requires it.
-  The earlier 24.0.0 foundation/web results are historical evidence, not native
-  SDK validation. Use the preferred pin for the current ticket.
+- Node **24.22.1**, pinned in `.node-version`; pnpm **10.34.2**.
+- Use the exact runtime pin. Earlier Node 24.0.0 and Expo SDK 57 results are
+  historical; the current mobile preview uses SDK 58.
 - Python **3.12.6**; uv **0.11.7**. uv manages the project `.venv` automatically;
   no separate environment is needed for pnpm and no manual activation is needed
   for `uv run`.
-- Git. This local repository has no commit or remote; no remote CI is claimed.
+- Git. The working branch is master with origin/master tracking configured.
+  See GitHub for remote CI status; local evidence does not establish a remote pass.
 
 ## Isolated Node shell
 

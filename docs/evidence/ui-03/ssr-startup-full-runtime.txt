@@ -1,0 +1,39 @@
+﻿{"request_id":"a281c18f-351e-445e-ac2d-5d67a2d521d4","route":"/v1/health","status":200,"duration_ms":4}
+{"request_id":"055bc530-7a6f-4411-9530-027c9d4d008b","route":"/v1/me","status":401,"duration_ms":3}
+{"request_id":"ae5f52bb-3458-4002-8037-afba38ddc841","route":"/v1/resources","status":200,"duration_ms":0}
+{"request_id":"0e252bd8-9744-4e2b-8a97-eabecdfd9e0a","route":"/v1/resources/{id}","status":200,"duration_ms":2}
+{"request_id":"f2e7c8ff-96c1-4c31-a5e5-8588218a37b7","route":"/v1/resources/{id}","status":200,"duration_ms":0}
+{"request_id":"6a8bfd00-5b6b-40a0-a8d0-c800cc938dca","route":"/v1/resources/{id}","status":404,"duration_ms":0}
+{"request_id":"ac3bfbd3-a9a2-4507-9991-6b74043b6c58","route":"/v1/resources/{id}","status":422,"duration_ms":0}
+{"request_id":"b2ca2932-20da-49b5-aa20-d89e177dd02e","route":"/v1/resources/{id}","status":422,"duration_ms":0}
+{"request_id":"bf5e2178-cdf2-4895-85b9-4ade76d27935","route":"/v1/resources/{id}","status":405,"duration_ms":0}
+{"request_id":"33f07a22-e5ed-4f15-bc8a-b6a9855893c2","route":"/v1/resources/{id}","status":403,"duration_ms":1}
+{"request_id":"e690d114-84c8-4cd3-a855-04b6829817e4","route":"/v1/resources/{id}","status":200,"duration_ms":1}
+PASS: 11 actual workerd HTTP cases; artifact 5299b74cf4155f56c0f4c12d75bf8edccdd232e3bf448d19f7c44aa77b019d03
+✔ SSR includes request-specific data in initial HTML and a client-component boundary (1882.7621ms)
+ℹ first SSR: 1514ms; deadline 30000ms
+ℹ repeat SSR: 365ms; deadline 10000ms
+✔ Discover renders source-attributed preview content before hydration (705.4167ms)
+{"request_id":"7f58b598-dad2-40fd-9477-fdf0e4b92a27","route":"/v1/resources/{id}","status":200,"duration_ms":0}
+{"request_id":"d2f9644b-f046-4aa2-985b-de4444b2a96f","route":"/v1/resources/{id}","status":200,"duration_ms":0}
+{"request_id":"d93e69c8-c86a-405f-a786-8a64cc677cbd","route":"/v1/resources/{id}","status":200,"duration_ms":0}
+{"request_id":"1282f7da-aeb8-4887-8f7f-4c89b7114f31","route":"/v1/resources/{id}","status":200,"duration_ms":0}
+{"request_id":"8cb17daf-877c-459a-9684-1452c2b09910","route":"/v1/resources/{id}","status":200,"duration_ms":0}
+✔ resource details render backend metadata, safe return navigation and original links (1577.2569ms)
+✔ browser bootstrap module graph has no missing hydration dependencies (7522.4959ms)
+✔ dynamic routing and not-found behavior work (611.67ms)
+✔ JSON handlers validate input and reject unsupported methods (497.2256ms)
+✔ auth placeholder rejects absent and forged client identity (122.6783ms)
+✔ SSE is incremental, bounded and ordered (382.6372ms)
+✔ disconnecting a stream leaves the Worker responsive (147.2945ms)
+✔ static assets and the local Worker binding are available (1462.4191ms)
+﹣ backend outage offers recovery without changing unknown-resource 404 behavior (2.2137ms) # Requires the test-managed API Worker
+ℹ tests 11
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 16523.7404
+PASS: built web contracts plus explicit API-outage recovery and unknown-resource 404 checks

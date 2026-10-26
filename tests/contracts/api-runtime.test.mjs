@@ -81,3 +81,22 @@ test('actual workerd accepts only the configured local web origin', async () => 
   assert.equal(response.status, 200);
   assert.equal(response.headers.get('access-control-allow-origin'), origin);
 });
+
+test('actual workerd serves the public preview catalog and validates resource IDs', async () => {
+  const list = await fetch(`${base}/v1/resources`, {
+    signal: AbortSignal.timeout(10000),
+  });
+  assert.equal(list.status, 200);
+  const value = await list.json();
+  assert.equal(value.items.length, 4);
+  for (const [id, status] of [
+    ['atoms', 200],
+    ['missing', 404],
+    ['%3Cinvalid%3E', 422],
+  ]) {
+    const response = await fetch(`${base}/v1/resources/${id}`, {
+      signal: AbortSignal.timeout(10000),
+    });
+    assert.equal(response.status, status);
+  }
+});

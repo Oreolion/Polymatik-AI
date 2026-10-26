@@ -1,0 +1,53 @@
+﻿{"request_id":"996e23d1-864d-4c73-9e8d-28e4b2e28c41","route":"/v1/health","status":200,"duration_ms":6}
+{"request_id":"872159df-025f-4a6d-85cd-a22a4d14af18","route":"/v1/me","status":401,"duration_ms":1}
+{"request_id":"531853e9-0c10-4cbf-bd7a-f0db73c5d1c5","route":"/v1/resources","status":200,"duration_ms":0}
+{"request_id":"7d533ca1-69d1-4cb8-9111-ddda899ee5c4","route":"/v1/resources/{id}","status":200,"duration_ms":1}
+{"request_id":"67df6047-75e5-43da-87b0-0b5a8e191e3f","route":"/v1/resources/{id}","status":200,"duration_ms":1}
+{"request_id":"a6cff444-f611-4c25-babd-1dc1a6f86b21","route":"/v1/resources/{id}","status":404,"duration_ms":0}
+{"request_id":"e88fea5a-ba0f-43c1-9311-4d7a5ae7d7b6","route":"/v1/resources/{id}","status":422,"duration_ms":0}
+{"request_id":"8eb0b4ea-8740-42c9-ac12-52192d3b0042","route":"/v1/resources/{id}","status":422,"duration_ms":0}
+{"request_id":"256444b4-840b-42c9-8efa-32d1e7dd1448","route":"/v1/resources/{id}","status":405,"duration_ms":0}
+{"request_id":"db3eeb73-830b-4913-b2f9-bcabbef57495","route":"/v1/resources/{id}","status":403,"duration_ms":0}
+{"request_id":"aac95a65-796e-4125-8f20-b8958ba5e491","route":"/v1/resources/{id}","status":200,"duration_ms":0}
+PASS: 11 actual workerd HTTP cases; artifact 5299b74cf4155f56c0f4c12d75bf8edccdd232e3bf448d19f7c44aa77b019d03
+Controlled delay: holding only the first SSR response for 11000ms
+✖ SSR includes request-specific data in initial HTML and a client-component boundary (10027.2189ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11712.7637
+
+✖ failing tests:
+
+test at tests\contracts\web-runtime.test.mjs:97:1
+✖ SSR includes request-specific data in initial HTML and a client-component boundary (10027.2189ms)
+  [TimeoutError: The operation was aborted due to timeout]
+node.exe : node:internal/modules/run_main:107
+At line:2 char:73
++ ... +$env:PATH; & 'C:/Users/HP 240 G9/AppData/Roaming/nvm/v24.22.1/node.e ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (node:internal/modules/run_main:107:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: built web HTTP contracts
+
+1 !== 0
+
+    at file:///C:/Users/HP%20240%20G9/Desktop/Agents/polymatik_ai/polymatik_ai/.cache/ui03-ssr-startup-probe.mjs:166:12
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 1,
+  expected: 0,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.22.1

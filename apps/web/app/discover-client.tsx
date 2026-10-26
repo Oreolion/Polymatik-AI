@@ -9,6 +9,9 @@ import {
   setResourceSaved,
 } from '../src/discover';
 import type { Resource, Topic } from '../src/discover';
+import type { PreviewResource } from '@polymatik/domain-types';
+import type { CollectionView } from '../src/resource-navigation';
+import ResourceDetailView from './resource-detail-view';
 
 type View = 'discover' | 'search' | 'library';
 type Theme = 'system' | 'light' | 'dark';
@@ -90,6 +93,7 @@ function ResourceRow({
   onSave,
   onDismiss,
   featured,
+  view,
 }: {
   resource: Resource;
   index: number;
@@ -98,6 +102,7 @@ function ResourceRow({
   onSave: () => void;
   onDismiss?: (() => void) | undefined;
   featured: boolean;
+  view: View;
 }) {
   return (
     <article
@@ -117,7 +122,7 @@ function ResourceRow({
           <span>{resource.kind}</span>
         </div>
         <h3 id={`title-${resource.id}`}>
-          <a href={resource.url}>
+          <a href={`/resource/${resource.id}?from=${view}`}>
             {resource.title}
             <span className="title-arrow">
               <Icon name="arrow" />
@@ -141,6 +146,9 @@ function ResourceRow({
             <Icon name="bookmark" />
             {saved ? 'Saved' : 'Save for later'}
           </button>
+          <a className="original-link" href={resource.url}>
+            Open original <Icon name="arrow" />
+          </a>
           {onDismiss && (
             <button
               type="button"
@@ -171,8 +179,14 @@ function ResourceRow({
   );
 }
 
-export default function DiscoverClient() {
-  const [view, setView] = useState<View>('discover');
+export default function DiscoverClient({
+  resource,
+  returnTo = 'discover',
+}: {
+  resource?: PreviewResource;
+  returnTo?: CollectionView;
+}) {
+  const [view, setView] = useState<View>(returnTo);
   const [topic, setTopic] = useState<Topic>('All subjects');
   const [query, setQuery] = useState('');
   const [saved, setSaved] = useState<string[]>([]);
@@ -217,6 +231,7 @@ export default function DiscoverClient() {
       /* System appearance remains available without storage. */
     }
     const onHash = () => {
+      if (resource) return;
       const value = window.location.hash.slice(1) || 'discover';
       if (value === 'discover' || value === 'search' || value === 'library') {
         setView(value);
@@ -237,11 +252,12 @@ export default function DiscoverClient() {
   }, []);
 
   useEffect(() => {
-    document.title = `${view === 'library' ? 'Library' : view === 'search' ? 'Search' : 'Discover'} — Polymatik AI`;
+    document.title = `${resource ? resource.title : view === 'library' ? 'Library' : view === 'search' ? 'Search' : 'Discover'} — Polymatik AI`;
+    if (resource) return;
     if (view === 'search') searchRef.current?.focus();
     else if (view !== previousView.current) titleRef.current?.focus();
     previousView.current = view;
-  }, [view]);
+  }, [view, resource]);
 
   function applySave(action: SaveAction) {
     try {
@@ -251,6 +267,7 @@ export default function DiscoverClient() {
         action.shouldSave,
       );
       setSaved(next);
+      setReady(true);
       if (view === 'library' && !action.shouldSave) headingRef.current?.focus();
       setStorageError('');
       setRetrySave(null);
@@ -267,6 +284,7 @@ export default function DiscoverClient() {
     }
   }
   function navigate(next: View) {
+    if (resource) return;
     setView(next);
     setTopic('All subjects');
     setQuery('');
@@ -292,10 +310,29 @@ export default function DiscoverClient() {
     dismissed,
   });
   const isDark = theme === 'dark' || (theme === 'system' && systemDark);
+  const collectionHref = (next: View) => `${resource ? '/' : ''}#${next}`;
+  const storageFeedback = (
+    <>
+      {storageError && (
+        <div className="storage-error" role="alert">
+          <p>{storageError}</p>
+          <button
+            type="button"
+            onClick={() => (retrySave ? applySave(retrySave) : loadSaves())}
+          >
+            Retry {retrySave ? 'save' : 'device storage'}
+          </button>
+        </div>
+      )}
+      <div className="save-notice" role="status">
+        {notice}
+      </div>
+    </>
+  );
   const nav = (
     <>
       <a
-        href="#discover"
+        href={collectionHref('discover')}
         onClick={() => navigate('discover')}
         aria-current={view === 'discover' ? 'page' : undefined}
       >
@@ -303,7 +340,7 @@ export default function DiscoverClient() {
         <span>Discover</span>
       </a>
       <a
-        href="#search"
+        href={collectionHref('search')}
         onClick={() => navigate('search')}
         aria-current={view === 'search' ? 'page' : undefined}
       >
@@ -311,7 +348,7 @@ export default function DiscoverClient() {
         <span>Search</span>
       </a>
       <a
-        href="#library"
+        href={collectionHref('library')}
         onClick={() => navigate('library')}
         aria-current={view === 'library' ? 'page' : undefined}
       >
@@ -347,7 +384,7 @@ export default function DiscoverClient() {
       <aside className="sidebar">
         <a
           className="brand"
-          href="#discover"
+          href={collectionHref('discover')}
           onClick={() => navigate('discover')}
           aria-label="Polymatik AI — Discover"
         >
@@ -383,11 +420,13 @@ export default function DiscoverClient() {
           <span className="breadcrumb">
             Your atlas <span aria-hidden="true">/</span>{' '}
             <strong>
-              {view === 'library'
-                ? 'Library'
-                : view === 'search'
-                  ? 'Search'
-                  : 'Discover'}
+              {resource
+                ? 'Resource'
+                : view === 'library'
+                  ? 'Library'
+                  : view === 'search'
+                    ? 'Search'
+                    : 'Discover'}
             </strong>
           </span>
           <span className="topbar-note">
@@ -396,288 +435,299 @@ export default function DiscoverClient() {
           </span>
         </header>
         <main id="main-content" className="discover-main" tabIndex={-1}>
-          <div className="page-intro">
-            <p className="eyebrow">
-              {view === 'library'
-                ? 'YOUR PERSONAL SHELF'
-                : view === 'search'
-                  ? 'FOLLOW A QUESTION'
-                  : 'THE ART OF PAYING ATTENTION'}
-            </p>
-            <h1 ref={titleRef} tabIndex={-1}>
-              {view === 'library' ? (
-                <>
-                  Keep a thought
-                  <br />
-                  <em>for later.</em>
-                </>
-              ) : view === 'search' ? (
-                <>
-                  What are you
-                  <br />
-                  <em>curious about?</em>
-                </>
-              ) : (
-                <>
-                  Let curiosity
-                  <br />
-                  <em>take the lead.</em>
-                </>
-              )}
-            </h1>
-            <p className="intro-description">
-              {view === 'library'
-                ? 'The ideas you chose to keep, ready when you are.'
-                : view === 'search'
-                  ? 'Find a starting point in this small preview collection.'
-                  : 'Ideas worth pausing for. Perspectives worth exploring. A starting point for your next rabbit hole.'}
-            </p>
-          </div>
-          <div className="preview-note">
-            <span className="note-symbol" aria-hidden="true">
-              i
-            </span>
-            <p>
-              <strong>A small window into Polymatik AI.</strong>{' '}
-              {view === 'library'
-                ? 'Saves stay in this browser, visible to anyone using this browser profile. They are not synced to an account.'
-                : 'Four handpicked resources to explore. This preview is not personalized. Saves stay in this browser only.'}
-            </p>
-          </div>
-          <div className="discovery-layout">
-            <div className="feed">
-              <div className="feed-toolbar">
-                <h2 ref={headingRef} tabIndex={-1}>
+          {resource ? (
+            <ResourceDetailView
+              resource={resource}
+              returnTo={returnTo}
+              saved={saved.includes(resource.id)}
+              ready={ready}
+              onSave={() =>
+                applySave({
+                  id: resource.id,
+                  shouldSave: !saved.includes(resource.id),
+                })
+              }
+              feedback={storageFeedback}
+            />
+          ) : (
+            <>
+              <div className="page-intro">
+                <p className="eyebrow">
                   {view === 'library'
-                    ? 'Your saved ideas'
+                    ? 'YOUR PERSONAL SHELF'
                     : view === 'search'
-                      ? 'Explore the collection'
-                      : 'Open a new thread'}
-                </h2>
-                <span className="collection-label">
+                      ? 'FOLLOW A QUESTION'
+                      : 'THE ART OF PAYING ATTENTION'}
+                </p>
+                <h1 ref={titleRef} tabIndex={-1}>
+                  {view === 'library' ? (
+                    <>
+                      Keep a thought
+                      <br />
+                      <em>for later.</em>
+                    </>
+                  ) : view === 'search' ? (
+                    <>
+                      What are you
+                      <br />
+                      <em>curious about?</em>
+                    </>
+                  ) : (
+                    <>
+                      Let curiosity
+                      <br />
+                      <em>take the lead.</em>
+                    </>
+                  )}
+                </h1>
+                <p className="intro-description">
                   {view === 'library'
-                    ? 'DEVICE LIBRARY'
-                    : 'THE PREVIEW COLLECTION'}
-                </span>
-              </div>
-              <form
-                className={`search-form ${view === 'search' ? 'search-prominent' : ''}`}
-                role="search"
-                onSubmit={(e) => e.preventDefault()}
-              >
-                <Icon name="search" />
-                <label className="sr-only" htmlFor="resource-search">
-                  Search this collection
-                </label>
-                <input
-                  id="resource-search"
-                  ref={searchRef}
-                  type="search"
-                  name="query"
-                  autoComplete="off"
-                  maxLength={200}
-                  placeholder="Search ideas, subjects, sources…"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                />
-                {query && (
-                  <button
-                    type="button"
-                    className="clear-search"
-                    onClick={() => {
-                      setQuery('');
-                      searchRef.current?.focus();
-                    }}
-                    aria-label="Clear search"
-                  >
-                    <Icon name="close" />
-                  </button>
-                )}
-              </form>
-              <div
-                className="topic-filters"
-                role="group"
-                aria-label="Filter by subject"
-              >
-                {topics.map((value) => (
-                  <button
-                    key={value}
-                    type="button"
-                    aria-pressed={topic === value}
-                    onClick={() => setTopic(value)}
-                  >
-                    {value}
-                  </button>
-                ))}
-              </div>
-              <p className="results-count" role="status">
-                {visible.length}{' '}
-                {visible.length === 1 ? 'resource' : 'resources'}
-                {query.trim() ? ` matching “${query.trim()}”` : ''}
-              </p>
-              {storageError && (
-                <div className="storage-error" role="alert">
-                  <p>{storageError}</p>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      retrySave ? applySave(retrySave) : loadSaves()
-                    }
-                  >
-                    Retry {retrySave ? 'save' : 'device storage'}
-                  </button>
-                </div>
-              )}
-              <div className="save-notice" role="status">
-                {notice}
-              </div>
-              {undo && (
-                <div className="undo-notice">
-                  <p>Set aside for this session.</p>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setDismissed((values) =>
-                        values.filter((id) => id !== undo),
-                      );
-                      setUndo(null);
-                      setNotice('Resource restored.');
-                      headingRef.current?.focus();
-                    }}
-                  >
-                    Undo dismissal
-                  </button>
-                </div>
-              )}
-              {view === 'library' && !ready ? (
-                <div className="empty-state">
-                  <Icon name="bookmark" />
-                  <h3>
-                    {storageError
-                      ? 'Your device Library is unavailable.'
-                      : 'Opening your device Library…'}
-                  </h3>
-                  <p>
-                    {storageError
-                      ? 'Use Retry above to try reading your saves again.'
-                      : 'Reading saved resources from this browser.'}
-                  </p>
-                </div>
-              ) : visible.length ? (
-                visible.map((resource, index) => (
-                  <ResourceRow
-                    key={resource.id}
-                    resource={resource}
-                    index={resources.indexOf(resource)}
-                    saved={saved.includes(resource.id)}
-                    ready={ready}
-                    onSave={() =>
-                      applySave({
-                        id: resource.id,
-                        shouldSave: !saved.includes(resource.id),
-                      })
-                    }
-                    onDismiss={
-                      view === 'library'
-                        ? undefined
-                        : () => {
-                            setDismissed((values) => [...values, resource.id]);
-                            setUndo(resource.id);
-                            setNotice('');
-                            headingRef.current?.focus();
-                          }
-                    }
-                    featured={
-                      view === 'discover' &&
-                      resource.id === 'atoms' &&
-                      index === 0
-                    }
-                  />
-                ))
-              ) : (
-                <div className="empty-state">
-                  <Icon name={view === 'library' ? 'bookmark' : 'search'} />
-                  <h3>
-                    {view === 'library' && saved.length === 0
-                      ? 'Make room for a good idea.'
-                      : 'A different path, perhaps?'}
-                  </h3>
-                  <p>
-                    {view === 'library' && saved.length === 0
-                      ? 'Save a resource in Discover and it will be waiting here.'
-                      : 'No resources match these filters. Try another subject or a broader search.'}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setTopic('All subjects');
-                      setQuery('');
-                      if (view === 'library' && !saved.length) {
-                        window.location.hash = 'discover';
-                        navigate('discover');
-                      } else {
-                        setDismissed([]);
-                        setUndo(null);
-                      }
-                    }}
-                  >
-                    {view === 'library' && !saved.length
-                      ? 'Explore Discover'
-                      : 'Reset this view'}
-                  </button>
-                </div>
-              )}
-              <footer className="feed-end">
-                <span aria-hidden="true">✳</span>
-                <p>You’ve reached the edge of this little atlas.</p>
-                <small>
-                  Good ideas deserve a moment. Come back when you’re curious.
-                </small>
-              </footer>
-            </div>
-            <aside className="context-shelf" aria-label="Collection context">
-              <div className="shelf-heading">
-                <span className="eyebrow">A FIELD NOTE</span>
-                <span aria-hidden="true">↗</span>
-              </div>
-              <h2>
-                Knowledge grows
-                <br />
-                at the edges.
-              </h2>
-              <p>
-                Between one subject and another. Between a question and a better
-                question.
-              </p>
-              <p>This collection is an invitation to wander a little.</p>
-              <div className="subject-index">
-                <span className="eyebrow">IN THIS COLLECTION</span>
-                {topics.slice(1).map((value, index) => (
-                  <button
-                    key={value}
-                    type="button"
-                    onClick={() => {
-                      setTopic(value);
-                      setQuery('');
-                      headingRef.current?.focus();
-                    }}
-                  >
-                    <span className="index-number">0{index + 1}</span>
-                    <span>{value}</span>
-                    <span aria-hidden="true">↗</span>
-                  </button>
-                ))}
-              </div>
-              <div className="shelf-footnote">
-                <Icon name="bookmark" />
-                <p>
-                  Keep what resonates.
-                  <br />
-                  Your device Library is yours to shape.
+                    ? 'The ideas you chose to keep, ready when you are.'
+                    : view === 'search'
+                      ? 'Find a starting point in this small preview collection.'
+                      : 'Ideas worth pausing for. Perspectives worth exploring. A starting point for your next rabbit hole.'}
                 </p>
               </div>
-            </aside>
-          </div>
+              <div className="preview-note">
+                <span className="note-symbol" aria-hidden="true">
+                  i
+                </span>
+                <p>
+                  <strong>A small window into Polymatik AI.</strong>{' '}
+                  {view === 'library'
+                    ? 'Saves stay in this browser, visible to anyone using this browser profile. They are not synced to an account.'
+                    : 'Four handpicked resources to explore. This preview is not personalized. Saves stay in this browser only.'}
+                </p>
+              </div>
+              <div className="discovery-layout">
+                <div className="feed">
+                  <div className="feed-toolbar">
+                    <h2 ref={headingRef} tabIndex={-1}>
+                      {view === 'library'
+                        ? 'Your saved ideas'
+                        : view === 'search'
+                          ? 'Explore the collection'
+                          : 'Open a new thread'}
+                    </h2>
+                    <span className="collection-label">
+                      {view === 'library'
+                        ? 'DEVICE LIBRARY'
+                        : 'THE PREVIEW COLLECTION'}
+                    </span>
+                  </div>
+                  <form
+                    className={`search-form ${view === 'search' ? 'search-prominent' : ''}`}
+                    role="search"
+                    onSubmit={(e) => e.preventDefault()}
+                  >
+                    <Icon name="search" />
+                    <label className="sr-only" htmlFor="resource-search">
+                      Search this collection
+                    </label>
+                    <input
+                      id="resource-search"
+                      ref={searchRef}
+                      type="search"
+                      name="query"
+                      autoComplete="off"
+                      maxLength={200}
+                      placeholder="Search ideas, subjects, sources…"
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                    />
+                    {query && (
+                      <button
+                        type="button"
+                        className="clear-search"
+                        onClick={() => {
+                          setQuery('');
+                          searchRef.current?.focus();
+                        }}
+                        aria-label="Clear search"
+                      >
+                        <Icon name="close" />
+                      </button>
+                    )}
+                  </form>
+                  <div
+                    className="topic-filters"
+                    role="group"
+                    aria-label="Filter by subject"
+                  >
+                    {topics.map((value) => (
+                      <button
+                        key={value}
+                        type="button"
+                        aria-pressed={topic === value}
+                        onClick={() => setTopic(value)}
+                      >
+                        {value}
+                      </button>
+                    ))}
+                  </div>
+                  <p className="results-count" role="status">
+                    {visible.length}{' '}
+                    {visible.length === 1 ? 'resource' : 'resources'}
+                    {query.trim() ? ` matching “${query.trim()}”` : ''}
+                  </p>
+                  {storageFeedback}
+                  {undo && (
+                    <div className="undo-notice">
+                      <p>Set aside for this session.</p>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setDismissed((values) =>
+                            values.filter((id) => id !== undo),
+                          );
+                          setUndo(null);
+                          setNotice('Resource restored.');
+                          headingRef.current?.focus();
+                        }}
+                      >
+                        Undo dismissal
+                      </button>
+                    </div>
+                  )}
+                  {view === 'library' && !ready ? (
+                    <div className="empty-state">
+                      <Icon name="bookmark" />
+                      <h3>
+                        {storageError
+                          ? 'Your device Library is unavailable.'
+                          : 'Opening your device Library…'}
+                      </h3>
+                      <p>
+                        {storageError
+                          ? 'Use Retry above to try reading your saves again.'
+                          : 'Reading saved resources from this browser.'}
+                      </p>
+                    </div>
+                  ) : visible.length ? (
+                    visible.map((resource, index) => (
+                      <ResourceRow
+                        key={resource.id}
+                        resource={resource}
+                        view={view}
+                        index={resources.indexOf(resource)}
+                        saved={saved.includes(resource.id)}
+                        ready={ready}
+                        onSave={() =>
+                          applySave({
+                            id: resource.id,
+                            shouldSave: !saved.includes(resource.id),
+                          })
+                        }
+                        onDismiss={
+                          view === 'library'
+                            ? undefined
+                            : () => {
+                                setDismissed((values) => [
+                                  ...values,
+                                  resource.id,
+                                ]);
+                                setUndo(resource.id);
+                                setNotice('');
+                                headingRef.current?.focus();
+                              }
+                        }
+                        featured={
+                          view === 'discover' &&
+                          resource.id === 'atoms' &&
+                          index === 0
+                        }
+                      />
+                    ))
+                  ) : (
+                    <div className="empty-state">
+                      <Icon name={view === 'library' ? 'bookmark' : 'search'} />
+                      <h3>
+                        {view === 'library' && saved.length === 0
+                          ? 'Make room for a good idea.'
+                          : 'A different path, perhaps?'}
+                      </h3>
+                      <p>
+                        {view === 'library' && saved.length === 0
+                          ? 'Save a resource in Discover and it will be waiting here.'
+                          : 'No resources match these filters. Try another subject or a broader search.'}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setTopic('All subjects');
+                          setQuery('');
+                          if (view === 'library' && !saved.length) {
+                            window.location.hash = 'discover';
+                            navigate('discover');
+                          } else {
+                            setDismissed([]);
+                            setUndo(null);
+                          }
+                        }}
+                      >
+                        {view === 'library' && !saved.length
+                          ? 'Explore Discover'
+                          : 'Reset this view'}
+                      </button>
+                    </div>
+                  )}
+                  <footer className="feed-end">
+                    <span aria-hidden="true">✳</span>
+                    <p>You’ve reached the edge of this little atlas.</p>
+                    <small>
+                      Good ideas deserve a moment. Come back when you’re
+                      curious.
+                    </small>
+                  </footer>
+                </div>
+                <aside
+                  className="context-shelf"
+                  aria-label="Collection context"
+                >
+                  <div className="shelf-heading">
+                    <span className="eyebrow">A FIELD NOTE</span>
+                    <span aria-hidden="true">↗</span>
+                  </div>
+                  <h2>
+                    Knowledge grows
+                    <br />
+                    at the edges.
+                  </h2>
+                  <p>
+                    Between one subject and another. Between a question and a
+                    better question.
+                  </p>
+                  <p>This collection is an invitation to wander a little.</p>
+                  <div className="subject-index">
+                    <span className="eyebrow">IN THIS COLLECTION</span>
+                    {topics.slice(1).map((value, index) => (
+                      <button
+                        key={value}
+                        type="button"
+                        onClick={() => {
+                          setTopic(value);
+                          setQuery('');
+                          headingRef.current?.focus();
+                        }}
+                      >
+                        <span className="index-number">0{index + 1}</span>
+                        <span>{value}</span>
+                        <span aria-hidden="true">↗</span>
+                      </button>
+                    ))}
+                  </div>
+                  <div className="shelf-footnote">
+                    <Icon name="bookmark" />
+                    <p>
+                      Keep what resonates.
+                      <br />
+                      Your device Library is yours to shape.
+                    </p>
+                  </div>
+                </aside>
+              </div>
+            </>
+          )}
         </main>
         <footer className="workspace-footer">
           <span>Polymatik AI</span>
