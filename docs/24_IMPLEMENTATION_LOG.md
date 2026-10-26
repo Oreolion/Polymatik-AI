@@ -30,6 +30,67 @@ Discover, then mobile. Milestone M0 is incomplete.
 
 ## Append a work entry after each session
 
+### 2026-10-26 — Lean evidence and API-backed Discover
+
+Owner authorized evidence consolidation and continued web/backend work. Archived
+76 intermediate UI-03 files without deleting contents under ignored
+`.cache/evidence-archive-2026-10-26/`, including a SHA-256 mapping. Replaced two
+evidence indexes with short summaries; policy is `docs/evidence/README.md`.
+Maintained reproduction moved to `tests/helpers/web-worker-probe.mjs`; routine
+output now goes only to `.cache/verification/catalog/`. Other milestone/evaluation
+and asset records are untouched. Earlier plain log references resolve in archive.
+
+Discover now reads `/v1/resources` through the existing strict client. API order
+and membership control displayed rows; loading, empty and unavailable differ.
+Retry reloads the catalog; offline Library uses reviewed bundled metadata and
+existing private browser saves. No silent static Discover fallback. Root page
+is dynamic; shared bounded server-client configuration also serves details.
+Changed web page/shell/loaders/selectors, scripts/tests/config and README/runbook.
+No endpoint/schema, dependency/lockfile, provider, migration or mobile change.
+
+Node 24.22.1 / pnpm 10.34.2: build, lint and full workspace typechecks exit 0;
+14 focused catalog/detail/storage tests pass. Root suite: 63/64, exit 1 solely
+on existing installed mobile supports-color mismatch; it remains enabled.
+Supplemental actual workerd: 10 web contracts pass, one managed-API case explicitly
+skipped; separate actual API-stop recovery/404 checks pass. Controlled API subset
+and empty responses prove SSR membership/empty state. Earlier standard owner
+11/11 is historical, not a result for this change. New standard rerun and rendered
+browser/keyboard/visual checks remain next. Local compressed-loading limitation
+is unchanged. No production or Web Vitals claim; AI eval delta N/A.
+
+Rollback web catalog integration and its contracts together; no saved-data format
+or migration changed. Git remains read-only in this session, so no commit/push.
+
+### 2026-10-26 — UI-03 recovery screens retain the product shell
+
+Inspected clean master at b823e72, README/source of truth, architecture, UX and
+Living Atlas prompt/foundation. Continued the same smallest ticket: resource
+loading/error/not-found/unavailable screens bypassed navigation and theme state.
+Added ResourceStateView, reused DiscoverClient, kept safe Retry/return routes and
+error reset, and removed false aria-current=page from collection destinations.
+Added a parent resource layout/not-found boundary so early ID validation still
+returns real 404 and gets the resource shell. No API/data contract changed.
+
+Tests first: updated real HTTP assertions fail against the old artifact, then
+reveal a separate 404 boundary escape; both pass on the final build. Evidence in
+`evidence/ui-03-recovery/`: 14 scoped contracts, final build, root/web types and
+lint; supplemental actual workerd 10 web contracts with one explicit managed-API
+skip plus separately run outage/404 shell checks and 11 unchanged API cases.
+The held-API identity-encoded loading diagnostic delivers guidance before release
+and details afterward. Default local compressed delivery buffers until the API
+deadline; this remains open. An explicit Suspense experiment did not resolve it
+and was removed. A proposed Node SSR test cannot initialize due installed React
+version mismatch; it was not adopted or counted as application evidence. No
+dependency reinstall, package/link edit or timeout change was performed.
+
+Changed web state/shell/styles/boundaries, HTTP contracts and continuity evidence.
+No migration, provider, mobile, AI retrieval/ranking or production changes; AI eval
+delta N/A. Rendered browser/accessibility and compressed-loading proof remain open;
+no screenshots or latency/SLO claim. The previous owner standard 11/11 is historical
+for the preceding commit, not this source. Next: fresh owner standard web run and
+rendered recovery/Library/theme verification. Git mutations remain blocked by
+read-only .git. Roll back this slice's source/styles/contracts together.
+
 ### 2026-10-26 — UI-03 milestone review for requested master push
 
 Owner requests master push when the work is done. Agent read-only Git review

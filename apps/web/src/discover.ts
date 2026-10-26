@@ -1,4 +1,8 @@
-import { resources } from '@polymatik/domain-types/discovery-preview';
+import {
+  resources,
+  selectResources,
+} from '@polymatik/domain-types/discovery-preview';
+import type { ResourceCatalogState } from './catalog';
 export {
   resources,
   topics,
@@ -10,6 +14,19 @@ export type {
 } from '@polymatik/domain-types/discovery-preview';
 
 export const SAVE_KEY = 'polymatik.preview.saves.v1';
+
+/** Discover follows the API; saved preview metadata remains available offline. */
+export function selectCatalogResources(
+  catalog: ResourceCatalogState,
+  filters: Parameters<typeof selectResources>[0],
+) {
+  const matches = selectResources(filters);
+  if (filters.savedOnly) return matches;
+  if (catalog.status !== 'ready') return [];
+  const visibleIds = new Set<string>(matches.map((item) => item.id));
+  return catalog.items.filter((item) => visibleIds.has(item.id));
+}
+
 const knownIds = new Set<string>(resources.map((r) => r.id));
 const cleanIds = (ids: readonly string[]) =>
   [...new Set(ids)].filter((id) => knownIds.has(id));

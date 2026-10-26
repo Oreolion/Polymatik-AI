@@ -11,7 +11,7 @@ attribution, warm reading surfaces, and accessible light and dark appearances.
 
 This is an actively developed local preview.
 
-- **Web:** Discover, Search, subject filters, API-backed resource details,
+- **Web:** API-backed Discover and resource details, Search, subject filters,
   browser-local Library saves, dismiss/Undo, and a sun/moon appearance toggle.
 - **Backend:** Cloudflare API Worker and a separate FastAPI/LangGraph baseline.
   Resource details and read-only catalog API integration are the current ticket.
@@ -59,6 +59,13 @@ With the pinned Node and pnpm versions active:
 ```bash
 pnpm install --frozen-lockfile --ignore-scripts
 uv sync --locked --all-packages
+cp -n apps/web/.dev.vars.example apps/web/.dev.vars
+pnpm dev:api
+```
+
+Leave the local API running, then start the web app in another terminal:
+
+```bash
 pnpm dev:web
 ```
 
@@ -112,9 +119,11 @@ Use pinned Node/pnpm; Windows users can use the launcher/pinned CLI above.
 | `pnpm test:mobile`        | Run native JavaScript integration tests          |
 | `pnpm build:mobile:check` | Export iOS/Android JavaScript and Hermes bundles |
 
-### Resource-detail backend
+### Catalog backend
 
-Resource pages use the local API rather than silently substituting static data.
+Discover and resource pages use the local API rather than silently substituting
+a static feed. A backend outage offers Retry; the browser-local Library remains
+available with bundled preview metadata and does not become account sync.
 In Git Bash or a Unix shell, copy the example only if local configuration does
 not already exist:
 
@@ -124,10 +133,11 @@ pnpm dev:api
 ```
 
 Leave the API running on `http://127.0.0.1:8789`. Start or restart `pnpm dev:web`
-in another terminal after configuring it, then open a resource title in Discover.
+in another terminal after configuring it, then explore Discover or open a resource.
 The server-only `PRODUCT_API_ORIGIN` selects the trusted API origin. If the API
-is unavailable, the detail page offers Retry and a return link; existing saves
-stay unchanged. These endpoints serve only the reviewed public preview metadata.
+is unavailable, collection and detail pages offer recovery links; existing saves
+stay unchanged. Empty API results display an empty collection. These endpoints
+serve only the reviewed public preview metadata.
 
 Start the optional agent baseline in another terminal:
 

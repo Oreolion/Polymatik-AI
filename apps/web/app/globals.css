@@ -1170,6 +1170,37 @@ h1 em {
 .detail-privacy > p + p {
   margin-top: 8px;
 }
+.resource-state {
+  max-width: 720px;
+  padding: 48px 0;
+}
+.resource-state > .eyebrow {
+  color: var(--teal);
+  margin-bottom: 24px;
+}
+.resource-state h1 {
+  font-size: clamp(36px, 4.4vw, 60px);
+  line-height: 1.12;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+.resource-state-description {
+  max-width: 52ch;
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.8;
+}
+.catalog-state .detail-actions {
+  justify-content: center;
+}
+.empty-state .catalog-retry {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 16px;
+  color: var(--accent);
+}
 @media (max-width: 767px) {
   .detail-columns {
     grid-template-columns: minmax(0, 1fr);

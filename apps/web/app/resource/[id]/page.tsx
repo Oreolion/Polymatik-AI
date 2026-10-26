@@ -34,26 +34,13 @@ export default async function ResourcePage({
   if (result.status === 'not-found') notFound();
   if (result.status === 'unavailable')
     return (
-      <main id="main-content" className="runtime-fixture" tabIndex={-1}>
-        <p className="eyebrow">THE PREVIEW COLLECTION</p>
-        <h1>This resource is unavailable right now.</h1>
-        <p>
-          We could not load its details. Your device Library has not changed.
-        </p>
-        <nav aria-label="Resource recovery">
-          <a href={`/resource/${encodeURIComponent(id)}?from=${from}`}>
-            Retry loading resource
-          </a>
-          <a href={`/#${from}`}>
-            Back to{' '}
-            {from === 'library'
-              ? 'Library'
-              : from === 'search'
-                ? 'Search'
-                : 'Discover'}
-          </a>
-        </nav>
-      </main>
+      <DiscoverClient
+        resourceState={{
+          status: 'unavailable',
+          retryHref: `/resource/${encodeURIComponent(id)}?from=${from}`,
+        }}
+        returnTo={from}
+      />
     );
   return <DiscoverClient resource={result.resource} returnTo={from} />;
 }

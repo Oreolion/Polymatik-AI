@@ -4,14 +4,19 @@ import { useEffect, useRef, useState } from 'react';
 import {
   readSaves,
   resources,
-  selectResources,
+  selectCatalogResources,
   topics,
   setResourceSaved,
 } from '../src/discover';
-import type { Resource, Topic } from '../src/discover';
+import type { Topic } from '../src/discover';
+import type { ResourceCatalogState } from '../src/catalog';
 import type { PreviewResource } from '@polymatik/domain-types';
 import type { CollectionView } from '../src/resource-navigation';
 import ResourceDetailView from './resource-detail-view';
+import ResourceStateView, {
+  resourceStateTitles,
+  type ResourceState,
+} from './resource-state-view';
 
 type View = 'discover' | 'search' | 'library';
 type Theme = 'system' | 'light' | 'dark';
@@ -95,7 +100,7 @@ function ResourceRow({
   featured,
   view,
 }: {
-  resource: Resource;
+  resource: PreviewResource;
   index: number;
   saved: boolean;
   ready: boolean;
@@ -181,11 +186,19 @@ function ResourceRow({
 
 export default function DiscoverClient({
   resource,
+  resourceState,
+  catalog = { status: 'unavailable' },
   returnTo = 'discover',
 }: {
   resource?: PreviewResource;
+  resourceState?: ResourceState;
+  catalog?: ResourceCatalogState;
   returnTo?: CollectionView;
 }) {
+  const isResourcePage = Boolean(resource || resourceState);
+  const pageTitle = resourceState
+    ? resourceStateTitles[resourceState.status]
+    : resource?.title;
   const [view, setView] = useState<View>(returnTo);
   const [topic, setTopic] = useState<Topic>('All subjects');
   const [query, setQuery] = useState('');
@@ -231,7 +244,7 @@ export default function DiscoverClient({
       /* System appearance remains available without storage. */
     }
     const onHash = () => {
-      if (resource) return;
+      if (isResourcePage) return;
       const value = window.location.hash.slice(1) || 'discover';
       if (value === 'discover' || value === 'search' || value === 'library') {
         setView(value);
@@ -252,12 +265,12 @@ export default function DiscoverClient({
   }, []);
 
   useEffect(() => {
-    document.title = `${resource ? resource.title : view === 'library' ? 'Library' : view === 'search' ? 'Search' : 'Discover'} — Polymatik AI`;
-    if (resource) return;
+    document.title = `${pageTitle ?? (view === 'library' ? 'Library' : view === 'search' ? 'Search' : 'Discover')} — Polymatik AI`;
+    if (isResourcePage) return;
     if (view === 'search') searchRef.current?.focus();
     else if (view !== previousView.current) titleRef.current?.focus();
     previousView.current = view;
-  }, [view, resource]);
+  }, [view, pageTitle, isResourcePage]);
 
   function applySave(action: SaveAction) {
     try {
@@ -284,7 +297,7 @@ export default function DiscoverClient({
     }
   }
   function navigate(next: View) {
-    if (resource) return;
+    if (isResourcePage) return;
     setView(next);
     setTopic('All subjects');
     setQuery('');
@@ -302,15 +315,20 @@ export default function DiscoverClient({
       );
     }
   }
-  const visible = selectResources({
+  const visible = selectCatalogResources(catalog, {
     topic,
     query,
     savedOnly: view === 'library',
     saved,
     dismissed,
   });
+  const collectionPending = view !== 'library' && catalog.status !== 'ready';
+  const emptyCatalog =
+    view !== 'library' &&
+    catalog.status === 'ready' &&
+    catalog.items.length === 0;
   const isDark = theme === 'dark' || (theme === 'system' && systemDark);
-  const collectionHref = (next: View) => `${resource ? '/' : ''}#${next}`;
+  const collectionHref = (next: View) => `${isResourcePage ? '/' : ''}#${next}`;
   const storageFeedback = (
     <>
       {storageError && (
@@ -334,7 +352,9 @@ export default function DiscoverClient({
       <a
         href={collectionHref('discover')}
         onClick={() => navigate('discover')}
-        aria-current={view === 'discover' ? 'page' : undefined}
+        aria-current={
+          !isResourcePage && view === 'discover' ? 'page' : undefined
+        }
       >
         <Icon name="atlas" />
         <span>Discover</span>
@@ -342,7 +362,7 @@ export default function DiscoverClient({
       <a
         href={collectionHref('search')}
         onClick={() => navigate('search')}
-        aria-current={view === 'search' ? 'page' : undefined}
+        aria-current={!isResourcePage && view === 'search' ? 'page' : undefined}
       >
         <Icon name="search" />
         <span>Search</span>
@@ -350,7 +370,9 @@ export default function DiscoverClient({
       <a
         href={collectionHref('library')}
         onClick={() => navigate('library')}
-        aria-current={view === 'library' ? 'page' : undefined}
+        aria-current={
+          !isResourcePage && view === 'library' ? 'page' : undefined
+        }
       >
         <Icon name="bookmark" />
         <span>Library</span>
@@ -420,7 +442,7 @@ export default function DiscoverClient({
           <span className="breadcrumb">
             Your atlas <span aria-hidden="true">/</span>{' '}
             <strong>
-              {resource
+              {isResourcePage
                 ? 'Resource'
                 : view === 'library'
                   ? 'Library'
@@ -434,8 +456,24 @@ export default function DiscoverClient({
             Room for a new idea
           </span>
         </header>
-        <main id="main-content" className="discover-main" tabIndex={-1}>
-          {resource ? (
+        <main
+          id="main-content"
+          className="discover-main"
+          tabIndex={-1}
+          aria-busy={
+            resourceState?.status === 'loading' ||
+            (!isResourcePage &&
+              view !== 'library' &&
+              catalog.status === 'loading') ||
+            undefined
+          }
+        >
+          {resourceState ? (
+            <>
+              <ResourceStateView state={resourceState} returnTo={returnTo} />
+              {storageFeedback}
+            </>
+          ) : resource ? (
             <ResourceDetailView
               resource={resource}
               returnTo={returnTo}
@@ -496,7 +534,7 @@ export default function DiscoverClient({
                   <strong>A small window into Polymatik AI.</strong>{' '}
                   {view === 'library'
                     ? 'Saves stay in this browser, visible to anyone using this browser profile. They are not synced to an account.'
-                    : 'Four handpicked resources to explore. This preview is not personalized. Saves stay in this browser only.'}
+                    : 'A small handpicked collection to explore. This preview is not personalized. Saves stay in this browser only.'}
                 </p>
               </div>
               <div className="discovery-layout">
@@ -531,6 +569,7 @@ export default function DiscoverClient({
                       name="query"
                       autoComplete="off"
                       maxLength={200}
+                      disabled={collectionPending}
                       placeholder="Search ideas, subjects, sources…"
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
@@ -559,6 +598,7 @@ export default function DiscoverClient({
                         key={value}
                         type="button"
                         aria-pressed={topic === value}
+                        disabled={collectionPending}
                         onClick={() => setTopic(value)}
                       >
                         {value}
@@ -566,9 +606,11 @@ export default function DiscoverClient({
                     ))}
                   </div>
                   <p className="results-count" role="status">
-                    {visible.length}{' '}
-                    {visible.length === 1 ? 'resource' : 'resources'}
-                    {query.trim() ? ` matching “${query.trim()}”` : ''}
+                    {collectionPending
+                      ? catalog.status === 'loading'
+                        ? 'Loading collection…'
+                        : 'Collection unavailable'
+                      : `${visible.length} ${visible.length === 1 ? 'resource' : 'resources'}${query.trim() ? ` matching “${query.trim()}”` : ''}`}
                   </p>
                   {storageFeedback}
                   {undo && (
@@ -589,7 +631,41 @@ export default function DiscoverClient({
                       </button>
                     </div>
                   )}
-                  {view === 'library' && !ready ? (
+                  {collectionPending ? (
+                    <div
+                      className="empty-state catalog-state"
+                      role={catalog.status === 'loading' ? 'status' : 'alert'}
+                    >
+                      <Icon name="atlas" />
+                      <h3>
+                        {catalog.status === 'loading'
+                          ? 'Opening the collection…'
+                          : 'The collection could not be loaded.'}
+                      </h3>
+                      <p>
+                        Your device Library has not changed. You can open your
+                        saved preview resources while the collection is
+                        unavailable.
+                      </p>
+                      <nav
+                        className="detail-actions"
+                        aria-label="Collection recovery"
+                      >
+                        {catalog.status !== 'loading' && (
+                          <a className="detail-primary" href={`/#${view}`}>
+                            Retry collection
+                          </a>
+                        )}
+                        <a
+                          className="detail-save"
+                          href="#library"
+                          onClick={() => navigate('library')}
+                        >
+                          Open device Library
+                        </a>
+                      </nav>
+                    </div>
+                  ) : view === 'library' && !ready ? (
                     <div className="empty-state">
                       <Icon name="bookmark" />
                       <h3>
@@ -609,7 +685,9 @@ export default function DiscoverClient({
                         key={resource.id}
                         resource={resource}
                         view={view}
-                        index={resources.indexOf(resource)}
+                        index={resources.findIndex(
+                          (item) => item.id === resource.id,
+                        )}
                         saved={saved.includes(resource.id)}
                         ready={ready}
                         onSave={() =>
@@ -642,43 +720,55 @@ export default function DiscoverClient({
                     <div className="empty-state">
                       <Icon name={view === 'library' ? 'bookmark' : 'search'} />
                       <h3>
-                        {view === 'library' && saved.length === 0
-                          ? 'Make room for a good idea.'
-                          : 'A different path, perhaps?'}
+                        {emptyCatalog
+                          ? 'The collection is empty right now.'
+                          : view === 'library' && saved.length === 0
+                            ? 'Make room for a good idea.'
+                            : 'A different path, perhaps?'}
                       </h3>
                       <p>
-                        {view === 'library' && saved.length === 0
-                          ? 'Save a resource in Discover and it will be waiting here.'
-                          : 'No resources match these filters. Try another subject or a broader search.'}
+                        {emptyCatalog
+                          ? 'There are no resources to explore yet. Your saved preview resources remain in Library.'
+                          : view === 'library' && saved.length === 0
+                            ? 'Save a resource in Discover and it will be waiting here.'
+                            : 'No resources match these filters. Try another subject or a broader search.'}
                       </p>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setTopic('All subjects');
-                          setQuery('');
-                          if (view === 'library' && !saved.length) {
-                            window.location.hash = 'discover';
-                            navigate('discover');
-                          } else {
-                            setDismissed([]);
-                            setUndo(null);
-                          }
-                        }}
-                      >
-                        {view === 'library' && !saved.length
-                          ? 'Explore Discover'
-                          : 'Reset this view'}
-                      </button>
+                      {emptyCatalog ? (
+                        <a className="catalog-retry" href={`/#${view}`}>
+                          Reload collection
+                        </a>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setTopic('All subjects');
+                            setQuery('');
+                            if (view === 'library' && !saved.length) {
+                              window.location.hash = 'discover';
+                              navigate('discover');
+                            } else {
+                              setDismissed([]);
+                              setUndo(null);
+                            }
+                          }}
+                        >
+                          {view === 'library' && !saved.length
+                            ? 'Explore Discover'
+                            : 'Reset this view'}
+                        </button>
+                      )}
                     </div>
                   )}
-                  <footer className="feed-end">
-                    <span aria-hidden="true">✳</span>
-                    <p>You’ve reached the edge of this little atlas.</p>
-                    <small>
-                      Good ideas deserve a moment. Come back when you’re
-                      curious.
-                    </small>
-                  </footer>
+                  {!collectionPending && (view !== 'library' || ready) && (
+                    <footer className="feed-end">
+                      <span aria-hidden="true">✳</span>
+                      <p>You’ve reached the edge of this little atlas.</p>
+                      <small>
+                        Good ideas deserve a moment. Come back when you’re
+                        curious.
+                      </small>
+                    </footer>
+                  )}
                 </div>
                 <aside
                   className="context-shelf"
@@ -704,6 +794,7 @@ export default function DiscoverClient({
                       <button
                         key={value}
                         type="button"
+                        disabled={collectionPending}
                         onClick={() => {
                           setTopic(value);
                           setQuery('');

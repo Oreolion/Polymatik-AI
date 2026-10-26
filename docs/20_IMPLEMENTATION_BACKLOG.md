@@ -15,9 +15,22 @@ web checkpoint including backend before focusing on mobile. Current ticket is
 **UI-03 web resource details + read-only preview catalog API** (docs/38). Mobile
 resource work is parked; database/authenticated persistence remains separate.
 
+Current follow-up connects Discover to `/v1/resources` using the existing typed
+client. API membership/order controls the collection; empty and unavailable are
+distinct, and the browser Library remains local during outages. Source checks
+and supplemental Worker checks pass; owner standard rerun and rendered checks
+for this changed source remain open. Evidence policy: `docs/evidence/README.md`.
+
+Recovery follow-up after b823e72 keeps app navigation/appearance in resource
+loading, error, unavailable and 404 screens. Final scoped checks and supplemental
+built-Worker checks pass; the owner also reports the updated standard web suite
+11/11 passing, no skips. Rendered UI and local compressed loading remain open.
+See `docs/evidence/ui-03-recovery/` and docs/38 before treating the earlier owner
+11/11 as evidence for newer changes.
+
 | Client ticket | Status / next verification |
 |---|---|
-| UI-03 web resource details + catalog API | Implemented; rendered UI gate pending. Owner standard API runtime 3/3 and web runtime 11/11 pass. Agent lint/full typechecks pass; current root tests 58/59 with the known mobile dependency-link failure. Evidence in docs/38 and docs/evidence/ui-03. Rendered detail interaction remains pending. Mobile stays parked. |
+| UI-03 web resource details + catalog API | Discover API integration implemented; owner standard rerun/rendered gate pending for current source. Build/lint/all types pass; root tests 63/64 with the existing mobile dependency-link failure. Supplemental Worker tests verify collection membership, empty/outage recovery and details. Earlier owner API 3/3 and web 11/11 apply to preceding source. Mobile stays parked; docs/38. |
 | UI-01 web Discover | Owner confirms navigation, sun/moon appearance and Library saves surviving reload. Save retry preserves intent (8 discovery contracts pass). Focus-target/search semantics and all 9 dev HTTP contracts pass on 25 October. Root/web types pass. Responsive, keyboard, screenshot and screen-reader checks remain open; docs/36. |
 | UI-02 Expo Discover | Owner's cached frozen install, terminal regression and SDK 58 iOS/Android export pass; owner confirms iPhone startup/navigation/Library/appearance on 25 October. Earlier agent SDK 58 native tests: 15 pass. No further install needed. Android runtime, VoiceOver, larger-text and visual evidence remain open; docs/37. Next: finish UI-01 web persistence/retry and visual checks. |
 

@@ -94,6 +94,21 @@ const request = (path, options = {}) =>
     signal: options.signal ?? AbortSignal.timeout(10_000),
   });
 
+/** @param {string} html Resource pages retain usable navigation in every state. */
+function assertResourceShell(html) {
+  const markup = html.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, '');
+  assert.ok(markup.includes('class="atlas-app"'), 'shared Living Atlas shell');
+  assert.ok(markup.includes('Skip to content'));
+  assert.ok(markup.includes('id="main-content"'));
+  for (const view of ['discover', 'search', 'library'])
+    assert.ok(markup.includes(`href="/#${view}"`), `${view} is reachable`);
+  assert.ok(markup.includes('aria-label="Switch to dark appearance"'));
+  assert.ok(
+    !markup.includes('aria-current="page"'),
+    'a collection destination must not claim to be the resource page',
+  );
+}
+
 test('SSR includes request-specific data in initial HTML and a client-component boundary', async (t) => {
   /** @param {string} requestMarker @param {number} timeoutMs @param {string} label */
   async function readSsr(requestMarker, timeoutMs, label) {
@@ -168,6 +183,7 @@ test('resource details render backend metadata, safe return navigation and origi
     const response = await request(`/resource/${resource.id}?from=library`);
     assert.equal(response.status, 200);
     const html = await response.text();
+    assertResourceShell(html);
     // Assert server-rendered text without matching Flight data or React's
     // separators between adjacent literal and interpolated text nodes.
     const text = html
@@ -192,7 +208,9 @@ test('resource details render backend metadata, safe return navigation and origi
   ).text();
   assert.ok(unsafe.includes('href="/#discover"'));
   assert.ok(!unsafe.includes('href="https://evil.test"'));
-  assert.equal((await request('/resource/missing')).status, 404);
+  const missing = await request('/resource/missing');
+  assert.equal(missing.status, 404);
+  assertResourceShell(await missing.text());
   assert.equal((await request('/resource/%3Cinvalid%3E')).status, 404);
 });
 
@@ -381,10 +399,32 @@ test(
     apiWorker = undefined;
     const response = await request('/resource/atoms?from=library');
     const html = await response.text();
+    assertResourceShell(html);
     assert.ok(html.includes('This resource is unavailable right now.'));
     assert.ok(html.includes('Retry loading resource'));
     assert.ok(html.includes('Back to'));
     assert.ok(html.includes('/#library'));
     assert.equal((await request('/resource/missing')).status, 404);
+    const collection = await request('/');
+    assert.equal(
+      collection.status,
+      200,
+      'the local Library shell stays reachable',
+    );
+    const markup = (await collection.text()).replace(
+      /<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi,
+      '',
+    );
+    assert.ok(markup.includes('The collection could not be loaded.'));
+    assert.ok(markup.includes('Retry collection'));
+    assert.ok(markup.includes('Open device Library'));
+    assert.ok(
+      !markup.includes('reached the edge'),
+      'an outage is not a completed feed',
+    );
+    assert.ok(
+      !markup.includes('Atoms in Motion'),
+      'outage does not substitute a static feed',
+    );
   },
 );

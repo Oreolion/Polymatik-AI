@@ -4,6 +4,7 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "types": ["vinext/types", "node"],
     "jsx": "react-jsx",
+    "allowImportingTsExtensions": true,
     "skipLibCheck": true
   },
   "include": [

@@ -48,6 +48,9 @@ test-results/
 *.tsbuildinfo
 *.log
 *.pid
+# Raw verification output belongs in .cache/verification or CI artifacts.
+docs/evidence/**/raw/
+docs/evidence/**/runs/
 
 # Native release artifacts and local databases
 *.ipa
