@@ -1,6 +1,12 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
+  emptyCollectionContext,
+  readCollectionContext,
+  writeCollectionContext,
+  COLLECTION_CONTEXT_KEY,
+} from '../../apps/web/src/collection-context.ts';
+import {
   resources,
   selectResources,
   readSaves,
@@ -8,6 +14,70 @@ import {
   setResourceSaved,
   SAVE_KEY,
 } from '../../apps/web/src/discover.ts';
+
+test('collection filters survive a detail round trip and remain separate per view', () => {
+  let serialized = '';
+  const store = {
+    getItem: (/** @type {string} */ key) => {
+      assert.equal(key, COLLECTION_CONTEXT_KEY);
+      return serialized || null;
+    },
+    setItem: (/** @type {string} */ key, /** @type {string} */ value) => {
+      assert.equal(key, COLLECTION_CONTEXT_KEY);
+      serialized = value;
+    },
+  };
+  const context = emptyCollectionContext();
+  context.search = { topic: 'Computing', query: 'browser' };
+  context.library = { topic: 'Physics', query: 'Feynman' };
+  assert.equal(writeCollectionContext(store, context), true);
+  const restored = readCollectionContext(store);
+  assert.deepEqual(restored, context);
+  assert.deepEqual(restored.discover, { topic: 'All subjects', query: '' });
+  assert.deepEqual(
+    selectResources(restored.search).map((resource) => resource.id),
+    ['browser'],
+  );
+  // Clearing Search must not mutate Library or a later fresh context.
+  restored.search.query = '';
+  assert.equal(restored.library.query, 'Feynman');
+  assert.equal(emptyCollectionContext().search.query, '');
+  assert.ok(!serialized.includes('saved'));
+});
+
+test('invalid session context falls back safely; blocked storage never blocks browsing', () => {
+  const valid = emptyCollectionContext();
+  for (const raw of [
+    null,
+    '{broken',
+    JSON.stringify({ version: 2, views: valid }),
+    JSON.stringify({
+      version: 1,
+      views: { ...valid, search: { topic: 'unknown', query: '' } },
+    }),
+    JSON.stringify({
+      version: 1,
+      views: { ...valid, search: { topic: 'Physics', query: [] } },
+    }),
+    JSON.stringify({
+      version: 1,
+      views: { ...valid, search: { topic: 'Physics', query: 'x'.repeat(201) } },
+    }),
+    'x'.repeat(4097),
+  ]) {
+    assert.deepEqual(readCollectionContext({ getItem: () => raw }), valid);
+  }
+  const blocked = {
+    getItem: () => {
+      throw new Error('SecurityError');
+    },
+    setItem: () => {
+      throw new Error('QuotaExceededError');
+    },
+  };
+  assert.deepEqual(readCollectionContext(blocked), valid);
+  assert.equal(writeCollectionContext(blocked, valid), false);
+});
 
 test('retry preserves save/remove intent after another tab completes the same action', () => {
   let serialized = JSON.stringify({ version: 1, ids: ['theory'] });

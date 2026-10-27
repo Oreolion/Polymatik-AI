@@ -1,0 +1,16 @@
+// Copy to wrangler.auth.local.jsonc and replace the development Hyperdrive ID.
+// Source credentials belong only in Cloudflare or the local shell environment.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "polymatik-api-auth-development",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-10-19",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": { "ALLOWED_ORIGINS": "http://127.0.0.1:5173" },
+  "dev": { "ip": "127.0.0.1", "port": 8789 },
+  "hyperdrive": [
+    { "binding": "HYPERDRIVE", "id": "REPLACE_WITH_DEVELOPMENT_HYPERDRIVE_ID" },
+  ],
+  // Do not enable automatic request logging for OAuth callback query strings.
+  "observability": { "enabled": false },
+}

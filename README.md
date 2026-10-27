@@ -14,13 +14,14 @@ This is an actively developed local preview.
 - **Web:** API-backed Discover and resource details, Search, subject filters,
   browser-local Library saves, dismiss/Undo, and a sun/moon appearance toggle.
 - **Backend:** Cloudflare API Worker and a separate FastAPI/LangGraph baseline.
-  Resource details and read-only catalog API integration are the current ticket.
+  Profile/Google auth through Hyperdrive and Neon is the current integration ticket.
 - **Mobile:** Expo preview with app-session saves. Basic iPhone checks and SDK 58
   iOS/Android exports passed. Feature work is parked while web/backend work advances.
 
-The collection contains four source-attributed resources. Accounts, Library sync,
-personalized ranking, persistent research memory and learning assessments are
-not implemented. Learn/Profile remain placeholders. Production deployment and
+The collection contains four source-attributed resources. Profile/Google auth is
+in development; live accounts are not configured. Library sync, personalized
+ranking, persistent research memory and learning assessments are not implemented.
+Learn remains a placeholder. Production deployment and
 broader accessibility verification are open. See the
 [verification ledger](docs/24_IMPLEMENTATION_LOG.md) for actual results and limits.
 
@@ -33,7 +34,7 @@ broader accessibility verification are open. See the
 | Product API         | TypeScript Worker, OpenAPI, typed shared client                     |
 | Agent service       | Python, FastAPI, LangGraph; opt-in LangSmith tracing                |
 | Shared code         | Domain contracts, preview metadata, design tokens                   |
-| Planned persistence | PostgreSQL + pgvector; local setup is incomplete                    |
+| Persistence target | Neon PostgreSQL + pgvector; Worker SQL through Cloudflare Hyperdrive |
 
 ## Prerequisites
 
@@ -121,9 +122,18 @@ Use pinned Node/pnpm; Windows users can use the launcher/pinned CLI above.
 
 ### Catalog backend
 
+Profile and Google sign-in setup follows the Cloudflare/Neon architecture.
+See [the auth setup guide](docs/39_WEB_AUTH_AND_PROFILE.md) for copyable commands,
+ignored secret files and the pending development database/schema gate. Browser
+Library saves are not account-synced by signing in.
+
 Discover and resource pages use the local API rather than silently substituting
 a static feed. A backend outage offers Retry; the browser-local Library remains
 available with bundled preview metadata and does not become account sync.
+Subject filters and search terms are remembered separately for Discover, Search
+and Library in this tab's session storage, including when returning from a
+resource or reloading. They are not added to resource URLs or sent to the API.
+If session storage is blocked, browsing still works without reload restoration.
 In Git Bash or a Unix shell, copy the example only if local configuration does
 not already exist:
 
@@ -138,6 +148,8 @@ The server-only `PRODUCT_API_ORIGIN` selects the trusted API origin. If the API
 is unavailable, collection and detail pages offer recovery links; existing saves
 stay unchanged. Empty API results display an empty collection. These endpoints
 serve only the reviewed public preview metadata.
+Web server reads enforce a five-second deadline and a 64 KiB decoded-response
+budget. Oversized or interrupted reads use the same recovery state as an outage.
 
 Start the optional agent baseline in another terminal:
 
@@ -164,6 +176,20 @@ Runtime/build commands above provide additional platform checks. External
 providers are mocked in deterministic tests. Tests and exports do not establish
 rendered accessibility or production readiness; the ledger separates agent-run
 checks from owner device confirmations.
+
+The runtime suites default to Wrangler startup. For constrained local environments,
+the same assertions can run with the installed Miniflare/workerd directly:
+
+```bash
+POLYMATIK_RUNTIME=miniflare pnpm test:api:runtime
+POLYMATIK_RUNTIME=miniflare pnpm test:web
+```
+
+Build web first. Both commands own and stop their local Workers; the web suite
+includes stopping its API to check recovery. This mode uses the project's
+compatibility settings and built web assets, bundles the API with pinned Vite,
+and needs no account. It does not replace Wrangler packaging verification.
+Do not combine it with `POLYMATIK_WEB_BASE_URL`, which targets an existing preview.
 
 ## Repository layout
 

@@ -1,0 +1,8 @@
+# Local-only Better Auth configuration. Copy to .dev.vars; never commit secrets.
+# Must match the public web origin, not the API Worker origin.
+BETTER_AUTH_URL=http://127.0.0.1:5173
+BETTER_AUTH_SECRET=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+# The Neon URL belongs in the shell's Hyperdrive local connection variable,
+# not a DATABASE_URL application fallback. See docs/39_WEB_AUTH_AND_PROFILE.md.

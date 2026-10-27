@@ -134,6 +134,59 @@ test('server-verified subject and scope govern access independently of client id
   );
 });
 
+test('server-verified cookie sessions are isolated and cannot be overridden by client identity', async () => {
+  const api = createApi({
+    log: quiet,
+    verifySession: async (headers) => {
+      const id =
+        headers.get('cookie') === 'polymatik.session_token=alice'
+          ? 'alice'
+          : headers.get('cookie') === 'polymatik.session_token=bob'
+            ? 'bob'
+            : null;
+      return id ? { userId: id, scopes: ['profile:read'] } : null;
+    },
+  });
+  for (const user of ['alice', 'bob']) {
+    const result = await api.fetch(
+      request('/v1/me', {
+        headers: {
+          cookie: `polymatik.session_token=${user}`,
+          'x-user-id': 'victim',
+        },
+      }),
+    );
+    assert.deepEqual(await result.json(), { user_id: user });
+  }
+  const forged = await api.fetch(
+    request('/v1/me', {
+      headers: {
+        cookie: 'polymatik.session_token=forged',
+        'x-user-id': 'alice',
+      },
+    }),
+  );
+  assert.equal(forged.status, 401);
+  const mixed = await api.fetch(
+    request('/v1/me', {
+      headers: {
+        cookie: 'polymatik.session_token=alice',
+        authorization: 'Bearer forged',
+      },
+    }),
+  );
+  assert.equal(mixed.status, 401);
+  const unavailable = createApi({
+    log: quiet,
+    verifySession: async () => {
+      throw new Error('private database details');
+    },
+  });
+  const failed = await unavailable.fetch(request('/v1/me'));
+  assert.equal(failed.status, 503);
+  assert.doesNotMatch(await failed.text(), /private database/);
+});
+
 test('failed verification is closed and sanitized; request state stays isolated', async () => {
   const api = createApi({
     log: quiet,

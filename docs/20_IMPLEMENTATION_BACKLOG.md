@@ -4,6 +4,24 @@
 
 ## Current owner priority - web resource details and backend checkpoint
 
+**27 October owner continuation:** current smallest ticket is **UI-04 web
+Profile + Better Auth/Google boundary** (docs/39), using Workers → Hyperdrive →
+Neon PostgreSQL, with pgvector retained for the later retrieval ticket. Mobile
+stays parked. UI-03's rendered verification debt remains open;
+this continuation does not mark that gate passed. No Docker database setup is
+required for the selected Neon development path. Live auth still requires a
+reviewed development schema and private provider configuration.
+
+Owner's scoped offline dependency repair, four web configuration checks,
+13 auth tests and complete five-stage web build pass on 27 October. Agent
+test-managed workerd contracts pass **4 API + 13 web**, including Profile SSR
+and unconfigured-account boundaries. The React link blocker is resolved; do not
+repeat installs. Owner standard Wrangler API **4/4**, web **13/13** and API
+packaging dry run now pass. Rendered Profile checks and live Neon/Google
+acceptance remain open. The managed API helper's unused auth
+branch emits browser-externalization warnings, so this is not PostgreSQL auth
+runtime proof. See docs/39 for the current setup and docs/24 for evidence limits.
+
 Web Discover UI first, then mobile (23 October 2026). See the accepted owner
 reprioritization in docs/22 and acceptance scope in docs/36. M0-06 is deferred
 at the Docker engine prerequisite; M0 remains incomplete. UI-01 requires source
@@ -21,6 +39,17 @@ distinct, and the browser Library remains local during outages. Source checks
 and supplemental Worker checks pass; owner standard rerun and rendered checks
 for this changed source remain open. Evidence policy: `docs/evidence/README.md`.
 
+Navigation follow-up preserves each collection's subject/search context in tab
+session storage, so detail return and reload can restore the user's place.
+Bounded validation and blocked-storage fallback are covered by contracts;
+rendered round-trip acceptance remains part of UI-03's open browser gate.
+Loading reliability follow-up bounds decoded web API bodies at 64 KiB, with
+abort/oversize cancellation and actual Worker gzip-body checks. Minimal local
+compression diagnosis isolates buffering below application code; docs/38.
+The explicit test-managed Miniflare mode now passes API 3/3 and web 11/11 with
+no skips. Default Wrangler packaging/startup and rendered browser checks stay
+distinct; no runtime assertions were removed or loosened.
+
 Recovery follow-up after b823e72 keeps app navigation/appearance in resource
 loading, error, unavailable and 404 screens. Final scoped checks and supplemental
 built-Worker checks pass; the owner also reports the updated standard web suite
@@ -30,7 +59,7 @@ See `docs/evidence/ui-03-recovery/` and docs/38 before treating the earlier owne
 
 | Client ticket | Status / next verification |
 |---|---|
-| UI-03 web resource details + catalog API | Discover API integration implemented; owner standard rerun/rendered gate pending for current source. Build/lint/all types pass; root tests 63/64 with the existing mobile dependency-link failure. Supplemental Worker tests verify collection membership, empty/outage recovery and details. Earlier owner API 3/3 and web 11/11 apply to preceding source. Mobile stays parked; docs/38. |
+| UI-03 web resource details + catalog API | Catalog/details, filter context and bounded reads implemented. Direct managed runtime: API 3/3 and web 11/11, no skips; 25 web units, three config contracts, build/lint/all types pass. Browser acceptance, fresh default Wrangler packaging/startup and prior mobile dependency-link issue remain open. Mobile stays parked; docs/38. |
 | UI-01 web Discover | Owner confirms navigation, sun/moon appearance and Library saves surviving reload. Save retry preserves intent (8 discovery contracts pass). Focus-target/search semantics and all 9 dev HTTP contracts pass on 25 October. Root/web types pass. Responsive, keyboard, screenshot and screen-reader checks remain open; docs/36. |
 | UI-02 Expo Discover | Owner's cached frozen install, terminal regression and SDK 58 iOS/Android export pass; owner confirms iPhone startup/navigation/Library/appearance on 25 October. Earlier agent SDK 58 native tests: 15 pass. No further install needed. Android runtime, VoiceOver, larger-text and visual evidence remain open; docs/37. Next: finish UI-01 web persistence/retry and visual checks. |
 

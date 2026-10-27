@@ -11,7 +11,7 @@
     "lint": "eslint . --max-warnings 0 && prettier --check . \"!**/{.cache,.pnpm-store,.venv,.pytest_cache,.ruff_cache,.mypy_cache,__pycache__,.next,.expo,.wrangler,.vinext,dist,build,coverage,playwright-report,test-results}/**\"",
     "format": "prettier --write . \"!**/{.cache,.pnpm-store,.venv,.pytest_cache,.ruff_cache,.mypy_cache,__pycache__,.next,.expo,.wrangler,.vinext,dist,build,coverage,playwright-report,test-results}/**\"",
     "typecheck": "tsc -p tsconfig.json && pnpm -r typecheck",
-    "test": "node --test tests/foundation/*.test.mjs tests/contracts/web-stream.test.mjs tests/contracts/discover.test.mjs tests/contracts/discovery-preview.test.mjs tests/contracts/web-config.test.mjs tests/contracts/ui-tokens.test.mjs tests/contracts/mobile-config.test.mjs tests/contracts/mobile-toolchain.test.mjs tests/contracts/api.test.mjs tests/contracts/api-client.test.mjs tests/contracts/resource-detail.test.mjs tests/contracts/catalog.test.mjs",
+    "test": "node --test tests/foundation/*.test.mjs tests/contracts/web-stream.test.mjs tests/contracts/discover.test.mjs tests/contracts/discovery-preview.test.mjs tests/contracts/web-config.test.mjs tests/contracts/ui-tokens.test.mjs tests/contracts/mobile-config.test.mjs tests/contracts/mobile-toolchain.test.mjs tests/contracts/api.test.mjs tests/contracts/api-client.test.mjs tests/contracts/resource-detail.test.mjs tests/contracts/catalog.test.mjs tests/contracts/auth*.test.mjs tests/contracts/worker-harness.test.mjs",
     "check": "pnpm lint && pnpm typecheck && pnpm test",
     "dev:web": "pnpm --filter web dev",
     "build:web": "pnpm --filter web build",
@@ -24,6 +24,7 @@
     "generate:api": "node scripts/generate-api.mjs",
     "check:api": "node scripts/generate-api.mjs --check",
     "test:api": "node --test tests/contracts/api.test.mjs tests/contracts/api-client.test.mjs",
+    "test:auth": "node --test tests/contracts/auth.test.mjs tests/contracts/auth-request.test.mjs tests/contracts/auth-proxy.test.mjs tests/contracts/auth-framework.test.mjs",
     "test:api:runtime": "node --test tests/contracts/api-runtime.test.mjs",
     "dev:api": "pnpm --filter api dev",
     "build:api:check": "pnpm --filter api build:check"

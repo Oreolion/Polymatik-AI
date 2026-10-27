@@ -17,7 +17,8 @@ Discover, then mobile. Milestone M0 is incomplete.
 ## Ticket ledger
 | Ticket | Status | Commit/PR | Actual tests and results | ADR | Notes |
 |---|---|---|---|---|---|
-| UI-03 | Web resource details and catalog API implemented; rendered UI gate pending | Working tree after owner's first master push | 27 focused contracts; owner API runtime 3/3 and standard web runtime 11/11 pass; agent supplemental workerd checks retained separately. Browser interaction pending | Owner web/backend-first instruction; docs/38 | Stale pnpm install stopped; disconnect error remains unisolated; browser-local saves only; DB/auth private-alpha gate incomplete; mobile parked |
+| UI-04 | Profile + Better Auth/Google boundary implemented; standard local Worker gate passed, live acceptance pending | a1fbe05 plus working tree; not committed/pushed | Owner: web config 4/4, auth 13/13, full web build, standard Wrangler API 4/4 + web 13/13 and API packaging dry run pass. Agent: managed runtime 17/17 plus scoped contracts/lint/types | Owner Better Auth/Google choice and reconfirmed Cloudflare/Neon path; docs/22 and docs/39 | Neon schema/resources, Google callback, persisted sessions and rendered Profile/browser/accessibility remain open; unconfigured-account checks do not prove configured PostgreSQL auth; mobile parked |
+| UI-03 | Web catalog/details, return context and upstream body budgets implemented; rendered UI gate pending | a1fbe05 plus working tree | Direct managed runtime API 3/3 and web 11/11, no skips; 25 web units, three config contracts, lint/types and preceding source-matched build pass. Supplemental gzip budgets pass | Owner web/backend-first instruction; docs/38 | Browser acceptance, default Wrangler rerun, local compression limitation and prior mobile toolchain issue remain open; DB/auth gate incomplete; mobile parked |
 | M0-01 | Local gate passed; CI configured | No commit/remote | Clean Node 24.0.0 install/checks; 10 TS / 2 Python tests | ADR-001 proposed | Exact patch and remote CI unverified |
 | M0-02 | Local development gate passed | No commit/remote | Main checks, 16 tests, 7 dev-Worker and 7 built-Worker contracts; dry run; owner counter interaction | ADR-002 proposed for deployment | Broader browser/staging/production proof outstanding |
 | M0-03 | Local gate passed | No commit/remote | Node 24.22.1: lint/full typechecks, 26 Node tests, 7 Router tests; owner iOS/Android Hermes exports, agent artifact inspection | ADR-001/012 proposed | Owner confirms requested iPhone checks; Android runtime/VoiceOver unverified |
@@ -29,6 +30,254 @@ Discover, then mobile. Milestone M0 is incomplete.
 | M1–M6 | Planned, not started | — | — | — | See backlog |
 
 ## Append a work entry after each session
+
+### 2026-10-27 — Owner standard Worker runtime and API packaging pass
+
+Owner-provided terminal output confirms the complete chained run on the isolated
+Node 24.22.1 / pnpm 10.34.2 path: `test:api:runtime` **4/4**, `test:web` **13/13**,
+zero failures/skips, and `build:api:check` exits normally after `--dry-run`.
+Wrangler 4.152.0 harness startup takes 5,309 ms for the API suite and 3,195/3,947 ms
+for the two web-suite Workers. The six API cases take 8–112 ms; first SSR takes
+367 ms, repeated SSR 78 ms. Original request budgets and assertions remain.
+The prior timeout does not reproduce; its exact cause remains unproven.
+
+API packaging reports 2,084.50 KiB / gzip 368.84 KiB and only the local
+`ALLOWED_ORIGINS` binding. Nothing was deployed. Evidence is the owner's pasted
+command output in this conversation; these are not agent-executed results.
+This supersedes the earlier pending standard-runtime gate. Existing agent-run
+logs remain under ignored `.cache/verification/auth-profile/`.
+
+Updated AGENTS checkpoint, backlog and auth guide only. No application or
+dependency change, reinstall, migration, provider configuration or Git mutation.
+Live Neon persistence/Google callback, revocation/two-user isolation and rendered
+Profile/accessibility checks remain open. Next is UI-04's development database
+schema and provider setup, preserving the web/backend-first priority.
+
+### 2026-10-27 — Diagnose standard API timeout and modernize test startup
+
+Owner standard Wrangler API run passes **3/4**; the six-case health/identity test
+times out, and chained web/packaging checks never execute. Existing output cannot
+identify the failing case or headers/body phase. Sanitized inspection of that
+run's Worker logs finds a health-handler duration of 3 ms; this does not prove
+the cause of the end-to-end timeout or identify its case.
+
+Replaced deprecated `unstable_dev()` with the already-installed Wrangler 4.152.0
+`createTestHarness()` for both default runtime suites. Its source explicitly
+awaits proxy readiness and runtime reload before completing startup. Tests still
+use actual loopback HTTP, source/generated Wrangler configurations, ephemeral
+ports and owned teardown. Shared startup code closes on failure and stops once.
+Added case-index/path/status and response-header/JSON-body timing diagnostics.
+All existing request/startup budgets, assertions, modes and failure conditions
+remain; no warm-up, retry or new skip. No application behavior/dependency change.
+
+Node 24.22.1: **8/8** harness/config tests pass, including deferred startup,
+startup failure cleanup, unsafe URL rejection, idempotent teardown, original
+error propagation and no retry on header/body failure. **17/17** explicit
+managed-runtime contracts pass, no skips; API cases measure 8–212 ms with the
+unchanged 10-second deadline. Full lint and root contract TypeScript checks
+pass. Raw output: `.cache/verification/auth-profile/worker-harness-{units,managed,lint,types}.txt`.
+Native Wrangler inline smoke fails at esbuild's ancestor-directory permission
+restriction; `native-harness-smoke.txt`. No native success is claimed. Owner
+rerun is required to establish whether the new launcher resolves this timeout.
+Instructions: docs/39; [official API](https://developers.cloudflare.com/workers/wrangler/api/#createtestharness).
+Rollback the test helper, launcher imports, new unit registration and docs
+together. No DB/provider/deployment/Git metadata action; live auth remains open.
+
+### 2026-10-27 — UI-04 owner repair/build and source-matched Worker checks pass
+
+**Owner reports:** web-scoped frozen offline force install completes in 1m43.5s,
+471 packages added/reused and zero downloads. Web configuration regression passes
+**4/4**, including matching web React DOM/RSC identity; auth suite passes **13/13**.
+The expected invalid-name/origin test diagnostics do not indicate test failure.
+All five web build stages complete, route output includes `/profile` and
+`/api/auth/:all+`, and the normal shell prompt returns. Sourcemap, ineffective
+dynamic import and plugin timing warnings remain visible; no clean-warning claim.
+This resolves the real dependency-link/build blocker; no additional install.
+
+**Agent verifies:** both renderers resolve and share web React 19.3.1. The
+current Discover/Profile/auth-client/auth-proxy source contents match the built
+server/SSR source maps, with no inspected-source mismatches. SHA-256 hashes of
+those four sources, server/SSR entries, generated Wrangler config and client
+manifest are captured in ignored
+`.cache/verification/auth-profile/web-artifact-binding.json`. This is local
+artifact binding, not a production release audit or complete sourcemap validation.
+
+Added actual Worker contracts for unavailable account routes denying forged
+cookies and the built web proxy rejecting a foreign-origin mutation. The API
+configuration intentionally has no auth secrets or Hyperdrive binding. Using
+explicit `POLYMATIK_RUNTIME=miniflare` on Node 24.22.1, the final serial run passes
+**17/17** (4 API + 13 web), no skips. This includes Profile SSR, safe account
+failure, catalog/details, initial HTML/client bootstrap, SSE cancellation and
+backend recovery. Output: `.cache/verification/auth-profile/worker-runtime-final.txt`.
+The preceding web 12/12 and API 3/3 runs are superseded by this expanded run.
+
+**Limits/next:** default Wrangler runtime/packaging still need the owner's
+normal-terminal checks because of the agent sandbox ancestor-access limit.
+The direct API test helper emits browser-externalization warnings for the unused
+pg/auth branch. Public and unconfigured-account checks do not validate that
+branch, and must not be treated as configured PostgreSQL auth/runtime evidence.
+Neon schema/resources, Google token exchange/callback, real persistence,
+revocation/isolation on Neon and rendered Profile/browser/accessibility remain
+open. No browser automation is available in this session; no screenshot is
+claimed. No app behavior, provider state, DB migration, deployment or Git
+metadata changed in this follow-up. Mobile remains parked. Continue UI-04's
+default Worker and browser checks, then the reviewed Neon/Google setup in docs/39.
+
+### 2026-10-27 — UI-04 diagnose missing React peers and validate scoped repair
+
+Owner's pinned frozen install exits 0 / "Already up to date", but web-config
+remains 3 pass / 1 fail. Earlier advice to repeat a normal install was inadequate.
+Read-only inspection finds **no private `react` peer link** next to installed
+`react-dom@19.3.1_react@19.3.1/node_modules/react-dom`; Node consequently resolves
+the private hoist's mobile React 19.3.0. Web RSC resolves the same wrong fallback.
+Web/mobile pins and both lock snapshots are individually correct; no version
+alignment or Cloudflare architecture change is required.
+
+Validated the repair mechanism in a disposable two-app workspace on Node
+24.22.1 / pnpm 10.34.2 using five cached packages and a separate workspace-local
+store. Fresh install gives matching web React/renderer 19.3.1 and mobile 19.3.0.
+Deleting only the fixture's peer link reproduces the 19.3.0 fallback. An ordinary
+offline frozen install leaves it broken. `--filter 'web...' install --force
+--offline --frozen-lockfile --ignore-scripts` regenerates the peer link, restores
+web 19.3.1, retains mobile 19.3.0 and leaves the fixture lock SHA-256 unchanged.
+Raw output: `.cache/verification/auth-profile/react-peer-repair-spike.txt`.
+The fixture's first external-store attempt was denied at project registration;
+the successful test copied only five cached package indexes/content into a local
+store and changed neither the user store nor real-project dependency links.
+
+Expanded the installed-graph regression to check both React DOM and RSC versions
+and shared React identity. Real-project result remains **3/4**, with the precise
+failure retained in `web-peer-links-red.txt`. Updated docs/39 with a one-time
+scoped repair and removed the ineffective normal-install recommendation. The
+repair is intentionally offline to avoid pnpm 10 force downloading optional
+foreign-platform binaries. A missing cache/permission error needs diagnosis,
+not repeated force commands. No real-project repair/build success claimed.
+The owner's normal terminal is required because the agent cannot write the
+external pnpm store. No app feature, version, database, deployment or Git metadata mutation
+was made by this follow-up. Next: owner scoped repair, web-config, auth tests
+and web build; then resume Profile/runtime and Neon configuration acceptance.
+
+### 2026-10-27 — UI-04 Profile/auth and Cloudflare/Neon alignment
+
+**Scope:** owner requests Profile/auth, selects Better Auth then Google first,
+and reconfirms the architecture guide. Implement the web Profile route, account
+states, validated name changes, sign-out and existing appearance controls. Keep
+device Library saves explicitly unsynced and visible after sign-out. The bounded
+same-origin web proxy and API repeat method/origin/body checks, strip unrelated
+credentials and leave framework CSRF/state/PKCE checks enabled. `/v1/me` accepts
+only server-verified sessions; explicit invalid bearer input cannot fall back to
+a cookie. Shared validation, transport bounds and route contracts avoid drift.
+
+**Architecture/config:** API uses request-scoped pg through `HYPERDRIVE`, targeting
+Neon PostgreSQL; no application `DATABASE_URL` fallback or Docker prerequisite.
+Neon pgvector remains the planned semantic index; this auth ticket has no vector
+operation. Prepare ignored local config plus safe examples and docs/39 commands.
+Auth requires uncached Hyperdrive queries, database rate-limit storage and no
+session cookie-data cache. Automatic auth invocation URL logging/traces are off.
+No account, resource, remote migration or deployment was created. API source is
+strictly checked; conflicting third-party Node/Worker/Bun declarations are
+excluded with `skipLibCheck`, documented in docs/39. Root checking stays strict.
+Pinned Better Auth 1.7.14 and pg 8.16.3 are MIT; no online advisory scan claimed.
+
+**Agent checks:** Node 24.22.1, pinned pnpm 10.34.2. Captured raw output stays in
+ignored `.cache/verification/auth-profile/`, not committed evidence documents.
+
+| Check | Actual result |
+|---|---|
+| Auth policy/request/proxy/framework + API/catalog/Discover contracts | **39/39 pass**, no skips; `contracts.txt` |
+| Four Better Auth framework tests | Real SDK with test-only memory adapter: two-user sessions, forged cookie denial, logout revocation, bounded profile update, origin rejection, Google authorization state/PKCE and unsolicited callback denial before network |
+| `pnpm lint` | Pass; `lint.txt` |
+| `pnpm typecheck` | Root and all six workspace source checks pass; `typecheck.txt` |
+| Generated API runtime types | Regenerated with Wrangler for `nodejs_compat`; CLI exit 0, an external log-file permission diagnostic was emitted; no binding invented |
+| `pnpm build:web` | **Fail:** matching 19.3.1 web manifest/lock pins resolve React 19.3.0 inside installed React DOM; `build-web.txt` |
+| Web renderer-resolution regression | **Fail as expected on damaged links**, remaining three web-config checks pass; gate retained |
+| Frozen offline install | Stops at pnpm's generated-module reinstall confirmation in a noninteractive shell; no force/purge/relink workaround run; `frozen-install.txt` |
+| `pnpm build:api:check` | **Blocked:** Wrangler/esbuild cannot read an ancestor directory in the sandbox; no package/deployment success claimed; `build-api.txt` |
+| Git ignore verification | `.dev.vars` and `wrangler.auth.local.jsonc` ignored; safe examples remain eligible for version control |
+
+**Open gate:** restore frozen dependencies from the owner's normal terminal,
+then rebuild and run the new Profile runtime assertion. Prepare and review the
+development Neon auth schema, configure Google locally, and verify actual
+callback/persistence/revocation/isolation. Browser screenshots, keyboard,
+responsive themes and live Hyperdrive behavior are unverified. Mobile work and
+the earlier dependency-link issue remain parked. No AI behavior changed, so AI
+evaluation delta is N/A. Latency/cost and cross-Worker rate-limit IP attribution
+are not benchmarked. Roll back auth routes/UI/config/manifests/lock together;
+preserve real user data. Git metadata is read-only, so no commit or push occurred.
+
+### 2026-10-26 — UI-03 complete runtime assertions in constrained local environments
+
+Base `a1fbe05` plus preserved web/navigation/budget work; Node 24.22.1 / pnpm 10.34.2.
+Added explicit `POLYMATIK_RUNTIME=miniflare` startup for the existing API/web
+contracts using installed workerd, compatibility settings, built web modules/assets
+and locally bundled API source. Default Wrangler startup is retained. Invalid
+modes and remote/credentialed backend origins fail; existing-preview and managed
+modes cannot be combined. Workers stop in teardown, including partial startup.
+No assertions, deadlines or failure paths were removed; no automatic fallback.
+
+Configuration tests first failed for the missing helper, then passed 3/3.
+Direct mode runs the unmodified assertion bodies: API 3/3, web 11/11, no skips;
+actual API shutdown now passes here. Lint and all workspace types exit 0. Reused
+the same web startup helper in the supplemental probe; its distinct external-URL
+mode retains its explicit managed-API skip and separately verifies API outage.
+Output: ignored `.cache/verification/runtime-harness/`. App source/build unchanged
+this slice; the preceding bounded-response build is used. No app performance,
+browser/hydration, packaging or production readiness claim follows from the mode.
+
+Changed runtime/config contracts, new `tests/helpers/local-workers.mjs`, existing
+probe and runbooks. This uses the documented [Miniflare test API](https://developers.cloudflare.com/workers/testing/miniflare/get-started/).
+No dependency, API contract, migration or AI/evaluation change. Revert startup
+branches/helper/tests together to roll back. Browser acceptance, default Wrangler
+rerun and prior mobile tooling issue remain open; no Git write/push or release.
+Next: rendered UI-03 browser acceptance before advancing web/backend scope.
+
+### 2026-10-26 — UI-03 bounded web upstream reads and loading diagnosis
+
+Base `a1fbe05` plus preserved navigation changes; Node 24.22.1 / pnpm 10.34.2.
+The server-only product API adapter now caps decoded JSON at 64 KiB, cancels
+oversized/aborted bodies and preserves the existing five-second deadline and
+recovery states. Shared native transport, API schema and dependencies unchanged.
+Tests first accepted oversized valid JSON (red); 25 web unit/contracts now pass,
+including exact-boundary, deceptive length header, cancellation and split UTF-8.
+Lint, all workspace types and web build exit 0. Actual workerd accepts a gzip
+API body decoded to 65,536 bytes and rejects 65,537; ten web contracts pass, one
+managed-API test explicitly skipped, with separate API-stop recovery/404 passing.
+
+Changed `apps/web/src/product-api.ts`, catalog contracts and maintained Worker
+probe; added `tests/helpers/streaming-transport-probe.mjs`; updated runbooks.
+The minimal probe isolates local gzip buffering without app code: identity
+loading 72 ms (pass), gzip 1,539 ms with completion coalesced (fails, retained).
+Raw HTTP also reproduced the delay. No app compression workaround or production
+transport claim. Raw output: ignored `.cache/verification/streaming/`.
+Bounded parsing follows [Workers streaming guidance](https://developers.cloudflare.com/workers/runtime-apis/streams/).
+No migration, AI/ranking change or evaluation delta; latency beyond these local
+fixtures unmeasured. Revert adapter/tests together for rollback. Browser/standard
+owner gate and prior mobile toolchain issue remain open; Git remains read-only.
+Next: finish UI-03 browser acceptance and standard Worker verification before
+advancing the web/backend checkpoint. No push or production side effect occurred.
+
+### 2026-10-26 — UI-03 preserve collection context through resource visits
+
+Base `a1fbe05`; Node 24.22.1 / pnpm 10.34.2. Search and subject filters now
+survive resource returns/reloads and remain separate across collection tabs.
+Uses bounded, validated tab session storage rather than putting search terms
+in resource URLs or persistent Library data. Blocked storage preserves browsing.
+Changed the web shell, new collection-context helper, discovery contracts and
+README/backlog/checkpoint. No dependencies, API, migrations or ranking changed.
+
+Tests first failed for the missing helper, then `test:web:unit` equivalents
+passed 21/21. `pnpm lint`, `pnpm typecheck` and `pnpm build:web` exit 0.
+`node tests/helpers/web-worker-probe.mjs --web` exits 0: 10 web contracts pass,
+one managed-API case explicitly skipped, with separate real API-stop recovery,
+unknown-ID 404, catalog membership/empty and identity-loading checks passing.
+Raw output is ignored `.cache/verification/collection-context/`; no new evidence
+log collection. Browser round-trip acceptance requested, not yet confirmed.
+Screenshots/hydration/accessibility, fresh owner standard gate and compressed
+loading remain open. Existing root mobile-toolchain failure was not reinstalled
+or hidden. AI eval delta N/A; no agent/retrieval/ranking change. Latency unmeasured.
+Revert helper/shell/tests together to roll back; saves are unaffected. Git is
+read-only here, so no commit/push occurred. Next: finish UI-03 rendered acceptance
+and standard Worker gate before advancing the web/backend checkpoint.
 
 ### 2026-10-26 — Lean evidence and API-backed Discover
 

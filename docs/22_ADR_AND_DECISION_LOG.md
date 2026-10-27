@@ -5,6 +5,31 @@
 
 ## Accepted development-workflow decisions
 
+### 2026-10-26 — Better Auth on Cloudflare, Google OAuth 2.0 first
+
+**Accepted owner direction:** implement Profile/auth next, using Better Auth
+on Cloudflare with Google as the first OAuth 2.0 sign-in provider. This replaces
+the Clerk candidate in ADR-005. Compatibility and live login remain unverified.
+Use the existing product API ownership and **Neon PostgreSQL + pgvector**
+direction. The Worker database path is **Hyperdrive → Neon**, with query caching
+disabled for auth/session data. Local Wrangler may simulate that binding using
+a Neon development branch; it does not prove deployed pooling/caching. Prepare a
+same-origin web auth boundary, server-only credentials and explicit fail-closed
+unconfigured states. Do not introduce password storage or fake local accounts.
+No provider account, cloud resource, deployment or remote migration is created
+by this decision. Reviewed Neon development schema and Google credentials
+are prerequisites for end-to-end acceptance. Mobile remains parked.
+Alternatives: the earlier Clerk candidate, or postponing authentication. Better
+Auth is the owner's choice. Preserve the reviewed public catalog and device saves;
+they do not silently become private account-synced data after login. Revert auth
+routes/config/UI together for rollback; preserve any real account data.
+References: [Better Auth installation](https://better-auth.com/docs/installation),
+[Google OAuth](https://better-auth.com/docs/authentication/google),
+[Workers integration](https://better-auth.com/docs/integrations/hono#cloudflare-workers).
+The owner's 27 October clarification reconfirms the existing Cloudflare/Neon
+architecture; a Docker PostgreSQL detour is not the current prerequisite.
+Implementation and copyable setup commands: [docs/39](39_WEB_AUTH_AND_PROFILE.md).
+
 ### 2026-10-25 — Match the API compatibility date to the locked local runtime
 
 Local implementation correction within UI-03, not a deployment decision.
@@ -133,7 +158,7 @@ owner decision to restore the protocol; historical evidence remains available.
 | ADR-002 | Next.js on Cloudflare via vinext vs OpenNext | Proposed | streaming/SSR/auth compatibility deploy |
 | ADR-003 | Product API Worker (modular TS), Python FastAPI LangGraph separate | Proposed | authenticated cross-boundary PoC |
 | ADR-004 | Managed Postgres+pgvector one source of truth | Proposed | cloud connectivity, regions, backups, pricing |
-| ADR-005 | Auth provider Clerk candidate, OIDC verification everywhere | Proposed | Next.js Workers+Expo+Python compatible SDKs |
+| ADR-005 | Better Auth on Cloudflare; Google OAuth 2.0 first | Accepted direction; compatibility pending | Same-origin web flow, persisted sessions, logout, trust-boundary tests; owner decision 26 October |
 | ADR-006 | SQL-first migration authority; separate checkpoint migrations | Proposed | tooling and rollback tests |
 | ADR-007 | LangSmith trace/eval with privacy redaction | Proposed | real trace with sanitized fixtures |
 | ADR-008 | CF Queue at-least-once + transactional outbox/receipts | Proposed | duplicate/retry tests and complexity review |

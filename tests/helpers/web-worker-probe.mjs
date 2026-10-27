@@ -1,11 +1,13 @@
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
-import { readFile, readdir } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { createHash } from 'node:crypto';
 import ts from 'typescript';
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:http';
+import { gzipSync } from 'node:zlib';
+import { startWebWorker } from './local-workers.mjs';
 
 const root = new URL('../../', import.meta.url);
 const webRequire = createRequire(new URL('apps/web/package.json', root));
@@ -52,6 +54,8 @@ const mf = new Miniflare(
 const records = [];
 let catalogItems;
 let catalogOverride;
+let catalogBytes = 0;
+let catalogGzip = false;
 let webWorker;
 let apiDisposed = false;
 let apiProxy;
@@ -106,8 +110,17 @@ try {
     apiProxy = createServer(async (incoming, outgoing) => {
       try {
         if (catalogOverride !== undefined && incoming.url === '/v1/resources') {
-          outgoing.writeHead(200, { 'content-type': 'application/json' });
-          outgoing.end(JSON.stringify({ items: catalogOverride }));
+          const source = JSON.stringify({ items: catalogOverride });
+          const json =
+            source +
+            ' '.repeat(Math.max(0, catalogBytes - Buffer.byteLength(source)));
+          const body = catalogGzip ? gzipSync(json) : Buffer.from(json);
+          outgoing.writeHead(200, {
+            'content-type': 'application/json',
+            'content-length': String(body.length),
+            ...(catalogGzip ? { 'content-encoding': 'gzip' } : {}),
+          });
+          outgoing.end(body);
           return;
         }
         if (holdApi && incoming.url === '/v1/resources/atoms') await gate;
@@ -135,50 +148,8 @@ try {
     });
     const proxyAddress = apiProxy.address();
     assert.ok(proxyAddress && typeof proxyAddress !== 'string');
-    const server = new URL('apps/web/dist/server/', root);
-    const webConfig = JSON.parse(
-      await readFile(new URL('wrangler.json', server), 'utf8'),
-    );
-    const modules = [
-      { type: 'ESModule', path: fileURLToPath(new URL('index.js', server)) },
-    ];
-    for (const entry of await readdir(fileURLToPath(server), {
-      recursive: true,
-    })) {
-      if (entry.endsWith('.js') && entry !== 'index.js') {
-        modules.push({
-          type: 'ESModule',
-          path: fileURLToPath(new URL(entry.replaceAll('\\', '/'), server)),
-        });
-      }
-    }
-    webWorker = new Miniflare(
-      convertV4MiniflareOptions({
-        name: webConfig.name,
-        modules,
-        modulesRoot: fileURLToPath(server),
-        compatibilityDate: webConfig.compatibility_date,
-        compatibilityFlags: webConfig.compatibility_flags,
-        host: '127.0.0.1',
-        port: 0,
-        cf: false,
-        bindings: {
-          ...webConfig.vars,
-          PRODUCT_API_ORIGIN: `http://127.0.0.1:${proxyAddress.port}`,
-        },
-        assets: {
-          directory: fileURLToPath(new URL('../client/', server)),
-          binding: 'ASSETS',
-          run_worker_first: false,
-          routerConfig: {
-            has_user_worker: true,
-            invoke_user_worker_ahead_of_assets: false,
-          },
-          assetConfig: { not_found_handling: 'none' },
-        },
-      }),
-    );
-    const webBase = (await webWorker.ready).origin;
+    webWorker = await startWebWorker(`http://127.0.0.1:${proxyAddress.port}`);
+    const webBase = webWorker.origin;
     console.log(
       'API network probe:',
       (await fetch(`${(await mf.ready).origin}/v1/resources/atoms`)).status,
@@ -271,8 +242,27 @@ try {
       console.log(
         'PASS: Discover SSR follows API catalog membership and distinguishes an empty catalog',
       );
+      catalogOverride = catalogItems;
+      catalogGzip = true;
+      for (const { bytes, available } of [
+        { bytes: 65_536, available: true },
+        { bytes: 65_537, available: false },
+      ]) {
+        catalogBytes = bytes;
+        const html = await (await fetch(`${webBase}/`)).text();
+        assert.equal(
+          html.includes('The collection could not be loaded.'),
+          !available,
+        );
+        assert.equal(html.includes('Atoms in Motion'), available);
+      }
+      console.log(
+        'PASS: actual Worker bounds decoded gzip API bodies at 64 KiB',
+      );
     } finally {
       catalogOverride = undefined;
+      catalogBytes = 0;
+      catalogGzip = false;
     }
     const code = await new Promise((resolve, reject) => {
       const child = spawn(
@@ -281,7 +271,12 @@ try {
         {
           cwd: fileURLToPath(root),
           stdio: 'inherit',
-          env: { ...process.env, POLYMATIK_WEB_BASE_URL: webBase },
+          // This probe already owns the Workers; the child tests their URL.
+          env: {
+            ...process.env,
+            POLYMATIK_RUNTIME: undefined,
+            POLYMATIK_WEB_BASE_URL: webBase,
+          },
         },
       );
       child.once('error', reject);
@@ -325,7 +320,7 @@ try {
 } finally {
   releaseApi?.();
   try {
-    await webWorker?.dispose();
+    await webWorker?.stop();
   } finally {
     if (apiProxy) {
       apiProxy.closeAllConnections();

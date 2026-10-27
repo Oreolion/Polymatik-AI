@@ -8,6 +8,9 @@
   },
   "exports": {
     ".": "./src/index.ts",
-    "./discovery-preview": "./src/discovery-preview.ts"
+    "./discovery-preview": "./src/discovery-preview.ts",
+    "./profile": "./src/profile.ts",
+    "./bounded-body": "./src/bounded-body.ts",
+    "./auth-routes": "./src/auth-routes.ts"
   }
 }

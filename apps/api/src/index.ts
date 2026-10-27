@@ -16,6 +16,7 @@ type Options = {
   allowedOrigins?: readonly string[];
   // Server-only dependency. Never selected through an HTTP header or environment flag.
   verifyBearer?: (token: string) => Promise<Principal | null>;
+  verifySession?: (headers: Headers) => Promise<Principal | null>;
   log?: (entry: RequestLog) => void;
 };
 
@@ -99,19 +100,23 @@ export function createApi(options: Options = {}) {
         }
         let principal: Principal | null = null;
         if (url.pathname === '/v1/me') {
-          const authorization = request.headers.get('authorization') ?? '';
-          const token = /^Bearer ([^\s]{1,4096})$/i.exec(authorization)?.[1];
-          if (token && options.verifyBearer) {
-            try {
+          const authorization = request.headers.get('authorization');
+          const token = /^Bearer ([^\s]{1,4096})$/i.exec(
+            authorization ?? '',
+          )?.[1];
+          try {
+            if (token && options.verifyBearer) {
               principal = await options.verifyBearer(token);
-            } catch {
-              return error(
-                503,
-                'identity_unavailable',
-                'Identity verification is unavailable.',
-                true,
-              );
+            } else if (authorization === null && options.verifySession) {
+              principal = await options.verifySession(request.headers);
             }
+          } catch {
+            return error(
+              503,
+              'identity_unavailable',
+              'Identity verification is unavailable.',
+              true,
+            );
           }
           if (!principal) {
             headers.set('www-authenticate', 'Bearer');

@@ -1,10 +1,14 @@
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
-import { createRequire } from 'node:module';
-import { fileURLToPath, pathToFileURL } from 'node:url';
 import test, { after, before } from 'node:test';
 import ts from 'typescript';
 import { resources } from '../../packages/domain-types/src/discovery-preview.ts';
+import {
+  runtimeBackend,
+  startApiWorker,
+  startWebWorker,
+} from '../helpers/local-workers.mjs';
+import { startWranglerWorker } from '../helpers/worker-harness.mjs';
 
 let base = new URL(
   process.env.POLYMATIK_WEB_BASE_URL ?? 'http://127.0.0.1:8787',
@@ -16,56 +20,31 @@ let apiWorker;
 
 before(
   async () => {
-    if (process.env.POLYMATIK_WEB_BASE_URL) return;
-    const app = new URL('../../apps/web/', import.meta.url);
-    const require = createRequire(new URL('package.json', app));
-    process.env.WRANGLER_SEND_METRICS = 'false';
-    process.env.WRANGLER_LOG_PATH = fileURLToPath(
-      new URL('../../.cache/wrangler-logs', import.meta.url),
-    );
-    const { unstable_dev } = await import(
-      pathToFileURL(require.resolve('wrangler')).href
-    );
-    const api = new URL('../../apps/api/', import.meta.url);
-    apiWorker = await unstable_dev(
-      fileURLToPath(new URL('src/worker.ts', api)),
-      {
-        config: fileURLToPath(new URL('wrangler.jsonc', api)),
-        env: 'local',
-        local: true,
-        ip: '127.0.0.1',
-        port: 0,
-        inspectorPort: 0,
-        persist: false,
-        logLevel: 'error',
-        experimental: {
-          disableDevRegistry: true,
-          watch: false,
-          enableContainers: false,
-          showInteractiveDevSession: false,
-        },
-      },
+    const backend = runtimeBackend(process.env.POLYMATIK_RUNTIME);
+    if (process.env.POLYMATIK_WEB_BASE_URL) {
+      assert.notEqual(
+        backend,
+        'miniflare',
+        'managed runtime mode cannot use an external Worker',
+      );
+      return;
+    }
+    console.log('Web contract runtime:', backend);
+    if (backend === 'miniflare') {
+      apiWorker = await startApiWorker();
+      worker = await startWebWorker(`http://127.0.0.1:${apiWorker.port}`);
+      base = new URL(`http://127.0.0.1:${worker.port}`);
+      return;
+    }
+    apiWorker = await startWranglerWorker(
+      new URL('../../apps/api/wrangler.jsonc', import.meta.url),
+      { env: 'local' },
     );
     assert.ok(apiWorker);
-    worker = await unstable_dev(
-      fileURLToPath(new URL('dist/server/index.js', app)),
+    worker = await startWranglerWorker(
+      new URL('../../apps/web/dist/server/wrangler.json', import.meta.url),
       {
-        config: fileURLToPath(new URL('dist/server/wrangler.json', app)),
-        local: true,
-        ip: '127.0.0.1',
-        port: 0,
-        inspectorPort: 0,
-        persist: false,
-        logLevel: 'error',
-        vars: {
-          PRODUCT_API_ORIGIN: `http://127.0.0.1:${apiWorker.port}`,
-        },
-        experimental: {
-          disableDevRegistry: true,
-          watch: false,
-          enableContainers: false,
-          showInteractiveDevSession: false,
-        },
+        vars: { PRODUCT_API_ORIGIN: `http://127.0.0.1:${apiWorker.port}` },
       },
     );
     assert.ok(worker);
@@ -146,6 +125,49 @@ test('SSR includes request-specific data in initial HTML and a client-component 
     !secondHtml.includes(marker),
     'SSR output is isolated between requests',
   );
+});
+
+test('Profile has a real route, accessible appearance settings and honest device-save scope', async () => {
+  const response = await request('/profile');
+  assert.equal(response.status, 200);
+  const html = (await response.text()).replace(
+    /<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi,
+    '',
+  );
+  for (const text of [
+    'YOUR CORNER OF THE ATLAS',
+    'Follow device',
+    'Open device Library',
+    'not synced to your account',
+  ])
+    assert.ok(html.includes(text), text);
+  assert.match(html, /Checking your account|Continue with Google/);
+  assert.ok(html.includes('href="/profile"'));
+  assert.ok(html.includes('type="radio"'));
+  assert.ok(!html.includes('type="password"'));
+  assert.ok(!html.includes('You are signed in'));
+});
+
+test('built web auth proxy rejects foreign mutations and reports unavailable accounts safely', async () => {
+  const response = await request('/api/auth/get-session', {
+    headers: {
+      cookie: 'polymatik.session_token=forged-session',
+      'x-user-id': 'victim',
+    },
+  });
+  assert.equal(response.status, 503);
+  assert.equal(response.headers.get('cache-control'), 'no-store');
+  assert.equal(response.headers.getSetCookie().length, 0);
+  const body = await response.text();
+  assert.doesNotMatch(
+    body,
+    /forged-session|victim|postgres|GOOGLE_CLIENT_SECRET/,
+  );
+  const denied = await request('/api/auth/sign-out', {
+    method: 'POST',
+    headers: { origin: 'https://evil.test' },
+  });
+  assert.equal(denied.status, 403);
 });
 
 test('Discover renders source-attributed preview content before hydration', async () => {

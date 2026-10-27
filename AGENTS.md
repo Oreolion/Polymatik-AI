@@ -45,53 +45,32 @@ evidence path. Update the checkpoint below only when its status, blocker or
 next action materially changes. Run checks appropriate to actual changes;
 ordinary questions require neither a full suite nor a checkpoint rewrite.
 
-## Current checkpoint — 22 October 2026
-- **M0-01 local gate passed:** fresh-copy frozen pnpm install, lint, typechecks
-  and 10 TS tests passed on Node 24.0.0. Owner reports both installed Python
-  tests pass; earlier Ruff checks passed. Evidence: `docs/evidence/m0-01/` and
-  `docs/24_IMPLEMENTATION_LOG.md`. CI is configured but unrun remotely.
-- **Runtime:** `bash scripts/node24.sh --node-version 24.0.0` opens an isolated
-  Git Bash shell; `exit` returns to the parent. It leaves the shared Node
-  selection unchanged. Node 24.0.0 meets `>=24 <25`; exact 24.22.1 remains an
-  unverified reproducibility pin, not a blocker to all local work. On Windows
-  use `pnpm.cmd`; uv manages the Python environment without manual activation.
-- **Current ticket: M0-02 only**, authorized by the owner. Follow
-  `docs/31_M0_02_COMPATIBILITY_SPIKE.md`. Owner completed the 52,942-byte generator
-  archive via resumed IPv4 curl. Archive inspection and local generation passed
-  on Node 24.0.0; see `docs/evidence/m0-02/`. The actual beta.3 CLI already uses
-  Wrangler and does not advertise the newer legacy-init flag. Temporary seed:
-  `.cache/polymatik-m0-02-seed`; packageManager normalized to `pnpm@10.4.1`.
-  No install scripts, Git initialization or deployment ran. The root lockfile and
-  `apps/web` manifest are unchanged. Offline dependency resolution fails because
-  framework metadata is absent; no web runtime/build compatibility is proven.
-- **Next action:** install seed dependencies in the owner's Node 24 shell using
-  `pnpm.cmd --dir .cache/polymatik-m0-02-seed install --ignore-workspace --ignore-scripts --network-concurrency=1`.
-  Then review resolved versions/licenses, pin dependencies, merge the smallest
-  scaffold into `apps/web` and verify the documented SSR/RSC, route-handler,
-  auth, SSE, asset, binding and Worker build matrix.
-  Preserve other workspaces. ADR-002 remains Proposed; no deployment or new
-  provider/account action is authorized by this implementation request.
-## Current checkpoint ? 22 October 2026
-- **M0-01 historical local gate passed:** frozen install, lint, typechecks and
-  10 TS tests on Node 24.0.0; owner reports 2 Python tests pass. CI is configured,
-  unrun remotely. Evidence: `docs/evidence/m0-01/` and the implementation ledger.
-- **Runtime:** `bash scripts/node24.sh --node-version 24.0.0` opens an isolated
-  Git Bash shell. `exit` restores the parent shell. Global Node is unchanged.
-  Exact 24.22.1 remains unverified. Use `pnpm.cmd` on Windows; uv manages its venv.
-- **Current ticket: M0-02 only.** Owner requests verification before advancing.
-  Seed dependencies installed; original seed build and owner-started local
-  Worker respond. Maintained fixtures are prepared in `apps/web`, with 16 pinned
-  direct dependencies and an offline-resolved workspace lockfile. Five stream
-  units pass. Seven HTTP contracts fail against the original template as the
-  expected red baseline. An isolated source copy passes TypeScript; its rebuild
-  fails with EPERM replacing seed `dist/`. Browser interaction is unverified.
-- **Immediate blocker:** the agent's frozen offline workspace install timed out
-  after 240 seconds; dependency linking is incomplete. The attempt is stopped.
-  The owner was asked to stop the old seed preview and run
-  `pnpm.cmd install --offline --frozen-lockfile --ignore-scripts` in the existing
-  Node 24 shell, then share the result. Do not repeat installs concurrently.
-- **Next:** finish main-workspace lint/typecheck/tests/build and local Worker
-  contracts, plus browser interaction and packaging proof. See docs/31 and
-  `docs/evidence/m0-02/`. Local fixture tests need no accounts. ADR-002 remains
-  Proposed; no staging deployment or new provider/account action is authorized.
-  No M0-03 work begins until the current gate is resolved.
+## Current checkpoint ? 27 October 2026
+- **Owner priority:** web/backend first; mobile parked. Current ticket: UI-04
+  Profile + Better Auth, Google OAuth 2.0 first. Retain UI-03's open rendered
+  checks; do not reinterpret continuation as acceptance of incomplete gates.
+- **Architecture:** Cloudflare Workers ? Hyperdrive ? Neon PostgreSQL; pgvector
+  remains the initial semantic index. Disable Hyperdrive query caching for auth.
+  Local Wrangler simulates the binding and may connect to a Neon development
+  branch directly; it does not establish deployed pooling/caching behavior.
+  No Docker database prerequisite for this chosen development path.
+- **Runtime:** isolated Node 24.22.1 launcher and pnpm 10.34.2; uv manages Python.
+  Preserve the global Node selection. No concurrent installs or manual edits of
+  generated dependency links. Never recreate retired AI Sync state.
+- **Verification:** auth policy/proxy/API contracts and real-framework memory-
+  adapter tests pass; Neon persistence and live Google callback are unverified.
+  Latest results/limits: docs/24; setup and copyable commands: docs/39.
+- **React repair resolved:** owner's scoped offline repair and real checkout's
+  four web configuration checks, 13 auth tests and full web build pass. Agent
+  verifies web React DOM/RSC share React 19.3.1; no more installs needed.
+- **Current gate:** owner standard Wrangler API **4/4**, built web **13/13**
+  and API packaging dry run pass on 27 October, using the new harness. First
+  SSR is 367 ms; repeated SSR is 78 ms. No skipped assertions or raised limits.
+  Earlier agent managed-runtime checks also pass. The prior timeout does not
+  reproduce in this run; its exact cause remains unproven. No reinstall needed.
+  This covers public/unconfigured-account paths, not configured PostgreSQL auth.
+  Rendered browser checks and live Neon/Google acceptance remain open.
+- **Next:** finish the reviewed Neon development schema, Google configuration,
+  actual session/revocation/isolation and Profile browser checks. No accounts,
+  cloud resources, remote migrations or deployments created. Git metadata is
+  read-only in this agent session; do not reinitialize or bypass ownership.

@@ -1,38 +1,27 @@
 import assert from 'node:assert/strict';
-import { createRequire } from 'node:module';
-import { fileURLToPath, pathToFileURL } from 'node:url';
 import test, { before, after } from 'node:test';
+import { runtimeBackend, startApiWorker } from '../helpers/local-workers.mjs';
+import {
+  readRuntimeJson,
+  startWranglerWorker,
+} from '../helpers/worker-harness.mjs';
 
 /** @type {{port: number, stop: () => Promise<void>} | undefined} */
 let worker;
 let base = '';
 before(
   async () => {
-    const app = new URL('../../apps/api/', import.meta.url);
-    const require = createRequire(new URL('package.json', app));
-    process.env.WRANGLER_SEND_METRICS = 'false';
-    process.env.WRANGLER_LOG_PATH = fileURLToPath(
-      new URL('../../.cache/wrangler-logs', import.meta.url),
+    const backend = runtimeBackend(process.env.POLYMATIK_RUNTIME);
+    console.log('API contract runtime:', backend);
+    if (backend === 'miniflare') {
+      worker = await startApiWorker();
+      base = `http://127.0.0.1:${worker.port}`;
+      return;
+    }
+    worker = await startWranglerWorker(
+      new URL('../../apps/api/wrangler.jsonc', import.meta.url),
+      { env: 'local' },
     );
-    const { unstable_dev } = await import(
-      pathToFileURL(require.resolve('wrangler')).href
-    );
-    worker = await unstable_dev(fileURLToPath(new URL('src/worker.ts', app)), {
-      config: fileURLToPath(new URL('wrangler.jsonc', app)),
-      env: 'local',
-      local: true,
-      ip: '127.0.0.1',
-      port: 0,
-      inspectorPort: 0,
-      persist: false,
-      logLevel: 'error',
-      experimental: {
-        disableDevRegistry: true,
-        watch: false,
-        enableContainers: false,
-        showInteractiveDevSession: false,
-      },
-    });
     assert.ok(worker);
     base = `http://127.0.0.1:${worker.port}`;
   },
@@ -42,7 +31,7 @@ after(async () => {
   await worker?.stop();
 });
 
-test('actual workerd serves health, validates input and denies forged identity', async () => {
+test('actual workerd serves health, validates input and denies forged identity', async (t) => {
   /** @type {[string, number, Record<string, string>][]} */
   const cases = [
     ['/v1/health', 200, {}],
@@ -56,13 +45,13 @@ test('actual workerd serves health, validates input and denies forged identity',
     ['/v1/health', 403, { origin: 'https://evil.test' }],
     ['/v1/missing', 404, {}],
   ];
-  for (const [path, status, headers] of cases) {
-    const response = await fetch(`${base}${path}`, {
+  for (const [index, [path, status, headers]] of cases.entries()) {
+    const { response, value } = await readRuntimeJson(`${base}${path}`, {
+      label: `case ${index + 1}: GET ${path} -> ${status}`,
       headers,
-      signal: AbortSignal.timeout(10_000),
+      diagnostic: (message) => t.diagnostic(message),
     });
     assert.equal(response.status, status);
-    const value = await response.json();
     if (status === 200) assert.equal(value.status, 'ok');
     else
       assert.equal(
@@ -80,6 +69,26 @@ test('actual workerd accepts only the configured local web origin', async () => 
   });
   assert.equal(response.status, 200);
   assert.equal(response.headers.get('access-control-allow-origin'), origin);
+});
+
+test('unconfigured account routes fail closed without accepting forged cookies', async () => {
+  const response = await fetch(`${base}/api/auth/get-session`, {
+    headers: {
+      cookie: 'polymatik.session_token=forged-session',
+      'x-user-id': 'victim',
+    },
+    signal: AbortSignal.timeout(10_000),
+  });
+  assert.equal(response.status, 503);
+  assert.equal(response.headers.get('cache-control'), 'no-store');
+  assert.equal(response.headers.get('x-content-type-options'), 'nosniff');
+  const body = await response.text();
+  assert.equal(JSON.parse(body).code, 'AUTH_UNAVAILABLE');
+  assert.doesNotMatch(
+    body,
+    /forged-session|victim|postgres|GOOGLE_CLIENT_SECRET/,
+  );
+  assert.equal(response.headers.getSetCookie().length, 0);
 });
 
 test('actual workerd serves the public preview catalog and validates resource IDs', async () => {

@@ -3,10 +3,12 @@
   "name": "polymatik-api",
   "main": "src/worker.ts",
   "compatibility_date": "2026-10-19",
+  "compatibility_flags": ["nodejs_compat"],
   "vars": { "ALLOWED_ORIGINS": "" },
   "observability": {
     "enabled": true,
-    "traces": { "enabled": true },
+    "logs": { "enabled": true, "invocation_logs": false },
+    "traces": { "enabled": false },
   },
   "dev": { "ip": "127.0.0.1", "port": 8789 },
   "env": {

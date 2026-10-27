@@ -12,7 +12,15 @@ import type { Topic } from '../src/discover';
 import type { ResourceCatalogState } from '../src/catalog';
 import type { PreviewResource } from '@polymatik/domain-types';
 import type { CollectionView } from '../src/resource-navigation';
+import {
+  emptyCollectionContext,
+  readCollectionContext,
+  writeCollectionContext,
+  MAX_COLLECTION_QUERY,
+  type CollectionFilters,
+} from '../src/collection-context';
 import ResourceDetailView from './resource-detail-view';
+import ProfileView from './profile-view';
 import ResourceStateView, {
   resourceStateTitles,
   type ResourceState,
@@ -189,19 +197,33 @@ export default function DiscoverClient({
   resourceState,
   catalog = { status: 'unavailable' },
   returnTo = 'discover',
+  profilePage = false,
 }: {
   resource?: PreviewResource;
   resourceState?: ResourceState;
   catalog?: ResourceCatalogState;
   returnTo?: CollectionView;
+  profilePage?: boolean;
 }) {
   const isResourcePage = Boolean(resource || resourceState);
-  const pageTitle = resourceState
-    ? resourceStateTitles[resourceState.status]
-    : resource?.title;
+  const isStandalonePage = isResourcePage || profilePage;
+  const pageTitle = profilePage
+    ? 'Profile'
+    : resourceState
+      ? resourceStateTitles[resourceState.status]
+      : resource?.title;
   const [view, setView] = useState<View>(returnTo);
-  const [topic, setTopic] = useState<Topic>('All subjects');
-  const [query, setQuery] = useState('');
+  const [context, setContext] = useState(emptyCollectionContext);
+  const [contextLoaded, setContextLoaded] = useState(false);
+  const { topic, query } = context[view];
+  function changeFilters(filters: Partial<CollectionFilters>) {
+    setContext((current) => ({
+      ...current,
+      [view]: { ...current[view], ...filters },
+    }));
+  }
+  const setTopic = (topic: Topic) => changeFilters({ topic });
+  const setQuery = (query: string) => changeFilters({ query });
   const [saved, setSaved] = useState<string[]>([]);
   const [dismissed, setDismissed] = useState<string[]>([]);
   const [undo, setUndo] = useState<string | null>(null);
@@ -230,6 +252,14 @@ export default function DiscoverClient({
   }
   useEffect(() => {
     loadSaves();
+    if (!isStandalonePage) {
+      try {
+        setContext(readCollectionContext(window.sessionStorage));
+      } catch {
+        // Browser policy can block access to the storage property itself.
+      }
+      setContextLoaded(true);
+    }
     const scheme = window.matchMedia('(prefers-color-scheme: dark)');
     setSystemDark(scheme.matches);
     const onScheme = () => setSystemDark(scheme.matches);
@@ -244,12 +274,10 @@ export default function DiscoverClient({
       /* System appearance remains available without storage. */
     }
     const onHash = () => {
-      if (isResourcePage) return;
+      if (isStandalonePage) return;
       const value = window.location.hash.slice(1) || 'discover';
       if (value === 'discover' || value === 'search' || value === 'library') {
         setView(value);
-        setTopic('All subjects');
-        setQuery('');
       }
     };
     onHash();
@@ -265,12 +293,21 @@ export default function DiscoverClient({
   }, []);
 
   useEffect(() => {
+    if (!contextLoaded || isStandalonePage) return;
+    try {
+      writeCollectionContext(window.sessionStorage, context);
+    } catch {
+      // Browsing still works when optional session storage is unavailable.
+    }
+  }, [context, contextLoaded, isStandalonePage]);
+
+  useEffect(() => {
     document.title = `${pageTitle ?? (view === 'library' ? 'Library' : view === 'search' ? 'Search' : 'Discover')} — Polymatik AI`;
-    if (isResourcePage) return;
+    if (isStandalonePage) return;
     if (view === 'search') searchRef.current?.focus();
     else if (view !== previousView.current) titleRef.current?.focus();
     previousView.current = view;
-  }, [view, pageTitle, isResourcePage]);
+  }, [view, pageTitle, isStandalonePage]);
 
   function applySave(action: SaveAction) {
     try {
@@ -297,10 +334,8 @@ export default function DiscoverClient({
     }
   }
   function navigate(next: View) {
-    if (isResourcePage) return;
+    if (isStandalonePage) return;
     setView(next);
-    setTopic('All subjects');
-    setQuery('');
     setNotice('');
   }
   function changeTheme(next: Theme) {
@@ -328,7 +363,8 @@ export default function DiscoverClient({
     catalog.status === 'ready' &&
     catalog.items.length === 0;
   const isDark = theme === 'dark' || (theme === 'system' && systemDark);
-  const collectionHref = (next: View) => `${isResourcePage ? '/' : ''}#${next}`;
+  const collectionHref = (next: View) =>
+    `${isStandalonePage ? '/' : ''}#${next}`;
   const storageFeedback = (
     <>
       {storageError && (
@@ -353,7 +389,7 @@ export default function DiscoverClient({
         href={collectionHref('discover')}
         onClick={() => navigate('discover')}
         aria-current={
-          !isResourcePage && view === 'discover' ? 'page' : undefined
+          !isStandalonePage && view === 'discover' ? 'page' : undefined
         }
       >
         <Icon name="atlas" />
@@ -362,7 +398,9 @@ export default function DiscoverClient({
       <a
         href={collectionHref('search')}
         onClick={() => navigate('search')}
-        aria-current={!isResourcePage && view === 'search' ? 'page' : undefined}
+        aria-current={
+          !isStandalonePage && view === 'search' ? 'page' : undefined
+        }
       >
         <Icon name="search" />
         <span>Search</span>
@@ -371,7 +409,7 @@ export default function DiscoverClient({
         href={collectionHref('library')}
         onClick={() => navigate('library')}
         aria-current={
-          !isResourcePage && view === 'library' ? 'page' : undefined
+          !isStandalonePage && view === 'library' ? 'page' : undefined
         }
       >
         <Icon name="bookmark" />
@@ -383,11 +421,10 @@ export default function DiscoverClient({
         <span>Learn</span>
         <small>Coming later</small>
       </span>
-      <span className="nav-unavailable" aria-disabled="true">
+      <a href="/profile" aria-current={profilePage ? 'page' : undefined}>
         <Icon name="profile" />
         <span>Profile</span>
-        <small>Coming later</small>
-      </span>
+      </a>
     </>
   );
 
@@ -442,13 +479,15 @@ export default function DiscoverClient({
           <span className="breadcrumb">
             Your atlas <span aria-hidden="true">/</span>{' '}
             <strong>
-              {isResourcePage
-                ? 'Resource'
-                : view === 'library'
-                  ? 'Library'
-                  : view === 'search'
-                    ? 'Search'
-                    : 'Discover'}
+              {profilePage
+                ? 'Profile'
+                : isResourcePage
+                  ? 'Resource'
+                  : view === 'library'
+                    ? 'Library'
+                    : view === 'search'
+                      ? 'Search'
+                      : 'Discover'}
             </strong>
           </span>
           <span className="topbar-note">
@@ -462,13 +501,23 @@ export default function DiscoverClient({
           tabIndex={-1}
           aria-busy={
             resourceState?.status === 'loading' ||
-            (!isResourcePage &&
+            (!isStandalonePage &&
               view !== 'library' &&
               catalog.status === 'loading') ||
             undefined
           }
         >
-          {resourceState ? (
+          {profilePage ? (
+            <>
+              <ProfileView
+                theme={theme}
+                onThemeChange={changeTheme}
+                savedCount={saved.length}
+                storageReady={ready}
+              />
+              {storageFeedback}
+            </>
+          ) : resourceState ? (
             <>
               <ResourceStateView state={resourceState} returnTo={returnTo} />
               {storageFeedback}
@@ -568,7 +617,7 @@ export default function DiscoverClient({
                       type="search"
                       name="query"
                       autoComplete="off"
-                      maxLength={200}
+                      maxLength={MAX_COLLECTION_QUERY}
                       disabled={collectionPending}
                       placeholder="Search ideas, subjects, sources…"
                       value={query}

@@ -5,6 +5,7 @@
 .dev.vars
 .dev.vars.*
 !.dev.vars.example
+apps/api/wrangler.auth.local.jsonc
 *.pem
 *.key
 *.p8
