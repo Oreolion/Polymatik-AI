@@ -46,7 +46,8 @@ async function start(options) {
   }
 }
 
-export async function startApiWorker() {
+/** @param {{bindings?: Record<string, string>, outboundService?: (request: Request) => Promise<Response>}} [options] */
+export async function startApiWorker(options = {}) {
   const { build } = await import(
     pathToFileURL(webRequire.resolve('vite')).href
   );
@@ -81,7 +82,10 @@ export async function startApiWorker() {
     scriptPath: `${outDir}/worker.js`,
     compatibilityDate: config.compatibility_date,
     compatibilityFlags: config.compatibility_flags ?? [],
-    bindings: config.env.local.vars,
+    bindings: { ...config.env.local.vars, ...options.bindings },
+    ...(options.outboundService
+      ? { outboundService: options.outboundService }
+      : {}),
   });
 }
 

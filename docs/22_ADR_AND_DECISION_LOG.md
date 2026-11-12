@@ -5,6 +5,194 @@
 
 ## Accepted development-workflow decisions
 
+### 2026-11-12 — master push deploys only the Cloudflare development preview
+
+Owner clarifies no Vercel project is connected to Polymatik and explicitly
+requests Cloudflare deployment on push. The previous Vercel disconnect hold was
+a mistaken interpretation, not current provider evidence. Use GitHub Actions
+after existing checks succeed on master; PRs/other branches do not deploy.
+The two separately named preview Workers, working development Neon branch and
+exact origins remain fixed. Production audit is required for future production
+deployment/promotion, not as a prerequisite for this development preview.
+
+This replaces the earlier preparation-only/push hold for this target. Stable
+cookie/API-token repository secrets are required; no credentials in source or
+logs. No new database migration, paid plan, provider replacement or production
+job. Smoke checks are bounded public/unsigned reads; browser Google/Profile
+acceptance remains explicit. Native Cloudflare Builds is an alternative, but
+the existing GitHub workflow keeps tests, two-service ordering and delivery
+checks together. Rollback/retry operates on preview Worker versions without
+dropping SQL/Auth data. CI publication awaits secrets and the source push.
+
+### 2026-11-11 — Cloudflare Free development preview before production
+
+Owner considered Vercel then explicitly selected Cloudflare Free. Retain current
+vinext/Cloudflare web, API and Hyperdrive/Neon architecture rather than add the
+Nitro adapter that Vercel would require. This authorizes preparation, not an
+unreviewed production release or paid upgrade. Use a distinct development preview
+with the working development Neon branch, exact trusted origins and a real
+restricted-login Hyperdrive binding. Local zero-ID simulation is not deployable.
+
+Measure hosted CPU before promising the current SSR/auth fits Workers Free.
+Use the existing release-audit gate for production, including candidate/artifact
+binding, final self-critique, delivery verification and all publication entry
+points. Repository CI currently checks code but does not enforce a production
+release. Do not enable push-to-master deployment as a side effect of this choice.
+Owner must perform Git writes while this session's metadata is read-only.
+Setup, limits, rollback and remaining prerequisites: docs/42.
+
+### 2026-11-10 — Restricted development application role (Accepted by owner execution, 11 November)
+
+Owner output confirms migration checksum matches and neondb_owner bypasses RLS.
+Prepare SQL-created polymatik_app with explicit non-elevated attributes and only
+the product-table permissions listed in docs/41. Keep migration-owner credentials
+out of the runtime file; verify the real application login before saving it.
+Do not strip privileges from managed/admin roles or weaken the isolation test.
+The alternative, SET ROLE under owner credentials, would leave runtime using
+an elevated secret and would not establish actual login behavior.
+
+The setup command is explicit, development-endpoint guarded and transactional
+for role/grants. Passwords stay in ignored private files, including a resumable
+pending file before commit. Retry does not rotate credentials or mutate existing
+roles. New-role permissions stay behind private-table RLS; identity context must
+be set by the trusted backend for future private APIs. No private API is added.
+
+The owner executed the reviewed setup on 11 November and supplied successful
+restricted-login, catalog and rollback-only RLS isolation output. This accepts
+the development role change; it does not approve additional grants or production
+setup. Agent direct verification remains sandbox-blocked. Rollback app code without deleting
+data; role removal/credential revocation requires an explicit reviewed action.
+
+### 2026-11-10 — Development catalog persistence and independent UI polish
+
+Owner authorizes the next product-schema/catalog slice and then UI/UX refinement.
+Preserve the installed pg driver and use versioned plain SQL rather than add an
+ORM/dependency migration. Product tables live under polymatik; managed Auth owns
+neon_auth. Initial scope retains the four reviewed identities/URLs and API size
+budget, allowing validated editorial metadata updates. Larger source registries,
+account Library endpoints and vector workloads remain later tickets.
+
+The owner-run setup enforces the exact direct development endpoint/database,
+checksums and transactions. FORCE RLS and rollback-only two-user fixtures provide
+a real SQL gate when run; mocked migration tests alone do not pass it. The API's
+postgres mode needs HYPERDRIVE and does not fall back to preview or DATABASE_URL.
+The local launcher uses simulated Hyperdrive only after the setup file exists.
+No production connection, role grants, extensions or deployment are included.
+
+The alternative was to hold all client work until provider access recovers.
+After preparing and locally testing the backend slice, apply the owner's
+independent Discover/Profile presentation refinement against the existing API
+shape. Both live SQL and rendered UI acceptance remain open, with no inferred
+gate completion. No release is authorized. Rollback code independently of the
+additive schema; preserve data and review any destructive down migration.
+
+### 2026-11-10 — Managed identity verification at the product API
+
+**Accepted within the owner's managed-Auth migration.** Web owns the Neon SDK
+OAuth/cookie boundary. API `/v1/me` independently reads one opaque session token
+and asks the fixed branch Auth get-session endpoint to validate it, bypassing
+session-cookie caching. It derives subject and app-owned scope from the returned
+session; it does not trust forwarded user headers, browser cache claims or an old
+self-hosted issuer. The web's fixed `/api/account/me` read forwards only that token.
+
+Alternative: verify issued JWTs locally. Deferred because their 15-minute validity
+does not prove immediate logout/revocation. Fresh session lookup adds one network
+round trip per protected request and depends on Neon availability; use a five-second
+deadline, 64 KiB decoded limit and sanitized 503 on failure. No application session
+cache or fallback to old credentials. This intentionally completes the web cookie
+path only; mobile bearer identity and Python propagation remain later gates.
+
+Configured workerd tests with a mocked provider prove subject isolation and
+revocation; the owner verified Google sign-in, but live protected-API and two-user
+Neon checks remain separate. No auth migration SQL or provider mutation. Rollback:
+revert the API entry point, BFF route and shared helper together; preserve managed
+accounts and require review before reactivating any historical self-hosted schema.
+
+### 2026-11-09 — Scoped managed SDK dependency alignment (development spike)
+
+Owner confirmed Google shared credentials and installed @neon/auth 0.8.2 in web.
+Its manifest permits ~1.7.12 for Better Auth/core/OAuth provider but fixes fetch
+at 1.3.2. Resolution mixed core/auth 1.7.14 and OAuth provider 1.7.18, producing
+five real peer conflicts. A reproducible SDK spike detects them. Public package
+metadata cached by pnpm confirms the 1.7.12 cohort requires fetch 1.3.2 and
+better-call 1.4.4. All selected versions are within the SDK's declared ranges.
+
+For this owner-requested conflict repair, constrain only @neon/auth@0.8.2's
+better-auth, core and oauth-provider edges to 1.7.12, and better-call to 1.4.4.
+This is a narrow exception to the Neon skill's general no-overrides advice:
+ordinary installation has demonstrated conflicting transitive peers. Do not
+override fetch outside the SDK's exact requirement or change the existing API's
+1.7.14 auth server. The SDK is not yet mounted in the app. Its Apache-2.0 license
+was inspected. Node 24.22.1/pnpm 10.34.2 offline lockfile-only strict peer resolution
+passes with no peer warnings; installation and full compatibility remain pending.
+
+Alternatives: suppress peer checks (rejected), force newer fetch outside the
+SDK's pin (rejected), or wait for corrected upstream constraints. Remove these
+four scoped constraints when a reviewed SDK release has a coherent graph.
+Rollback is removal of the unused SDK and these constraints through pnpm;
+no remote service, env, data, or identity changes are involved. The small mocked
+Node spike is not production security certification or a Workers/browser test.
+
+### 2026-11-09 — Setup-only project; rehearse from configured Auth branch
+
+The owner corrects the earlier live-use answer: this project has only setup/test
+data and serves no users. Owner CLI status and Console screenshots show managed
+Better Auth configured on production (`br-sparkling-glitter-zazxlg5z`), database
+`neondb`, while the schema-only rehearsal remains unconfigured. This supersedes
+the live-user assumption below, not the production release gate or data preservation.
+
+Next is a normal full child branch, `dev-auth-working`, from that configured
+source. Omit schema-only and custom compute settings. Preserve the failed branch
+and all existing data; do not repeat privilege experiments. This follows
+[Auth branching](https://neon.com/docs/auth/branching-authentication), which copies
+Auth configuration with its data. A
+[schema-only branch](https://neon.com/docs/guides/branching-schema-only) is an
+independent root containing structure without rows. This distinction motivates
+the recovery; it does not prove the cause of the separate database's HTTP 412.
+
+Alternative: investigate the failed provisioning request with Neon engineering.
+That remains useful for diagnosis but need not block testing normal branching.
+Verification requires the new branch's Auth status/URL, then SDK/vinext checks
+and live Google/session tests. No new branch or app cutover has run in this step.
+Rollback is to leave the app configuration unchanged; no branch deletion is
+authorized or required. Record architectural lessons after verified recovery.
+
+**Outcome, 9 November:** owner created dev-auth-working
+(`br-noisy-poetry-zaka8dav`) at 09:41:40Z. Status confirms better_auth on neondb
+with its own endpoint. Normal branching recovered development provisioning;
+the old failure's exact cause remains unknown. docs/04 records this verified
+lesson. App/SDK/Google/session acceptance remains pending.
+
+### 2026-10-30 — Requested Neon-managed services; live production cutover blocked
+
+The owner requests linking organization `org-polished-tree-06389523`, project
+`gentle-shadow-65971019`, branch `production`, and provisioning Postgres plus
+Neon Managed Better Auth using the Neon CLI. This is a requested change from
+self-hosted Better Auth on the API Worker to managed authentication; it does not
+mean the existing implementation has already migrated. Preserve the Cloudflare
+web/API hosting and Hyperdrive SQL path unless a separately reviewed integration
+requires a specific change. Do not run two competing session authorities.
+
+The owner confirms this branch serves a live app or contains existing user data.
+The required production audit therefore blocks provisioning until live-state
+inspection, exact service-plan review, identity/session compatibility, an isolated
+non-production rehearsal and rollback evidence are ready. No `neon init`,
+`neon deploy`, cloud migration or credential pull ran in this attempt. The CLI
+download fails with EACCES in the agent environment. No global Neon skills were
+found at the inspected installed skill roots.
+
+Alternatives: retain the current self-hosted design, or rehearse managed auth on
+a separately authorized non-production branch before a reviewed production
+cutover. The latest owner request selects managed services as the implementation
+goal; release safety requirements still apply. Next: restore CLI access and
+identify the non-production rehearsal target. Preserve existing identities/data;
+no destructive rollback or automatic account linking is authorized.
+
+Sources: [Neon init](https://neon.com/docs/cli/init),
+[config plan/apply](https://neon.com/docs/cli/config),
+[Managed Better Auth](https://neon.com/docs/auth/overview).
+
+
 ### 2026-10-26 — Better Auth on Cloudflare, Google OAuth 2.0 first
 
 **Accepted owner direction:** implement Profile/auth next, using Better Auth

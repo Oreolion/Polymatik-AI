@@ -179,6 +179,10 @@ test('Python service and future infrastructure retain separate ownership', () =>
 
 test('Git excludes secrets and generated artifacts but retains safe examples and locks', () => {
   const ignored = [
+    '.codex/config.toml',
+    '.agents/skills/neon/SKILL.md',
+    '.aws/credentials',
+    '.cache/cloudflare-preview/secrets.web.json',
     '.env',
     '.env.local',
     'apps/web/.env.production',
@@ -233,8 +237,6 @@ test('Git excludes secrets and generated artifacts but retains safe examples and
   const output = execFileSync(
     'git',
     [
-      '-c',
-      `safe.directory=${root.replaceAll('\\', '/')}`,
       '-c',
       `core.excludesFile=${root.replaceAll('\\', '/')}.gitignore`,
       'check-ignore',

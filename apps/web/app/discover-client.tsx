@@ -17,6 +17,7 @@ import {
   readCollectionContext,
   writeCollectionContext,
   MAX_COLLECTION_QUERY,
+  resetCollectionFilters,
   type CollectionFilters,
 } from '../src/collection-context';
 import ResourceDetailView from './resource-detail-view';
@@ -132,7 +133,7 @@ function ResourceRow({
           <span className="source-dot" aria-hidden="true">
             ·
           </span>
-          <span>{resource.kind}</span>
+          <span className="resource-format">{resource.kind}</span>
         </div>
         <h3 id={`title-${resource.id}`}>
           <a href={`/resource/${resource.id}?from=${view}`}>
@@ -237,6 +238,18 @@ export default function DiscoverClient({
   const headingRef = useRef<HTMLHeadingElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const previousView = useRef<View>('discover');
+
+  function clearFilters() {
+    setContext((current) => resetCollectionFilters(current, view));
+    setNotice('Filters cleared for this view.');
+    headingRef.current?.focus();
+  }
+  function restoreDismissed() {
+    setDismissed([]);
+    setUndo(null);
+    setNotice('Set-aside resources restored for this session.');
+    headingRef.current?.focus();
+  }
 
   function loadSaves(preserveError = false) {
     try {
@@ -362,6 +375,7 @@ export default function DiscoverClient({
     view !== 'library' &&
     catalog.status === 'ready' &&
     catalog.items.length === 0;
+  const hasFilters = topic !== 'All subjects' || query.length > 0;
   const isDark = theme === 'dark' || (theme === 'system' && systemDark);
   const collectionHref = (next: View) =>
     `${isStandalonePage ? '/' : ''}#${next}`;
@@ -654,13 +668,38 @@ export default function DiscoverClient({
                       </button>
                     ))}
                   </div>
-                  <p className="results-count" role="status">
-                    {collectionPending
-                      ? catalog.status === 'loading'
-                        ? 'Loading collection…'
-                        : 'Collection unavailable'
-                      : `${visible.length} ${visible.length === 1 ? 'resource' : 'resources'}${query.trim() ? ` matching “${query.trim()}”` : ''}`}
-                  </p>
+                  <div className="collection-summary">
+                    <p
+                      className="results-count"
+                      role="status"
+                      aria-live="polite"
+                      aria-atomic="true"
+                    >
+                      {collectionPending
+                        ? catalog.status === 'loading'
+                          ? 'Loading collection…'
+                          : 'Collection unavailable'
+                        : `${visible.length} ${visible.length === 1 ? 'resource' : 'resources'}${query.trim() ? ` matching “${query.trim()}”` : ''}`}
+                    </p>
+                    {!collectionPending && (
+                      <div
+                        className="collection-controls"
+                        aria-label="Collection controls"
+                        role="group"
+                      >
+                        {hasFilters && (
+                          <button type="button" onClick={clearFilters}>
+                            Clear filters
+                          </button>
+                        )}
+                        {view !== 'library' && dismissed.length > 0 && (
+                          <button type="button" onClick={restoreDismissed}>
+                            Show {dismissed.length} set aside
+                          </button>
+                        )}
+                      </div>
+                    )}
+                  </div>
                   {storageFeedback}
                   {undo && (
                     <div className="undo-notice">
@@ -773,14 +812,22 @@ export default function DiscoverClient({
                           ? 'The collection is empty right now.'
                           : view === 'library' && saved.length === 0
                             ? 'Make room for a good idea.'
-                            : 'A different path, perhaps?'}
+                            : !hasFilters &&
+                                view !== 'library' &&
+                                dismissed.length > 0
+                              ? 'A pause in your atlas.'
+                              : 'A different path, perhaps?'}
                       </h3>
                       <p>
                         {emptyCatalog
                           ? 'There are no resources to explore yet. Your saved preview resources remain in Library.'
                           : view === 'library' && saved.length === 0
                             ? 'Save a resource in Discover and it will be waiting here.'
-                            : 'No resources match these filters. Try another subject or a broader search.'}
+                            : !hasFilters &&
+                                view !== 'library' &&
+                                dismissed.length > 0
+                              ? 'You have set these resources aside for this session. Bring them back whenever you are ready.'
+                              : 'No resources match these filters. Clear them to see more of your collection.'}
                       </p>
                       {emptyCatalog ? (
                         <a className="catalog-retry" href={`/#${view}`}>
@@ -790,20 +837,18 @@ export default function DiscoverClient({
                         <button
                           type="button"
                           onClick={() => {
-                            setTopic('All subjects');
-                            setQuery('');
                             if (view === 'library' && !saved.length) {
                               window.location.hash = 'discover';
                               navigate('discover');
-                            } else {
-                              setDismissed([]);
-                              setUndo(null);
-                            }
+                            } else if (hasFilters) clearFilters();
+                            else restoreDismissed();
                           }}
                         >
                           {view === 'library' && !saved.length
                             ? 'Explore Discover'
-                            : 'Reset this view'}
+                            : hasFilters
+                              ? 'Clear filters'
+                              : 'Show set-aside resources'}
                         </button>
                       )}
                     </div>

@@ -2,27 +2,81 @@
 
 import { useEffect, useState, type FormEvent } from 'react';
 import { profileName } from '@polymatik/domain-types/profile';
-import { authClient } from '../src/auth-client';
+import type { authClient as managedClient } from '../src/auth-client';
 
 type Appearance = 'system' | 'light' | 'dark';
 
-export default function ProfileView({
-  theme,
-  onThemeChange,
-  savedCount,
-  storageReady,
-}: {
+type ProfileProps = {
   theme: Appearance;
   onThemeChange: (theme: Appearance) => void;
   savedCount: number;
   storageReady: boolean;
+};
+type AuthClient = typeof managedClient;
+type SessionState = ReturnType<AuthClient['useSession']>;
+
+export default function ProfileView(props: ProfileProps) {
+  const [client, setClient] = useState<AuthClient | null>(null);
+  const [loadFailed, setLoadFailed] = useState(false);
+  useEffect(() => {
+    let active = true;
+    void import('../src/auth-client').then(
+      ({ authClient }) => {
+        // The SDK client is a callable Proxy. React otherwise invokes it as an
+        // updater, producing an unintended request to the bare /api/auth route.
+        if (active) setClient(() => authClient);
+      },
+      () => {
+        if (active) setLoadFailed(true);
+      },
+    );
+    return () => {
+      active = false;
+    };
+  }, []);
+  return client ? (
+    <ConnectedProfile {...props} client={client} />
+  ) : (
+    <ProfileContent
+      {...props}
+      client={null}
+      sessionState={null}
+      loadFailed={loadFailed}
+    />
+  );
+}
+
+function ConnectedProfile(props: ProfileProps & { client: AuthClient }) {
+  const sessionState = props.client.useSession();
+  return (
+    <ProfileContent {...props} sessionState={sessionState} loadFailed={false} />
+  );
+}
+
+function ProfileContent({
+  theme,
+  onThemeChange,
+  savedCount,
+  storageReady,
+  client: authClient,
+  sessionState,
+  loadFailed,
+}: ProfileProps & {
+  client: AuthClient | null;
+  sessionState: SessionState | null;
+  loadFailed: boolean;
 }) {
   const {
     data: session,
     isPending,
     error: sessionError,
     refetch,
-  } = authClient.useSession();
+  } = sessionState ?? {
+    data: null,
+    isPending: !loadFailed,
+    error: loadFailed,
+    refetch: async () => {},
+  };
   const user = !sessionError ? session?.user : undefined;
   const [busy, setBusy] = useState<'signin' | 'signout' | 'save' | null>(null);
   const [error, setError] = useState('');
@@ -33,6 +87,10 @@ export default function ProfileView({
   }, []);
 
   async function signIn() {
+    if (!authClient) {
+      setError('Account access could not be loaded. Reload to try again.');
+      return;
+    }
     setBusy('signin');
     setError('');
     setNotice('');
@@ -51,6 +109,7 @@ export default function ProfileView({
     }
   }
   async function signOut() {
+    if (!authClient) return;
     setBusy('signout');
     setError('');
     setNotice('');
@@ -70,6 +129,7 @@ export default function ProfileView({
   }
   async function saveName(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!authClient) return;
     setError('');
     setNotice('');
     const name = profileName(new FormData(event.currentTarget).get('name'));
@@ -123,15 +183,20 @@ export default function ProfileView({
                     {user.name.trim().slice(0, 1).toLocaleUpperCase()}
                   </span>
                   <div>
+                    <h3 className="profile-display-name">{user.name}</h3>
                     <p className="profile-email">{user.email}</p>
-                    <p className="profile-caption">
+                    <p className="profile-verification">
                       {user.emailVerified
                         ? 'Email verified'
                         : 'Email not verified'}
                     </p>
                   </div>
                 </div>
-                <form onSubmit={saveName} key={`${user.id}:${user.name}`}>
+                <form
+                  onSubmit={saveName}
+                  key={`${user.id}:${user.name}`}
+                  aria-busy={busy === 'save' || undefined}
+                >
                   <label htmlFor="profile-name">Display name</label>
                   <p className="profile-caption" id="profile-name-help">
                     How you appear in your account. Up to 80 characters.

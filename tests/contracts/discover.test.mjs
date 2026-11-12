@@ -5,6 +5,7 @@ import {
   readCollectionContext,
   writeCollectionContext,
   COLLECTION_CONTEXT_KEY,
+  resetCollectionFilters,
 } from '../../apps/web/src/collection-context.ts';
 import {
   resources,
@@ -14,6 +15,31 @@ import {
   setResourceSaved,
   SAVE_KEY,
 } from '../../apps/web/src/discover.ts';
+
+test('clearing one collection restores its results without changing other views or dismissals', () => {
+  const context = emptyCollectionContext();
+  context.discover = { topic: 'Computing', query: 'browser' };
+  context.library = { topic: 'Physics', query: 'Feynman' };
+  const before = structuredClone(context);
+  const cleared = resetCollectionFilters(context, 'discover');
+  assert.deepEqual(context, before);
+  assert.deepEqual(cleared.library, before.library);
+  assert.deepEqual(cleared.search, before.search);
+  assert.deepEqual(
+    selectResources({ ...cleared.discover, dismissed: ['atoms'] }).map(
+      (item) => item.id,
+    ),
+    ['theory', 'browser', 'semester'],
+  );
+  assert.deepEqual(
+    selectResources({
+      ...cleared.discover,
+      savedOnly: true,
+      saved: ['atoms', 'browser'],
+    }).map((item) => item.id),
+    ['atoms', 'browser'],
+  );
+});
 
 test('collection filters survive a detail round trip and remain separate per view', () => {
   let serialized = '';

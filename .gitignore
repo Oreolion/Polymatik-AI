@@ -1,4 +1,7 @@
 # Credentials and local configuration
+.codex/
+.agents/
+.aws/
 .env
 .env.*
 !.env.example

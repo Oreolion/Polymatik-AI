@@ -1,0 +1,24 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "account_id": "70124db50dbd9c76cfc1d69d7972ac32",
+  "name": "polymatik-api-preview",
+  "main": "../../src/worker.ts",
+  "compatibility_date": "2026-10-19",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": false,
+  "hyperdrive": [
+    { "binding": "HYPERDRIVE", "id": "3066575a186a42bcbb1ce0b6e6775408" }
+  ],
+  "vars": {
+    "CATALOG_BACKEND": "postgres",
+    "ALLOWED_ORIGINS": "https://polymatik-web-preview.remyoreo11.workers.dev",
+    "AUTH_PUBLIC_ORIGIN": "https://polymatik-web-preview.remyoreo11.workers.dev",
+    "NEON_AUTH_BASE_URL": "https://ep-muddy-lab-za9hvwfl.neonauth.c-2.eu-west-2.aws.neon.tech/neondb/auth"
+  },
+  "observability": {
+    "enabled": true,
+    "logs": { "enabled": true, "invocation_logs": false },
+    "traces": { "enabled": true, "head_sampling_rate": 0.01 }
+  }
+}

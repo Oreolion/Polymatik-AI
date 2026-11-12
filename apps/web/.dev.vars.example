@@ -1,2 +1,8 @@
 # Trusted server-side API origin for local resource detail reads.
 PRODUCT_API_ORIGIN=http://127.0.0.1:8789
+
+# Managed Auth: use the isolated dev-auth-working branch, never a production URL.
+# Configure all three values together. Keep the cookie secret private.
+# NEON_AUTH_BASE_URL=https://ep-muddy-lab-za9hvwfl.neonauth.c-2.eu-west-2.aws.neon.tech/neondb/auth
+# AUTH_PUBLIC_ORIGIN=http://127.0.0.1:5173
+# NEON_AUTH_COOKIE_SECRET=<generate-a-random-secret-of-at-least-32-characters>

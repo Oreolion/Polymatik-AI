@@ -6,10 +6,8 @@ import type {
   PreviewResource,
   ResourceList,
 } from '@polymatik/domain-types';
-import {
-  getResource,
-  resources,
-} from '@polymatik/domain-types/discovery-preview';
+import { resources } from '@polymatik/domain-types/discovery-preview';
+import { isCatalogResource } from '@polymatik/domain-types/catalog-resource';
 
 export type { ApiError, Health, Me } from '@polymatik/domain-types';
 type Result<T> = { data: T; error?: never } | { data?: never; error: ApiError };
@@ -34,15 +32,7 @@ const isMe = (value: unknown): value is Me =>
   typeof value.user_id === 'string' &&
   value.user_id.length > 0 &&
   value.user_id.length <= 128;
-const isResource = (value: unknown): value is PreviewResource => {
-  if (!object(value)) return false;
-  const known = getResource(value.id);
-  return (
-    known !== undefined &&
-    Object.keys(value).length === Object.keys(known).length &&
-    Object.entries(known).every(([key, expected]) => value[key] === expected)
-  );
-};
+const isResource = isCatalogResource;
 const isResourceList = (value: unknown): value is ResourceList =>
   object(value) &&
   Object.keys(value).length === 1 &&
@@ -132,7 +122,8 @@ export function createApiClient(options: ApiClientOptions) {
   }
   return {
     health: (signal?: AbortSignal) => get('/v1/health', isHealth, signal),
-    me: (token: string, signal?: AbortSignal) =>
+    // Server adapters may supply the session cookie through their trusted fetch.
+    me: (token?: string, signal?: AbortSignal) =>
       get('/v1/me', isMe, signal, token),
     resources: (signal?: AbortSignal) =>
       get('/v1/resources', isResourceList, signal),

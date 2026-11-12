@@ -10,6 +10,8 @@ docs/
 pnpm-lock.yaml
 uv.lock
 node_modules/
+# Externally managed skill packages are read-only provider content.
+.agents/skills/
 .pnpm-store/
 .cache/
 .venv/

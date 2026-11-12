@@ -14,16 +14,41 @@ This is an actively developed local preview.
 - **Web:** API-backed Discover and resource details, Search, subject filters,
   browser-local Library saves, dismiss/Undo, and a sun/moon appearance toggle.
 - **Backend:** Cloudflare API Worker and a separate FastAPI/LangGraph baseline.
-  Profile/Google auth through Hyperdrive and Neon is the current integration ticket.
+  Google sign-in uses Neon-managed Auth; the API revalidates managed sessions.
+  Product SQL remains on the Cloudflare Hyperdrive → Neon path.
 - **Mobile:** Expo preview with app-session saves. Basic iPhone checks and SDK 58
   iOS/Android exports passed. Feature work is parked while web/backend work advances.
 
-The collection contains four source-attributed resources. Profile/Google auth is
-in development; live accounts are not configured. Library sync, personalized
+The collection contains four source-attributed resources. The owner verified
+Google sign-in and signed-in API access on the development branch; an unsigned
+browser is correctly denied. Library sync, personalized
 ranking, persistent research memory and learning assessments are not implemented.
 Learn remains a placeholder. Production deployment and
 broader accessibility verification are open. See the
 [verification ledger](docs/24_IMPLEMENTATION_LOG.md) for actual results and limits.
+
+The development catalog migration, restricted application login and real
+PostgreSQL isolation probe passed in the owner's terminal on 11 November.
+The restarted PostgreSQL-mode local Worker also serves all four resources with
+HTTP 200. The owner confirms local Discover/details, saves/reload and themes work; follow
+[docs/41](docs/41_PERSISTENT_CATALOG.md). Discover and Profile
+include a further typography/control-spacing polish, with browser review open.
+
+Cloudflare Free is the selected next hosting target. Collection recovery now
+separates clearing filters from restoring set-aside items; these new controls
+await a browser check. See the [preview deployment guide](docs/42_CLOUDFLARE_DEPLOYMENT.md)
+for account setup, real binding/auth-origin requirements and remaining release
+gates. Nothing has been deployed by this preparation.
+
+The owner has created a development Hyperdrive configuration and completed
+`pnpm build:preview:check` successfully. A preview cookie secret is prepared
+privately on this checkout. Hosted auth configuration, full binding-settings
+review and Cloudflare runtime verification remain open; nothing is deployed.
+
+The owner confirms the preview trusted origin and disabled caching are set.
+The GitHub workflow now prepares automatic Cloudflare development-preview
+deployment after checks pass on master. Configure its two repository secrets
+using [docs/42](docs/42_CLOUDFLARE_DEPLOYMENT.md). No Vercel project is connected.
 
 ## Technology
 
@@ -109,6 +134,7 @@ Use pinned Node/pnpm; Windows users can use the launcher/pinned CLI above.
 | ------------------------- | ------------------------------------------------ |
 | `pnpm dev:web`            | Start the web development server                 |
 | `pnpm dev:api`            | Start the API Worker on `127.0.0.1:8789`         |
+| `pnpm build` | Build web and package the API locally; no deployment |
 | `pnpm build:web`          | Build web Worker and client assets               |
 | `pnpm preview:web`        | Preview the built web Worker locally             |
 | `pnpm test:web`           | Test the built local web Worker; build first     |

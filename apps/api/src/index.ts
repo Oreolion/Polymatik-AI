@@ -1,8 +1,13 @@
-import type { ApiError, Health, Me } from '@polymatik/domain-types';
+import type {
+  ApiError,
+  Health,
+  Me,
+  PreviewResource,
+} from '@polymatik/domain-types';
+import type { CatalogRepository } from './catalog';
 import {
   getResource,
   resources,
-  type Resource,
 } from '@polymatik/domain-types/discovery-preview';
 
 export type Principal = Readonly<{ userId: string; scopes: readonly string[] }>;
@@ -17,6 +22,7 @@ type Options = {
   // Server-only dependency. Never selected through an HTTP header or environment flag.
   verifyBearer?: (token: string) => Promise<Principal | null>;
   verifySession?: (headers: Headers) => Promise<Principal | null>;
+  catalog?: CatalogRepository;
   log?: (entry: RequestLog) => void;
 };
 
@@ -48,8 +54,8 @@ export function createApi(options: Options = {}) {
           | Health
           | Me
           | ApiError
-          | Resource
-          | { items: readonly Resource[] },
+          | PreviewResource
+          | { items: readonly PreviewResource[] },
         status = 200,
       ) => Response.json(body, { status, headers });
       const error = (
@@ -138,7 +144,20 @@ export function createApi(options: Options = {}) {
           );
         }
         if (principal) return json({ user_id: principal.userId });
-        if (url.pathname === '/v1/resources') return json({ items: resources });
+        if (url.pathname === '/v1/resources') {
+          try {
+            return json({
+              items: options.catalog ? await options.catalog.list() : resources,
+            });
+          } catch {
+            return error(
+              503,
+              'catalog_unavailable',
+              'The resource collection is unavailable.',
+              true,
+            );
+          }
+        }
         if (resourceMatch) {
           let id: string;
           try {
@@ -148,7 +167,19 @@ export function createApi(options: Options = {}) {
           }
           if (!/^[a-z][a-z0-9-]{0,47}$/.test(id))
             return error(422, 'validation_error', 'Invalid resource ID.');
-          const resource = getResource(id);
+          let resource: PreviewResource | undefined;
+          try {
+            resource = options.catalog
+              ? await options.catalog.get(id)
+              : getResource(id);
+          } catch {
+            return error(
+              503,
+              'catalog_unavailable',
+              'The resource is unavailable.',
+              true,
+            );
+          }
           if (!resource) return error(404, 'not_found', 'Resource not found.');
           return json(resource);
         }

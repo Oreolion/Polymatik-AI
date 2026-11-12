@@ -11,6 +11,7 @@
     "types:worker": "wrangler types src/worker-env.d.ts --config wrangler.jsonc"
   },
   "dependencies": {
+    "@neon/auth": "0.8.2",
     "@polymatik/api-client": "workspace:*",
     "@polymatik/domain-types": "workspace:*",
     "@vinext/cloudflare": "1.2.0",

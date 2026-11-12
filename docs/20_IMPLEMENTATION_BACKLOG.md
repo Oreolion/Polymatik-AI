@@ -4,6 +4,65 @@
 
 ## Current owner priority - web resource details and backend checkpoint
 
+**12 November corrected deployment scope:** no Vercel project is connected to
+Polymatik. Owner explicitly authorizes master-push deployment to the Cloudflare
+development preview; production audit is for later production promotion.
+GitHub deploy-preview depends on existing checks and uses only preview configs,
+stable repository secrets and bounded post-deploy smoke checks. Next: configure
+the two GitHub secrets, commit/push and verify delivery. Local .codex/.agents/.aws
+remain ignored; no deployment has run (docs/42).
+
+**12 November preview preparation:** owner reports the real Hyperdrive ID; live
+configuration readback is pending. Separate web/API preview configs and a
+build-only packaging command now pin the intended account, development database
+binding and exact HTTPS origins. Local configuration/build artifacts remain
+separate. Hosted auth secret, Neon trusted origins, publication gate and hosted
+smoke/CPU proof remain open; no app deployment or Git write ran. See docs/42.
+
+**12 November packaging result:** owner confirms build:preview:check completes
+both dry runs. TLS readback shows require; other target/cache fields are not in
+the shared excerpt. Local private cookie-secret preparation now preserves an
+existing file and prints no value; eight config/secret tests pass. Next owner
+action is the exact preview trusted origin on dev-auth-working; secret upload
+is reserved for the reviewed deployment, followed by live acceptance (docs/42).
+
+**11 November owner continuation — UI-05 + Cloudflare Free preview:** owner
+confirms the requested SQL-backed web functional checks all work and selects
+Cloudflare Free. Continue web/backend first, mobile parked. UI-05 separates
+Clear filters from restoring set-aside items, preserves view context and adds
+explicit recovery controls. Focused 31/31, built Miniflare web 14/14, types/lint
+and build pass; new rendered control review is open. Next release preparation is
+docs/42: actual account/binding identity, hosted auth origins and free-tier CPU
+proof before a development preview. No Git push, provision or deployment ran;
+production audit and candidate/artifact/workflow gates remain open.
+
+**11 November SQL checkpoint:** the owner executed the reviewed restricted-role
+setup. Migration checksum, actual polymatik_app login, catalog 4/4 and two-user
+RLS isolation/unsigned denial pass (docs/41). The ROLE_BYPASSES_RLS setup blocker
+is resolved. Owner also confirms the restarted postgres-mode Worker returns the
+four resources with HTTP 200, matched by request ID in curl and Worker logs.
+Agent DB/Worker follow-up is sandbox-blocked. Next: web Discover/details and
+existing save/theme rendered checks before the next ticket. No production change
+or deployed Hyperdrive pooling/caching proof is implied.
+
+**10 November continuation:** owner authorizes the M0-06 development product
+schema/catalog slice followed by UI quality/UX refinement. Migration, private
+isolation probe, Hyperdrive adapter and guarded local launcher are prepared;
+agent checks pass, owner live PostgreSQL proof is pending (docs/41). Discover and
+Profile polish is implemented against the existing API shape; rendered review is
+open (docs/32). These do not mark M0-06 or the rendered UI gates complete. Next
+action is the owner setup/probe, then PostgreSQL-backed HTTP and UI review.
+
+**10 November managed-auth checkpoint:** owner confirms Google sign-in on
+dev-auth-working. UI-04 now includes independent managed-session verification
+at the API and the same-origin `/api/account/me` read. Agent configured workerd
+test passes with mocked Neon (two identities and revocation); owner now confirms
+live signed-in access and denial in an unsigned browser. Explicit old-session
+revocation and persisted name checks remain open. Mobile remains parked. Next,
+resume M0-06 on the chosen Neon development path: product schema/migration and
+catalog fixtures before interest/feed persistence. No production migration is
+authorized by this checkpoint. Older dated status below is historical.
+
 **27 October owner continuation:** current smallest ticket is **UI-04 web
 Profile + Better Auth/Google boundary** (docs/39), using Workers → Hyperdrive →
 Neon PostgreSQL, with pgvector retained for the later retrieval ticket. Mobile

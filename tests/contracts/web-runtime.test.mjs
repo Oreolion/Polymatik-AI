@@ -44,7 +44,13 @@ before(
     worker = await startWranglerWorker(
       new URL('../../apps/web/dist/server/wrangler.json', import.meta.url),
       {
-        vars: { PRODUCT_API_ORIGIN: `http://127.0.0.1:${apiWorker.port}` },
+        vars: {
+          PRODUCT_API_ORIGIN: `http://127.0.0.1:${apiWorker.port}`,
+          // This suite exercises unavailable accounts, never the owner's live branch.
+          NEON_AUTH_BASE_URL: '',
+          NEON_AUTH_COOKIE_SECRET: '',
+          AUTH_PUBLIC_ORIGIN: '',
+        },
       },
     );
     assert.ok(worker);
@@ -168,6 +174,24 @@ test('built web auth proxy rejects foreign mutations and reports unavailable acc
     headers: { origin: 'https://evil.test' },
   });
   assert.equal(denied.status, 403);
+});
+
+test('built account read is a protected route and rejects foreign origins and caller-selected users', async () => {
+  /** @type {[string, Record<string, string>, number][]} */
+  const cases = [
+    ['', {}, 503],
+    ['', { origin: 'https://evil.test' }, 403],
+    ['?user_id=victim', {}, 422],
+  ];
+  for (const [suffix, headers, status] of cases) {
+    const response = await fetch(`${base}api/account/me${suffix}`, {
+      headers,
+      signal: AbortSignal.timeout(10000),
+    });
+    assert.equal(response.status, status);
+    assert.equal(response.headers.get('cache-control'), 'no-store');
+    assert.equal(response.headers.getSetCookie().length, 0);
+  }
 });
 
 test('Discover renders source-attributed preview content before hydration', async () => {

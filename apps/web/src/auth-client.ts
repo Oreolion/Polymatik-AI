@@ -1,4 +1,4 @@
-import { createAuthClient } from 'better-auth/react';
+import { createAuthClient } from '@neon/auth/next';
 
-// Same-origin BFF only. Provider credentials and database access stay in the API.
-export const authClient = createAuthClient({ basePath: '/api/auth' });
+// Neon owns the OAuth verifier exchange; browser requests stay same-origin.
+export const authClient = createAuthClient();

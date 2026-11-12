@@ -1,5 +1,5 @@
 // Generated from openapi/v1.json by openapi-typescript. Do not edit.
-// Schema SHA-256: e8643b43527979989c57f8d58bac7f9e4680df7f0406653124d920b58a017090
+// Schema SHA-256: e0a0e5657c1dfefa1a222bf04becee21e3690bb7f090eccc038fc735ad989595
 export interface paths {
   '/v1/health': {
     parameters: {
@@ -415,6 +415,17 @@ export interface operations {
           'application/json': components['schemas']['ApiError'];
         };
       };
+      /** @description Catalog backend unavailable; retryable. No preview fallback in database mode. */
+      503: {
+        headers: {
+          /** @description Server-generated correlation ID. */
+          'X-Request-Id'?: string;
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
     };
   };
   listResourcesPreflight: {
@@ -514,6 +525,17 @@ export interface operations {
       };
       /** @description Sanitized internal error. */
       500: {
+        headers: {
+          /** @description Server-generated correlation ID. */
+          'X-Request-Id'?: string;
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Catalog backend unavailable; retryable. No preview fallback in database mode. */
+      503: {
         headers: {
           /** @description Server-generated correlation ID. */
           'X-Request-Id'?: string;

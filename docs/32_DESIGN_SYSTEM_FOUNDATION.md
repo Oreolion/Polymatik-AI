@@ -1,5 +1,32 @@
 # Living Atlas - design audit and foundation proposal
 
+**11 November UI-05:** owner accepted the prior functional Discover/details,
+device-save/reload and appearance check. The next code audit found that reset
+mixed filter changes with session dismissal recovery, and that earlier hidden
+items were hard to restore while other results remained. New collection-summary
+controls separate Clear filters from Show set-aside resources and show a hidden
+count. Empty-state language explains the applicable recovery, and the actions
+retain theme tokens, 44px targets, live feedback and stable heading focus.
+31 focused checks and 14 built Worker contracts pass. New rendered/keyboard
+checks remain open; no screenshot or conformance score is claimed.
+
+**10 November refinement:** owner requests UI quality/UX improvements after the
+catalog foundation. A code audit identified small Profile form actions, weak
+compound-search hierarchy and cramped metadata/action spacing. Web changes now
+add source-format labels, a single compound search focus ring, 16px search/form
+inputs, clearer filter boundaries, balanced headings, larger metadata, responsive
+action spacing, the signed-in display name and a consistent 48px Profile save
+button. Existing sun/moon appearance, semantic theme tokens, source URLs and
+honest device-Library scope are retained. No fabricated learning progress or new
+font/image service was added. Core behavior uses the existing contract tests.
+
+Rendered acceptance remains open: the computer-use runtime is not available,
+Playwright CLI is not cached, and headless Chrome failed before producing a
+screenshot because its GPU process could not initialize under this sandbox. No
+screenshot, visual score or accessibility-conformance claim is made. Owner review
+should cover Discover/Search/Library/Profile in both themes, keyboard focus and
+narrow-screen button/label wrapping. PostgreSQL live verification remains separate.
+
 Prepared 22 October 2026 after the owner authorized progressive implementation
 of `design-system-prompt.md`. This is the initial audit and proposal required by
 that prompt. It is not a claim that the product UI or native application exists.

@@ -1,8 +1,5 @@
-# Local-only Better Auth configuration. Copy to .dev.vars; never commit secrets.
-# Must match the public web origin, not the API Worker origin.
-BETTER_AUTH_URL=http://127.0.0.1:5173
-BETTER_AUTH_SECRET=
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
-# The Neon URL belongs in the shell's Hyperdrive local connection variable,
-# not a DATABASE_URL application fallback. See docs/39_WEB_AUTH_AND_PROFILE.md.
+# Managed identity verification. Match the web's branch and public origin.
+NEON_AUTH_BASE_URL=https://ep-muddy-lab-za9hvwfl.neonauth.c-2.eu-west-2.aws.neon.tech/neondb/auth
+AUTH_PUBLIC_ORIGIN=http://127.0.0.1:5173
+# No Google secret, database URL or cookie-signing secret is needed for verification.
+# Product SQL will continue through Hyperdrive when persistence is implemented.

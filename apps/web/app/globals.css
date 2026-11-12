@@ -357,6 +357,35 @@ h1 em {
   margin-top: 20px;
   overflow-wrap: anywhere;
 }
+.collection-summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin-top: 16px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--rule);
+}
+.collection-summary .results-count {
+  margin-top: 0;
+  padding-block: 12px;
+}
+.collection-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+.collection-controls button {
+  min-height: 44px;
+  padding: 8px 0;
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
 .save-notice {
   font-size: 13px;
   color: var(--teal);
@@ -1335,6 +1364,142 @@ h1 em {
   min-height: 44px;
   margin-top: 16px;
   color: var(--accent);
+}
+
+/* Living Atlas refinement: reading hierarchy and consistent control geometry. */
+h1,
+.feed-toolbar h2,
+.resource h3,
+.profile-section h2 {
+  text-wrap: balance;
+}
+.resource-description,
+.intro-description {
+  text-wrap: pretty;
+}
+.brand {
+  white-space: nowrap;
+}
+.collection-label {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  line-height: 1.6;
+}
+.preview-note {
+  padding: 16px 0 16px 16px;
+  border-left: 2px solid var(--controlBorder);
+  font-size: 13px;
+  max-width: 68ch;
+}
+.search-form {
+  padding: 4px 12px;
+  border: 1px solid var(--controlBorder);
+  border-radius: 8px;
+  background: var(--surface);
+}
+.search-form:focus-within {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+.search-form input:focus-visible {
+  /* The enclosing compound control supplies the visible focus ring. */
+  outline: none;
+}
+.search-form input {
+  font-size: 16px;
+}
+.topic-filters {
+  gap: 8px;
+  margin-top: 18px;
+}
+.topic-filters button {
+  padding-inline: 14px;
+  border-color: var(--rule);
+}
+.results-count,
+.resource-source {
+  font-size: 13px;
+}
+.results-count {
+  font-variant-numeric: tabular-nums;
+  min-height: 1.5em;
+}
+.resource-source {
+  align-items: center;
+}
+.resource-format {
+  padding: 3px 8px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--surface);
+  font-size: 12px;
+  line-height: 1.4;
+}
+.resource-actions {
+  column-gap: 20px;
+  row-gap: 8px;
+}
+.resource-actions .save-button,
+.resource-actions .original-link,
+.resource-actions .dismiss-button {
+  font-size: 13px;
+}
+.profile-identity > div {
+  min-width: 0;
+}
+.profile-display-name {
+  font: 400 26px/1.25 var(--serif);
+  overflow-wrap: anywhere;
+  margin-bottom: 4px;
+}
+.profile-email {
+  font-size: 15px;
+}
+.profile-verification {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+.profile-section form {
+  max-width: 480px;
+}
+.profile-section form label {
+  font-size: 14px;
+  font-weight: 600;
+}
+.profile-section form input {
+  font-size: 16px;
+  border-radius: 8px;
+}
+.profile-section form .detail-primary {
+  min-height: 48px;
+  padding: 12px 24px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  line-height: 1.5;
+}
+.profile-section form .detail-primary:disabled {
+  opacity: 0.65;
+}
+.profile-notice {
+  min-height: 1.7em;
+}
+@media (max-width: 767px) {
+  .preview-note {
+    margin-block: 24px 32px;
+  }
+  .resource-actions {
+    column-gap: 16px;
+  }
+  .profile-section form .detail-primary {
+    justify-self: stretch;
+  }
+  .profile-identity {
+    gap: 12px;
+  }
 }
 @media (max-width: 767px) {
   .detail-columns {

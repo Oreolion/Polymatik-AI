@@ -1,5 +1,496 @@
 # 24 — Implementation Status and Evidence Ledger
 
+### 2026-11-12 — owner confirms GitHub preview secrets
+
+Owner reports both repository secrets configured. Agent reruns Node 24.22.1
+`node --test tests/foundation/*.test.mjs tests/contracts/web-config.test.mjs`:
+30 tests pass, zero failed/skipped; duration 14.6 seconds. `git diff --check`
+passes. Git candidate listing contains no .env/.dev.vars/cache/dependency/agent
+configuration files at the inspected ignored paths. No secret values read.
+`gh secret list --repo Oreolion/Polymatik-AI --json name` fails with network
+WinError 10013, so independent secret metadata confirmation remains unavailable.
+Only checkpoint documentation updated; no functional changes or new tests needed.
+Git metadata is read-only in this session. Owner's normal-terminal commit/push
+is next; no workflow execution, hosted delivery or Google/browser acceptance is
+claimed. This remains development preview scope, with production unchanged.
+
+### 2026-11-12 — owner corrects Vercel assumption; authorizes preview push deployment
+
+No Vercel project is connected to Polymatik. The preceding disconnect hold was
+a mistaken interpretation and is withdrawn. Owner explicitly wants master push
+to deploy Cloudflare's development preview. Production audit is for later
+production deployment/promotion; it does not block this development target.
+ADR/current README/backlog/AGENTS/docs42 corrected accordingly.
+
+Added deploy-preview to the existing CI workflow: needs both checks matrix jobs,
+push/master only, serialized, pinned actions/toolchain, stable cookie secret via
+environment, isolated preview packaging, API-before-web deployment tagged with
+GITHUB_SHA, then six bounded public/unsigned smoke reads. No DB migration or
+production config. Extended private-secret helper with --from-env; no random
+CI rotation. Added bounded smoke helper and workflow/negative-transport tests.
+Initial workflow/secret tests fail before implementation; focused **12/12** and
+full foundation plus web config **30/30** pass on Node24.22.1. Root TypeScript and
+repository ESLint pass after correcting JS annotations; formatting/diff checks
+pass. No additional dependency or live request in deterministic tests.
+
+GitHub connector confirms Oreolion/Polymatik-AI is public, master is default and
+owner push access is available. Normal gh secret-name listing is network-blocked;
+no secret values read. Owner must configure CLOUDFLARE_API_TOKEN and the existing
+NEON_AUTH_COOKIE_SECRET privately; docs42 provides exact commands and account/
+first-Worker-creation permissions. Local Git metadata remains read-only; no
+commit/push, remote secret upload, workflow run or deployment has occurred.
+Workflow checks are structural/fixture evidence, not provider enforcement/delivery
+proof. Later hosted Google/Profile/CPU acceptance remains open. Rollback the
+preview job independently of SQL/Auth data; no AI/evaluation or UI change here.
+
+### 2026-11-12 — trusted origin accepted; Vercel auto-deploy blocks master push
+
+Owner confirms the requested development Auth origin/caching setup done, then
+states Vercel has automatic deployment on push while choosing Cloudflare only.
+Master push is held until that connection is disconnected or the Vercel release
+passes its production gate. No Git write, provider change or publication ran.
+Docs/42 gives the exact project Git-disconnect step; no Vercel connector/browser
+control is available. No production audit or GO is claimed.
+
+Added .codex/.agents/.aws exclusions; existing files/settings preserved. The
+foundation exclusion regression first fails on those three paths, then all
+foundation tests pass **6/6**. Removed the test's obsolete safe.directory
+override; checks use normal repository ownership. Recognizable provider-key
+pattern scan of maintained non-secret product/docs/tests paths returns no match;
+this is not a complete security audit. Private preview secret/cache stay ignored.
+
+Focused auth/catalog/discovery/config **78/78** pass. First runtime attempt lacks
+the normal local web build (preview build is separate); rebuilt local web, then
+built web/configured managed identity **15/15** pass, explicit Miniflare. API
+runtime **4/4** passed in that mode. Repository ESLint, root/web/API TypeScript,
+maintained-source formatting and diff whitespace checks pass. Existing build
+warnings/log EPERM and mocked-runtime pg externalization warnings remain; no
+new live SQL, Google, UI screenshot or CPU proof. Worktree remains uncommitted
+over a93182390b67b32e3868dec1d7e6753206bbfdd9. Checkpoint docs updated. No product/AI
+behavior or migration changed; rollback is the ignore/test/docs diff. Next:
+owner disables this repository's Vercel push trigger.
+
+### 2026-11-12 — owner packaging passes; hosted auth input prepared privately
+
+Owner build:preview:check finishes with success after both dry runs. Shared web
+output: 29 assets; 1391.18 KiB upload / 377.84 KiB gzip; ASSETS and exact hosted
+API/public Auth/Neon base variable names present. No deployment. Hyperdrive GET
+excerpt shows sslmode=require and creation/modification timestamps; no host,
+user or cache fields were included, so their full readback is not inferred.
+
+Added scripts/prepare-preview-secret.mjs plus two tests in existing web-config
+suite. Exclusive-create writes only a random 256-bit cookie secret to the ignored
+preview secrets JSON. Existing nonempty regular files are preserved without
+reading/validating/rotating; empty files and symlinks are refused. Errors never
+print arbitrary OS contents or credentials. Tests first fail for the absent
+helper, then web config/secret tests pass **8/8**, Node24.22.1. Actual helper run
+creates the local file privately; git check-ignore confirms exclusion. No secret
+value was printed or reread; Windows inherited ACL remains in effect.
+Root TypeScript, affected JS ESLint/Prettier and git diff --check also pass after
+correcting the new helper's unknown-error type guard. No app rebuild is needed
+for this standalone preparation helper; prior owner packaging evidence remains
+separately recorded. Actual
+Wrangler 4.152.0 deploy --help confirms --secrets-file attaches secrets to a
+version, avoiding a separate secret-put deployment during setup.
+
+Docs/42 now gives the exact development branch Console link and trusted web
+origin. Agent offline CLI help retrieval fails ENOTCACHED; no dependency
+installation or provider mutation follows. Console steps are verified against
+official Neon domain/OAuth docs. No Neon allowlist/provider change, secret upload,
+Worker publication, SQL operation or Git write ran. Existing managed identity
+is preserved; no new OAuth provider. No UI or AI behavior changed, so screenshot,
+agent evaluation delta and runtime latency are N/A. Remaining next action is the
+owner's development trusted-origin entry, full Hyperdrive metadata review and
+candidate/publication gate. Rollback removes the helper/tests; do not rotate or
+delete an uploaded cookie secret as an app rollback.
+
+### 2026-11-12 — real Hyperdrive ID and isolated hosted-preview packaging
+
+**Owner evidence:** approved dashboard creation completed; supplied
+3066575a186a42bcbb1ce0b6e6775408. Agent Cloudflare connector now returns MCP
+authentication required. CLI readback cannot refresh its token over restricted
+network; no credential/config workaround or provider mutation attempted. Live
+origin/user/cache/TLS readback remains pending via docs/42's normal-terminal GET.
+
+**Changed files:** apps/{api,web}/deploy/preview/wrangler.json,
+apps/web/vite.config.ts, scripts/cloudflare-preview.mjs, package.json,
+tests/contracts/web-config.test.mjs and checkpoint docs. Configs pin the owner
+account, separate Worker names, exact HTTPS origins, managed development Auth
+base and owner-reported Hyperdrive ID. No runtime upgrade, password, migration,
+account sync or publication. Existing local configs remain in place; Vite names
+the local source explicitly when the preview flag is absent. Preview Vite uses
+an isolated env/config directory and outputs to ignored .cache. Build-only
+helper validates source/emitted configuration and refuses nonempty output
+.dev.vars before web dry-run. Every deploy invocation in it uses --dry-run.
+
+**Validation, agent Node24.22.1:** new tests initially fail for the absent helper;
+web config checks now **6/6** pass, including wrong account/binding/origin and
+embedded credential rejection. Root/web TypeScript checks pass; affected JS
+ESLint, maintained-source Prettier and git diff --check pass. An initial ESLint
+invocation included Vite TS, which this repository's ESLint config does not
+cover; that file is checked by web TypeScript/Prettier. Full hosted web Vite
+build exits 0; emitted target/origins validate and generated .dev.vars is absent.
+Upstream sourcemap/chunk warnings and global Wrangler log EPERM persist.
+API preview binding/runtime types regenerated by Wrangler into ignored
+.cache/cloudflare-preview/api-env.d.ts, exit 0. Both API and emitted-web dry runs
+fail at esbuild's sandbox ancestor-directory ACL (access denied/cannot resolve
+entry), not a demonstrated app defect. Overall packaging is therefore OPEN;
+owner must run build:preview:check in the normal terminal. No skipped assertions,
+new install, raised limit, permission relaxation or full packaging pass claimed.
+git check-ignore confirms private connection and preview artifact exclusions.
+
+**Remaining gates:** live Hyperdrive readback, owner packaging pass, hosted cookie
+secret/trusted origin, UI-05 rendered controls, publication review/commit, real
+hosted DB/auth/CPU smoke and production audit where applicable. No app deployment
+or Git write ran. Rollback removes isolated configs/helper and reverts the Vite
+selector/npm alias; preserve the existing database and managed Auth. No AI change;
+evaluation delta N/A. No screenshot, hosted URL acceptance or performance claim.
+
+### 2026-11-11 — Hyperdrive creation approved; private credential transfer prepared
+
+Owner explicitly approves the dev-only polymatik-catalog-dev configuration.
+Cloudflare MCP read-only inventory confirms no configs; workers/subdomain confirms
+remyoreo11. Local CLI restrictions do not require another owner login. No remote
+mutation, deployment, subscription, SQL or Git write ran.
+
+Corrected docs/42: verify-full requires a previously uploaded CA; Cloudflare's
+documented default require mode uses TLS and WebPKI certificate validation. This
+does not claim the additional verify-full checks. Existing dev host/database,
+restricted polymatik_app and disabled query caching remain the target.
+
+Added scripts/hyperdrive-password.mjs and tests/spikes/catalog-clipboard.test.mjs.
+Owner-invoked copy validates the exact dev target/application role, reads only
+the ignored application connection, then transfers its password to clip.exe via
+stdin without printing it. Clear overwrites the current clipboard without reading
+credentials; it does not clear OS clipboard history. No actual credential file
+was read or clipboard changed by the agent. Tests first failed for the missing
+module, then the new three tests plus five role tests passed **8/8**, Node24.22.1.
+Tests cover wrong role/host, invalid commands, clearing and error redaction.
+Affected-file ESLint and Prettier, root TypeScript check and git diff --check
+also exit 0. Actual Windows clipboard transfer remains owner-invoked/unverified;
+tests inject a clipboard sink and use invented credentials only.
+Dashboard creation and independent metadata verification remain pending. This
+helper has no app/runtime/schema impact; rollback removes the helper and test.
+No AI/ranking change; evaluations and latency deltas are not applicable.
+
+### 2026-11-11 — owner confirms Workers Free and account subdomain
+
+Owner provides account 70124db50dbd9c76cfc1d69d7972ac32 and
+remyoreo11.workers.dev, after confirming Workers Free. Preview origins are now
+fixed in docs/42 as polymatik-web-preview and polymatik-api-preview on that
+subdomain. They are planned URLs, not deployed/verified services. Hyperdrive
+inventory is empty; its exact dev-only creation plan is ready for the explicit
+privileged-action decision required by AGENTS.md. No remote creation, secret
+upload, trusted-origin mutation, app deployment, Git write or paid action ran.
+Documentation-only target update; no new app tests are warranted.
+
+### 2026-11-11 — Hyperdrive inventory is empty; creation plan prepared
+
+Owner account-scoped Wrangler hyperdrive list exits successfully with the listing
+heading and no entries. No existing configuration is available to reuse. Docs/42
+now records the exact development endpoint/database/application role, planned
+polymatik-catalog-dev name, TLS verification and disabled caching. Password entry
+will be private in the dashboard rather than exposed in CLI arguments. No
+provider mutation ran; Workers Free confirmation and workers.dev subdomain are
+still pending. No production credential, role/grant or migration change.
+Documentation-only preparation; no test suite rerun is required.
+
+### 2026-11-11 — Cloudflare owner login verified; resource inventory next
+
+Owner's fresh manual-browser Wrangler OAuth succeeds; whoami confirms account
+70124db50dbd9c76cfc1d69d7972ac32. The earlier request_forbidden/CSRF-cookie failure
+is resolved for this owner login. Account email and token values are not copied.
+Installed Wrangler 4.152.0 is retained; its update notification is not an upgrade
+requirement. Agent whoami --json in noninteractive mode fails on sandbox access/
+fetch, so no independent account inventory is claimed. No login window was opened
+by the agent. Docs/42 now gives the account-scoped, read-only hyperdrive list
+command. CLI source confirms the table excludes origin passwords.
+
+Next metadata: existing Hyperdrive IDs/names and targets, workers.dev subdomain,
+Workers Free confirmation and existing publication/auto-deploy state. No binding,
+subscription, secret or Worker has been created/updated/deployed. No app change
+or new test suite; this is an evidence/setup documentation update.
+
+### 2026-11-11 — UI-05 collection recovery and Cloudflare Free preview preparation
+
+**Owner acceptance:** the owner reports all requested local Discover, details,
+Save/Library reload and sun/moon checks work against the now-verified SQL API.
+This accepts that functional checkpoint; screenshots, keyboard/screen-reader,
+hosted auth and performance are not inferred. Owner selects Cloudflare Free for
+the next hosting checkpoint after considering Vercel. Mobile stays parked.
+
+**Implementation:** collection-context reset now clears only the active view.
+Discover/Search/Library show Clear filters when relevant; Discover/Search show
+a separate set-aside count/restore action. Filter reset preserves dismissal intent
+and other views. Empty-state copy/actions distinguish hidden resources from
+filters and an empty device Library. Actions use 44px targets, semantic theme
+tokens, polite status feedback and return focus to the collection heading.
+No account sync, schema/role change, new provider dependency or asset service.
+
+**Files:** apps/web/src/collection-context.ts, discover-client.tsx, globals.css,
+tests/contracts/discover.test.mjs; docs/42 preview guide and checkpoint docs.
+The new contract first failed on the missing reset export, then focused
+catalog/discovery/detail/theme/config tests passed **31/31** (1.91s).
+Built Worker contracts **14/14** (9.11s), explicit Miniflare, no skips. Root/web
+tsc and repository ESLint pass; production web build exits 0. Build still emits
+upstream sourcemap/chunk warnings and EPERM for the global Wrangler log path.
+Runtime helper pg externalization warnings remain; this is not new SQL transport
+proof. The owner's earlier real Wrangler/SQL result remains separately recorded.
+
+**Release preparation:** docs/42 records the exact next whoami command, real
+binding/hosted-origin prerequisites, dev-branch preview target, current free-tier
+limits, explicit publication order and manual/CI/auto-deploy entry-point gaps.
+It is not a completed production audit. No remote provisioning, paid plan,
+provider configuration, Git mutation/push or deployment ran. Metadata remains
+read-only for this session. No actual candidate commit or hosted artifact is
+bound to this dirty tree. The installed release-audit skill and references were
+read for preparation; final preflight/self-critique and delivery verification
+remain required before a production readiness/success claim.
+
+**Next exact actions:** owner checks the new filter/dismissal controls and
+provides Cloudflare account readiness/metadata. Prepare real preview config only
+after account and binding identities are known. Free SSR CPU fit must be measured;
+no always-free or production-ready promise. No rendered automation tool is
+callable in this session, so new visual/keyboard proof remains open.
+
+### 2026-11-11 — local PostgreSQL-backed catalog list HTTP confirmed
+
+Owner restarted the updated dev:api launcher. Its output identifies simulated
+HYPERDRIVE and CATALOG_BACKEND=postgres and reaches Ready on 127.0.0.1:8789.
+GET /v1/resources returned **200 with all four reviewed resources**, request
+`e982202e-7867-4779-8659-1e6b136f045d`, matching curl and Worker log. Handler
+duration 2251 ms; Wrangler request 2342 ms. One request is not a p95/warm benchmark.
+An earlier port conflict came from an already-running preview Worker; its 200
+was not accepted as database proof. No process was killed by the agent.
+
+This completes the local development database-to-Worker list boundary alongside
+the owner's actual-login/RLS proof below. It does not verify deployed Hyperdrive
+pooling/caching, database-backed detail HTTP, browser rendering or private Library
+sync. No production release or migration is implied. Documentation-only update;
+git diff whitespace check passes. Next: leave this API running and verify web
+Discover/details plus existing save/theme interactions. No suite rerun for this
+evidence-only change; agent network/runtime limitations remain.
+
+### 2026-11-11 — owner confirms restricted-login role repair and PostgreSQL isolation
+
+**Owner-run command:** `bash scripts/node24.sh node scripts/catalog-db.mjs setup-role`.
+Output confirms migration 0001 already applied/checksum matches; polymatik_app
+created with limited product-table grants; actual restricted-login verification
+passed; catalog **4/4**, two-user reads isolated, cross-user write denied and
+unsigned private reads empty. Private runtime connection saved in ignored .cache.
+The owner executed the reviewed development-only action after the explicit
+permission explanation. This closes that pending decision and SQL-role blocker.
+No production or managed Auth role changes are implied.
+
+**Agent limits:** read-only follow-up `catalog-db.mjs verify` reached the database
+connection phase but failed EACCES. Local serve selected simulated Hyperdrive,
+then installed Wrangler 4.152.0 failed before startup: parent-directory read ACL
+and global log-directory EPERM. Captured output was URL-redacted; no server
+remains running from that attempt. These sandbox failures do not overturn the
+owner's SQL evidence or establish PostgreSQL-backed HTTP acceptance.
+
+**Changed docs:** docs/41, docs/04, docs/22, docs/20, README and AGENTS checkpoint.
+No app/schema change, role mutation, install or deployment ran in this follow-up;
+no new deterministic suite is needed for this evidence-only update. Next exact
+check: owner starts dev:api and GET /v1/resources through the local Worker, then
+checks Discover against that running API. Rendered/name/logout/live two-user
+session and deployed Hyperdrive/production gates remain open.
+
+### 2026-11-10 — confirmed owner-role bypass; restricted-login repair prepared
+
+**Owner evidence:** Migration 0001 already applied; checksum matches. Verification
+reports ROLE_BYPASSES_RLS. The setup wrongly reused owner credentials for the
+isolation probe. Applied SQL is unchanged; no failure of the RLS policy itself
+has been established.
+
+**Prepared fix:** scripts/catalog-role.mjs defines a SQL-created polymatik_app
+with restricted product-only grants. catalog-db.mjs separates owner migration
+lookup, explicit setup-role, actual-login verification and runtime connection
+storage. A generated secret is saved privately before role commit for interruption
+recovery; retries never alter existing roles/passwords. Server startup rejects
+an owner connection file. No Console/CLI role provisioning or service-role grants.
+Updated docs/04, docs/22 and docs/41 with the lesson and proposed repair.
+
+**Agent checks:** catalog setup/role/repository tests **18/18**, including wrong
+target/identity, unsafe role attributes/memberships, DDL rollback, credential
+guards and no extra role changes on retry. Root TypeScript, changed-script ESLint,
+maintained-code Prettier and git diff whitespace checks pass. These are mocks, not live role/SQL
+proof. Privileged role creation/grants await owner approval required by AGENTS.md.
+No provider mutation, production action or new dependency installation ran.
+
+### 2026-11-10 — catalog migration applied; verification failure diagnostics
+
+**Owner evidence:** migration 0001 reports applied, followed by SETUP_ERROR.
+The migration is committed; live isolation and SQL-backed HTTP are not accepted.
+The earlier generic reporter hid the failing assertion. Its cause remains unknown.
+
+**Fix:** scripts/catalog-setup.mjs now gives each isolation/seed/role assertion
+a fixed safe category; scripts/catalog-db.mjs reports the failing phase and
+explains the committed migration state. Unexpected write-probe SQL failures keep
+their SQLSTATE. No raw error messages, query values or credentials are printed.
+Migration SQL/checksum and all database privileges are unchanged.
+
+**Agent verification:** Node 24.22.1 catalog tests **13/13** pass, including
+rollback on each assertion failure and rejection of secret-bearing diagnostics.
+These use mocks; no live PostgreSQL outcome is inferred. Next: owner repeats
+the guarded migrate command to verify checksum and obtain the exact category.
+
+### 2026-11-10 — M0-06 catalog foundation and owner-requested UI refinement
+
+**Prepared database slice:** versioned additive migration under polymatik adds
+users, reviewed public link metadata and private saved-item foundations with
+FORCE RLS. Managed Auth schema is untouched. Owner-run catalog-db.mjs uses the
+existing CLI login, enforces the exact direct dev-auth-working/neondb target,
+transactions, migration checksums, advisory locking and non-overwriting seeds.
+Its real-PostgreSQL probe rolls back all private fixtures. API pg reads use only
+the Hyperdrive binding, bounded queries and request-scoped cleanup. Explicit
+postgres mode never falls back to the preview on errors. The four source IDs/URLs
+remain reviewed/pinned, but bounded editorial metadata can come from the database.
+The local API launcher selects simulated Hyperdrive only after successful setup
+saves a private development connection. No migration runs automatically at startup.
+
+**Actual proof limits:** agent Neon credential-directory access still returns
+EPERM; no live migration, SQL isolation or PostgreSQL-backed HTTP acceptance is
+claimed. Owner command requested in docs/41. No production changes, extension
+installs, role grants or deployments. No native feature work. pgvector remains
+the semantic-index choice; no vector workload exists in this catalog slice.
+
+**UI implementation:** read design-system-prompt, docs/15 and docs/32. Improved
+source/format hierarchy, search/filter controls, metadata/action readability,
+Profile identity and 48px form actions, responsive wrapping and explicit live
+result announcements. Existing interactions, themes and device-save scope remain.
+This independent UI refinement follows locally verified catalog preparation; it
+does not close the open live database gate. Rendered evidence is unavailable:
+no callable computer-use runtime; offline Playwright CLI returns ENOTCACHED;
+headless Chrome exits on unusable GPU, without a screenshot. No visual/axe claim.
+
+**Agent checks, Node 24.22.1:** focused foundations/catalog/discovery/theme/account
+checks **48/48**, 3.75s; catalog guards/repository checks **5/5**; API contract suite
+with new adapter and existing catalog/client checks pass. Actual Miniflare runtime
+API/auth integration **5/5**, 7.17s; built web **14/14**, 10.57s. pg-related Vite
+externalization warnings in the helper mean those preview/auth runtime checks do
+not prove PostgreSQL transport. Production web build exits 0 with upstream
+sourcemap/chunk warnings. Root, API, web and affected shared-package TypeScript
+checks pass; repository ESLint and full maintained-file Prettier check pass.
+Prettier now excludes externally managed read-only .agents/skills, like vendored
+dependencies; two existing root handoff snapshots received whitespace-only
+formatting. App/test formatting coverage remains and foundation checks still
+reject deliberately malformed source. No AI/ranking/evaluation change.
+
+**Next:** owner runs the exact development migration/probe, restarts API and
+checks /v1/resources plus Discover. UI rendered review and standard Wrangler
+packaging remain open. Account Library sync is not implemented by this schema.
+
+### 2026-11-10 — live signed-in and unsigned API reads confirmed
+
+Owner now reports `/api/account/me` returning a user_id while signed in, followed
+by HTTP 401/UNAUTHORIZED with SESSION_COOKIE_UNAVAILABLE in a browser that is not
+signed in. The live signed-in API check is no longer blocked. No account ID is
+copied into this ledger. The earlier transient failure's exact cause remains
+unproven; adding a diagnostic does not establish its cause. These results verify
+authenticated access and unsigned denial, not revocation of a previously captured
+cookie, persisted name updates, two live users, or production delivery. Those
+remain distinct from the passing deterministic revocation/isolation tests.
+Documentation-only checkpoint update; no new app changes or test rerun.
+
+### 2026-11-10 — signed-in API acceptance remains blocked
+
+Owner confirms Profile still shows the verified account while web account read
+returns UNAUTHORIZED. This is a real failed live check, not a passed logout check.
+Added fixed, non-sensitive reasons to the web 401 response to distinguish an
+unavailable/invalid local session cookie, unsupported bearer credentials and
+upstream session rejection. No token, cookie value or identity is returned in
+failure diagnostics. Account adapter contracts **2/2** pass, including exact
+cookie-unavailable reason and revoked-session reason. Live reason is pending;
+do not infer a cookie/browser/provider cause or mark UI-04 accepted yet.
+
+### 2026-11-10 — UI-04 independent managed-session API boundary
+
+**Owner evidence:** Google sign-in now works after trusted-origin configuration.
+This confirms sign-in only; reload/name/logout/live two-user checks are not inferred.
+
+**Change:** API Worker uses managed-session.ts rather than self-hosted openAuth;
+GET /api/account/me forwards the opaque token to GET /v1/me, which revalidates with
+the server-configured Neon branch. Shared cookie extraction rejects missing,
+duplicate, malformed, oversized and legacy credentials. No cached claims or
+caller user headers establish identity. Added contract tests and a configured
+workerd test with mocked outbound Neon; existing test helper accepts explicit
+test-only bindings/outbound fixtures. No provider selection comes from HTTP input.
+API client me() also supports the server cookie adapter without a bearer token.
+API local example and ignored local configuration target the existing development
+branch; no secret copies, provider mutations, schema changes or deployments.
+
+**Agent evidence, Node 24.22.1:** initial new test failed because the verifier
+module did not exist; implementation then passed. Focused auth/API/client/SDK
+command **45 tests, 45 pass, 0 fail**, 18.80s. Built web + configured managed
+workerd integration command **15 tests, 15 pass, 0 fail**, 12.75s (14 web + one
+configured API scenario); standard API suite in explicit Miniflare mode **4/4**.
+Vite production web build exit 0; usual upstream sourcemap/chunk warnings remain.
+ESLint across repository exit 0; affected app/package tsc checks exit 0.
+Standard Wrangler runtime/packaging still needs the owner terminal because of
+the previously reproduced sandbox ancestor-directory ACL. No runtime gate is
+silently replaced: Miniflare evidence is labeled, with no skipped assertions.
+
+**Privacy/performance:** only user_id is returned; private cookie/identity payloads
+are absent from logs. Five-second abort deadline and 64 KiB limit fail closed.
+Fresh network verification trades latency/availability for current session state;
+no live latency benchmark or eval is claimed. No AI behavior changed.
+**Remaining:** live /api/account/me before/after logout, persisted name/session,
+two-user Neon acceptance, and standard owner runtime. Next dependent ticket after
+UI-04 acceptance is M0-06 product schema/catalog fixtures on the development branch.
+
+### 2026-11-10 — UI-04 managed callback rejection diagnosed
+
+Owner reports POST /api/auth/sign-in/social HTTP 403 after the client-state fix.
+Agent reproduced through the running development server with fixed Google/Profile
+payload and no cookies: upstream error `INVALID_CALLBACKURL`, request ID
+`d8e3de5c-4f42-4a36-b815-a2ce3144a56f`. No credentials, OAuth URL, state or cookies
+were printed. This establishes an upstream callback validation rejection, not an
+app-boundary origin denial. Trusted-domain inspection through cached Neon CLI
+failed EPERM on the credential directory; no provider mutation occurred. Added
+branch-scoped owner commands to docs/39. Remaining acceptance is exact-origin
+allowlist confirmation and live Google sign-in. Browser extension onMessage
+warning is not evidence of the HTTP rejection's cause.
+
+### 2026-11-10 — UI-04 callable SDK client state fix
+
+Owner reported an unhandled HTTP 404 from the managed browser SDK. Agent found
+that Profile passed the callable SDK Proxy directly to React's state setter,
+which invokes functions as updaters and therefore calls the bare auth endpoint.
+Changed the setter to `setClient(() => authClient)`; no route allowlist expansion.
+Read-only checks against the running dev server returned 200 for
+`/api/auth/get-session`. Added a real SDK + React state regression probe checking
+client identity is preserved and storing it makes zero HTTP requests. Agent
+SDK + managed-boundary tests: **9/9** on Node 24.22.1. Browser reload/Google
+interaction remains owner verification; no provider/configuration changes.
+
+### 2026-11-09 local / 2026-11-10 UTC — UI-04 managed web boundary
+
+Owner reported strict frozen install and SDK 4/4, auth 13/13, web-config 4/4.
+Agent changed web auth-client, Profile loading, catch-all route, and added
+managed-auth-request.ts plus four contract tests; test:auth includes them.
+The web route no longer forwards to the self-hosted API. API migration remains
+open; old framework tests are regression evidence only.
+
+Agent Node 24.22.1 results: auth suite **17/17**; SDK/config/tracer/managed checks
+**16/16**; root and web TypeScript checks exit 0; targeted JavaScript ESLint
+exit 0. Existing ESLint config does not lint TypeScript (covered by tsc).
+Missing JSDoc types in the earlier diagnostic tracer/tests were corrected.
+Vite production build completed exit 0 with upstream sourcemap/chunk warnings.
+Standard Wrangler runtime could not start because sandbox ancestor-directory
+reads failed in esbuild; no assertions ran. Existing explicit Miniflare mode
+then exposed four SSR failures. Temporary error instrumentation identified SDK
+import-time random generation forbidden in Worker global scope. Browser-only
+lazy initialization fixed this without weakening assertions: final built Worker
+runtime **13/13**, exit 0, 9.02 seconds. Temporary instrumentation removed.
+
+Local ignored web .dev.vars received the dev-auth-working URL, explicit local
+origin and a random cookie secret; existing API value preserved. No Neon service
+mutation, schema migration, Git commit/push or deployment. Live Google callback,
+session persistence, rendered interaction, managed API identity and bounded SDK
+upstream cancellation remain unverified/open. Next: owner standard runtime and
+Google Profile check, then managed identity enforcement at the product API.
+
 **Status on 23 Oct 2026:** M0-01 local acceptance passed on Node 24.0.0.
 M0-02's local development gate passed: maintained app checks, seven built-Worker
 contracts, packaging dry run and owner-confirmed counter interaction. The owner
@@ -14,7 +505,210 @@ completing M0-04's local gate. M0-05's local gate also passes: 27 Python tests,
 10 structural offline cases, static/lock checks and real loopback smoke. The owner defers M0-06 at its Docker prerequisite and prioritizes UI-01 web
 Discover, then mobile. Milestone M0 is incomplete.
 
+### 2026-11-09 — UI-04 — owner correction and normal-branch recovery
+
+**SDK follow-up:** owner confirms Google shared credentials; installed
+@neon/auth 0.8.2 for web. Agent inspected the exact archive and added an isolated
+Node spike using real vinext shims/SDK and mocked fetch. Three behavior checks
+pass (session cookie forwarding, social sign-in response, sign-out clearing);
+dependency check fails with the same five peer conflicts as installation.
+Scoped SDK-only constraints and regenerated lockfile pass pnpm 10.34.2
+`install --lockfile-only --offline --ignore-scripts --strict-peer-dependencies`
+(13.9s; no peer warnings, four deprecation warnings). Installed graph still needs
+the frozen install. Spike lint and formatting pass; docs diff check passes.
+No app code, provider, env, global runtime or generated links were edited.
+Next: frozen install, test:auth:sdk and existing auth/web-config regressions,
+then implement the managed boundary and test built Workers/browser login.
+
+**Subsequent owner result:** normal child dev-auth-working
+br-noisy-poetry-zaka8dav, compute ep-muddy-lab-za9hvwfl, created 09:41:40Z.
+Auth status confirms better_auth on neondb with distinct Auth/JWKS URLs.
+Provisioning recovery is verified by owner output; docs/04 now records the
+branching lesson without claiming the old HTTP 412 cause is established.
+Agent SDK registry metadata lookup failed EACCES; docs/39 provides a read-only
+owner command and Google configuration guidance. No app/env/remote/Git change
+by the agent. Documentation diff check passes; no app tests rerun. Live login,
+session persistence, protected API and managed SDK compatibility remain open.
+
+Owner confirms setup/test data only, no users. CLI status and screenshots show
+managed Better Auth configured on production br-sparkling-glitter-zazxlg5z,
+database neondb, created 30 October; failed schema-only rehearsal is unconfigured.
+This supersedes the historical live-use assumption below. docs/22 records the
+decision; AGENTS and docs/39 now direct a normal full child dev-auth-working
+from the configured source. Official Auth/schema-only branching documentation
+and cached CLI 8.23.1 create options were checked. No resource, privilege, env,
+application or Git metadata change ran. Child provisioning and managed login
+remain pending. The old HTTP 412 cause is unknown; no verified fix is claimed.
+Validation: documentation diff review; app tests not rerun for documentation only.
+
+### 2026-11-05 — UI-04 — Neon tooling verification
+
+**Scope:** resume the existing Neon setup request without modifying live data.
+Read installed Neon, Auth and Postgres guidance; inspected Git status, project
+configuration presence and CLI metadata. Existing owner changes were preserved.
+
+**Actual checks (Node 24.22.1):** cached Neon CLI `--version` exits 0 with
+8.23.1. Project Neon/Auth/Postgres skills exist. A sanitized configuration check
+confirms the existing remote Neon MCP entry is scoped to the requested project;
+no Neon MCP tools are callable in this session. Default profile inspection fails
+with EPERM creating the absent user credential directory. Repeating the check
+with a separate ignored workspace config directory exits 0 and reports an
+unauthenticated DEFAULT profile; no inherited NEON_API_KEY is present.
+`skills status` exits 1 because Neon cannot be reached. No credentials printed.
+
+**Changes:** updated AGENTS.md checkpoint and docs/40 to distinguish installed
+tooling from authenticated connectivity. Created only ignored local CLI config
+state for the credential-free probe. No dependency installation, app changes,
+Neon context/env pull, provisioning, migration, production side effect or Git
+metadata write. No application tests rerun for this documentation-only change;
+build and live-service acceptance are not claimed.
+
+**Next:** owner completes browser CLI login and identifies the non-production
+rehearsal branch. Inspect remote state and the exact managed Auth plan there
+before integration testing; production remains subject to the release gate.
+
+### 2026-11-05 — UI-04 — owner login confirmation
+
+Owner output confirms Neon CLI Auth complete (profile DEFAULT), superseding
+the earlier timeout. Owner reports rehearsal branch creation; no branch ID or
+service output supplied yet. Agent branch inspection still exits 1 with EPERM
+creating the inaccessible default credential directory; no bypass attempted.
+Updated docs/39 to distinguish the existing self-hosted setup from the requested
+managed Auth migration, and updated the checkpoint. No application/dependency,
+provider, database or env changes. No app tests rerun for these documentation
+edits; managed integration, build and live acceptance remain pending.
+
+### 2026-11-08 — UI-04 — rehearsal schema collision
+
+Owner CLI 8.23.1 output confirms schema-only development branch
+`br-calm-firefly-zak4igb7`, compute `ep-rapid-field-zawohvny`, and unconfigured
+Auth. The first creation attempt rejected a custom suspend interval; retry
+without it succeeded. Auth provisioning then failed on an existing `neon_auth`
+schema. No schema deletion or successful Auth provisioning is reported.
+Owner project settings show AWS London, Free, PostgreSQL 18, no IP restrictions.
+
+Agent checked installed CLI creation/enable flags and Neon's documented support
+for selecting another Auth database in the same branch. Recovery: create empty
+`polymatik_rehearsal` on the existing development branch and enable Auth there;
+preserve the existing schema and production. This plan remains unexecuted.
+Schema-only inheritance is a likely cause of the collision, not a verified root
+cause. A fresh database rehearses integration, not production identity migration.
+
+Agent shell now starts; credential-directory access still fails EPERM. Public
+SDK metadata fetch with a writable local npm cache fails EACCES, so no dependency
+was installed. Updated checkpoint and auth guide only. No application tests were
+rerun for these documentation changes; no build or live service success claimed.
+
+### 2026-11-08 — UI-04 — explicit database permission failure
+
+Owner output confirms `polymatik_rehearsal` creation on the development branch,
+owned by `neondb_owner`. Auth enable then fails: permission denied for database.
+The chained status command did not run. Installed CLI inspection confirms the
+explicit database flag is forwarded to the API. No exact failing role or grant
+is established. Next is read-only ownership/privilege inventory, not another
+resource or a destructive schema reset. Updated checkpoint and guide; no app
+code, dependency, grant or database change by the agent and no new app test claim.
+
+### 2026-11-08 — UI-04 — approved development CREATE test
+
+Owner read-only SQL results show `neondb_owner` owns `polymatik_rehearsal` with
+CONNECT/CREATE; `neon_auth` and `neon_service` can CONNECT but cannot CREATE.
+The owner explicitly approved a controlled CREATE grant to `neon_auth` on this
+development database only, one Auth enable retry, and revocation on failure.
+The failing service role remains unverified; this is a candidate fix, not a
+verified Neon provisioning requirement or production migration recommendation.
+
+Prepared guarded SQL and exact branch/database CLI commands in docs/39. The SQL
+requires the expected database and owner role before granting; the verification
+SELECT is last so the SQL Editor shows its result. Updated checkpoint. Agent
+directory access retest still exits 1 with Access denied; no grant, remote retry
+or rollback executed by the agent. No app code/tests changed. Architecture
+documentation is deferred until the fix and integration are verified, per owner.
+
+### 2026-11-08 — UI-04 — CREATE hypothesis not validated
+
+Owner verified connected database `polymatik_rehearsal`, role `neondb_owner`, and
+`neon_auth` CREATE=true after the approved grant. One explicitly scoped Auth
+enable retry still returned permission denied for that database. Status did not
+run because the command chain stopped. This does not identify the failing role
+or establish a Neon service defect. Approved rollback is pending owner execution
+and verification of CREATE=false. No further privilege/resource experimentation
+is planned without new evidence. Updated checkpoint and guide; no application
+change, remote action by the agent, test/build pass or architecture fix claimed.
+
+### 2026-11-09 — UI-04 — rollback confirmed; provisioning diagnosis held
+
+Owner reports `has_database_privilege('neon_auth', 'polymatik_rehearsal',
+'CREATE') = false` after revocation. Explicit rehearsal-branch CLI status says
+Auth is not configured. This confirms the tested privilege is restored to its
+baseline; it does not establish absence of partial provisioning objects.
+
+Agent rechecked CLI 8.23.1 source: enable passes the selected database to Neon's
+API. Current Neon API documentation supports a non-default Auth database. No
+documented fix identifying the failing role was found. Agent read-only Auth
+status still fails locally with EPERM on the credential directory; no remote
+request succeeds. The CLI log command advertises regions excluding AWS London,
+so it is not offered as a verified route to these provisioning logs.
+
+Updated checkpoint and docs/39, replacing obsolete executable grant/retry steps
+with the completed experiment and a prepared provider diagnostic report. Owner
+asks to hold implementation until correctly resolved. No provider mutation,
+application change or new build/service acceptance. Architecture resolution
+remains pending; no speculative grant is promoted to an architecture requirement.
+
+Validation: `git diff --check -- AGENTS.md docs/39_WEB_AUTH_AND_PROFILE.md
+docs/24_IMPLEMENTATION_LOG.md` exits 0 (line-ending warnings only). No application
+tests were rerun for this documentation-only update.
+
+### 2026-11-09 — UI-04 — authorized repair plan, inventory prepared
+
+Owner authorizes inspection, a controlled diagnostic attempt and an evidence-led
+repair. Added scripts/diagnostics/neon-auth-rehearsal.sql and an exact CLI command
+in docs/39. The script uses READ ONLY, timeouts and an expected database/role guard;
+it collects role memberships, database/schema ACLs and Auth object metadata only.
+No data rows, passwords or routine definitions are read. Branch identity is
+selected by the CLI, not inferred from the SQL database guard.
+
+Agent verified `neon psql --help` against cached CLI 8.23.1 and reviewed its
+passthrough implementation. `git diff --check` passed for the SQL/guide changes.
+SQL has not been executed against PostgreSQL; authenticated owner execution is
+pending. No schema or privilege change, dependency install or application test
+pass is claimed. Next: interpret the inventory before preparing a traced retry.
+
+### 2026-11-09 — UI-04 — inventory passed; scoped trace prepared
+
+Owner ran the catalog SQL through Neon 8.23.1 embedded psql on PostgreSQL 18.6.
+Report timestamp 08:53:07.819162Z: expected database/owner, read_only=on, only
+public schema, no Auth relations/routines. Owner has CONNECT/CREATE. neon_auth
+and neon_service have CONNECT but no CREATE; memberships granted to owner have
+ADMIN but neither INHERIT nor SET. No failing service identity is established.
+
+Prepared opt-in fetch tracing for the existing CLI. It permits one correctly
+scoped enable POST, prevents console mutations outside that target and repeats,
+and logs only timing/status/request ID. No token/body/cookie logging. Four
+mocked transport tests pass (295 ms total); scoped ESLint exits 0. CLI enable
+help with the preload exits 0. Prettier formatted the two new JavaScript files.
+No provider request or SQL grant ran. docs/39 provides owner commands for the
+authorized controlled attempt and a separate post-attempt status check.
+
+### 2026-11-09 — UI-04 — provider request captured; Auth remains unconfigured
+
+Owner ran the scoped trace. At 09:03:44.805Z, one observed enable request returned
+HTTP 412 after 3774 ms, request ID b3ce513d-bb0e-415f-b98a-f55b8325e37b, with
+permission denied for polymatik_rehearsal. Separate status reports unconfigured.
+No new SQL grants were applied. The pre-attempt catalog inventory is not proof
+that the failed attempt left no objects; no post-attempt SQL inventory claimed.
+
+Updated checkpoint and report with the exact request; marked enable instructions
+completed to prevent repeated attempts. Reviewed Neon create-auth API and role
+docs: no exact SQL actor is exposed by this response; internal neon_service is
+provider-managed and not intended for customer modification. Next is provider
+diagnosis of this request, not inferred role escalation. No app/source changes
+or new service/build acceptance. Documentation diff check only; prior helper
+tests remain the last code verification.
+
 ## Ticket ledger
+
 | Ticket | Status | Commit/PR | Actual tests and results | ADR | Notes |
 |---|---|---|---|---|---|
 | UI-04 | Profile + Better Auth/Google boundary implemented; standard local Worker gate passed, live acceptance pending | a1fbe05 plus working tree; not committed/pushed | Owner: web config 4/4, auth 13/13, full web build, standard Wrangler API 4/4 + web 13/13 and API packaging dry run pass. Agent: managed runtime 17/17 plus scoped contracts/lint/types | Owner Better Auth/Google choice and reconfirmed Cloudflare/Neon path; docs/22 and docs/39 | Neon schema/resources, Google callback, persisted sessions and rendered Profile/browser/accessibility remain open; unconfigured-account checks do not prove configured PostgreSQL auth; mobile parked |
@@ -30,6 +724,41 @@ Discover, then mobile. Milestone M0 is incomplete.
 | M1–M6 | Planned, not started | — | — | — | See backlog |
 
 ## Append a work entry after each session
+
+### 2026-10-30 — Neon managed-service setup blocked before production changes
+
+Owner requests Neon Postgres plus Managed Better Auth on organization
+`org-polished-tree-06389523`, project `gentle-shadow-65971019`, branch
+`production`, and confirms that target serves a live app or holds existing user
+data. No init/deploy, credential pull, remote schema/provider change or
+end-to-end production mutation ran. The required production preflight remains
+BLOCKED: independent branch/service metadata, exact plan/artifact, migration and
+identity/session compatibility, isolated rehearsal, rollback and delivery proof
+are missing. Current app auth remains self-hosted Better Auth via Hyperdrive.
+Requested managed-auth direction and alternatives are recorded in docs/22.
+
+The regular shell executor fails before launching commands (setup refresh
+error), including the requested global CLI installation. Using the permitted
+npx fallback with a workspace-local npm cache, `neon@latest --version` first
+times out, then exits 1 with registry-fetch EACCES. No sign-in browser opened;
+no Neon skills were found at the inspected user/project skill roots.
+
+Initial `npm run build` fails because the root has no build script. Added
+`build: pnpm build:web && pnpm build:api:check` to package.json, preserving the
+pinned workspace toolchain and non-deploying API packaging. Six existing
+foundation tests pass, no skips. The new build reaches all five web stages and
+reports Build complete; API packaging then reports exit status 1 because esbuild
+cannot read an ancestor directory / resolve worker.ts under the sandbox ACL.
+Wrangler also reports an external log-path EPERM. No overall build pass is
+claimed. The launcher deadline elapsed and termination attempts were denied;
+the owned build subsequently closed after emitting the API failure. No owned
+build process remains attached. No service wiring or live acceptance is claimed.
+
+Raw outputs: ignored `.cache/verification/neon-setup/{cli-download,foundation,build}.txt`.
+Next: establish CLI access in the owner terminal and identify an authorized
+non-production rehearsal branch before applying a reviewed service plan to the
+existing-data production branch. Existing owner files remain untouched; no Git
+metadata, lockfile or credentials were changed.
 
 ### 2026-10-27 — Owner standard Worker runtime and API packaging pass
 

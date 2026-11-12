@@ -11,6 +11,8 @@
     "./discovery-preview": "./src/discovery-preview.ts",
     "./profile": "./src/profile.ts",
     "./bounded-body": "./src/bounded-body.ts",
-    "./auth-routes": "./src/auth-routes.ts"
+    "./auth-routes": "./src/auth-routes.ts",
+    "./managed-session-cookie": "./src/managed-session-cookie.ts",
+    "./catalog-resource": "./src/catalog-resource.ts"
   }
 }

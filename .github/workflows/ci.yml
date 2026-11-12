@@ -61,3 +61,49 @@ jobs:
       - run: uv run --locked pytest
       - name: Evaluate deterministic agent baseline without keys
         run: uv run --locked python tests/evaluation/run_baseline.py --output .cache/m0-05-evaluation.json
+
+  deploy-preview:
+    name: Deploy Cloudflare development preview
+    needs: checks
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: development-preview
+      url: https://polymatik-web-preview.remyoreo11.workers.dev
+    concurrency:
+      group: cloudflare-development-preview
+      cancel-in-progress: false
+    env:
+      CLOUDFLARE_ACCOUNT_ID: '70124db50dbd9c76cfc1d69d7972ac32'
+      CLOUDFLARE_LOAD_DEV_VARS_FROM_DOT_ENV: 'false'
+      CLOUDFLARE_INCLUDE_PROCESS_ENV: 'false'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version-file: .node-version
+      - name: Require deployment credentials and prepare private cookie binding
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          NEON_AUTH_COOKIE_SECRET: ${{ secrets.NEON_AUTH_COOKIE_SECRET }}
+        run: |
+          node -e 'if (!process.env.CLOUDFLARE_API_TOKEN) throw new Error("Set the CLOUDFLARE_API_TOKEN repository secret.")'
+          node scripts/prepare-preview-secret.mjs --from-env
+      - name: Install pinned pnpm
+        run: npm install --global pnpm@10.34.2
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - name: Build and validate the isolated preview artifacts
+        run: pnpm build:preview:check
+      - name: Deploy development API
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: pnpm --filter api exec wrangler deploy --config deploy/preview/wrangler.json --tag "$GITHUB_SHA"
+      - name: Deploy development web with its persistent cookie secret
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: pnpm --filter web exec wrangler deploy --config ../../.cache/cloudflare-preview/web/server/wrangler.json --secrets-file ../../.cache/cloudflare-preview/secrets.web.json --tag "$GITHUB_SHA"
+      - name: Verify public pages, catalog and unsigned account denial
+        run: node scripts/smoke-cloudflare-preview.mjs

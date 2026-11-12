@@ -1,0 +1,768 @@
+# Polymatik AI — Catalog and Persistent Discovery Handoff
+
+Snapshot: **28 October 2026**. This file embeds the requested materials so it
+can be shared alone. The linked source files remain authoritative; this is a
+source snapshot, not a new implementation or an acceptance claim.
+
+## 1. Existing four-resource catalog
+
+Source: [discovery-preview.ts](packages/domain-types/src/discovery-preview.ts).
+This is the complete maintained TypeScript fixture, including its resource type,
+lookup and client-side selection helpers. It is public link metadata, not a
+PostgreSQL seed/migration or ingested article corpus.
+
+Descriptions are editorial summaries. Original links/titles were checked on
+23 October according to [the provenance record](docs/36_WEB_DISCOVER_UI.md); no
+new external link or rights verification was performed for this handoff.
+Linking does not establish permission to ingest or redistribute the originals.
+
+```typescript
+/** Curated link metadata only. Provenance and scope: docs/36_WEB_DISCOVER_UI.md. */
+export const resources = [
+  {
+    id: 'atoms',
+    title: 'Atoms in Motion',
+    source: 'The Feynman Lectures on Physics',
+    publisher: 'Caltech',
+    kind: 'Chapter',
+    topic: 'Physics',
+    url: 'https://www.feynmanlectures.caltech.edu/I_01.html',
+    description:
+      'Start with the smallest things. A classic introduction to the atomic picture of matter, motion, and the practice of asking better questions.',
+    note: 'Volume I · Chapter 1',
+  },
+  {
+    id: 'theory',
+    title: 'Seeing Theory',
+    source: 'Seeing Theory',
+    publisher: 'Brown University',
+    kind: 'Interactive',
+    topic: 'Mathematics',
+    url: 'https://seeing-theory.brown.edu/',
+    description:
+      'Make probability a little less abstract. Explore chance, distributions, and inference through interactive visual explanations.',
+    note: 'Archived resource',
+  },
+  {
+    id: 'browser',
+    title: 'Populating the page: how browsers work',
+    source: 'MDN Web Docs',
+    publisher: 'MDN',
+    kind: 'Article',
+    topic: 'Computing',
+    url: 'https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work',
+    description:
+      'Follow a page from its network request through parsing, layout, and painting. Look beneath a familiar everyday interaction.',
+    note: 'Web platform',
+  },
+  {
+    id: 'semester',
+    title: 'The Missing Semester of Your CS Education',
+    source: 'Missing Semester',
+    publisher: 'MIT',
+    kind: 'Course',
+    topic: 'Computing',
+    url: 'https://missing.csail.mit.edu/',
+    description:
+      'Get to know the tools behind the work: the shell, your development environment, version control, and debugging.',
+    note: 'Tools for thinking and building',
+  },
+] as const;
+
+export type Resource = (typeof resources)[number];
+export function getResource(id: unknown): Resource | undefined {
+  return typeof id === 'string'
+    ? resources.find((item) => item.id === id)
+    : undefined;
+}
+export const topics = [
+  'All subjects',
+  'Physics',
+  'Mathematics',
+  'Computing',
+] as const;
+export type Topic = (typeof topics)[number];
+export function selectResources({
+  topic = 'All subjects',
+  query = '',
+  savedOnly = false,
+  saved = [],
+  dismissed = [],
+}: {
+  topic?: Topic;
+  query?: string;
+  savedOnly?: boolean;
+  saved?: readonly string[];
+  dismissed?: readonly string[];
+}) {
+  const term = query.trim().toLocaleLowerCase('en');
+  return resources.filter(
+    (r) =>
+      (topic === 'All subjects' || r.topic === topic) &&
+      (!savedOnly || saved.includes(r.id)) &&
+      (savedOnly || !dismissed.includes(r.id)) &&
+      `${r.title} ${r.description} ${r.source} ${r.publisher} ${r.topic}`
+        .toLocaleLowerCase('en')
+        .includes(term),
+  );
+}
+```
+
+## 2. Persistent-discovery requirements
+
+Source: [implementation backlog](docs/20_IMPLEMENTATION_BACKLOG.md). The full
+file is embedded in section 4. The main dependency chain is database/isolation →
+identity → persisted onboarding and reviewed catalog → ranked persisted feed →
+save/dismiss/why across clients. Relevant tickets, quoted from the backlog:
+
+- M0-06 — Local PG+pgvector, migrations, typed seed data, user isolation fixtures. — migrations repeatable, test 2 users, unauthorized private query denied. — M0-04/05
+- M1-01 — Select and implement identity provider after compatibility ADR; verified auth on web/Expo/API/Python. — session lifecycle; unauthorized/cross-user tests. — M0
+- M1-02 — Taxonomy and interest/thinker/work onboarding with edit/delete. — profile persisted and synced, skips supported, accessible forms. — M1-01
+- M1-03 — Curated seed catalog with source rights/metadata and quality flags. — >=30 carefully checked seed records or enough to test recommendations; no fake source IDs. — M0-06
+- M1-04 — Deterministic candidate ranking, diversity, persisted feed batches, cursor API. — seeded relevance fixtures, no duplicates, cold start, dismiss exclusion, cost measurements. — M1-02/03
+- M1-05 — Premium responsive Next.js feed and Expo virtualized feed with save/dismiss/why. — real device/screen reader + visual snapshots; no agent on scroll. — M1-04
+- **GATE M1** — User chooses interest → consumes eligible content → saves/dismisses → revisits on both clients. — Golden E2E, authz, p95 first benchmark, UX review. — all M1
+- M3-03 — Track recommendation feedback and regenerate feed based on consented preferences. — labeled comparison with static baseline, no repeated dismissed items.
+
+Current owner decisions supersede older historical wording: use **Cloudflare
+Workers → Hyperdrive → Neon PostgreSQL**, retain Neon pgvector for retrieval,
+and finish web/backend before mobile. Better Auth with Google first is selected;
+live acceptance is still pending. The old Docker prerequisite and identity-provider
+selection text in the backlog are historical, not a direction to switch providers.
+
+Current web saves persist only in the browser; mobile saves are app-session-only.
+Signing in does not sync either. The reviewed catalog, user saves/dismissals,
+preferences, ranking state and feed batches still need database-backed design
+and implementation; this handoff does not invent their table schemas or APIs.
+See [current auth setup](docs/39_WEB_AUTH_AND_PROFILE.md) and the
+[verification ledger](docs/24_IMPLEMENTATION_LOG.md) for the live integration gaps.
+
+## 3. Current catalog API contract and resource schema
+
+Canonical contract: [OpenAPI v1.json](packages/domain-types/openapi/v1.json),
+API version **0.2.0**. Implementation:
+[API dispatcher](apps/api/src/index.ts). Generated TypeScript:
+[api.generated.ts](packages/domain-types/src/api.generated.ts), re-exported by
+[domain-types](packages/domain-types/src/index.ts).
+
+| Route                     | Current behavior                                                                               |
+| ------------------------- | ---------------------------------------------------------------------------------------------- |
+| `GET /v1/resources`       | Public finite list; `{ items: PreviewResource[] }`, maximum four items, fixture order          |
+| `GET /v1/resources/{id}`  | Public metadata object; valid unknown ID returns 404; malformed ID returns 422                 |
+| `OPTIONS` on either route | Exact-origin CORS preflight; allowed method GET and authorization/content-type request headers |
+
+Both GET routes reject query parameters with 422. Unsupported methods return 405. An Origin header outside the configured allowlist is rejected with 403;
+requests without Origin can access the public catalog. Responses carry
+`Cache-Control: no-store`, `X-Content-Type-Options: nosniff`, server-generated
+`X-Request-Id` and `Vary: Origin`. Errors use the `ApiError` envelope below.
+
+There is currently **no catalog write, save/dismiss endpoint, cursor, server-side
+search/filtering, personalized ranking or database-backed catalog**. Expanding
+beyond four records requires updating the list schema and matching validation/tests;
+adding database rows alone would not satisfy the current contract. The schema
+describes HTTPS URLs as reviewed originals; it uses `format: uri`, which alone
+does not enforce HTTPS. The fixture itself provides fixed HTTPS links.
+
+The following is an exact structural excerpt of the existing OpenAPI document:
+all catalog paths plus their referenced resource/list/error schemas. It omits
+unrelated health/profile paths.
+
+```json
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Polymatik Product API",
+    "version": "0.2.0",
+    "description": "Local product contract with a finite public preview catalog. No writes, database or live identity provider is configured. Query parameters are rejected."
+  },
+  "paths": {
+    "/v1/resources": {
+      "get": {
+        "operationId": "listResources",
+        "summary": "Public finite preview catalog",
+        "security": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Reviewed metadata only; no article body or private user data.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceList"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin or permission denied.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Unsupported method.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unsupported query parameters.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Sanitized internal error.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "options": {
+        "operationId": "listResourcesPreflight",
+        "summary": "Exact-origin CORS preflight; GET with authorization/content-type only.",
+        "security": [],
+        "responses": {
+          "204": {
+            "description": "Allowed preflight."
+          },
+          "403": {
+            "description": "Origin, method or request headers denied.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/resources/{id}": {
+      "get": {
+        "operationId": "getResource",
+        "summary": "Public preview resource metadata",
+        "security": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,47}$",
+              "maxLength": 48
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reviewed metadata only; no article body or private user data.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PreviewResource"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin or permission denied.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Unsupported method.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unsupported query parameters.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Sanitized internal error.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "options": {
+        "operationId": "getResourcePreflight",
+        "summary": "Exact-origin CORS preflight; GET with authorization/content-type only.",
+        "security": [],
+        "responses": {
+          "204": {
+            "description": "Allowed preflight."
+          },
+          "403": {
+            "description": "Origin, method or request headers denied.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated correlation ID.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,47}$",
+            "maxLength": 48
+          }
+        }
+      ]
+    }
+  },
+  "components": {
+    "schemas": {
+      "PreviewResource": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "source",
+          "publisher",
+          "kind",
+          "topic",
+          "url",
+          "description",
+          "note"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,47}$",
+            "maxLength": 48
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "publisher": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["Chapter", "Interactive", "Article", "Course"]
+          },
+          "topic": {
+            "type": "string",
+            "enum": ["Physics", "Mathematics", "Computing"]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "maxLength": 2048,
+            "description": "Fixed reviewed original HTTPS URL from the preview catalog."
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        }
+      },
+      "ResourceList": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["items"],
+        "properties": {
+          "items": {
+            "type": "array",
+            "maxItems": 4,
+            "items": {
+              "$ref": "#/components/schemas/PreviewResource"
+            },
+            "uniqueItems": true
+          }
+        }
+      },
+      "ApiError": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["error"],
+        "properties": {
+          "error": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["code", "message", "request_id", "retryable"],
+            "properties": {
+              "code": {
+                "type": "string",
+                "minLength": 1
+              },
+              "message": {
+                "type": "string",
+                "minLength": 1
+              },
+              "request_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "retryable": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+## 4. Complete implementation backlog snapshot
+
+Verbatim text of `docs/20_IMPLEMENTATION_BACKLOG.md` (line endings normalized).
+It contains historical progress entries as well as requirements; newer owner
+decisions and the latest ledger entry govern current status. Indicative week
+ranges are planning context, not delivery commitments.
+
+````markdown
+# 20 — Dependency-Ordered Implementation Backlog and Gates
+
+**Workflow:** implement one ticket, record tests/artifacts, update log, pass gate, proceed. Never build entire roadmap in one agent command. Relative planning windows only; progress depends on actual gates. Each ticket references docs and requirement IDs; owner may reprioritize via ADR.
+
+## Current owner priority - web resource details and backend checkpoint
+
+**27 October owner continuation:** current smallest ticket is **UI-04 web
+Profile + Better Auth/Google boundary** (docs/39), using Workers → Hyperdrive →
+Neon PostgreSQL, with pgvector retained for the later retrieval ticket. Mobile
+stays parked. UI-03's rendered verification debt remains open;
+this continuation does not mark that gate passed. No Docker database setup is
+required for the selected Neon development path. Live auth still requires a
+reviewed development schema and private provider configuration.
+
+Owner's scoped offline dependency repair, four web configuration checks,
+13 auth tests and complete five-stage web build pass on 27 October. Agent
+test-managed workerd contracts pass **4 API + 13 web**, including Profile SSR
+and unconfigured-account boundaries. The React link blocker is resolved; do not
+repeat installs. Owner standard Wrangler API **4/4**, web **13/13** and API
+packaging dry run now pass. Rendered Profile checks and live Neon/Google
+acceptance remain open. The managed API helper's unused auth
+branch emits browser-externalization warnings, so this is not PostgreSQL auth
+runtime proof. See docs/39 for the current setup and docs/24 for evidence limits.
+
+Web Discover UI first, then mobile (23 October 2026). See the accepted owner
+reprioritization in docs/22 and acceptance scope in docs/36. M0-06 is deferred
+at the Docker engine prerequisite; M0 remains incomplete. UI-01 requires source
+provenance, filter/save failure tests, responsive themes and browser evidence.
+No live catalog, account or recommendation service is implied.
+
+On 25 October the owner selected resource details and asked to finish a meaningful
+web checkpoint including backend before focusing on mobile. Current ticket is
+**UI-03 web resource details + read-only preview catalog API** (docs/38). Mobile
+resource work is parked; database/authenticated persistence remains separate.
+
+Current follow-up connects Discover to `/v1/resources` using the existing typed
+client. API membership/order controls the collection; empty and unavailable are
+distinct, and the browser Library remains local during outages. Source checks
+and supplemental Worker checks pass; owner standard rerun and rendered checks
+for this changed source remain open. Evidence policy: `docs/evidence/README.md`.
+
+Navigation follow-up preserves each collection's subject/search context in tab
+session storage, so detail return and reload can restore the user's place.
+Bounded validation and blocked-storage fallback are covered by contracts;
+rendered round-trip acceptance remains part of UI-03's open browser gate.
+Loading reliability follow-up bounds decoded web API bodies at 64 KiB, with
+abort/oversize cancellation and actual Worker gzip-body checks. Minimal local
+compression diagnosis isolates buffering below application code; docs/38.
+The explicit test-managed Miniflare mode now passes API 3/3 and web 11/11 with
+no skips. Default Wrangler packaging/startup and rendered browser checks stay
+distinct; no runtime assertions were removed or loosened.
+
+Recovery follow-up after b823e72 keeps app navigation/appearance in resource
+loading, error, unavailable and 404 screens. Final scoped checks and supplemental
+built-Worker checks pass; the owner also reports the updated standard web suite
+11/11 passing, no skips. Rendered UI and local compressed loading remain open.
+See `docs/evidence/ui-03-recovery/` and docs/38 before treating the earlier owner
+11/11 as evidence for newer changes.
+
+| Client ticket                            | Status / next verification                                                                                                                                                                                                                                                                                                                                                             |
+| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| UI-03 web resource details + catalog API | Catalog/details, filter context and bounded reads implemented. Direct managed runtime: API 3/3 and web 11/11, no skips; 25 web units, three config contracts, build/lint/all types pass. Browser acceptance, fresh default Wrangler packaging/startup and prior mobile dependency-link issue remain open. Mobile stays parked; docs/38.                                                |
+| UI-01 web Discover                       | Owner confirms navigation, sun/moon appearance and Library saves surviving reload. Save retry preserves intent (8 discovery contracts pass). Focus-target/search semantics and all 9 dev HTTP contracts pass on 25 October. Root/web types pass. Responsive, keyboard, screenshot and screen-reader checks remain open; docs/36.                                                       |
+| UI-02 Expo Discover                      | Owner's cached frozen install, terminal regression and SDK 58 iOS/Android export pass; owner confirms iPhone startup/navigation/Library/appearance on 25 October. Earlier agent SDK 58 native tests: 15 pass. No further install needed. Android runtime, VoiceOver, larger-text and visual evidence remain open; docs/37. Next: finish UI-01 web persistence/retry and visual checks. |
+
+## Milestone M0 — Prove the stack (Week 1–2 indicative)
+
+Current client slice: UI-03 (docs/38) is in progress under the owner's explicit
+web/backend priority. Its gate does not claim completion of M0 database/auth work.
+
+**23 October 2026:** M0-01's local gate passed. M0-02's local development
+gate passed: maintained Worker contracts/build, packaging dry run and
+owner-confirmed counter interaction. Deployment compatibility, extended browser
+checks and remote CI remain unverified. Owner authorizes **M0-03** next and has
+an iPhone with Expo Go. Shared tokens/mobile scaffold and corrected dependencies are installed. Lint,
+full typechecks, 26 Node tests and seven native Router tests pass on Node
+24.22.1. Owner-run iOS/Android Hermes exports passed; generated files and source
+hashes are verified. The owner confirms the requested iPhone checks, passing
+M0-03's local gate. **M0-04 source checks pass:** genuine type generation, lint,
+full typechecks and 38 root tests. Two owner-run native Worker tests and the
+source-matched packaging dry run now pass, completing M0-04's local gate.
+**M0-05's local gate passed:** 27 Python tests, 10 structural offline cases,
+static/lock checks and real loopback smoke. The owner defers **M0-06** and prioritizes **UI-01 web Discover**, then mobile. Milestone M0
+is incomplete; see the evidence ledger and docs/33.
+
+| Ticket      | Action                                                                                                                              | Evidence / acceptance                                                                                  | Dependencies |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------ |
+| **M0-01**   | Inspect environment; create monorepo skeleton, `AGENTS.md`, docs, CI baseline, `.gitignore`, pnpm/uv scaffolds.                     | `pnpm lint/typecheck/test` and `uv run pytest` skeleton pass; capture versions and output; no secrets. | none         |
+| M0-02       | Scaffold Next.js on Cloudflare; vinext vs OpenNext compatibility spike.                                                             | Real Worker preview/deploy with route, auth placeholder, SSR and streaming proof; ADR chooses path.    | M0-01        |
+| M0-03       | Scaffold Expo app, Expo Router, Android/iOS launch path on real device or simulator, common tokens.                                 | Native startup, auth route navigation; iOS testing plan if device not accessible.                      | M0-01        |
+| M0-04       | Cloudflare product Worker API + versioned OpenAPI + generated client shared by both UIs.                                            | `/v1/health`, 401/403/422 fixtures; client contract test.                                              | M0-02/03     |
+| M0-05       | Python FastAPI + LangGraph tiny deterministic graph + LangSmith opt-in trace.                                                       | Test-only mock LLM; real trace when keys authorized; failures don't require key in CI.                 | M0-01        |
+| M0-06       | Local PG+pgvector, migrations, typed seed data, user isolation fixtures.                                                            | migrations repeatable, test 2 users, unauthorized private query denied.                                | M0-04/05     |
+| **GATE M0** | Authenticated or simulated local-only end-to-end call from web/Expo → API → agent; two run modes: no keys CI vs authorized staging. | Recorded commands, screenshot, trace ID, security tests; documented provider/runtime choices.          | all M0       |
+
+## Milestone M1 — Discovery-first product (Weeks 3–5 indicative)
+
+| Ticket      | Action                                                                                                | Evidence / acceptance                                                                       | Dependencies |
+| ----------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------ |
+| M1-01       | Select and implement identity provider after compatibility ADR; verified auth on web/Expo/API/Python. | session lifecycle; unauthorized/cross-user tests.                                           | M0           |
+| M1-02       | Taxonomy and interest/thinker/work onboarding with edit/delete.                                       | profile persisted and synced, skips supported, accessible forms.                            | M1-01        |
+| M1-03       | Curated seed catalog with source rights/metadata and quality flags.                                   | >=30 carefully checked seed records or enough to test recommendations; no fake source IDs.  | M0-06        |
+| M1-04       | Deterministic candidate ranking, diversity, persisted feed batches, cursor API.                       | seeded relevance fixtures, no duplicates, cold start, dismiss exclusion, cost measurements. | M1-02/03     |
+| M1-05       | Premium responsive Next.js feed and Expo virtualized feed with save/dismiss/why.                      | real device/screen reader + visual snapshots; no agent on scroll.                           | M1-04        |
+| **GATE M1** | User chooses interest → consumes eligible content → saves/dismisses → revisits on both clients.       | Golden E2E, authz, p95 first benchmark, UX review.                                          | all M1       |
+
+## Milestone M2 — Grounded AI research (Weeks 6–8)
+
+| Ticket      | Action                                                                                       | Evidence / acceptance                                               |
+| ----------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| M2-01       | Licensed corpus source registry, normalization/chunking, pgvector + FTS.                     | retrieval fixtures, source ID/locator integrity.                    |
+| M2-02       | Hybrid retrieval and evidence-bound generator with no-answer behavior.                       | Recall@5 + citation support labels; failure examples.               |
+| M2-03       | LangGraph read-only tool registry, budgets, checkpoint, trace spans, streaming/cancellation. | prompt injection denial, bounded tool calls, resumption and traces. |
+| M2-04       | Resource → research deep-dive UI on web and Expo.                                            | clickable validated source citations, cancellation/retry states.    |
+| **GATE M2** | Saved item → cited research → follow-up; no source hallucination or tenant leak.             | annotated eval baseline, end-to-end pass.                           |
+
+## Milestone M3 — Memory, learning and interests (Weeks 9–11)
+
+| Ticket      | Action                                                                                    | Evidence / acceptance                                                 |
+| ----------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| M3-01       | Explicit/inferred memory schema, approval/correction/delete, profile-aware agent context. | cross-user negative tests, corrected memory honored, revocation.      |
+| M3-02       | One deterministically graded learning assessment and record.                              | saving a post does not increment mastery; answer explained.           |
+| M3-03       | Track recommendation feedback and regenerate feed based on consented preferences.         | labeled comparison with static baseline, no repeated dismissed items. |
+| M3-04       | External connector feasibility spike X API/YouTube policy, quotas and pricing.            | formal ADR; no silent scraping.                                       |
+| **GATE M3** | User returns to better-informed feed and agent remembers approved context, can delete it. | quality+privacy+cost evidence.                                        |
+
+## Milestone M4 — X bookmark import (P1 after feasibility)
+
+M4-01 OAuth PKCE read-only connection and consent; M4-02 async sync+dedupe+token protection; M4-03 interest extraction+confirmation UI; M4-04 delete/disconnect/purge; M4 gate: real authorized user sync and private deletion tests, provider budget and rights review. If X API access unavailable, use manually added interests and compliant opt-in import; keep interface optional.
+
+## Milestone M5 — Systems Explorer (P1)
+
+M5-01 pin/review Anatomy skill and build curated token-bucket figure; M5-02 pure model with invariant tests; M5-03 reviewed manifest/asset build pipeline; M5-04 accessible web viewer+Expo fallback; M5-05 schema-allowlisted agent interactions. Gate: deterministic simulation, visual regression, source accuracy, performance/accessibility and manual scene review.
+
+## Milestone M6 — Beta, commercial signal and collaboration (P1/P2)
+
+M6-01 security/threat/model reviews and restore drill; M6-02 staged load tests and alerts; M6-03 usability and A/B baseline vs existing learning workflow; M6-04 privacy and content policy audit; M6-05 creator/sharing experiment only after demand. Gate: beta quality score, operating cost, retention and independent learning signals. Defer payments and realtime collaboration until explicit demand.
+
+## Ticket template (copy per change)
+
+```markdown
+### TICKET: <id> — <title>
+
+**Preconditions:** <passed gates>
+**Scope:** <smallest deliverable> **Out of scope:** <explicit>
+**Requirements:** FR-/NFR-/INV- IDs
+**Tests written first:** <paths and expected failures>
+**Implementation:** <paths/boundaries>
+**Acceptance:** <observable, reproducible checks>
+**Security/privacy:** <negative scenarios>
+**Metrics:** <latency/cost/eval expected evidence>
+**Rollback:** <feature flag/migration/reversion>
+**Actual results:** <record during work; not prefilled>
+```
+
+## Learning-through-building track
+
+M0 cloud-native runtime and contracts; M1 recommendation system and product instrumentation; M2 agent harness, retrieval, tracing and evaluation; M3 memory and adaptive feedback; M4 API connector and OAuth; M5 deterministic simulations and visualization; M6 distributed reliability/cost. Maintain engineering notes and tradeoff explanations for portfolio.
+````

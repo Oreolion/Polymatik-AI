@@ -19,6 +19,14 @@ export function emptyCollectionContext(): CollectionContext {
   };
 }
 
+/** Reset only the active view; saves and session dismissals are separate choices. */
+export function resetCollectionFilters(
+  context: CollectionContext,
+  view: CollectionView,
+): CollectionContext {
+  return { ...context, [view]: { topic: 'All subjects', query: '' } };
+}
+
 /** Optional per-tab context; never use localStorage or send search terms upstream. */
 export function readCollectionContext(
   store: Pick<Storage, 'getItem'>,
