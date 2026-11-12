@@ -1,5 +1,5 @@
 // Generated from openapi/v1.json by openapi-typescript. Do not edit.
-// Schema SHA-256: e0a0e5657c1dfefa1a222bf04becee21e3690bb7f090eccc038fc735ad989595
+// Schema SHA-256: 8176551079b23117fd8a3433eac5d006194d15515dc414c2df07925b7d9b47cd
 export interface paths {
   '/v1/health': {
     parameters: {

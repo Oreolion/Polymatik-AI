@@ -683,23 +683,15 @@
       "Health": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "status",
-          "service",
-          "version"
-        ],
+        "required": ["status", "service", "version"],
         "properties": {
           "status": {
             "type": "string",
-            "enum": [
-              "ok"
-            ]
+            "enum": ["ok"]
           },
           "service": {
             "type": "string",
-            "enum": [
-              "polymatik-api"
-            ]
+            "enum": ["polymatik-api"]
           },
           "version": {
             "type": "string",
@@ -710,9 +702,7 @@
       "Me": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "user_id"
-        ],
+        "required": ["user_id"],
         "properties": {
           "user_id": {
             "type": "string",
@@ -724,19 +714,12 @@
       "ApiError": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "error"
-        ],
+        "required": ["error"],
         "properties": {
           "error": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "code",
-              "message",
-              "request_id",
-              "retryable"
-            ],
+            "required": ["code", "message", "request_id", "retryable"],
             "properties": {
               "code": {
                 "type": "string",
@@ -794,20 +777,11 @@
           },
           "kind": {
             "type": "string",
-            "enum": [
-              "Chapter",
-              "Interactive",
-              "Article",
-              "Course"
-            ]
+            "enum": ["Chapter", "Interactive", "Article", "Course"]
           },
           "topic": {
             "type": "string",
-            "enum": [
-              "Physics",
-              "Mathematics",
-              "Computing"
-            ]
+            "enum": ["Physics", "Mathematics", "Computing"]
           },
           "url": {
             "type": "string",
@@ -830,9 +804,7 @@
       "ResourceList": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "items"
-        ],
+        "required": ["items"],
         "properties": {
           "items": {
             "type": "array",

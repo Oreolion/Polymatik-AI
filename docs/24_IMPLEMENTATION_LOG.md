@@ -1,5 +1,19 @@
 # 24 — Implementation Status and Evidence Ledger
 
+### 2026-11-12 — fix first preview CI formatting failure
+
+Owner reports GitHub Actions run #5 fails at pnpm lint on commit accc03c.
+Agent reproduces the Prettier warning for openapi/v1.json, formats that file
+with pinned Prettier, then runs scripts/generate-api.mjs. Generated API types
+change only their schema SHA-256 comment; parsed contract behavior is unchanged.
+Node 24.22.1: the full repository ESLint and exact Prettier lint commands pass
+("All matched files use Prettier code style!"); generate-api.mjs --check passes
+("OpenAPI generation is current."); API/client contracts pass 17/17, no skips.
+git diff --check passes. No dependency, workflow, runtime, database or provider
+change. No new tests for this formatting-only repair. Owner must commit/push
+the three-file fix from the normal terminal; Git metadata remains read-only
+here. Full remote CI and hosted preview are still unverified.
+
 ### 2026-11-12 — owner confirms GitHub preview secrets
 
 Owner reports both repository secrets configured. Agent reruns Node 24.22.1
