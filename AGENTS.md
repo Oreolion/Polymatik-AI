@@ -205,8 +205,14 @@ ordinary questions require neither a full suite nor a checkpoint rewrite.
   repository secrets set. Agent foundation/web configuration checks pass 30/30;
   gh secret-name listing remains network-blocked. No values read or deployment
   verified.
-- **Next:** owner commits/pushes the source checkpoint using
-  normal Git. Verify the first development deployment and live browser flows.
+- **Hosted preview, 12 November:** GitHub run #6 for a69e1e6 passes both OS checks
+  and API/web deployment steps. Initial smoke fails without endpoint details;
+  owner later runs the improved helper and all six hosted checks pass. Cause of
+  the first failure remains unknown. New privacy-safe diagnostic tests are red
+  before implementation, then foundation/config 33/33, root tsc and full lint
+  pass. No retry, relaxed check, provider or DB change. Exact versions: docs/24.
+- **Next:** owner commits/pushes smoke diagnostics using normal Git, then checks
+  the next Actions run and hosted Google/Profile/logout and collection controls.
   No further
   plan or subdomain setup is needed.
   New collection-controls rendered acceptance remains pending.

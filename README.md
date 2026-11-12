@@ -9,7 +9,7 @@ attribution, warm reading surfaces, and accessible light and dark appearances.
 
 ## Project status
 
-This is an actively developed local preview.
+This is an actively developed preview, available locally and on Cloudflare.
 
 - **Web:** API-backed Discover and resource details, Search, subject filters,
   browser-local Library saves, dismiss/Undo, and a sun/moon appearance toggle.
@@ -34,21 +34,17 @@ HTTP 200. The owner confirms local Discover/details, saves/reload and themes wor
 [docs/41](docs/41_PERSISTENT_CATALOG.md). Discover and Profile
 include a further typography/control-spacing polish, with browser review open.
 
-Cloudflare Free is the selected next hosting target. Collection recovery now
+The [Cloudflare development preview](https://polymatik-web-preview.remyoreo11.workers.dev)
+is deployed from master. Collection recovery now
 separates clearing filters from restoring set-aside items; these new controls
 await a browser check. See the [preview deployment guide](docs/42_CLOUDFLARE_DEPLOYMENT.md)
-for account setup, real binding/auth-origin requirements and remaining release
-gates. Nothing has been deployed by this preparation.
-
-The owner has created a development Hyperdrive configuration and completed
-`pnpm build:preview:check` successfully. A preview cookie secret is prepared
-privately on this checkout. Hosted auth configuration, full binding-settings
-review and Cloudflare runtime verification remain open; nothing is deployed.
-
-The owner confirms the preview trusted origin and disabled caching are set.
-The GitHub workflow now prepares automatic Cloudflare development-preview
-deployment after checks pass on master. Configure its two repository secrets
-using [docs/42](docs/42_CLOUDFLARE_DEPLOYMENT.md). No Vercel project is connected.
+for setup and verification. On 12 November, Windows/Linux CI and both deployment
+steps passed for a69e1e6; the initial smoke step failed without a useful diagnostic.
+The owner's later direct smoke run passed all six hosted checks: health,
+catalog, home, detail and unsigned denial on both account boundaries. The initial
+failure's cause remains unknown. Hosted Google sign-in, profile/logout, rendered
+controls and free-plan CPU behavior still need verification. GitHub deployment
+secrets are configured; no Vercel project is connected.
 
 ## Technology
 

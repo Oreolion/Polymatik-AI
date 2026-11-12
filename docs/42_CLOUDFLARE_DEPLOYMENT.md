@@ -4,9 +4,12 @@ Owner selected Cloudflare Free on 11 November 2026. Preserve the existing
 vinext/Workers web, API Worker, Hyperdrive and Neon-managed Auth/PostgreSQL.
 Mobile and the Python/AI service are outside this first hosted preview.
 Owner reports creating Hyperdrive 3066575a186a42bcbb1ce0b6e6775408 on 12 November.
-Its live settings await independent/read-only verification. No app deployment or
-Git push has run.
-This is a preparation guide, not a release audit or readiness approval.
+Its full live settings await independent/read-only verification. Master commit
+a69e1e6 deployed both development Workers in Actions run #6. Both checks matrix
+jobs passed. The initial smoke step failed; the owner's subsequent direct run
+passes all six checks. The initial failure's cause remains unknown. Hosted Google
+sign-in, rendered UI and CPU fit remain open. This guide is not a production
+release audit or readiness approval; older setup notes below describe preparation.
 
 ## What already works
 
@@ -34,18 +37,22 @@ If the actual SSR/auth candidate consistently exceeds CPU/other free limits,
 stop and report the measured result. Do not upgrade a plan or silently change
 the architecture. A small catalog does not prove SSR fits the CPU budget.
 
-## Next owner action: configure GitHub deployment secrets
+## GitHub secrets and next verification
 
-**12 November update:** owner confirms both GitHub repository secrets are set.
-Agent rechecks foundation/web configuration tests: 30/30 pass on Node 24.22.1.
-Secret-name verification through gh remains network-blocked; values were not
-read. Next action is the normal-terminal checkpoint commit and master push,
-then inspection of that commit's Actions run and hosted preview. No deployment
-has been verified yet.
+**12 November update:** both repository secrets were accepted by Actions.
+API and web deploy steps succeeded. The improved smoke helper now emits fixed
+check labels, phase, status, elapsed time and allowlisted network reasons without
+printing bodies, URLs from errors or credentials. It retains the same six checks,
+15-second deadlines and response budgets; no retries or bypasses were introduced.
+Owner ran it against the hosted preview and reports all six passed. Next: commit
+the diagnostic change, inspect the next run, then verify hosted Google sign-in,
+profile/logout and collection controls in the browser. See docs/24 for exact
+commit/version IDs and evidence limits.
 
 Owner confirms the requested development trusted-origin setup and disabled
 Hyperdrive query caching are done. This is owner acceptance, not independent
-provider verification. Secret is prepared locally and has not been uploaded.
+provider verification. The workflow supplied the cookie binding during the first
+successful web deployment step; the secret value has not been printed or read.
 
 **Owner correction:** no Vercel project is connected to Polymatik. The prior
 disconnect instruction was based on a misread comment and is withdrawn. Owner

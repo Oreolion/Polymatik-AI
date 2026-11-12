@@ -1,5 +1,41 @@
 # 24 — Implementation Status and Evidence Ledger
 
+### 2026-11-12 — first Cloudflare preview deployed; improve smoke failure diagnostics
+
+Agent reads [run #6](https://github.com/Oreolion/Polymatik-AI/actions/runs/43280482951)
+through the GitHub connector: master a69e1e65a01eebb5bd2e1a8c5a4d3de717125512,
+Windows/Linux checks both successful, including types/tests/builds and Python
+checks/evaluation. API and web deployment steps succeeded. Deployment job
+131402100681 fails only at its smoke step about 200 ms after starting; old
+output has no route/status/cause. Logs bind API version
+a103830c-8c12-46a7-8d61-d8ba230cea67 and web version
+84aa6aaf-9679-4317-b5bb-ddb5e9405c79 to this run. No production target used.
+
+Small follow-up: scripts/smoke-cloudflare-preview.mjs reports fixed check labels,
+headers/body/validation phase, expected/actual status, elapsed time and allowlisted
+reason codes. No raw errors/URLs, response bodies or credentials. Same six
+checks, response bounds and 15-second deadline; no retries or assertion bypasses.
+New tests in tests/foundation/preview-workflow.test.mjs initially fail 3/3, then
+pass; final foundation/web-config suite 33/33, root tsc, full repository ESLint
+and exact Prettier command pass on Node 24.22.1. git diff --check passes.
+
+Owner's direct hosted smoke run now passes health 200 (2284 ms), catalog 200
+(1080 ms), home 200 (833 ms), detail 200 (289 ms), API unsigned 401 (229 ms),
+web unsigned 401 (249 ms). This confirms current hosted read behavior from the
+owner's terminal; it does not prove the initial failure's cause or independently
+attest which Worker version served each response. Agent outbound fetch fails
+EACCES; Cloudflare connector requires reconnect. A separate text fetch reaches
+web recovery HTML while API fetch fails, so it does not replace the owner's
+later six-check result. No browser screenshot or Google/Profile/logout acceptance
+captured. Startup-time logs are not invocation CPU measurements.
+
+README, AGENTS and docs/42 reconciled. Owner's unrelated docs/prompt.md edit
+is preserved and excluded from this fix. No dependency, app/auth/SQL/provider
+change; no AI behavior/evaluation delta. Rollback this diagnostic helper/test
+change without altering deployment secrets or data. Next: owner commit/push
+the diagnostic-only source change, inspect the next run, verify hosted browser
+journeys and CPU fit. Git metadata remains read-only; no agent push/deploy ran.
+
 ### 2026-11-12 — fix first preview CI formatting failure
 
 Owner reports GitHub Actions run #5 fails at pnpm lint on commit accc03c.

@@ -105,3 +105,80 @@ test('preview smoke fails on catalog corruption, redirects, oversized HTML or un
   ])
     await assert.rejects(smokePreview(previewTransport(overrides).transport));
 });
+
+test('preview diagnostics identify HTTP failures without exposing response contents', async () => {
+  /** @type {import('../../scripts/smoke-cloudflare-preview.mjs').PreviewSmokeDiagnostic[]} */
+  const diagnostics = [];
+  const f = previewTransport({
+    '/v1/resources': () =>
+      new Response('private-response-sentinel', { status: 503 }),
+  });
+  await assert.rejects(
+    smokePreview(f.transport, (event) => diagnostics.push(event)),
+    /api-catalog: headers; expected 200, received 503/,
+  );
+  assert.deepEqual(f.paths, ['/v1/health', '/v1/resources']);
+  assert.ok(diagnostics[0]);
+  assert.ok(diagnostics[1]);
+  assert.equal(diagnostics[0].outcome, 'passed');
+  assert.equal(diagnostics[1].check, 'api-catalog');
+  assert.equal(diagnostics[1].status, 503);
+  assert.equal(diagnostics[1].reason, 'HTTP_STATUS');
+  assert.doesNotMatch(JSON.stringify(diagnostics), /private-response-sentinel/);
+});
+
+test('preview diagnostics allowlist network codes and never log raw errors or URLs', async () => {
+  for (const code of ['ENOTFOUND', 'private-error-code']) {
+    /** @type {import('../../scripts/smoke-cloudflare-preview.mjs').PreviewSmokeDiagnostic[]} */
+    const diagnostics = [];
+    const transport = async () => {
+      throw Object.assign(new Error('private-message-sentinel'), {
+        cause: { code, message: 'https://private.example/?token=sentinel' },
+      });
+    };
+    await assert.rejects(
+      smokePreview(transport, (event) => diagnostics.push(event)),
+      /api-health: headers/,
+    );
+    assert.equal(diagnostics.length, 1);
+    assert.ok(diagnostics[0]);
+    assert.equal(
+      diagnostics[0].reason,
+      code === 'ENOTFOUND' ? code : 'NETWORK_ERROR',
+    );
+    assert.doesNotMatch(
+      JSON.stringify(diagnostics),
+      /private-|token=|sentinel/,
+    );
+  }
+});
+
+test('preview diagnostics distinguish body limits and invalid successful responses', async () => {
+  /** @type {[() => Response, string, string][]} */
+  const cases = [
+    [() => new Response('x'.repeat(4097)), 'body', 'RESPONSE_TOO_LARGE'],
+    [
+      () => new Response('private-invalid-json'),
+      'validation',
+      'INVALID_RESPONSE',
+    ],
+    [
+      () => Response.json({ status: 'wrong' }),
+      'validation',
+      'INVALID_RESPONSE',
+    ],
+  ];
+  for (const [override, phase, reason] of cases) {
+    /** @type {import('../../scripts/smoke-cloudflare-preview.mjs').PreviewSmokeDiagnostic[]} */
+    const diagnostics = [];
+    const f = previewTransport({ '/v1/health': override });
+    await assert.rejects(
+      smokePreview(f.transport, (event) => diagnostics.push(event)),
+    );
+    assert.ok(diagnostics[0]);
+    assert.equal(diagnostics[0].phase, phase);
+    assert.equal(diagnostics[0].reason, reason);
+    assert.equal(diagnostics[0].status, 200);
+    assert.doesNotMatch(JSON.stringify(diagnostics), /private-invalid-json/);
+  }
+});
