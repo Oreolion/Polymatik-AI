@@ -1,9 +1,9 @@
 import { env } from 'cloudflare:workers';
 import { notFound } from 'next/navigation';
 import DiscoverClient from '../../discover-client';
-import { loadResourceDetail } from '../../../src/resource-detail';
+import { requestResourceDetail } from '../../../src/resource-request';
 import { returnView } from '../../../src/resource-navigation';
-import { getResource } from '@polymatik/domain-types/discovery-preview';
+import { configuredProductApi } from '../../../src/product-api';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,8 +12,10 @@ export async function generateMetadata({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const resource = getResource((await params).id);
-  return { title: `${resource?.title ?? 'Resource'} — Polymatik AI` };
+  const result = await requestResourceDetail((await params).id);
+  return {
+    title: `${result.status === 'ready' ? result.resource.title : 'Resource'} — Polymatik AI`,
+  };
 }
 
 export default async function ResourcePage({
@@ -25,12 +27,8 @@ export default async function ResourcePage({
 }) {
   const { id } = await params;
   const from = returnView((await searchParams).from);
-  const config = env as typeof env & { PRODUCT_API_ORIGIN?: string };
-  const result = await loadResourceDetail(id, {
-    ...(config.PRODUCT_API_ORIGIN
-      ? { apiOrigin: config.PRODUCT_API_ORIGIN }
-      : {}),
-  });
+  const options = configuredProductApi(env);
+  const result = await requestResourceDetail(id);
   if (result.status === 'not-found') notFound();
   if (result.status === 'unavailable')
     return (
@@ -42,5 +40,11 @@ export default async function ResourcePage({
         returnTo={from}
       />
     );
-  return <DiscoverClient resource={result.resource} returnTo={from} />;
+  return (
+    <DiscoverClient
+      resource={result.resource}
+      returnTo={from}
+      expandedCatalog={options.catalogVersion === 'v2'}
+    />
+  );
 }

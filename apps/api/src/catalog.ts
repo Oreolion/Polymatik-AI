@@ -7,7 +7,7 @@ export type CatalogRepository = {
 };
 export type CatalogQuery = (
   sql: string,
-  values: string[],
+  values: (string | number | null)[],
 ) => Promise<{ rows: unknown[] }>;
 const columns =
   'id,title,source,publisher,kind,topic,canonical_url AS url,description,note';
@@ -48,9 +48,17 @@ export function workerCatalog(
   env: object,
   ctx: { waitUntil(promise: Promise<unknown>): void },
 ): CatalogRepository | undefined {
+  const query = workerCatalogQuery(env, ctx);
+  return query ? postgresCatalog(query) : undefined;
+}
+
+export function workerCatalogQuery(
+  env: object,
+  ctx: { waitUntil(promise: Promise<unknown>): void },
+): CatalogQuery | undefined {
   const mode: unknown = Reflect.get(env, 'CATALOG_BACKEND') ?? 'preview';
   if (mode === 'preview') return undefined;
-  return postgresCatalog(async (sql, values) => {
+  return async (sql, values) => {
     if (mode !== 'postgres') throw new Error('Unknown catalog backend.');
     const binding: unknown = Reflect.get(env, 'HYPERDRIVE');
     const connection: unknown =
@@ -78,5 +86,5 @@ export function workerCatalog(
           ),
       );
     }
-  });
+  };
 }

@@ -2,6 +2,101 @@
 
 ## Architecture style
 
+**Public web catalog boundary, 14 November 2026:** Ticket 4a uses an explicit
+server catalog version (default v1), not schema detection or a browser-selected
+upstream. The v2 client renders authoritative five-entry pages, seven subjects
+and canonical details. Same-origin public read handlers retain the 64 KiB budget
+and never forward session credentials. Each device Library resolves its saved
+IDs independently with two concurrent reads and explicit unresolved states;
+aliases retain original removal IDs. Page changes cancel obsolete reads.
+Only approved same-origin cover keys reach image elements; no staging bytes are
+served. Existing account Library/interests contracts remain a separate Ticket 4b
+compatibility gate before publication. Preview/Hyperdrive settings are unchanged.
+Local fixtures establish client/runtime behavior, not live expanded SQL or hosted
+delivery. Setup, tests and rollback: docs/45 and docs/24.
+
+**Catalog API compatibility, 14 November 2026:** owner-run schema rehearsal now
+passes on isolated br-muddy-bar-zayn69jl / ep-muddy-brook-za10nkn1 only. Parent
+and private state are preserved; preview/production remain on their old schema.
+Use new /v2/resources for the expanded public domain and bounded keyset pages;
+retain strict /v1 response shapes while clients migrate. Seven subjects/six
+kinds and approved-public cover/alias projections are separate from private
+editorial evidence. Five-item pages and decoded 64 KiB limits bound memory.
+Parameterized filters and every continuation recheck publication; cursors confer
+no authority or cross-request snapshot. The owner's actual restricted-login
+read-only API SQL probe passes on the accepted child; standard Wrangler API tests
+pass 5/5 and packaging dry run passes. This verifies current-four direct SQL and
+unconfigured-storage Worker behavior separately, not deployed Hyperdrive or new
+published data. Preview configuration is unchanged. See docs/45.
+
+**Authorized catalog rehearsal, 14 November 2026:** the explicit owner-run
+`catalog-rehearsal.mjs --run` entry point binds the new non-default
+`dev-catalog-expansion` data clone to its approved parent and direct compute
+before migration 0003. Parent access is read-only; complete bounded private-row
+fingerprints must match before/after. Separate owner and actual application
+logins test schema constraints and tenant isolation, with probe fixtures rolled
+back. Credentials stay in memory; existing environment/Hyperdrive configuration
+is not repointed. Creation uses the plan's default compute settings, not a custom
+suspend interval. Failure retains the branch and any committed ledger; never
+reset a branch to repair acceptance. Agent CLI credential access failed with
+EPERM, so live execution is still pending. Mock tests are not database evidence.
+No import, cover upload, deployment or API change is included. See docs/45.
+
+**Catalog schema preparation, 14 November 2026:** additive migration 0003 is
+prepared, not applied. Keep current publication columns so old explicit-column
+API queries remain compatible, but default new rows to hidden/draft. Approved
+cover selection uses normal plus composite foreign keys with a generated public
+approval requirement; cross-table approval must not be hidden in a CHECK lookup.
+Historical four entries may keep their existing cover-free fallback. Editorial
+evidence and art-review internals use private operator tables; the request role
+reads only explicit approved-public art/alias projections. Interest taxonomy
+widens while preserving the maximum three selections and existing RLS. An
+ordered registry validates historical checksums and applies only the reviewed
+next version in a transaction; legacy setup/startup never applies new versions
+implicitly. No SQL was executed; isolated-branch migration, grants and real
+two-user acceptance remain open. Design/rollback and references: docs/45.
+
+**Catalog staging boundary, 14 November 2026:** imported research and cover
+files are untrusted editorial inputs, not runtime seeds, publication approvals
+or migrations. Ticket 1 uses a zero-write local validator/proposal with portable
+real-path containment, checksums and strict reconciliation. It preserves the four
+existing identities and proposes 56 hidden drafts; scores and provenance remain
+editorial. Covers are all pending review. No database/network/environment access
+is part of staging validation. Migration 0002 is already allocated to interests;
+later catalog expansion needs a new version and must align private Library and
+interest constraints with the expanded taxonomy. Existing auth/RLS/Hyperdrive and
+public API behavior remain unchanged. Scope and limits: docs/45.
+
+**Optional subject interests, 14 November 2026:** the next Profile slice stores
+explicit account choices separately from saves and learning records. GET/PUT/
+DELETE use the same managed-session/BFF/Hyperdrive trust boundary with dedicated
+interests scopes and an expected-account precondition. Each SQL operation owns
+one transaction and transaction-local subject; additive user_interests RLS joins
+the existing private users policy. Database checks mirror the strict finite
+taxonomy and selected/skipped states; absent rows mean not_started. No interest
+is inferred from browsing, and choices do not change ranking/mastery. Migration
+0002 and only its table grants were separately approved and applied by the owner
+on 14 November. The real restricted-login save/edit/skip/reset, two-user read,
+cross-user write denial and unsigned denial probe passes with fixture rollback.
+No auto-migration or provider/Auth configuration change. Rendered and deployed
+acceptance remain open: docs/44.
+
+**Account Library implementation, 13 November 2026:** browser writes use the
+same-origin BFF, which forwards only the opaque managed token. The product API
+revalidates identity and library scope for every operation, and checks exact
+mutation origin. An optional expected-account header is a precondition, never
+identity: a changed session returns 409. One request-scoped pg client owns the
+entire transaction, with set_config('polymatik.auth_subject', subject, true),
+explicit subject predicates, and COMMIT/ROLLBACK. Never split these statements
+across pool.query calls or retain session identity across requests. Profile
+keeps private account saves distinct from browser-local originals. The existing
+development role received the separately approved DELETE grant on saved_items
+in the owner's terminal on 13 November; no automatic grant or managed Auth
+schema change is part of runtime. The owner's real restricted-login probe passed
+idempotence, own removal, two-user isolation, cross-user delete denial and unsigned
+denial, with all fixture writes rolled back. UI and deployed Hyperdrive acceptance
+remain open (docs/43).
+
 **Client state lesson (10 November 2026):** the Neon client is a callable Proxy.
 When storing it in React state after the browser-only import, use a value-returning
 updater (`setClient(() => authClient)`). Passing it directly invokes an unintended

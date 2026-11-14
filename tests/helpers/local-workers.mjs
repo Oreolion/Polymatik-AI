@@ -89,8 +89,8 @@ export async function startApiWorker(options = {}) {
   });
 }
 
-/** @param {string} apiOrigin */
-export async function startWebWorker(apiOrigin) {
+/** @param {string} apiOrigin @param {Record<string,string>} [bindings] */
+export async function startWebWorker(apiOrigin, bindings = {}) {
   const origin = loopbackOrigin(apiOrigin);
   const server = new URL('apps/web/dist/server/', root);
   const config = JSON.parse(
@@ -114,7 +114,7 @@ export async function startWebWorker(apiOrigin) {
     modulesRoot: fileURLToPath(server),
     compatibilityDate: config.compatibility_date,
     compatibilityFlags: config.compatibility_flags ?? [],
-    bindings: { ...config.vars, PRODUCT_API_ORIGIN: origin },
+    bindings: { ...config.vars, PRODUCT_API_ORIGIN: origin, ...bindings },
     assets: {
       directory: fileURLToPath(new URL('../client/', server)),
       binding: 'ASSETS',

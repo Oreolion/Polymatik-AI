@@ -46,6 +46,37 @@ matching tests/manifests/lockfile. Preserve web device saves and existing data.
 
 ## Current verification
 
+### Current installed-link regression — 14 November 2026
+
+Owner's normal-terminal toolchain test fails 0/1 at the same supportsColor check
+seen by the agent during UI-06/UI-07. Current read-only inspection establishes:
+supports-hyperlinks 2.3.0 declares supports-color ^7.0.0; the lockfile snapshot
+correctly selects 7.2.0; its package files are present, but the sibling dependency
+path is absent (ENOENT). Node instead resolves hoisted 10.2.2, whose loaded API
+has no supportsColor function. Installed metadata names pnpm 10.34.2; the exact
+cached CLI also reports 10.34.2. This is an installed-layout failure, not evidence
+that the source lockfile requires a version change. The cause of link loss is
+still unproven. Historical passes below do not certify the current installation.
+
+Repair must use the pinned package manager, with project dev/Expo servers and
+other installers stopped. Start with a normal frozen offline install; do not
+manually create links, patch vendor code, remove the lockfile or override every
+supports-color version. The existing real terminal import remains the check.
+No dependency mutation or successful repair is claimed in this diagnostic entry.
+Subsequent repair: owner confirms all project servers/installers stopped. The
+agent's default store resolves to project .pnpm-store/v10, unlike the recorded
+user store. The first normal install aborts before a noninteractive modules
+rebuild; selecting the recorded store root avoids that mismatch. Normal frozen
+offline scoped install completes in 12.1s but leaves the regression failing.
+One forced frozen offline scoped reinstall is then started with pnpm 10.34.2,
+the existing user store and scripts disabled: 950 packages reused, zero downloaded.
+Completion and post-install checks are recorded in docs/24, not inferred from
+partial progress. Store selection explains this attempt's rebuild prompt, not
+the original link disappearance. No global config or source version is changed.
+API packaging still needs the separate normal-terminal result before the milestone
+push. The owner has authorized the checkpoint push after validation; this failure
+does not turn a historical CI pass into current acceptance.
+
 ### Owner export and iPhone confirmation — 25 October 2026
 
 This entry supersedes the recovery instructions below. The owner completed a

@@ -26,3 +26,12 @@ node_modules/
 apps/web/src/worker-env.d.ts
 apps/api/src/worker-env.d.ts
 apps/web/next-env.d.ts
+# Immutable external staging inputs: formatting would invalidate SHA256SUMS.txt.
+# Repository-owned importer/validator and tests remain checked normally.
+assets/POLYMATIK_CATALOG_INTEGRATION_AGENT_HANDOFF.md
+assets/README_IMPORT.md
+assets/catalog_staging.json
+assets/asset_manifest.json
+assets/id_aliases.json
+assets/assets/covers/
+assets/scripts/validate_import_package.mjs

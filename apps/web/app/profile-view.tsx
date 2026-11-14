@@ -3,6 +3,8 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { profileName } from '@polymatik/domain-types/profile';
 import type { authClient as managedClient } from '../src/auth-client';
+import AccountLibrary from './account-library';
+import AccountInterests from './account-interests';
 
 type Appearance = 'system' | 'light' | 'dark';
 
@@ -10,6 +12,7 @@ type ProfileProps = {
   theme: Appearance;
   onThemeChange: (theme: Appearance) => void;
   savedCount: number;
+  savedIds: readonly string[];
   storageReady: boolean;
 };
 type AuthClient = typeof managedClient;
@@ -57,6 +60,7 @@ function ProfileContent({
   theme,
   onThemeChange,
   savedCount,
+  savedIds,
   storageReady,
   client: authClient,
   sessionState,
@@ -269,11 +273,27 @@ function ProfileContent({
               {notice}
             </p>
           </section>
+          {user && !isPending && (
+            <AccountLibrary
+              key={user.id}
+              accountId={user.id}
+              deviceIds={savedIds}
+              storageReady={storageReady}
+              disabled={Boolean(busy)}
+            />
+          )}
+          {user && !isPending && (
+            <AccountInterests
+              key={`interests:${user.id}`}
+              accountId={user.id}
+              disabled={Boolean(busy)}
+            />
+          )}
           <section
             className="profile-section"
             aria-labelledby="profile-appearance-title"
           >
-            <p className="eyebrow">02 / YOUR READING SPACE</p>
+            <p className="eyebrow">04 / YOUR READING SPACE</p>
             <h2 id="profile-appearance-title">Set the mood.</h2>
             <p>Choose an appearance, or follow your device.</p>
             <fieldset className="profile-appearance">
@@ -317,8 +337,9 @@ function ProfileContent({
             Open device Library <span aria-hidden="true">↗</span>
           </a>
           <p className="profile-caption">
-            Device saves are not synced to your account and remain visible to
-            anyone using this browser profile, including after sign-out.
+            Device saves are not synced to your account automatically and remain
+            visible to anyone using this browser profile, including after
+            sign-out.
           </p>
         </aside>
       </div>

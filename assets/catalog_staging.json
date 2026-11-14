@@ -1,0 +1,2141 @@
+{
+  "schema_version": "catalog-staging-v1",
+  "disclaimer": "STAGING ONLY: not compatible with current nine-field API or migration 0001; review all research and artwork, do not auto-publish.",
+  "items": [
+    {
+      "id": "atoms",
+      "title": "Atoms in Motion",
+      "source": "The Feynman Lectures on Physics",
+      "publisher": "Caltech",
+      "kind": "Chapter",
+      "topic": "Physics",
+      "url": "https://www.feynmanlectures.caltech.edu/I_01.html",
+      "description": "Start with the smallest things. A classic introduction to the atomic picture of matter, motion, and the practice of asking better questions.",
+      "note": "Volume I · Chapter 1",
+      "source_runs": [
+        "preview"
+      ],
+      "source_ids": {
+        "preview": "atoms"
+      },
+      "status": "existing_reviewed",
+      "rights_status": "needs_recheck",
+      "observed_format": "Chapter",
+      "difficulty": null,
+      "secondary_subjects": [],
+      "quality_score": null,
+      "public_status": "currently_public_preview",
+      "cover": {
+        "asset_path": "assets/covers/atoms/cover-v1.webp",
+        "master_path": "assets/covers/atoms/cover-v1.png",
+        "storage_key": "resource-covers/atoms/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Copper and teal particles moving along curved paths and meeting at an illuminated collision."
+      }
+    },
+    {
+      "id": "theory",
+      "title": "Seeing Theory",
+      "source": "Seeing Theory",
+      "publisher": "Brown University",
+      "kind": "Interactive",
+      "topic": "Mathematics",
+      "url": "https://seeing-theory.brown.edu/",
+      "description": "Make probability a little less abstract. Explore chance, distributions, and inference through interactive visual explanations.",
+      "note": "Archived resource",
+      "source_runs": [
+        "preview"
+      ],
+      "source_ids": {
+        "preview": "theory"
+      },
+      "status": "existing_reviewed",
+      "rights_status": "needs_recheck",
+      "observed_format": "Interactive",
+      "difficulty": null,
+      "secondary_subjects": [],
+      "quality_score": null,
+      "public_status": "currently_public_preview",
+      "cover": {
+        "asset_path": "assets/covers/theory/cover-v1.webp",
+        "master_path": "assets/covers/theory/cover-v1.svg",
+        "storage_key": "resource-covers/theory/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A histogram of colored bars with a superimposed probability distribution curve."
+      }
+    },
+    {
+      "id": "browser",
+      "title": "Populating the page: how browsers work",
+      "source": "MDN Web Docs",
+      "publisher": "MDN",
+      "kind": "Article",
+      "topic": "Computing",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work",
+      "description": "Follow a page from its network request through parsing, layout, and painting. Look beneath a familiar everyday interaction.",
+      "note": "Web platform",
+      "source_runs": [
+        "preview"
+      ],
+      "source_ids": {
+        "preview": "browser"
+      },
+      "status": "existing_reviewed",
+      "rights_status": "needs_recheck",
+      "observed_format": "Article",
+      "difficulty": null,
+      "secondary_subjects": [],
+      "quality_score": null,
+      "public_status": "currently_public_preview",
+      "cover": {
+        "asset_path": "assets/covers/browser/cover-v1.webp",
+        "master_path": "assets/covers/browser/cover-v1.svg",
+        "storage_key": "resource-covers/browser/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Three connected stages labeled HTTP, DOM and PAINT represent the browser rendering pipeline."
+      }
+    },
+    {
+      "id": "semester",
+      "title": "The Missing Semester of Your CS Education",
+      "source": "Missing Semester",
+      "publisher": "MIT",
+      "kind": "Course",
+      "topic": "Computing",
+      "url": "https://missing.csail.mit.edu/",
+      "description": "Get to know the tools behind the work: the shell, your development environment, version control, and debugging.",
+      "note": "Tools for thinking and building",
+      "source_runs": [
+        "preview"
+      ],
+      "source_ids": {
+        "preview": "semester"
+      },
+      "status": "existing_reviewed",
+      "rights_status": "needs_recheck",
+      "observed_format": "Course",
+      "difficulty": null,
+      "secondary_subjects": [],
+      "quality_score": null,
+      "public_status": "currently_public_preview",
+      "cover": {
+        "asset_path": "assets/covers/semester/cover-v1.webp",
+        "master_path": "assets/covers/semester/cover-v1.svg",
+        "storage_key": "resource-covers/semester/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A terminal window displaying a Git status command and a ready-to-build message."
+      }
+    },
+    {
+      "id": "p-work-energy",
+      "title": "Work-Energy Theorem",
+      "source": "University Physics Volume 1",
+      "publisher": "OpenStax",
+      "kind": "Chapter",
+      "topic": "Physics",
+      "url": "https://openstax.org/books/university-physics-volume-1/pages/7-3-work-energy-theorem",
+      "description": "Derive the work-energy relationship and use it to solve motion problems without calculating the complete trajectory.",
+      "note": "Volume 1, section 7.3; text inspected",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "p-work-energy"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "intermediate",
+      "secondary_subjects": [],
+      "quality_score": 93,
+      "observed_format": "Textbook chapter/section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/p-work-energy/cover-v1.webp",
+        "master_path": "assets/covers/p-work-energy/cover-v1.svg",
+        "storage_key": "resource-covers/p-work-energy/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A plotted energy curve with a moving block and a direction arrow."
+      }
+    },
+    {
+      "id": "p-equivalence",
+      "title": "The elevator, the rocket, and gravity: the equivalence principle",
+      "source": "Einstein Online",
+      "publisher": "Max Planck Institute for Gravitational Physics (Albert Einstein Institute)",
+      "kind": "Article",
+      "topic": "Physics",
+      "url": "https://www.einstein-online.info/en/spotlight/equivalence_principle/",
+      "description": "Use elevator and rocket thought experiments to understand free fall, weightlessness and the local limits of the equivalence principle.",
+      "note": "Einstein Online 01 (2005); local-equivalence limits",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "p-equivalence"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "foundational",
+      "secondary_subjects": [],
+      "quality_score": 92,
+      "observed_format": "Text article",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/p-equivalence/cover-v1.webp",
+        "master_path": "assets/covers/p-equivalence/cover-v1.svg",
+        "storage_key": "resource-covers/p-equivalence/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A person in an elevator beside a stylized rocket, comparing gravitational and accelerated motion."
+      }
+    },
+    {
+      "id": "p-thermodynamics",
+      "title": "The Laws of Thermodynamics",
+      "source": "The Feynman Lectures on Physics",
+      "publisher": "Caltech",
+      "kind": "Chapter",
+      "topic": "Physics",
+      "url": "https://www.feynmanlectures.caltech.edu/I_44.html",
+      "description": "Follow heat engines and reversible cycles to understand the first and second laws and the limits of converting heat into work.",
+      "note": "Volume I, chapter 44; selected text sections",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "p-thermodynamics"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "advanced",
+      "secondary_subjects": [],
+      "quality_score": 94,
+      "observed_format": "Textbook chapter/section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/p-thermodynamics/cover-v1.webp",
+        "master_path": "assets/covers/p-thermodynamics/cover-v1.svg",
+        "storage_key": "resource-covers/p-thermodynamics/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Pressure-volume axes with two distinct thermodynamic process curves."
+      }
+    },
+    {
+      "id": "p-quantum",
+      "title": "Quantum Behavior",
+      "source": "The Feynman Lectures on Physics",
+      "publisher": "Caltech",
+      "kind": "Chapter",
+      "topic": "Physics",
+      "url": "https://www.feynmanlectures.caltech.edu/III_01.html",
+      "description": "Compare bullets, waves and electrons to see why quantum probabilities require adding amplitudes before squaring.",
+      "note": "Volume III, chapter 1; same content as I.37",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "p-quantum"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "intermediate",
+      "secondary_subjects": [],
+      "quality_score": 95,
+      "observed_format": "Textbook chapter/section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/p-quantum/cover-v1.webp",
+        "master_path": "assets/covers/p-quantum/cover-v1.svg",
+        "storage_key": "resource-covers/p-quantum/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Orbital wave paths and two narrow slits symbolize a quantum interference experiment."
+      }
+    },
+    {
+      "id": "p-doppler",
+      "title": "The Doppler Effect",
+      "source": "University Physics Volume 1",
+      "publisher": "OpenStax",
+      "kind": "Chapter",
+      "topic": "Physics",
+      "url": "https://openstax.org/books/university-physics-volume-1/pages/17-7-the-doppler-effect",
+      "description": "Explain changing pitch from moving sources and observers, then derive the corresponding sound-frequency shifts.",
+      "note": "Volume 1, section 17.7; classical sound waves",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "p-doppler"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "intermediate",
+      "secondary_subjects": [],
+      "quality_score": 91,
+      "observed_format": "Textbook chapter/section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/p-doppler/cover-v1.webp",
+        "master_path": "assets/covers/p-doppler/cover-v1.svg",
+        "storage_key": "resource-covers/p-doppler/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Wavefront rings packed toward the direction of a moving source."
+      }
+    },
+    {
+      "id": "m-nonlinear",
+      "title": "Applications of nonlinear systems",
+      "source": "Notes on Diffy Qs: Differential Equations for Engineers",
+      "publisher": "Jiří Lebl",
+      "kind": "Chapter",
+      "topic": "Mathematics",
+      "url": "https://www.jirka.org/diffyqs/html/nlinapps_section.html",
+      "description": "Use nonlinear differential equations to analyze a pendulum and a predator-prey system, with assumptions and limits made explicit.",
+      "note": "Section 8.3; idealized pendulum and predator-prey models",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "m-nonlinear"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "explicit_permission_verified",
+      "difficulty": "advanced",
+      "secondary_subjects": [
+        "Physics",
+        "Biology"
+      ],
+      "quality_score": 94,
+      "observed_format": "Textbook chapter/section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/m-nonlinear/cover-v1.webp",
+        "master_path": "assets/covers/m-nonlinear/cover-v1.svg",
+        "storage_key": "resource-covers/m-nonlinear/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A looped phase-space trajectory curves inward and outward around an equilibrium."
+      }
+    },
+    {
+      "id": "m-induction",
+      "title": "Induction",
+      "source": "Discrete Mathematics: An Open Introduction",
+      "publisher": "Oscar Levin",
+      "kind": "Chapter",
+      "topic": "Mathematics",
+      "url": "https://discrete.openmathbooks.org/dmoi3/sec_seq-induction.html",
+      "description": "Learn to build a proof from a base case and an inductive step, starting with a concrete postage problem.",
+      "note": "Third edition, section 2.5",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "m-induction"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "explicit_permission_verified",
+      "difficulty": "foundational",
+      "secondary_subjects": [],
+      "quality_score": 92,
+      "observed_format": "Textbook chapter/section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/m-induction/cover-v1.webp",
+        "master_path": "assets/covers/m-induction/cover-v1.svg",
+        "storage_key": "resource-covers/m-induction/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A rising sequence of domino-shaped blocks evokes the steps of mathematical induction."
+      }
+    },
+    {
+      "id": "m-generating",
+      "title": "Generating Functions",
+      "source": "Discrete Mathematics: An Open Introduction, 3rd edition, §5.1",
+      "publisher": "Oscar Levin",
+      "kind": "Chapter",
+      "topic": "Mathematics",
+      "url": "https://discrete.openmathbooks.org/dmoi3/sec_addtops-genfun.html",
+      "description": "Encodes sequences as coefficients of power series, then builds generating functions using geometric series, substitutions and scaling. Worked examples emphasize missing zero coefficients and indexing. The section suits learners comfortable with sequences and algebraic series.",
+      "note": "Third-edition textbook section; fourth edition exists but was not evaluated.",
+      "source_runs": [
+        "run_01",
+        "run_02"
+      ],
+      "source_ids": {
+        "run_01": "m-generating",
+        "run_02": "m-generating"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "explicit_permission_verified",
+      "difficulty": "advanced",
+      "secondary_subjects": [],
+      "quality_score": 87,
+      "observed_format": "Textbook section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/m-generating/cover-v1.webp",
+        "master_path": "assets/covers/m-generating/cover-v1.svg",
+        "storage_key": "resource-covers/m-generating/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A distribution of coefficient bars beneath a formal power-series expression."
+      }
+    },
+    {
+      "id": "m-probability",
+      "title": "Probability Theory 101",
+      "source": "Introduction to Theoretical Computer Science",
+      "publisher": "Boaz Barak",
+      "kind": "Chapter",
+      "topic": "Mathematics",
+      "url": "https://introtcs.org/public/lec_15_probability.html",
+      "description": "Build probability from finite coin-toss spaces, then reason about events, random variables, conditioning and independence.",
+      "note": "Author-hosted draft textbook chapter",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "m-probability"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "unknown",
+      "difficulty": "intermediate",
+      "secondary_subjects": [
+        "Computing"
+      ],
+      "quality_score": 92,
+      "observed_format": "Textbook chapter/section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/m-probability/cover-v1.webp",
+        "master_path": "assets/covers/m-probability/cover-v1.svg",
+        "storage_key": "resource-covers/m-probability/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A branching probability tree with conditional paths."
+      }
+    },
+    {
+      "id": "m-planar",
+      "title": "Planar Graphs",
+      "source": "Discrete Mathematics: An Open Introduction",
+      "publisher": "Oscar Levin",
+      "kind": "Chapter",
+      "topic": "Mathematics",
+      "url": "https://discrete.openmathbooks.org/dmoi3/sec_planar.html",
+      "description": "Distinguish graphs from their drawings and use Euler’s relation to understand why some graphs cannot be drawn without crossings.",
+      "note": "Third edition, section 4.3",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "m-planar"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "explicit_permission_verified",
+      "difficulty": "foundational",
+      "secondary_subjects": [],
+      "quality_score": 91,
+      "observed_format": "Textbook chapter/section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/m-planar/cover-v1.webp",
+        "master_path": "assets/covers/m-planar/cover-v1.svg",
+        "storage_key": "resource-covers/m-planar/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A connected planar graph drawn with nodes and noncrossing edges."
+      }
+    },
+    {
+      "id": "c-agents",
+      "title": "Building effective agents",
+      "source": "Anthropic Engineering",
+      "publisher": "Anthropic",
+      "kind": "Article",
+      "topic": "Computing",
+      "url": "https://www.anthropic.com/research/building-effective-agents",
+      "description": "Compare fixed LLM workflows with agents that choose actions from feedback, and learn when added orchestration is useful.",
+      "note": "Published 2024; page warns tooling has changed",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "c-agents"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "unknown",
+      "difficulty": "intermediate",
+      "secondary_subjects": [],
+      "quality_score": 89,
+      "observed_format": "Text article",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/c-agents/cover-v1.webp",
+        "master_path": "assets/covers/c-agents/cover-v1.svg",
+        "storage_key": "resource-covers/c-agents/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A model, tools and feedback nodes linked in a looping agent workflow."
+      }
+    },
+    {
+      "id": "c-overload",
+      "title": "Handling Overload",
+      "source": "Site Reliability Engineering",
+      "publisher": "Google",
+      "kind": "Chapter",
+      "topic": "Computing",
+      "url": "https://sre.google/sre-book/handling-overload/",
+      "description": "Understand why request rate alone can misstate capacity, and how services can degrade and limit work under overload.",
+      "note": "Online book, chapter 21; sampled text",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "c-overload"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "unknown",
+      "difficulty": "advanced",
+      "secondary_subjects": [],
+      "quality_score": 93,
+      "observed_format": "Textbook chapter/section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/c-overload/cover-v1.webp",
+        "master_path": "assets/covers/c-overload/cover-v1.svg",
+        "storage_key": "resource-covers/c-overload/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A service demand histogram rises above a dashed capacity limit."
+      }
+    },
+    {
+      "id": "c-retries",
+      "title": "Timeouts, retries, and backoff with jitter",
+      "source": "Amazon Builders’ Library / AWS Builder Center",
+      "publisher": "Amazon Web Services",
+      "kind": "Article",
+      "topic": "Computing",
+      "url": "https://builder.aws.com/content/3EumjoZascWd1oZiEgL8ORlv3qE/timeouts-retries-and-backoff-with-jitter",
+      "description": "Choose timeouts and retry policies while accounting for side effects, overload, exponential backoff and synchronized retry bursts.",
+      "note": "2019 article; original library URL now redirects",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "c-retries"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "advanced",
+      "secondary_subjects": [],
+      "quality_score": 90,
+      "observed_format": "Text article",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/c-retries/cover-v1.webp",
+        "master_path": "assets/covers/c-retries/cover-v1.svg",
+        "storage_key": "resource-covers/c-retries/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Call, retry and success stages linked by arrows beneath a backoff timing annotation."
+      }
+    },
+    {
+      "id": "c-microservices",
+      "title": "Microservices",
+      "source": "martinfowler.com",
+      "publisher": "Martin Fowler",
+      "kind": "Article",
+      "topic": "Computing",
+      "url": "https://martinfowler.com/articles/microservices.html",
+      "description": "Study the defining characteristics of microservice architecture and its links to team boundaries, ownership and operational tradeoffs.",
+      "note": "James Lewis and Martin Fowler, March 2014",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "c-microservices"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "unknown",
+      "difficulty": "intermediate",
+      "secondary_subjects": [
+        "Sociology"
+      ],
+      "quality_score": 92,
+      "observed_format": "Text article",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/c-microservices/cover-v1.webp",
+        "master_path": "assets/covers/c-microservices/cover-v1.svg",
+        "storage_key": "resource-covers/c-microservices/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Several service nodes connect through a central event channel."
+      }
+    },
+    {
+      "id": "c-async",
+      "title": "Asynchronous Programming",
+      "source": "Eloquent JavaScript",
+      "publisher": "Marijn Haverbeke",
+      "kind": "Chapter",
+      "topic": "Computing",
+      "url": "https://eloquentjavascript.net/11_async.html",
+      "description": "Build an understanding of callbacks, promises and async functions through code examples and asynchronous programming exercises.",
+      "note": "Fourth edition (2024), chapter 11; code not run",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "c-async"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "intermediate",
+      "secondary_subjects": [],
+      "quality_score": 92,
+      "observed_format": "Textbook chapter/section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/c-async/cover-v1.webp",
+        "master_path": "assets/covers/c-async/cover-v1.svg",
+        "storage_key": "resource-covers/c-async/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Task, wait and resume stages linked along an asynchronous execution timeline."
+      }
+    },
+    {
+      "id": "c-logical-clocks",
+      "title": "Time, Clocks, and the Ordering of Events in a Distributed System",
+      "source": "Communications of the ACM",
+      "publisher": "Association for Computing Machinery",
+      "kind": "Article",
+      "topic": "Computing",
+      "url": "https://lamport.azurewebsites.net/pubs/time-clocks.pdf",
+      "description": "Learn how message events define a partial order and how logical clocks can produce a consistent total ordering.",
+      "note": "Communications of the ACM, July 1978; PDF article",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "c-logical-clocks"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "advanced",
+      "secondary_subjects": [
+        "Mathematics"
+      ],
+      "quality_score": 95,
+      "observed_format": "Text article",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/c-logical-clocks/cover-v1.webp",
+        "master_path": "assets/covers/c-logical-clocks/cover-v1.svg",
+        "storage_key": "resource-covers/c-logical-clocks/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Multiple timelines with diagonal arrows showing the causal order of distributed events."
+      }
+    },
+    {
+      "id": "b-selection",
+      "title": "Natural Selection",
+      "source": "Understanding Evolution: Evolution 101",
+      "publisher": "UC Museum of Paleontology, University of California, Berkeley",
+      "kind": "Article",
+      "topic": "Biology",
+      "url": "https://evolution.berkeley.edu/evolution-101/mechanisms-the-processes-of-evolution/natural-selection/",
+      "description": "Follow a hypothetical beetle population to understand how variation, inheritance and differential reproduction produce natural selection.",
+      "note": "Evolution 101; reviewed/updated June 2020",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "b-selection"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "unknown",
+      "difficulty": "foundational",
+      "secondary_subjects": [],
+      "quality_score": 84,
+      "observed_format": "Text article",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/b-selection/cover-v1.webp",
+        "master_path": "assets/covers/b-selection/cover-v1.svg",
+        "storage_key": "resource-covers/b-selection/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "An evolutionary branching diagram indicates variation and selection in a population."
+      }
+    },
+    {
+      "id": "b-signaling",
+      "title": "Propagation of the Signal",
+      "source": "Biology 2e",
+      "publisher": "OpenStax",
+      "kind": "Chapter",
+      "topic": "Biology",
+      "url": "https://openstax.org/books/biology-2e/pages/9-2-propagation-of-the-signal",
+      "description": "Trace signaling from receptor activation through phosphorylation and second messengers to changes inside the cell.",
+      "note": "Second edition, section 9.2",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "b-signaling"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "intermediate",
+      "secondary_subjects": [],
+      "quality_score": 88,
+      "observed_format": "Textbook chapter/section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/b-signaling/cover-v1.webp",
+        "master_path": "assets/covers/b-signaling/cover-v1.svg",
+        "storage_key": "resource-covers/b-signaling/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A circular cell with a nucleus and signaling arrows crossing its boundary."
+      }
+    },
+    {
+      "id": "b-cell-control",
+      "title": "Control of the Cell Cycle",
+      "source": "Biology 2e, §10.3",
+      "publisher": "OpenStax, Rice University",
+      "kind": "Chapter",
+      "topic": "Biology",
+      "url": "https://openstax.org/books/biology-2e/pages/10-3-control-of-the-cell-cycle",
+      "description": "Explains how cells pause or advance through G1, G2 and spindle checkpoints. Cyclins and Cdks provide positive regulation, while p53, p21 and Rb illustrate inhibitory control. Learners need basic cell-cycle knowledge; the account simplifies the wider signaling network.",
+      "note": "Introductory textbook section, 2018; linked animation untested.",
+      "source_runs": [
+        "run_01",
+        "run_02"
+      ],
+      "source_ids": {
+        "run_01": "b-cell-control",
+        "run_02": "b-cell-cycle"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "intermediate",
+      "secondary_subjects": [],
+      "quality_score": 85,
+      "observed_format": "Textbook section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/b-cell-control/cover-v1.webp",
+        "master_path": "assets/covers/b-cell-control/cover-v1.svg",
+        "storage_key": "resource-covers/b-cell-control/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A circular cell surrounded by regulatory markers with G1, S and G2 checkpoints."
+      }
+    },
+    {
+      "id": "y-operant",
+      "title": "Operant Conditioning",
+      "source": "Psychology 2e",
+      "publisher": "OpenStax",
+      "kind": "Chapter",
+      "topic": "Psychology",
+      "url": "https://openstax.org/books/psychology-2e/pages/6-3-operant-conditioning",
+      "description": "Distinguish reinforcement and punishment, then compare how different schedules influence learned behavior.",
+      "note": "Second edition, section 6.3; text inspected",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "y-operant"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "foundational",
+      "secondary_subjects": [],
+      "quality_score": 90,
+      "observed_format": "Textbook chapter/section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/y-operant/cover-v1.webp",
+        "master_path": "assets/covers/y-operant/cover-v1.svg",
+        "storage_key": "resource-covers/y-operant/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Cue, action and reward stages in a behavioral reinforcement sequence."
+      }
+    },
+    {
+      "id": "y-attention",
+      "title": "Attention",
+      "source": "Noba textbook series: Psychology",
+      "publisher": "DEF publishers",
+      "kind": "Chapter",
+      "topic": "Psychology",
+      "url": "https://nobaproject.com/modules/attention",
+      "description": "Use listening experiments to compare models of selective attention and understand limits on processing multiple streams.",
+      "note": "Noba authored module; sampled text",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "y-attention"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "intermediate",
+      "secondary_subjects": [],
+      "quality_score": 88,
+      "observed_format": "Textbook chapter/section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/y-attention/cover-v1.webp",
+        "master_path": "assets/covers/y-attention/cover-v1.svg",
+        "storage_key": "resource-covers/y-attention/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A bright circular attention field isolates some signals among many surrounding dots."
+      }
+    },
+    {
+      "id": "y-study-toolbox",
+      "title": "Strengthening the Student Toolbox",
+      "source": "American Educator",
+      "publisher": "American Federation of Teachers",
+      "kind": "Article",
+      "topic": "Psychology",
+      "url": "https://www.aft.org/ae/fall2013/dunlosky",
+      "description": "Translate research on retrieval and spaced practice into concrete study routines, while comparing them with less effective habits.",
+      "note": "American Educator, Fall 2013; research-based guidance",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "y-study-toolbox"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "foundational",
+      "secondary_subjects": [],
+      "quality_score": 91,
+      "observed_format": "Text article",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/y-study-toolbox/cover-v1.webp",
+        "master_path": "assets/covers/y-study-toolbox/cover-v1.svg",
+        "storage_key": "resource-covers/y-study-toolbox/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Recall, spacing and repetition stages connected as a learning process."
+      }
+    },
+    {
+      "id": "h-scientific-method",
+      "title": "Scientific Method",
+      "source": "Stanford Encyclopedia of Philosophy",
+      "publisher": "Metaphysics Research Lab, Stanford University",
+      "kind": "Article",
+      "topic": "Philosophy",
+      "url": "https://plato.stanford.edu/entries/scientific-method/",
+      "description": "Examine how scientific methods are justified and why experimentation, statistical inference and pluralism complicate a single-method account.",
+      "note": "SEP entry; substantive revision August 2026",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "h-scientific-method"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "advanced",
+      "secondary_subjects": [
+        "Mathematics"
+      ],
+      "quality_score": 94,
+      "observed_format": "Text article",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/h-scientific-method/cover-v1.webp",
+        "master_path": "assets/covers/h-scientific-method/cover-v1.svg",
+        "storage_key": "resource-covers/h-scientific-method/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Question, test and revise stages form a loop for scientific inquiry."
+      }
+    },
+    {
+      "id": "h-epistemology",
+      "title": "Epistemology",
+      "source": "Stanford Encyclopedia of Philosophy",
+      "publisher": "Metaphysics Research Lab, Stanford University",
+      "kind": "Article",
+      "topic": "Philosophy",
+      "url": "https://plato.stanford.edu/entries/epistemology/",
+      "description": "Compare accounts of knowledge and justification, including internalism, reliabilism and foundational structures.",
+      "note": "SEP entry; selected knowledge/justification sections",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "h-epistemology"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "advanced",
+      "secondary_subjects": [],
+      "quality_score": 92,
+      "observed_format": "Text article",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/h-epistemology/cover-v1.webp",
+        "master_path": "assets/covers/h-epistemology/cover-v1.svg",
+        "storage_key": "resource-covers/h-epistemology/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Layered blocks of justification form a conceptual foundation."
+      }
+    },
+    {
+      "id": "h-pragmatism",
+      "title": "Pragmatism",
+      "source": "Internet Encyclopedia of Philosophy",
+      "publisher": "Internet Encyclopedia of Philosophy",
+      "kind": "Article",
+      "topic": "Philosophy",
+      "url": "https://iep.utm.edu/pragmati/",
+      "description": "Explore pragmatist approaches to inquiry, practical consequences and fallibilism, including disagreements within the tradition.",
+      "note": "Authored encyclopedia article; update date unestablished",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "h-pragmatism"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "unknown",
+      "difficulty": "intermediate",
+      "secondary_subjects": [],
+      "quality_score": 89,
+      "observed_format": "Text article",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/h-pragmatism/cover-v1.webp",
+        "master_path": "assets/covers/h-pragmatism/cover-v1.svg",
+        "storage_key": "resource-covers/h-pragmatism/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Idea, action and effect are connected as a practical inquiry sequence."
+      }
+    },
+    {
+      "id": "s-organizations",
+      "title": "Formal Organizations",
+      "source": "Introduction to Sociology 3e, §6.3",
+      "publisher": "OpenStax, Rice University",
+      "kind": "Chapter",
+      "topic": "Sociology",
+      "url": "https://openstax.org/books/introduction-sociology-3e/pages/6-3-formal-organizations",
+      "description": "Compares voluntary, coercive and utilitarian organizations, then explains Weber’s ideal bureaucracy and Ritzer’s McDonaldization. Workplace examples invite learners to weigh efficiency, hierarchy and impersonality. Some employment and admissions details are historical generalizations.",
+      "note": "2021 textbook chapter; theoretical models, not current employment advice.",
+      "source_runs": [
+        "run_01",
+        "run_02"
+      ],
+      "source_ids": {
+        "run_01": "s-organizations",
+        "run_02": "s-organizations"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "foundational",
+      "secondary_subjects": [],
+      "quality_score": 84,
+      "observed_format": "Textbook section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/s-organizations/cover-v1.webp",
+        "master_path": "assets/covers/s-organizations/cover-v1.svg",
+        "storage_key": "resource-covers/s-organizations/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A branching organizational hierarchy with one root and multiple subordinate groups."
+      }
+    },
+    {
+      "id": "s-collective",
+      "title": "Collective Behavior",
+      "source": "Introduction to Sociology 3e",
+      "publisher": "OpenStax",
+      "kind": "Chapter",
+      "topic": "Sociology",
+      "url": "https://openstax.org/books/introduction-sociology-3e/pages/21-1-collective-behavior",
+      "description": "Distinguish forms of collective behavior and compare theories of how crowds develop norms, organize and act.",
+      "note": "Third edition, section 21.1; theory comparison",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "s-collective"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "foundational",
+      "secondary_subjects": [],
+      "quality_score": 87,
+      "observed_format": "Textbook chapter/section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/s-collective/cover-v1.webp",
+        "master_path": "assets/covers/s-collective/cover-v1.svg",
+        "storage_key": "resource-covers/s-collective/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "An interconnected social network with additional crowd markers."
+      }
+    },
+    {
+      "id": "s-institutions",
+      "title": "Social Institutions",
+      "source": "Stanford Encyclopedia of Philosophy",
+      "publisher": "Metaphysics Research Lab, Stanford University",
+      "kind": "Article",
+      "topic": "Sociology",
+      "url": "https://plato.stanford.edu/entries/social-institutions/",
+      "description": "Analyze institutions through roles, rules, power and interdependence, while separating social description from normative questions.",
+      "note": "SEP entry; substantive revision October 2025",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "s-institutions"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "advanced",
+      "secondary_subjects": [
+        "Philosophy"
+      ],
+      "quality_score": 93,
+      "observed_format": "Text article",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/s-institutions/cover-v1.webp",
+        "master_path": "assets/covers/s-institutions/cover-v1.svg",
+        "storage_key": "resource-covers/s-institutions/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Four pillars support a lintel, representing durable social institutions."
+      }
+    },
+    {
+      "id": "p-statphys",
+      "title": "Statistical Physics I",
+      "source": "MIT OpenCourseWare, 8.044 (Spring 2013)",
+      "publisher": "Massachusetts Institute of Technology",
+      "kind": "Course",
+      "topic": "Physics",
+      "url": "https://ocw.mit.edu/courses/8-044-statistical-physics-i-spring-2013/",
+      "description": "Develops probability distributions, thermodynamic ensembles and the statistical basis of entropy and temperature. Sampled notes connect microscopic states to bulk behavior, while problems ask learners to analyze impurities and gas fluctuations. Calculus is assumed.",
+      "note": "Archived Spring 2013 course; sampled notes and problems, not every lesson.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "p-statphys"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "advanced",
+      "secondary_subjects": [
+        "Mathematics"
+      ],
+      "quality_score": 92,
+      "observed_format": "Course with PDF notes and problem sets",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/p-statphys/cover-v1.webp",
+        "master_path": "assets/covers/p-statphys/cover-v1.svg",
+        "storage_key": "resource-covers/p-statphys/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "An ensemble distribution of colored bars with particles above it."
+      }
+    },
+    {
+      "id": "p-coulomb",
+      "title": "Coulomb's Law",
+      "source": "University Physics Volume 2, §5.3",
+      "publisher": "OpenStax, Rice University",
+      "kind": "Chapter",
+      "topic": "Physics",
+      "url": "https://openstax.org/books/university-physics-volume-2/pages/5-3-coulombs-law",
+      "description": "Explains how charge, separation and direction determine electrostatic force, then combines forces from multiple charges using vectors. A hydrogen example distinguishes the classical model from quantum mechanics; learners need basic vector components.",
+      "note": "Calculus-based textbook section, 2016; public text, restricted reuse.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "p-coulomb"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "intermediate",
+      "secondary_subjects": [
+        "Mathematics"
+      ],
+      "quality_score": 87,
+      "observed_format": "Textbook section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/p-coulomb/cover-v1.webp",
+        "master_path": "assets/covers/p-coulomb/cover-v1.svg",
+        "storage_key": "resource-covers/p-coulomb/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Oppositely charged spheres joined by simplified field trajectories."
+      }
+    },
+    {
+      "id": "p-gravitation",
+      "title": "The Theory of Gravitation",
+      "source": "The Feynman Lectures on Physics, Volume I, Chapter 7",
+      "publisher": "California Institute of Technology",
+      "kind": "Chapter",
+      "topic": "Physics",
+      "url": "https://www.feynmanlectures.caltech.edu/I_07.html",
+      "description": "Connects Kepler’s planetary patterns with Newton’s inverse-square law and explores what gravity explains. The chapter closes by explaining why relativity modifies Newtonian gravity. Its historical terminology needs care, especially when discussing light and mass.",
+      "note": "Historical lecture chapter; modern relativity coverage is introductory.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "p-gravitation"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "intermediate",
+      "secondary_subjects": [],
+      "quality_score": 87,
+      "observed_format": "Textbook section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/p-gravitation/cover-v1.webp",
+        "master_path": "assets/covers/p-gravitation/cover-v1.svg",
+        "storage_key": "resource-covers/p-gravitation/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A small orbiting body follows an elliptical path around a central mass."
+      }
+    },
+    {
+      "id": "p-processes",
+      "title": "Thermodynamic Processes",
+      "source": "University Physics Volume 2, §3.4",
+      "publisher": "OpenStax, Rice University",
+      "kind": "Chapter",
+      "topic": "Physics",
+      "url": "https://openstax.org/books/university-physics-volume-2/pages/3-4-thermodynamic-processes",
+      "description": "Distinguishes isothermal, adiabatic, isobaric and isochoric changes using gas-piston examples. Learners compare heat, work and internal energy, understand why cycles return state variables to their starting values, and separate quasi-static from reversible processes.",
+      "note": "Text chapter evaluated; linked process simulator was not tested.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "p-processes"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "foundational",
+      "secondary_subjects": [],
+      "quality_score": 84,
+      "observed_format": "Textbook section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/p-processes/cover-v1.webp",
+        "master_path": "assets/covers/p-processes/cover-v1.svg",
+        "storage_key": "resource-covers/p-processes/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Three different pressure-volume process curves show alternate thermodynamic paths."
+      }
+    },
+    {
+      "id": "p-harmonic",
+      "title": "Simple Harmonic Motion",
+      "source": "University Physics Volume 1, §15.1",
+      "publisher": "OpenStax, Rice University",
+      "kind": "Chapter",
+      "topic": "Physics",
+      "url": "https://openstax.org/books/university-physics-volume-1/pages/15-1-simple-harmonic-motion",
+      "description": "Builds the equations of an ideal mass-and-spring oscillator from Hooke’s law. Worked examples connect period, phase, displacement, velocity and acceleration; a vertical spring shows how gravity shifts equilibrium. Basic trigonometry and derivatives are useful.",
+      "note": "Ideal linear, undamped oscillator; chapter text and equations sampled.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "p-harmonic"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "intermediate",
+      "secondary_subjects": [
+        "Mathematics"
+      ],
+      "quality_score": 88,
+      "observed_format": "Textbook section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/p-harmonic/cover-v1.webp",
+        "master_path": "assets/covers/p-harmonic/cover-v1.svg",
+        "storage_key": "resource-covers/p-harmonic/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A spring fixed to a wall stretches toward a block with a motion arrow."
+      }
+    },
+    {
+      "id": "m-euler",
+      "title": "Numerical methods: Euler’s method",
+      "source": "Notes on Diffy Qs: Differential Equations for Engineers, §1.7",
+      "publisher": "Jiří Lebl",
+      "kind": "Chapter",
+      "topic": "Mathematics",
+      "url": "https://www.jirka.org/diffyqs/html/numer_section.html",
+      "description": "Introduces Euler’s step-by-step approximation of differential equations, comparing a numerical result with an exact solution. Step-halving exercises reveal error and instability, and a Runge–Kutta extension gives context. Prior derivatives and initial-value problems are assumed.",
+      "note": "Section 1.7, version 6.11; examples inspected, code not executed.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "m-euler"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "explicit_permission_verified",
+      "difficulty": "intermediate",
+      "secondary_subjects": [
+        "Computing"
+      ],
+      "quality_score": 90,
+      "observed_format": "Textbook section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/m-euler/cover-v1.webp",
+        "master_path": "assets/covers/m-euler/cover-v1.svg",
+        "storage_key": "resource-covers/m-euler/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Stair-stepped Euler approximations overlaid on a smooth differential-equation curve."
+      }
+    },
+    {
+      "id": "m-binomial",
+      "title": "Binomial Coefficients",
+      "source": "Discrete Mathematics: An Open Introduction, 3rd edition, §1.2",
+      "publisher": "Oscar Levin",
+      "kind": "Chapter",
+      "topic": "Mathematics",
+      "url": "https://discrete.openmathbooks.org/dmoi3/sec_counting-binom.html",
+      "description": "Connects subsets, fixed-length bit strings and lattice paths as different ways to count the same objects. A rook-path investigation and solved subset problems help learners interpret binomial coefficients rather than memorize formulas. Basic sets are the prerequisite.",
+      "note": "Third-edition textbook section; fourth edition exists but was not evaluated.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "m-binomial"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "explicit_permission_verified",
+      "difficulty": "foundational",
+      "secondary_subjects": [],
+      "quality_score": 89,
+      "observed_format": "Textbook section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/m-binomial/cover-v1.webp",
+        "master_path": "assets/covers/m-binomial/cover-v1.svg",
+        "storage_key": "resource-covers/m-binomial/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A triangular arrangement of nodes evokes Pascal’s triangle and binomial coefficients."
+      }
+    },
+    {
+      "id": "m-trees",
+      "title": "Trees",
+      "source": "Discrete Mathematics: An Open Introduction, 3rd edition, §4.2",
+      "publisher": "Oscar Levin",
+      "kind": "Chapter",
+      "topic": "Mathematics",
+      "url": "https://discrete.openmathbooks.org/dmoi3/sec_trees.html",
+      "description": "Defines trees as connected graphs without cycles and develops the unique-path characterization through proof. Opening subgraph questions encourage discovery, while a family-tree example explains where everyday analogies fail. Familiarity with paths and elementary proof helps.",
+      "note": "Third-edition textbook section; fourth edition exists but was not evaluated.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "m-trees"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "explicit_permission_verified",
+      "difficulty": "intermediate",
+      "secondary_subjects": [],
+      "quality_score": 89,
+      "observed_format": "Textbook section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/m-trees/cover-v1.webp",
+        "master_path": "assets/covers/m-trees/cover-v1.svg",
+        "storage_key": "resource-covers/m-trees/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A root graph divides into branches and leaf nodes without cycles."
+      }
+    },
+    {
+      "id": "m-chain",
+      "title": "The chain rule",
+      "source": "Active Calculus, Second Edition, §2.5",
+      "publisher": "Matthew Boelkins",
+      "kind": "Chapter",
+      "topic": "Mathematics",
+      "url": "https://activecalculus.org/single/sec-2-5-chain.html",
+      "description": "Teaches learners to identify inner and outer functions and differentiate compositions with the chain rule. Worked trigonometric examples and mixed-rule activities build toward nested expressions. Basic derivative rules are assumed; the formal limit proof is referenced.",
+      "note": "Second edition, §2.5; text activities inspected, answer widgets untested.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "m-chain"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "explicit_permission_verified",
+      "difficulty": "foundational",
+      "secondary_subjects": [],
+      "quality_score": 90,
+      "observed_format": "Textbook section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/m-chain/cover-v1.webp",
+        "master_path": "assets/covers/m-chain/cover-v1.svg",
+        "storage_key": "resource-covers/m-chain/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Three linked stages show a function input transformed by composition."
+      }
+    },
+    {
+      "id": "c-raft",
+      "title": "In Search of an Understandable Consensus Algorithm",
+      "source": "Raft extended technical report (May 20, 2014)",
+      "publisher": "Diego Ongaro and John Ousterhout",
+      "kind": "Article",
+      "topic": "Computing",
+      "url": "https://raft.github.io/raft.pdf",
+      "description": "Explains Raft through replicated logs, leader election and safety rules. The sampled algorithm summary shows how terms, votes and log matching support consistent state machines under crash failures. This is advanced reading, with explicit majority and non-Byzantine assumptions.",
+      "note": "Extended 2014 research article, 18-page PDF; selected sections inspected.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "c-raft"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "unknown",
+      "difficulty": "advanced",
+      "secondary_subjects": [],
+      "quality_score": 90,
+      "observed_format": "Research article / extended technical report PDF",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/c-raft/cover-v1.webp",
+        "master_path": "assets/covers/c-raft/cover-v1.svg",
+        "storage_key": "resource-covers/c-raft/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A leader node sends connections to replicas in a consensus cluster."
+      }
+    },
+    {
+      "id": "c-slo",
+      "title": "Service Level Objectives",
+      "source": "Site Reliability Engineering, Chapter 4",
+      "publisher": "Google / O’Reilly Media",
+      "kind": "Chapter",
+      "topic": "Computing",
+      "url": "https://sre.google/sre-book/service-level-objectives/",
+      "description": "Distinguishes service indicators, objectives and agreements, then shows how to select metrics that reflect user experience. Examples explain why averages hide bursts and latency tails. Learners can reason about targets, measurement windows and feedback for service reliability.",
+      "note": "Book chapter; historical vendor SLA figures are not current guarantees.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "c-slo"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "intermediate",
+      "secondary_subjects": [
+        "Mathematics"
+      ],
+      "quality_score": 91,
+      "observed_format": "Textbook section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/c-slo/cover-v1.webp",
+        "master_path": "assets/covers/c-slo/cover-v1.svg",
+        "storage_key": "resource-covers/c-slo/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A measured service curve crosses a dashed objective threshold."
+      }
+    },
+    {
+      "id": "c-idempotency",
+      "title": "Making retries safe with idempotent APIs",
+      "source": "The Amazon Builders’ Library",
+      "publisher": "Amazon Web Services",
+      "kind": "Article",
+      "topic": "Computing",
+      "url": "https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/",
+      "description": "Uses ambiguous network timeouts to explain why retries can create duplicate resources. Caller-supplied tokens, atomic recording, equivalent responses and retention limits form a safer API contract. Examples also cover delayed requests and reused tokens with changed parameters.",
+      "note": "Engineering article; AWS example commands were read, not executed.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "c-idempotency"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "unknown",
+      "difficulty": "intermediate",
+      "secondary_subjects": [],
+      "quality_score": 88,
+      "observed_format": "Engineering article",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/c-idempotency/cover-v1.webp",
+        "master_path": "assets/covers/c-idempotency/cover-v1.svg",
+        "storage_key": "resource-covers/c-idempotency/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A request passes through an idempotency-key check to a single result."
+      }
+    },
+    {
+      "id": "c-injection",
+      "title": "Inversion of Control Containers and the Dependency Injection pattern",
+      "source": "MartinFowler.com articles",
+      "publisher": "Martin Fowler",
+      "kind": "Article",
+      "topic": "Computing",
+      "url": "https://martinfowler.com/articles/injection.html",
+      "description": "Explores how components receive their dependencies through a running movie-listing example. It compares dependency injection with service locators and weighs constructor, setter and interface styles. The lasting lesson is separating configuration from use; Java frameworks are historical.",
+      "note": "Original 2004 essay; conceptual design reading, not current framework setup.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "c-injection"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "unknown",
+      "difficulty": "intermediate",
+      "secondary_subjects": [],
+      "quality_score": 87,
+      "observed_format": "Software architecture essay with Java examples",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/c-injection/cover-v1.webp",
+        "master_path": "assets/covers/c-injection/cover-v1.svg",
+        "storage_key": "resource-covers/c-injection/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Client, interface and service modules illustrate dependency injection boundaries."
+      }
+    },
+    {
+      "id": "c-promises",
+      "title": "Using promises",
+      "source": "MDN JavaScript Guide",
+      "publisher": "MDN Web Docs / Mozilla Contributors",
+      "kind": "Article",
+      "topic": "Computing",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises",
+      "description": "Introduces promise consumption, chaining and error propagation in JavaScript. Contrasting missing-return and corrected examples show how floating promises cause races, then connect the same behavior to async/await. Learners should already understand functions and callbacks.",
+      "note": "Guide text inspected; JavaScript examples and browser behavior not executed.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "c-promises"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "explicit_permission_verified",
+      "difficulty": "intermediate",
+      "secondary_subjects": [],
+      "quality_score": 90,
+      "observed_format": "Technical guide with JavaScript examples",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/c-promises/cover-v1.webp",
+        "master_path": "assets/covers/c-promises/cover-v1.svg",
+        "storage_key": "resource-covers/c-promises/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A chain of promise stages culminates in an error-handling branch."
+      }
+    },
+    {
+      "id": "c-rust",
+      "title": "References and Borrowing",
+      "source": "The Rust Programming Language, §4.2",
+      "publisher": "The Rust Project",
+      "kind": "Chapter",
+      "topic": "Computing",
+      "url": "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html",
+      "description": "Shows how Rust references let functions use data without taking ownership. Working and rejected examples explain immutable versus mutable borrowing, overlapping references and last-use scope. The chapter connects these rules to data-race prevention and assumes basic Rust ownership.",
+      "note": "Official book section; displayed compiler errors inspected, not reproduced.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "c-rust"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "unknown",
+      "difficulty": "intermediate",
+      "secondary_subjects": [],
+      "quality_score": 91,
+      "observed_format": "Textbook section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/c-rust/cover-v1.webp",
+        "master_path": "assets/covers/c-rust/cover-v1.svg",
+        "storage_key": "resource-covers/c-rust/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A borrowing reference points toward a labeled value inside a memory block."
+      }
+    },
+    {
+      "id": "b-drift",
+      "title": "Genetic drift",
+      "source": "Understanding Evolution / Evolution 101",
+      "publisher": "UC Museum of Paleontology, University of California, Berkeley",
+      "kind": "Article",
+      "topic": "Biology",
+      "url": "https://evolution.berkeley.edu/evolution-101/mechanisms-the-processes-of-evolution/genetic-drift/",
+      "description": "Explains evolutionary change caused by chance rather than selective advantage. Linked lessons use repeated marble sampling, bottlenecks and founder populations to show why small groups can lose variation. This is a conceptual introduction, without population-genetic derivations.",
+      "note": "Main tutorial and two linked explanations counted as one learning resource.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "b-drift"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "foundational",
+      "secondary_subjects": [
+        "Mathematics"
+      ],
+      "quality_score": 85,
+      "observed_format": "Linked educational tutorial",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/b-drift/cover-v1.webp",
+        "master_path": "assets/covers/b-drift/cover-v1.svg",
+        "storage_key": "resource-covers/b-drift/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A population-frequency histogram represents random changes in allele prevalence."
+      }
+    },
+    {
+      "id": "b-transcriptome",
+      "title": "Transcriptome Fact Sheet",
+      "source": "NHGRI Genomics Fact Sheets",
+      "publisher": "National Human Genome Research Institute",
+      "kind": "Article",
+      "topic": "Biology",
+      "url": "https://www.genome.gov/about-genomics/fact-sheets/Transcriptome-Fact-Sheet",
+      "description": "Defines the transcriptome and explains how RNA readouts reveal differences in gene activity between cells and tissues. Examples show how expression patterns suggest possible gene functions. It is a short conceptual guide, with older project descriptions rather than a sequencing tutorial.",
+      "note": "NHGRI fact sheet updated August 17, 2020; link-only rights assessment.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "b-transcriptome"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "unknown",
+      "difficulty": "foundational",
+      "secondary_subjects": [],
+      "quality_score": 80,
+      "observed_format": "Educational fact sheet",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/b-transcriptome/cover-v1.webp",
+        "master_path": "assets/covers/b-transcriptome/cover-v1.svg",
+        "storage_key": "resource-covers/b-transcriptome/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Two strands linked by rungs symbolize RNA expression patterns."
+      }
+    },
+    {
+      "id": "b-species",
+      "title": "Defining a species",
+      "source": "Understanding Evolution / Evolution 101",
+      "publisher": "UC Museum of Paleontology, University of California, Berkeley",
+      "kind": "Article",
+      "topic": "Biology",
+      "url": "https://evolution.berkeley.edu/evolution-101/speciation/defining-a-species/",
+      "description": "Examines the biological species concept through interbreeding and reproductive boundaries. Spiders, look-alike birds and hybrids show why appearance alone is insufficient, while linked examples explain difficulties with asexual organisms, separated populations and fossil lineages.",
+      "note": "Main page plus biological-concept extension; alternatives link timed out.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "b-species"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "foundational",
+      "secondary_subjects": [],
+      "quality_score": 86,
+      "observed_format": "Educational tutorial with linked extension",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/b-species/cover-v1.webp",
+        "master_path": "assets/covers/b-species/cover-v1.svg",
+        "storage_key": "resource-covers/b-species/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "An evolutionary tree separates branches along a reproductive boundary."
+      }
+    },
+    {
+      "id": "y-conditioning",
+      "title": "Conditioning and Learning",
+      "source": "Noba textbook series: Psychology",
+      "publisher": "DEF publishers",
+      "kind": "Chapter",
+      "topic": "Psychology",
+      "url": "https://nobaproject.com/modules/conditioning-and-learning",
+      "description": "Compares classical conditioning, which links cues with events, and operant conditioning, which links actions with consequences. Examples develop blocking and prediction error, then explain why extinction can suppress learning without erasing it. Suitable for introductory psychology.",
+      "note": "Authored Noba module; citation year is not evidence of a 2026 revision.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "y-conditioning"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "foundational",
+      "secondary_subjects": [],
+      "quality_score": 89,
+      "observed_format": "Authored educational textbook module",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/y-conditioning/cover-v1.webp",
+        "master_path": "assets/covers/y-conditioning/cover-v1.svg",
+        "storage_key": "resource-covers/y-conditioning/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Stimulus, association and response stages represent conditioned learning."
+      }
+    },
+    {
+      "id": "y-judgment",
+      "title": "Judgment and Decision Making",
+      "source": "Noba textbook series: Psychology",
+      "publisher": "DEF publishers",
+      "kind": "Chapter",
+      "topic": "Psychology",
+      "url": "https://nobaproject.com/modules/judgment-and-decision-making",
+      "description": "Explores bounded rationality, overconfidence, anchoring and framing through decisions the reader can try. Equivalent gain-and-loss gambles reveal how presentation changes preference. The module offers a decision framework, while several calibration quiz facts are historical.",
+      "note": "Introductory module; dated quiz facts are not current reference data.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "y-judgment"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "foundational",
+      "secondary_subjects": [
+        "Mathematics"
+      ],
+      "quality_score": 87,
+      "observed_format": "Authored educational textbook module",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/y-judgment/cover-v1.webp",
+        "master_path": "assets/covers/y-judgment/cover-v1.svg",
+        "storage_key": "resource-covers/y-judgment/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Branching decision paths show how framing can change perceived choices."
+      }
+    },
+    {
+      "id": "y-designs",
+      "title": "Research Designs",
+      "source": "Noba textbook series: Psychology",
+      "publisher": "DEF publishers",
+      "kind": "Chapter",
+      "topic": "Psychology",
+      "url": "https://nobaproject.com/modules/research-designs",
+      "description": "Introduces experimental and correlational research, operational definitions and the roles of independent and dependent variables. Spending and happiness examples explain random assignment and confounds. Learners gain a framework for judging causal claims, without advanced statistics.",
+      "note": "Noba teaching module; empirical examples illustrate design, not universal effects.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "y-designs"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "foundational",
+      "secondary_subjects": [],
+      "quality_score": 86,
+      "observed_format": "Authored educational textbook module",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/y-designs/cover-v1.webp",
+        "master_path": "assets/covers/y-designs/cover-v1.svg",
+        "storage_key": "resource-covers/y-designs/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Random assignment separates test and control groups in a research design."
+      }
+    },
+    {
+      "id": "f-models",
+      "title": "Models in Science",
+      "source": "Stanford Encyclopedia of Philosophy",
+      "publisher": "Metaphysics Research Lab, Stanford University",
+      "kind": "Article",
+      "topic": "Philosophy",
+      "url": "https://plato.stanford.edu/entries/models-science/",
+      "description": "Surveys how scientific models represent, explain and support learning about target systems. Scale ships, gas models and fictional objects illustrate competing accounts and their limits. Readers examine why a useful model can simplify reality without being a literal copy.",
+      "note": "Scholarly survey revised April 2, 2025; selected sections inspected.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "f-models"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "advanced",
+      "secondary_subjects": [
+        "Physics"
+      ],
+      "quality_score": 92,
+      "observed_format": "Scholarly encyclopedia article",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/f-models/cover-v1.webp",
+        "master_path": "assets/covers/f-models/cover-v1.svg",
+        "storage_key": "resource-covers/f-models/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Overlapping abstract frames compare a simplified scientific model and its target."
+      }
+    },
+    {
+      "id": "f-realism",
+      "title": "Scientific Realism",
+      "source": "Stanford Encyclopedia of Philosophy",
+      "publisher": "Metaphysics Research Lab, Stanford University",
+      "kind": "Article",
+      "topic": "Philosophy",
+      "url": "https://plato.stanford.edu/entries/scientific-realism/",
+      "description": "Examines what it means to believe scientific theories describe unobservable reality. It separates the aims and achievements of science, then analyzes underdetermination and realist replies. This advanced survey helps readers compare positions rather than settle the debate by authority.",
+      "note": "Revised June 12, 2017; philosophical arguments are contested positions.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "f-realism"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "advanced",
+      "secondary_subjects": [],
+      "quality_score": 89,
+      "observed_format": "Scholarly encyclopedia article",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/f-realism/cover-v1.webp",
+        "master_path": "assets/covers/f-realism/cover-v1.svg",
+        "storage_key": "resource-covers/f-realism/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Nested orbital lines and an observation arrow evoke the question of reality behind scientific models."
+      }
+    },
+    {
+      "id": "f-counterfactual",
+      "title": "Counterfactual Theories of Causation",
+      "source": "Stanford Encyclopedia of Philosophy",
+      "publisher": "Metaphysics Research Lab, Stanford University",
+      "kind": "Article",
+      "topic": "Philosophy",
+      "url": "https://plato.stanford.edu/entries/causation-counterfactual/",
+      "description": "Develops counterfactual accounts of causation and tests them against difficult cases. The Suzy-and-Billy bottle example shows why simple dependence can fail when one cause preempts another. Readers compare proposed repairs; the article assumes comfort with philosophical logic.",
+      "note": "Revised April 1, 2024; sampled arguments, not a causal-estimation manual.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "f-counterfactual"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "advanced",
+      "secondary_subjects": [],
+      "quality_score": 91,
+      "observed_format": "Scholarly encyclopedia article",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/f-counterfactual/cover-v1.webp",
+        "master_path": "assets/covers/f-counterfactual/cover-v1.svg",
+        "storage_key": "resource-covers/f-counterfactual/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Alternative branches labeled IF and ELSE represent counterfactual possibilities."
+      }
+    },
+    {
+      "id": "f-virtue",
+      "title": "Virtue Ethics",
+      "source": "Stanford Encyclopedia of Philosophy",
+      "publisher": "Metaphysics Research Lab, Stanford University",
+      "kind": "Article",
+      "topic": "Philosophy",
+      "url": "https://plato.stanford.edu/entries/ethics-virtue/",
+      "description": "Explains virtue ethics through character, practical wisdom and reasons for action, contrasting its emphasis with duties and consequences. Honesty examples and the action-guidance objection show how the theory handles choices. The account presents normative arguments, not personality science.",
+      "note": "Revised May 3, 2026; introductory and objection sections sampled.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "f-virtue"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "intermediate",
+      "secondary_subjects": [],
+      "quality_score": 91,
+      "observed_format": "Scholarly encyclopedia article",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/f-virtue/cover-v1.webp",
+        "master_path": "assets/covers/f-virtue/cover-v1.svg",
+        "storage_key": "resource-covers/f-virtue/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A balanced scale represents ethical judgment and practical wisdom."
+      }
+    },
+    {
+      "id": "s-bc-intro",
+      "title": "1.1. What Is Sociology?",
+      "source": "Introduction to Sociology – 3rd Canadian Edition, §1.1",
+      "publisher": "BCcampus",
+      "kind": "Chapter",
+      "topic": "Sociology",
+      "url": "https://opentextbc.ca/introductiontosociology3rdedition/chapter/1-1-what-is-sociology/",
+      "description": "Introduces sociological analysis at micro, macro and global scales. Everyday coordination and Mills’s distinction between private troubles and public issues explain how agency relates to social structure. The section also warns against treating “society” as an independent actor.",
+      "note": "2023 Canadian adaptation; distinct introductory scope from organization types.",
+      "source_runs": [
+        "run_02"
+      ],
+      "source_ids": {
+        "run_02": "s-bc-intro"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "explicit_permission_verified",
+      "difficulty": "foundational",
+      "secondary_subjects": [],
+      "quality_score": 87,
+      "observed_format": "Textbook section",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/s-bc-intro/cover-v1.webp",
+        "master_path": "assets/covers/s-bc-intro/cover-v1.svg",
+        "storage_key": "resource-covers/s-bc-intro/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "A connected set of individuals spans a larger social field, representing micro and macro perspectives."
+      }
+    },
+    {
+      "id": "b-lizard-film",
+      "title": "The Origin of Species: Lizards in an Evolutionary Tree",
+      "source": "HHMI BioInteractive",
+      "publisher": "Howard Hughes Medical Institute",
+      "kind": "Video",
+      "topic": "Biology",
+      "url": "https://www.biointeractive.org/classroom-resources/origin-species-lizards-evolutionary-tree",
+      "description": "An educational short film follows island lizards to explain adaptation, reproductive isolation and evidence for evolutionary relationships. Habitat comparisons and DNA evidence connect observed traits with the process of speciation.",
+      "note": "HHMI film with transcript; no embedding permission established.",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "b-lizard-film"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "unknown",
+      "difficulty": "foundational",
+      "secondary_subjects": [],
+      "quality_score": 92,
+      "observed_format": "Short film with official transcript",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/b-lizard-film/cover-v1.webp",
+        "master_path": "assets/covers/b-lizard-film/cover-v1.svg",
+        "storage_key": "resource-covers/b-lizard-film/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "An evolutionary tree and curved lizard-like silhouette evoke island lizard speciation."
+      }
+    },
+    {
+      "id": "h-hume-enquiry",
+      "title": "Enquiry Concerning Human Understanding",
+      "source": "Early Modern Texts",
+      "publisher": "Early Modern Texts (Jonathan Bennett adaptation)",
+      "kind": "Book",
+      "topic": "Philosophy",
+      "url": "https://www.earlymoderntexts.com/assets/pdfs/hume1748.pdf",
+      "description": "An adapted edition of David Hume’s inquiry into knowledge, causation and the limits of inference from experience. Reading the arguments on relations of ideas and matters of fact helps learners distinguish observed regularities from logical necessity.",
+      "note": "David Hume; modernized Bennett edition; restricted adaptation rights.",
+      "source_runs": [
+        "run_01"
+      ],
+      "source_ids": {
+        "run_01": "h-hume-enquiry"
+      },
+      "status": "pending_owner_publish_review",
+      "rights_status": "restricted",
+      "difficulty": "advanced",
+      "secondary_subjects": [],
+      "quality_score": 93,
+      "observed_format": "Book in modernized/adapted PDF edition",
+      "public_status": "draft_unpublished",
+      "cover": {
+        "asset_path": "assets/covers/h-hume-enquiry/cover-v1.webp",
+        "master_path": "assets/covers/h-hume-enquiry/cover-v1.svg",
+        "storage_key": "resource-covers/h-hume-enquiry/cover-v1.webp",
+        "width": 1200,
+        "height": 800,
+        "asset_review_status": "pending_visual_review",
+        "asset_origin": "original_concept_illustration",
+        "is_official_publisher_cover": false,
+        "alt": "Two spheres linked by a question-marked causal arrow evoke Hume’s inquiry into induction."
+      }
+    }
+  ]
+}

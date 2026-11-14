@@ -9,6 +9,7 @@ import {
   startWebWorker,
 } from '../helpers/local-workers.mjs';
 import { startWranglerWorker } from '../helpers/worker-harness.mjs';
+import { startExpandedCatalog } from '../helpers/expanded-catalog.mjs';
 
 let base = new URL(
   process.env.POLYMATIK_WEB_BASE_URL ?? 'http://127.0.0.1:8787',
@@ -64,6 +65,102 @@ after(async () => {
     await worker?.stop();
   } finally {
     await apiWorker?.stop();
+  }
+});
+
+test('expanded web SSR and same-origin pages use seven subjects, canonical detail and bounded independent reads', async () => {
+  const api = await startExpandedCatalog();
+  /** @type {{port:number;stop:()=>Promise<void>}|undefined} */
+  let expanded;
+  try {
+    expanded =
+      runtimeBackend(process.env.POLYMATIK_RUNTIME) === 'miniflare'
+        ? await startWebWorker(api.origin, { PRODUCT_CATALOG_VERSION: 'v2' })
+        : await startWranglerWorker(
+            new URL(
+              '../../apps/web/dist/server/wrangler.json',
+              import.meta.url,
+            ),
+            {
+              vars: {
+                PRODUCT_API_ORIGIN: api.origin,
+                PRODUCT_CATALOG_VERSION: 'v2',
+                NEON_AUTH_BASE_URL: '',
+                NEON_AUTH_COOKIE_SECRET: '',
+                AUTH_PUBLIC_ORIGIN: '',
+              },
+            },
+          );
+    assert.ok(expanded);
+    const origin = `http://127.0.0.1:${expanded.port}`;
+    const home = await fetch(origin, { signal: AbortSignal.timeout(30000) });
+    assert.equal(home.status, 200);
+    const html = await home.text();
+    for (const text of [
+      'Fixture learning resource 0',
+      'Biology',
+      'Psychology',
+      'Philosophy',
+      'Sociology',
+      'Collection pages',
+      'Next page',
+      'on this page',
+    ])
+      assert.ok(html.includes(text), text);
+    assert.ok(!html.includes('Fixture learning resource 5'));
+    const first = await (
+      await fetch(`${origin}/api/catalog`, {
+        signal: AbortSignal.timeout(10000),
+      })
+    ).json();
+    assert.equal(first.items.length, 5);
+    assert.ok(first.nextCursor);
+    const second = await (
+      await fetch(`${origin}/api/catalog?cursor=${first.nextCursor}`, {
+        signal: AbortSignal.timeout(10000),
+      })
+    ).json();
+    assert.equal(second.items.length, 5);
+    assert.equal(second.items[0].id, 'fixture-5');
+    const detail = await fetch(`${origin}/resource/fixture-alias`, {
+      signal: AbortSignal.timeout(10000),
+    });
+    assert.equal(detail.status, 200);
+    const markup = await detail.text();
+    for (const text of [
+      'Fixture learning resource 5',
+      'Book',
+      'Test publisher',
+      'About this resource',
+      'Synthetic concept illustration 5.',
+    ])
+      assert.ok(markup.includes(text), text);
+    assert.equal(
+      (await fetch(`${origin}/resource/unknown-fixture`)).status,
+      404,
+      'v2 identity is resolved outside the loading boundary',
+    );
+    const saved = await (
+      await fetch(`${origin}/api/catalog/fixture-10`, {
+        signal: AbortSignal.timeout(10000),
+      })
+    ).json();
+    assert.equal(saved.resource.id, 'fixture-10');
+    api.setAvailable(false);
+    const unavailable = await fetch(`${origin}/resource/fixture-5`);
+    assert.equal(unavailable.status, 200);
+    assert.ok((await unavailable.text()).includes('unavailable right now'));
+    assert.equal(
+      (
+        await fetch(`${origin}/api/catalog`, {
+          signal: AbortSignal.timeout(10000),
+        })
+      ).status,
+      503,
+    );
+  } finally {
+    await expanded?.stop();
+    await api.stop();
   }
 });
 assert.equal(base.protocol, 'http:');
@@ -222,6 +319,31 @@ test('Discover renders source-attributed preview content before hydration', asyn
     ),
     'collection search has an explicit form name and autocomplete policy',
   );
+});
+
+test('built account Library BFF has protected routes and rejects foreign writes and injected identities', async () => {
+  /** @type {[string,string,Record<string,string>,number][]} */
+  const cases = [
+    ['/api/account/library', 'GET', {}, 503],
+    ['/api/account/library/atoms', 'PUT', { origin: 'https://evil.test' }, 403],
+    [
+      '/api/account/library/atoms',
+      'DELETE',
+      { origin: 'https://evil.test' },
+      403,
+    ],
+    ['/api/account/library?user_id=victim', 'GET', {}, 422],
+    ['/api/account/interests', 'GET', {}, 503],
+    ['/api/account/interests', 'PUT', { origin: 'https://evil.test' }, 403],
+    ['/api/account/interests', 'DELETE', { origin: 'https://evil.test' }, 403],
+    ['/api/account/interests?user_id=victim', 'GET', {}, 422],
+  ];
+  for (const [path, method, headers, expected] of cases) {
+    const response = await request(path, { method, headers });
+    assert.equal(response.status, expected, `${method} ${path}`);
+    assert.equal(response.headers.get('cache-control'), 'no-store');
+    assert.equal(response.headers.getSetCookie().length, 0);
+  }
 });
 
 test('resource details render backend metadata, safe return navigation and original links', async () => {

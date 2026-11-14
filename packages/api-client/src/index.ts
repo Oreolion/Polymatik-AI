@@ -8,6 +8,20 @@ import type {
 } from '@polymatik/domain-types';
 import { resources } from '@polymatik/domain-types/discovery-preview';
 import { isCatalogResource } from '@polymatik/domain-types/catalog-resource';
+import { readBoundedBody } from '@polymatik/domain-types/bounded-body';
+import {
+  catalogSearch,
+  catalogQuery,
+  isCatalogEntry,
+  isCatalogPageForQuery,
+  type CatalogPage,
+  type CatalogPageInput,
+} from '@polymatik/domain-types/catalog-v2';
+import {
+  isInterests,
+  interestUpdate,
+  type InterestUpdate,
+} from '@polymatik/domain-types/interests';
 
 export type { ApiError, Health, Me } from '@polymatik/domain-types';
 type Result<T> = { data: T; error?: never } | { data?: never; error: ApiError };
@@ -79,10 +93,19 @@ export function createApiClient(options: ApiClientOptions) {
     throw new TypeError('API timeout must be between 0 and 60000ms.');
   }
   async function get<T>(
-    path: Extract<keyof paths, string> | `/v1/resources/${string}`,
+    path:
+      | Extract<keyof paths, string>
+      | `/v1/resources/${string}`
+      | `/v2/resources?${string}`
+      | `/v2/resources/${string}`
+      | '/v1/library'
+      | '/v1/interests'
+      | `/v1/library/${string}`,
     validate: (value: unknown) => value is T,
     signal?: AbortSignal,
     token?: string,
+    method: 'GET' | 'PUT' | 'DELETE' = 'GET',
+    body?: InterestUpdate,
   ): Promise<Result<T>> {
     const controller = new AbortController();
     const abort = () => controller.abort();
@@ -93,12 +116,14 @@ export function createApiClient(options: ApiClientOptions) {
       const response = await (options.fetch ?? fetch)(
         new URL(path, base).href,
         {
-          method: 'GET',
+          method,
           headers: {
             accept: 'application/json',
             ...(token ? { authorization: `Bearer ${token}` } : {}),
+            ...(body ? { 'content-type': 'application/json' } : {}),
           },
           credentials: 'omit',
+          ...(body ? { body: JSON.stringify(body) } : {}),
           // Workers supports manual/follow, while browsers may return an opaque
           // redirect. Reject both forms below without contacting a destination.
           redirect: 'manual',
@@ -111,7 +136,12 @@ export function createApiClient(options: ApiClientOptions) {
       ) {
         throw new TypeError('API redirects are not allowed.');
       }
-      const value: unknown = await response.json();
+      if (!response.body) throw new TypeError('Missing API response body.');
+      const value: unknown = JSON.parse(
+        new TextDecoder().decode(
+          await readBoundedBody(response.body, 64 * 1024, controller.signal),
+        ),
+      );
       if (response.ok && validate(value)) return { data: value };
       if (!response.ok && isError(value)) return { error: value };
       throw new TypeError('API response does not match its contract.');
@@ -120,6 +150,22 @@ export function createApiClient(options: ApiClientOptions) {
       signal?.removeEventListener('abort', abort);
     }
   }
+  function setSaved(
+    id: string,
+    method: 'PUT' | 'DELETE',
+    token?: string,
+    signal?: AbortSignal,
+  ) {
+    if (!/^[a-z][a-z0-9-]{0,47}$/.test(id))
+      throw new TypeError('Invalid resource ID.');
+    return get(
+      `/v1/library/${encodeURIComponent(id)}`,
+      isResourceList,
+      signal,
+      token,
+      method,
+    );
+  }
   return {
     health: (signal?: AbortSignal) => get('/v1/health', isHealth, signal),
     // Server adapters may supply the session cookie through their trusted fetch.
@@ -127,6 +173,44 @@ export function createApiClient(options: ApiClientOptions) {
       get('/v1/me', isMe, signal, token),
     resources: (signal?: AbortSignal) =>
       get('/v1/resources', isResourceList, signal),
+    catalogPage: (input: CatalogPageInput = {}, signal?: AbortSignal) => {
+      const search = catalogSearch(input);
+      const query = catalogQuery(search);
+      return get(
+        `/v2/resources?${search.toString()}`,
+        (value): value is CatalogPage => isCatalogPageForQuery(value, query),
+        signal,
+      );
+    },
+    catalogResource: async (id: string, signal?: AbortSignal) => {
+      if (!/^[a-z][a-z0-9-]{0,47}$/.test(id))
+        throw new TypeError('Invalid resource ID.');
+      // Public aliases intentionally resolve to the canonical ID in the body.
+      return get(
+        `/v2/resources/${encodeURIComponent(id)}`,
+        isCatalogEntry,
+        signal,
+      );
+    },
+    library: (token?: string, signal?: AbortSignal) =>
+      get('/v1/library', isResourceList, signal, token),
+    interests: (token?: string, signal?: AbortSignal) =>
+      get('/v1/interests', isInterests, signal, token),
+    updateInterests: (
+      value: InterestUpdate,
+      token?: string,
+      signal?: AbortSignal,
+    ) => {
+      const parsed = interestUpdate(value);
+      if (!parsed) throw new TypeError('Invalid subject choices.');
+      return get('/v1/interests', isInterests, signal, token, 'PUT', parsed);
+    },
+    resetInterests: (token?: string, signal?: AbortSignal) =>
+      get('/v1/interests', isInterests, signal, token, 'DELETE'),
+    saveResource: async (id: string, token?: string, signal?: AbortSignal) =>
+      setSaved(id, 'PUT', token, signal),
+    removeResource: async (id: string, token?: string, signal?: AbortSignal) =>
+      setSaved(id, 'DELETE', token, signal),
     resource: async (id: string, signal?: AbortSignal) => {
       if (!/^[a-z][a-z0-9-]{0,47}$/.test(id))
         throw new TypeError('Invalid resource ID.');

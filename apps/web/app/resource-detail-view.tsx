@@ -1,7 +1,8 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import type { PreviewResource } from '@polymatik/domain-types';
+import type { WebResource } from '../src/catalog';
+import ResourceArt from './resource-art';
 import type { CollectionView } from '../src/resource-navigation';
 
 export default function ResourceDetailView({
@@ -12,7 +13,7 @@ export default function ResourceDetailView({
   onSave,
   feedback,
 }: {
-  resource: PreviewResource;
+  resource: WebResource;
   returnTo: CollectionView;
   saved: boolean;
   ready: boolean;
@@ -59,6 +60,7 @@ export default function ResourceDetailView({
         </div>
         {feedback}
       </header>
+      <ResourceArt resource={resource} detail />
       <div className="detail-columns">
         <section
           className="detail-description"
@@ -68,7 +70,7 @@ export default function ResourceDetailView({
           <h2 id="about-resource">About this resource</h2>
           <p>{resource.description}</p>
           <p className="detail-editorial-note">
-            An introduction from our preview collection. Open the original for
+            An introduction from our curated collection. Open the original for
             the full resource and its context.
           </p>
         </section>
@@ -92,7 +94,14 @@ export default function ResourceDetailView({
             </div>
             <div>
               <dt>Subject</dt>
-              <dd>{resource.topic}</dd>
+              <dd>
+                {[
+                  resource.topic,
+                  ...('secondary_subjects' in resource
+                    ? resource.secondary_subjects
+                    : []),
+                ].join(' · ')}
+              </dd>
             </div>
             <div>
               <dt>Source note</dt>
@@ -108,7 +117,7 @@ export default function ResourceDetailView({
       <footer className="detail-privacy">
         <p>Saves stay in this browser and are not synced to an account.</p>
         <p>
-          This page contains preview information, not the original article or a
+          This page contains resource metadata, not the original work or a
           personalized recommendation.
         </p>
       </footer>

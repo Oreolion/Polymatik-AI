@@ -1,5 +1,26 @@
 # Living Atlas - design audit and foundation proposal
 
+**14 November UI-07:** optional subject choices extend Profile with numbered
+editorial rows, native multiselect checkboxes, a selected count, explicit Save/
+Skip/Clear actions and a browsing exit. Selection uses text/control state plus
+the existing accent rule; focus uses an outline and labels remain large targets.
+Narrow layouts hide only decorative indexes and wrap actions. Existing light/
+dark tokens and type families are reused; no new assets/dependencies or invented
+learning progress. Loading, changed-session, pending, unsaved and confirmed states
+are explicit. Source/contract checks cannot establish rendered quality; keyboard,
+screen-reader, theme and reflow acceptance remain open (docs/44). Owner deferred
+UI-06 browser review without accepting it.
+
+**13 November UI-06:** Profile gains an account Library panel with source-first
+editorial rows, explicit private-account scope, a quiet empty state and a separate
+browser-copy action. Existing device Library and sun/moon appearance remain.
+Actions have 44px targets; narrow layouts stack the removal action; loading,
+confirmed removal, partial-copy failure, refresh and expired-account feedback
+use text/live regions. Account changes abort requests and clear visible private
+items. No learning progress is fabricated. Build and contract/runtime checks
+pass; rendered keyboard/theme/reflow screenshots remain open because this session
+has no callable computer-use runtime. See docs/43 before live verification.
+
 **11 November UI-05:** owner accepted the prior functional Discover/details,
 device-save/reload and appearance check. The next code audit found that reset
 mixed filter changes with session dismissal recovery, and that earlier hidden
@@ -223,6 +244,16 @@ No UI dependency or external provider is added by this proposal. Rollback is a
 documentation revert; later token/component changes remain separately testable.
 
 ## Primary references
+
+Ticket 4a extends the editorial row with a 3:2 cover beside source text on desktop
+and above it below 600px. Missing art retains stable geometry and a plain subject/
+unavailable label; it never substitutes stock imagery. Only approved API cover
+keys are used, and no staged covers are delivered yet. Previous/Next controls have
+44px targets and a current-page label, with focus returned to the collection
+heading. There is no invented total or automatic infinite scroll. Library keeps
+unresolved saves as explicit Retry/Remove choices. Local synthetic-data browser
+results and screenshots are in docs/24; complete accessibility and actual art QA
+remain separate gates.
 
 - [Source Serif upstream and licence](https://github.com/adobe-fonts/source-serif).
 - [Source Sans upstream and licence](https://github.com/adobe-fonts/source-sans).

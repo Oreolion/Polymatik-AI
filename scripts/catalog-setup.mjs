@@ -1,5 +1,4 @@
-import { createHash } from 'node:crypto';
-import { readFile } from 'node:fs/promises';
+import { loadProductMigration } from './product-migrations.mjs';
 import { resources } from '../packages/domain-types/src/discovery-preview.ts';
 
 export const developmentHost =
@@ -77,11 +76,7 @@ export function developmentDatabase(value) {
 
 /** @param {import('pg').Client} client */
 export async function migrateCatalog(client) {
-  const sql = await readFile(
-    new URL('../db/migrations/0001_product_catalog.sql', import.meta.url),
-    'utf8',
-  );
-  const checksum = createHash('sha256').update(sql).digest('hex');
+  const { sql, checksum } = await loadProductMigration('0001');
   await client.query('BEGIN');
   try {
     await client.query("SET LOCAL lock_timeout = '5s'");

@@ -229,6 +229,13 @@ test('backend catalog membership and order control Discover; Library stays brows
     selectCatalogResources(catalog, { savedOnly: true, saved: ['theory'] }).map(
       (r) => r.id,
     ),
+    [],
+  );
+  assert.deepEqual(
+    selectCatalogResources(
+      { status: 'ready', items: [resources[1]] },
+      { savedOnly: true, saved: ['theory'] },
+    ).map((row) => row.id),
     ['theory'],
   );
 });

@@ -1,6 +1,8 @@
 import { createRequire } from 'node:module';
 import { mkdir, readFile, writeFile, unlink } from 'node:fs/promises';
 import { randomBytes } from 'node:crypto';
+import { migrateInterests } from './interests-setup.mjs';
+import { verifyInterests } from './interests-verify.mjs';
 import { spawn } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -120,9 +122,11 @@ try {
     });
     process.exitCode = typeof code === 'number' ? code : 1;
   } else {
-    if (!['migrate', 'verify', 'setup-role'].includes(action))
+    if (
+      !['migrate', 'verify', 'setup-role', 'setup-interests'].includes(action)
+    )
       throw new Error(
-        'Usage: node scripts/catalog-db.mjs migrate|verify|setup-role',
+        'Usage: node scripts/catalog-db.mjs migrate|verify|setup-role|setup-interests',
       );
     const { Client } = require('pg');
     const newClient = (url) =>
@@ -143,6 +147,10 @@ try {
         phase = 'migration';
         console.log(`Migration 0001: ${await migrateCatalog(owner)}`);
         migrationCommitted = true;
+        if (action === 'setup-interests') {
+          phase = 'explicit subject interests setup';
+          console.log(`Migration 0002: ${await migrateInterests(owner)}`);
+        }
         if (action === 'setup-role') {
           phase = 'application credential preparation';
           let candidate;
@@ -203,6 +211,12 @@ try {
       );
       phase = 'PostgreSQL verification';
       console.log(`PostgreSQL verification: ${await verifyCatalog(client)}`);
+      if (action === 'setup-interests') {
+        phase = 'subject interests verification';
+        console.log(
+          `Subject interests verification: ${await verifyInterests(client)}.`,
+        );
+      }
       if (action === 'setup-role') {
         phase = 'private connection save';
         await mkdir(new URL('../.cache/', import.meta.url), {

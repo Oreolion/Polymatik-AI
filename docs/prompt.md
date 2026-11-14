@@ -12,3 +12,9 @@
 - platform will be adaptive to users and also include personalized ranking
 
 - i think this project have somethings in common with the project kaparhty just developed hackertube, what can be learn from it for this project
+
+- serves as a platform where all the subject can be learned from scratch in the polymathic approach also
+
+
+
+

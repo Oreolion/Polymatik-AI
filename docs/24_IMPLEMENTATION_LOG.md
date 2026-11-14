@@ -1,5 +1,547 @@
 # 24 — Implementation Status and Evidence Ledger
 
+### 2026-11-14 — Ticket 4a public web/device Library; ordinary-runtime gate open
+
+Owner requested continuation after accepting Ticket 3. Inspected the dirty tree,
+handoff, README/source of truth, architecture/backlog and Living Atlas design
+prompt. Implemented only public web and device Library; account Library and
+seven-subject interests remain 4b. No database/provider/config/publication/assets,
+dependency/lockfile, Git metadata, push or deployment change in this slice.
+
+**Files:** web catalog/product/detail loaders and collection/save selection;
+new catalog-browser/catalog-bff/resource-request helpers, GET catalog routes,
+use-catalog-pages and resource-art; Discover/detail pages, detail layout and CSS.
+Tests: catalog-web-v2, discover/catalog/runtime contracts, expanded-catalog and
+local-workers helpers; test:web:unit script. README, AGENTS, docs/04/20/22/24/32/45
+record scope, configuration, rollback and outstanding gates. Preserve unrelated
+UI-06/UI-07 work, staged bundle, docs/prompt.md and applied SQL bytes.
+
+**Agent checks: Windows, Node 24.22.1, current uncommitted master working tree:**
+
+| Check | Captured result |
+|---|---|
+| Initial new web tests | Red: missing BFF module, then old finite-ID/Library expectations exposed the compatibility change. Assertions updated for preserving unloaded IDs and explicitly resolved Library data, not removed. |
+| Focused catalog/discover/detail | 27/27 pass, zero skips. Later v2 suite 8/8 includes prototype-name and whole-batch deadline regressions (29 focused cases total). |
+| Web/config/tokens/account Library/interests/stream contracts | Final run 57/57 pass including prototype-ID/deadline regressions, zero skips; 3,426 ms. Raw output: `.cache/ticket4-units.txt`. |
+| Built web runtime, explicit `POLYMATIK_RUNTIME=miniflare` | Final rebuilt artifact: 16/16 pass, zero skips; 11,701 ms. Actual workerd, local synthetic API and unconfigured account paths; no live expanded SQL or Hyperdrive. Raw output: `.cache/ticket4-runtime.txt`. |
+| Standard Wrangler web runtime | Exit 1 in setup: esbuild cannot read ancestor directory, Access denied/entry resolution. No test assertion coverage accepted from this run; no deadlines raised or runtime fallback silently selected. |
+| Root and web TypeScript | Exit 0 in both scopes. Mobile is parked; no recursive/mobile typecheck claim. |
+| Full configured ESLint / full configured Prettier | Both exit 0. Existing ESLint configuration covers JavaScript/MJS, not TSX; a targeted TSX invocation reports ignored-file warning, not a TSX lint pass. TypeScript compilation checks the web sources. Prettier intentionally excludes existing documentation/provider inputs. |
+| Web `vite build` | Exit 0, `Build complete`; source-map/dynamic-import diagnostics remain. Initial Wrangler log EPERM was avoided in later runs by a process-local `.cache` log path, without changing credentials/config. Raw build output: `.cache/ticket4-build.txt`. |
+
+Runtime verification initially found a real bug: resource layout still rejected
+all IDs outside the original four before reaching the API. Layout now uses the
+authoritative v2 detail read outside the loading boundary. Built tests prove new
+canonical/alias details 200, unknown identity 404 and outage recovery. The v1
+finite guard still preserves unknown-ID 404 during outages. A later review found
+plain-object key collision for the valid ID `constructor`; a null-prototype saved
+identity map and dedicated test fix that edge case.
+A ten-second whole-batch Library deadline preserves partial/unresolved results
+without waiting for a new per-item timeout across every saved ID; a deterministic
+deadline test verifies that unstarted reads remain unresolved without being sent.
+
+**Rendered Chrome checks, synthetic data only:** used the browser-use connector
+after the owner's Chrome debugging consent. Hidden-tab animation-frame throttling
+initially retained streamed fallback markup; temporary focus emulation on the
+owned tab allowed normal rendering. This was not evidence of an application
+loading failure. Verified page 2 Book save, return to page 1 without losing its
+ID, independently resolved Library and reload persistence; all seven subject
+filters; Search finds fixture-10 beyond the first two pages; sun/moon toggles both
+appearances. Missing local cover files show the explicit stable fallback.
+Desktop image/text layout was reduced to a side thumbnail after visual review.
+Screenshots: `.cache/catalog-library-light.png`, `.cache/catalog-search-dark.png`.
+These are local fixture evidence, not actual staged-art approval or hosted UI.
+The connector lost its attachment after another Chrome permission prompt; the
+owner allowed it, and explicitly reselecting the existing owned tab recovered
+the connection. Final-artifact checks then pass: collection and Video detail have
+no horizontal overflow at 320/360/768/1440px; Book survives a full Library reload;
+dismiss/Undo restores the expanded item; page navigation focuses the collection
+heading. Keyboard Skip goes to main, followed by Back, Open original and Save,
+each with visible solid outline. Additional screenshots:
+`.cache/catalog-detail-360.png`, `.cache/catalog-library-360-light.png`.
+Rendered regression first reproduced a failed eager cover that completed before
+hydration without invoking onError. ResourceArt now checks image completion on
+hydration as well; Chrome assertions confirm it becomes the textual fallback
+with no broken img element. No delivered-art approval is inferred. Browser focus/
+viewport emulation was cleared, the owned tab closed and local fixture server
+stopped afterward; other browser tabs and user dev servers were preserved.
+Full keyboard coverage, 200% zoom, screen-reader/automated scan, forced colors,
+actual cover delivery and live expanded browser acceptance remain open.
+
+Final local Worker entry SHA256:
+`12a4ab845c8ce08e719446d7d80bf17494abc24a7e88c40c75213c9fe9e55a1b`.
+This identifies the locally tested build, not a committed or deployed artifact.
+
+**Limits and recovery:** existing preview stays v1; no server mode/connection was
+repointed. A v2 deployment must wait for account/interests compatibility and the
+remaining gates. Revert code or retain default v1; preserve saved-ID storage,
+source bundle and migration ledger. No SQL rollback. No agent/retrieval/ranking
+change or offline evaluation delta. Owner-copyable ordinary runtime commands and
+the next specific ticket, 4b, are in docs/45. No master push is included.
+
+### 2026-11-14 — owner verifies Ticket 3 live SQL, standard Worker and packaging
+
+Owner supplied complete output for the chained commands in docs/45:
+
+| Owner-run command | Reported result |
+|---|---|
+| `bash scripts/node24.sh node scripts/catalog-v2-verify.mjs --run` | Pass: two pages/four originals, canonical detail, subject/kind/literal search and missing identity through the actual repository/API/client and restricted read-only SQL. Exact child br-muddy-bar-zayn69jl, endpoint ep-muddy-brook-za10nkn1. No writes/config/assets/deployment. |
+| `bash scripts/node24.sh npx.cmd --yes pnpm@10.34.2 test:api:runtime` | Standard Wrangler harness: 5/5 pass, zero failures/skips; 18,008 ms. Includes exact-origin rules, forged identity rejection and versioned validation/no-fallback checks. |
+| `bash scripts/node24.sh npx.cmd --yes pnpm@10.34.2 build:api:check` | Wrangler 4.152.0 dry run exits normally: 227.35 KiB upload package / 47.72 KiB gzip, ALLOWED_ORIGINS binding only; `--dry-run: exiting now`. No upload/deployment. |
+
+This closes Ticket 3's planned current-four SQL/API and standard-runtime/packaging
+gates; the prior agent sandbox failures are retained below as historical evidence.
+The runtime's expected 503 cases use unconfigured expanded storage, not the real
+Neon branch. The SQL probe uses in-process API requests and a direct restricted
+connection; neither proves deployed Hyperdrive behavior or hosted browser flows.
+Book/Video/secondary/alias contracts have deterministic fixture evidence, not a
+new published live catalog. Import, cover review, expanded-data engine acceptance,
+UI/rendered and deployment gates stay separate. No new application code, database
+mutation or test rerun was needed to record the owner's output.
+Documentation-scoped `git diff --check` passes. A whole-tree check reports an
+unrelated new blank line at EOF in the owner's existing docs/prompt.md edits;
+that file was preserved rather than rewritten during this status update.
+
+Next smallest ticket: Ticket 4 web integration. Inspection confirms Discover's
+filters/save validation, detail metadata, device Library and account Library still
+depend on four preview identities; only the isolated branch has 0003. Preserve
+existing localStorage and v1/account wire compatibility, use an explicit server-
+owned catalog API mode, and do not silently repoint the current preview or fall
+back after an expanded-storage error. Implement and test bounded page navigation,
+seven-subject filtering, independent saved-ID resolution and cancellation/error
+states before new publication. Design-system and rendered acceptance apply to that
+UI slice. Mobile remains parked; no master push or deployment in this checkpoint.
+
+### 2026-11-14 — Ticket 2 live rehearsal accepted; Ticket 3 versioned catalog API
+
+**Owner-run evidence:** supplied complete `catalog-rehearsal.mjs --run` output:
+created dev-catalog-expansion / br-muddy-bar-zayn69jl, endpoint
+ep-muddy-brook-za10nkn1; applied 0003 only there; rollback schema/cover/alias/
+privilege checks pass. Actual restricted login, two-user/unsigned catalog,
+Library and interests probes pass with fixtures rolled back. Final summary:
+public_resources=4, source_unchanged=true, private_data_preserved=true,
+catalog_imported=false, assets_uploaded=false. This closes the isolated Ticket 2
+schema gate. It does not migrate preview/production or approve publication.
+
+**Next slice implemented:** owner requests continuation. Inspected actual dirty
+tree, handoff, README/source-of-truth, architecture, SQL/projections, strict
+four-identity API/client and body budgets. Added compatible /v2 catalog list/
+detail and generated CatalogEntry/CatalogPage while retaining all /v1/account
+wire shapes and current clients. Five-item keyset pages support strict
+subject/kind/literal q filters, bounded filter-bound cursors and public alias
+resolution. New format/subject/secondary/cover validation excludes editorial
+metadata. SQL reads only public-reviewed content and approved public projections;
+no schema, data, grant, credential/config file, dependency or remote mutation.
+Shared client now bounds decoded responses at 64 KiB before parsing; the API
+bounds expanded responses too. No new content is published or displayed.
+
+**Changed files in this slice:** new packages/domain-types/src/catalog-v2.ts,
+apps/api/src/catalog-v2.ts, scripts/catalog-v2-verify.mjs,
+tests/contracts/catalog-v2.test.mjs, tests/spikes/catalog-v2-verify.test.mjs;
+updated domain exports/OpenAPI/generated types, API catalog query adapter/router/
+Worker, shared API client, API runtime contracts, and exported the existing safe
+CLI runner for the probe. README, docs/04/20/22/24/45 and AGENTS carry current
+status. Preserve unrelated UI-06/UI-07 work, source bundle and applied SQL bytes.
+
+**Agent-run checks, Windows / Node 24.22.1, captured tool output:**
+
+| Check | Actual result |
+|---|---|
+| New v2 contract test before implementation | Exit 1: missing catalog-v2 module (red). |
+| New v2 contract + live-probe helper tests | Exit 0: 12/12, no skips. Includes mocked SQL, not live Neon. |
+| Catalog/API/client/Library/interests/catalog-spike/auth contract suites | Exit 0: 138/138, zero failures/skips; 38,620 ms. |
+| Probe helper after unused fixture binding cleanup | Exit 0: 3/3; 493 ms. |
+| Root, API, web, domain and API-client TypeScript scopes | Each exits 0; not a recursive mobile typecheck claim. |
+| Full ESLint | Exit 0 after removing an unused test fixture binding; no warnings. |
+| Full Prettier and `git diff --check` | Exit 0; Git emits existing CRLF normalization notices only. |
+| OpenAPI generation check in API-client suite | Pass; schema/types generated together. |
+| Standard Wrangler API runtime | Exit 1: startup build cannot read ancestor directory, Access denied; 5 cases blocked by before hook, not accepted. |
+| Explicit Miniflare API runtime + managed-auth integration | Exit 0: 6/6, no skips; 11,012 ms. Exercises real workerd with mocked Auth, unconfigured v2 paths; no PostgreSQL/Hyperdrive coverage. |
+| Web `vite build` | Exit 0: Build complete. Wrangler log-file EPERM and existing sourcemap/dynamic-import warnings remain; not packaging or deployment acceptance. |
+| API `wrangler deploy --dry-run --env local` | Exit 1: ancestor-directory Access denied/entry resolution, plus log-file EPERM. No upload. |
+
+Final web rebuild after the additional cursor/request-limit guards exits 0 with
+`Build complete`; standalone OpenAPI generation check also exits 0. Historical
+0001 and pnpm-lock comparison exits 0 (unchanged). No repeat install needed.
+
+Corrected a Node direct-TS runtime import by retaining the SQL query adapter's
+runtime factory in Worker wiring and using a type-only cross-module import.
+Corrected Worker TextDecoder options and URLSearchParams iteration to match
+installed types; added response/request limit and cursor/filter mismatch guards.
+No assertions removed, deadlines raised or runtime fallback silently selected.
+Workers skill used; PostgreSQL ordering and official pg/Hyperdrive references
+are linked in docs/45. Existing pg request-scoped lifecycle/binding is retained.
+
+**Remaining gates:** normal-terminal default API runtime/packaging and the new
+read-only `catalog-v2-verify.mjs --run` on the accepted child. Agent Neon credential
+access remains blocked; no live API-SQL pass is inferred from the earlier schema
+pass. The probe tests current four entries only; expanded Book/Video/secondary/
+alias engine data and UI behavior require later rollback/import/browser gates.
+No import/assets, push, deployment, rendered UI change, cost/CPU claim, retrieval/
+ranking/prompt change or AI evaluation delta. No new screenshots needed for this
+API-only slice. Existing UI and Expo acceptance stays open.
+
+**Recovery and next:** additive routes/client can be reverted independently;
+keep migration 0003/history and all private/local saved IDs. Do not repoint the
+shared preview target or publish new rows before Ticket 4 migrates Discover,
+Search, details, both Libraries and interest contracts. Commands and compatibility
+policy: docs/45. Production is outside this checkpoint.
+
+### 2026-11-14 — authorized isolated catalog rehearsal tool; live run pending
+
+Owner approved creating dev-catalog-expansion from dev-auth-working and applying
+0003/probes there. Re-read repository status, README/source-of-truth, existing
+migration and role/probe helpers, integration runbook and installed Neon guidance.
+No existing application code, dependency/lockfile, preview configuration, Git
+metadata, live database or remote assets changed in this follow-up.
+
+Agent attempted the cached Neon CLI 8.23.1 `branches list --project-id
+gentle-shadow-65971019 --output json` under Windows / Node 24.22.1. Exit 1:
+`EPERM: operation not permitted, mkdir 'C:\Users\HP 240 G9\.config\neon'`.
+No NEON_API_KEY was available (presence checked without printing values), and no
+callable Neon connector was available. No login/credential copying, permission
+bypass, branch creation, SQL or deployment followed that failure.
+
+Added scripts/catalog-rehearsal.mjs and tests/spikes/catalog-rehearsal.test.mjs;
+updated docs/45, architecture, ADR, backlog, this ledger and AGENTS checkpoint.
+The explicit --run command captures pinned CLI output, validates the named clone,
+parent and exact direct compute/role/database/TLS before child-only migration.
+Read-only parent/child snapshots fingerprint the original catalog/private rows
+without returning rows; row_security=off errors rather than accepting a filtered
+snapshot. Existing checksummed executor, rollback SQL and actual restricted-login
+catalog/Library/interests probes are reused. SQL core sha256 needs no extension.
+It creates no environment/credential files and never invokes branch reset,
+Auth provisioning, import, uploads, startup changes or deployment. Failed runs
+retain created branches and committed migrations; retries verify history.
+
+Agent-run checks (captured tool output, Node 24.22.1):
+
+| Check | Actual result |
+|---|---|
+| New rehearsal test before implementation | Exit 1: module missing (red). |
+| `node --test tests/spikes/catalog-rehearsal.test.mjs` | Exit 0: 12/12 pass, no skips; 577 ms. |
+| `node --test tests/spikes/catalog-*.test.mjs tests/contracts/catalog*.test.mjs tests/contracts/interests*.test.mjs tests/contracts/library*.test.mjs` | Exit 0: 86/86 pass, no failures/skips; 25,266 ms. |
+| Full repository ESLint, max warnings 0 | Exit 0, no diagnostics. |
+| Root `tsc -p tsconfig.json` | Exit 0, root/transitive scope. |
+| Full Prettier check | Exit 0: All matched files use Prettier code style! |
+| `node scripts/generate-api.mjs --check` | Exit 0: OpenAPI generation is current. |
+| `git diff --check`; historical 0001/lockfile comparison | Exit 0 for both; Git reports existing CRLF normalization notices. |
+
+Tests cover safe target/URI/Windows argument binding, branch creation/reuse and
+no reset/fallback, source/private drift, actual read-only snapshot query shape
+and failure rollback, probe order, connection closure and secret-free errors.
+CLI output shapes/options were inspected in installed 8.23.1 source; official
+branch and PostgreSQL row-security/SHA256 sources are linked in docs/45.
+Mocks do not prove hosted credentials, cloning, DDL or tenant isolation.
+
+Next: owner runs the copyable command in docs/45 using the existing CLI login,
+then reports the final safe output. Ticket 2's real database gates stay OPEN.
+No catalog import/publication, source-rights/cover QA, browser acceptance, push,
+preview deployment or production readiness is claimed. Earlier UI/Expo gates
+remain open. Performance and AI evaluation delta N/A: no runtime, retrieval,
+ranking or prompt change. Rollback means transaction rollback on migration
+failure; after commit preserve ledger and child for review, never edit history.
+
+### 2026-11-14 — catalog integration Ticket 2 prepared; live SQL gate OPEN
+
+Owner reports running Ticket 1's command and requests the next implementation.
+Prepared only the next schema/runner slice. No Neon connection/branch mutation,
+SQL execution, import, asset publication, master push or deployment occurred.
+Existing account Library/interests work and the source bundle are preserved.
+
+Changes: new db/migrations/0003_catalog_expansion.sql, rollback-only
+db/verification/0003_catalog_expansion.sql, scripts/product-migrations.mjs,
+scripts/catalog-migration-plan.mjs and tests/spikes/catalog-migrations.test.mjs.
+The catalog/interests setup helpers now share fixed-registry checksum loading;
+their SQL, bootstrap semantics and limited grants are unchanged. Added only the
+db:catalog:plan package command, plus docs/45, architecture, ADR, backlog, ledger
+and checkpoint notes. Historical 0001/0002 SQL bytes and pnpm lock are unchanged.
+
+Prepared design: seven subjects, six kinds, canonical secondary subjects, safe
+hidden/draft defaults, explicit review/withdrawal, private editorial/source-run
+tables, stable aliases and immutable versioned art metadata. Normal/composite
+foreign keys require an approved selected cover for new public identities; the
+four historical entries keep their cover-free fallback. Interest taxonomy widens
+while its selection cap remains three. Only approved-public alias/art views gain
+application SELECT; no catalog writes or private editorial grants are added.
+Existing users/saves/preferences, keys, sort index and forced RLS remain intact.
+
+Ordered registry validates a contiguous ledger and every historical checksum.
+Its prepared expansion executor verifies SQL identity and restricted-role/RLS
+prerequisites, locks, snapshots old content fields, applies only 0003 inside one
+transaction with lock/statement deadlines, compares preservation and records the
+new checksum last. Failure rolls back; retry checks all versions without DDL.
+It is not exposed by any CLI/setup/startup/deployment action. A future approved
+caller must verify a direct isolated endpoint; SQL database/role names alone do
+not prove branch identity. The local --plan command reads source files only and
+explicitly marks live states unverified.
+
+Agent-run Windows / Node 24.22.1 results, captured tool output:
+
+| Check | Actual result |
+|---|---|
+| New migration test before implementation | Exit 1: missing product-migrations module (red). |
+| Dedicated migration suite after implementation | Exit 0: 11/11, no skips. Includes mock transaction failures and structural SQL checks, not engine execution. |
+| `node --test tests/spikes/catalog-*.test.mjs tests/contracts/catalog*.test.mjs tests/contracts/interests*.test.mjs tests/contracts/library*.test.mjs` | Exit 0: 74 tests, 74 pass, zero fail/skips; 21,180 ms. |
+| Root `tsc -p tsconfig.json` | Exit 0; root/transitive module scope, not recursive workspace types. |
+| Full repository ESLint | Exit 0; no errors/warnings. |
+| Full Prettier check | Exit 0: All matched files use Prettier code style! |
+| `node scripts/generate-api.mjs --check` | Exit 0: OpenAPI generation is current. No API schema/type changes. |
+| `node scripts/catalog-migration-plan.mjs --plan` | Exit 0: ordered 0001/0002/0003 checksums; database_inspected false. |
+| `git diff --quiet -- db/migrations/0001_product_catalog.sql pnpm-lock.yaml` | Exit 0. Dedicated test also pins the unchanged 0002 hash. |
+
+11 new tests cover unknown versions, missing/gapped/future ledger rows, checksum
+drift, safe transaction ordering, retries, identity/RLS rejection, DDL failure,
+historical-content drift, hidden defaults/private views and no automatic entry
+point. The prepared real SQL file uses failure assertions that cannot swallow
+unexpected success and a final ROLLBACK. It includes actual future checks for
+taxonomy, NULL/duplicate/dimensional secondaries, cover review transitions,
+aliases, interest cap and grants. **It was not executed.** No PostgreSQL engine
+was available locally; no new dependency was installed as a substitute. A test
+initially matched CREATE inside a read-only privilege string; restricted the
+assertion to statement verbs. A missing explicit pending-cover-default rehearsal
+assertion was added before the final 74/74 run. No safety assertion was disabled.
+
+Read the installed Neon Postgres/parent guidance; preserved pg + Hyperdrive and
+direct-connection migration separation. Consulted PostgreSQL 18 constraint,
+view and trigger documentation (links in docs/45). No production/profile/Auth
+provider change, privilege escalation or copied content. AI eval delta N/A:
+no retrieval/ranking/prompt/agent behavior changed. UI/screenshots N/A. No build
+or deployed acceptance claimed for schema preparation.
+
+Rollback/recovery: executor failures roll back schema plus ledger. Preserve an
+approved isolated branch after successful rehearsal; never edit applied SQL,
+delete ledger history or drop data to reverse expansion. A later change uses a
+forward migration. Next required decision is an explicitly approved isolated
+development branch/endpoint, followed by real migration/rollback rehearsal and
+restricted-login two-user Library/interests probes. Ticket 2 is not DB-accepted;
+Ticket 3 API/pagination and client work remains pending. Older Expo repair and
+UI-06/UI-07 rendered gates are not closed by these tests. Source details: docs/45.
+
+### 2026-11-14 — catalog integration Ticket 1: portable editorial staging
+
+Owner reviewed Ticket 0 and requested implementation. Completed only Ticket 1:
+repository-owned validator and a deterministic read-only JSON proposal. No app
+code, API contract, applied migration, database data/grants, public assets,
+providers, Git metadata or deployment state changed. Preserved pre-existing
+UI-06/UI-07 work and the supplied bundle byte-for-byte. The bundle's Windows
+prefix bug is handled by independent portable validation, not editing its
+validator/checksums. Source rights labels remain unverified editorial claims.
+
+Changed files: scripts/catalog-staging.mjs, scripts/catalog-import.mjs,
+tests/spikes/catalog-staging.test.mjs, package.json (dry-run command only),
+.prettierignore (exact supplied formattable inputs), docs/45, architecture,
+backlog, this ledger and AGENTS current-priority note. Existing root catalog test
+glob includes the new tests without CI changes. No dependency or lockfile edit.
+
+Actual dry-run inventory: 60 unique IDs/URLs, four preserved historical resources,
+56 proposed hidden drafts, seven subjects, six formats, one alias, three cross-run
+overlaps, 14 secondary-subject records, 128/128 checksums and 60 distinct WebP
+containers at 1200x800. Proposed delivered cover bytes total 1,367,268. All 60
+covers retain pending review and publish:false. Private editorial provenance,
+source IDs, observed formats, difficulty, scores, rights and review notes are
+separate from resource metadata. No live database diff is claimed.
+
+Agent-run results on Windows / Node 24.22.1 (captured tool output):
+
+| Command/check | Actual result |
+|---|---|
+| `node --test tests/spikes/catalog-staging.test.mjs` before implementation | Exit 1: missing catalog-staging module (red). |
+| Dedicated staging suite after implementation | 14/14 pass, zero skips. |
+| Focused catalog/client/discovery/details/Library/interests and catalog-spike suites | Exit 0: tests 85, pass 85, fail 0, skipped 0; 16,310 ms. |
+| `node --test tests/spikes/catalog-staging.test.mjs tests/foundation/workspace.test.mjs` after lint corrections | Exit 0: tests 20, pass 20, fail 0, skipped 0; 16,984 ms. |
+| `node node_modules/eslint/bin/eslint.js . --max-warnings 0` | Exit 0, no errors/warnings. |
+| Root script's full Prettier check | Exit 0: All matched files use Prettier code style! |
+| `node node_modules/typescript/bin/tsc -p tsconfig.json` | Exit 0; root TypeScript scope, not recursive workspace typechecks. |
+| `node scripts/generate-api.mjs --check` | Exit 0: OpenAPI generation is current. |
+| `git diff --quiet -- pnpm-lock.yaml` | Exit 0; unchanged. |
+
+Focused command (the table's 85-test run):
+
+```bash
+bash scripts/node24.sh node --test tests/spikes/catalog-*.test.mjs tests/contracts/catalog*.test.mjs tests/contracts/discover.test.mjs tests/contracts/discovery-preview.test.mjs tests/contracts/library*.test.mjs tests/contracts/interests*.test.mjs tests/contracts/api-client.test.mjs tests/contracts/resource-detail.test.mjs
+```
+
+Tests cover preserving originals, draft state, conflicting IDs/URLs/aliases,
+provenance, exact JSON/CSV reconciliation, rights/status/field budgets, Windows
+paths with spaces, real directory-junction escapes, missing/checksum-corrupt
+files, incomplete checksum inventory, duplicate/dimension-invalid covers,
+active/external SVG markup, deterministic CLI output and rejection of write
+flags. Reinspection verifies every input checksum remains unchanged. Test
+fixtures write only disposable temporary copies; importer execution is read-only.
+The supplied tool failed on Windows as reported in Ticket 0. Early new tests
+caught the bundle's pipe-delimited source-run CSV and internal SVG gradient
+references; fixed parser expectations/screening without modifying the bundle.
+Initial ESLint control-regex/space diagnostics were corrected; checks stay enabled.
+
+Security/rights: no new dependency/provider, no environment loading, DB/HTTP client
+or write mode. Local paths use lexical plus realpath containment and bounded
+files/aggregate bytes. Untrusted failures do not print payloads/credentials.
+Checksums do not authenticate authorship. Full image decoding, all-cover rendered
+and scientific review, source rights/redirect verification remain open. No
+agent/prompt/ranking change: offline AI evaluation delta N/A. No UI change, so
+screenshots/build/deployment acceptance are not claimed for this ticket.
+
+Earlier dependency-repair continuity: the agent's scoped forced offline installer
+was stopped when the owner switched to Ticket 0. It did not finish; no manual
+dependency-link edit or further install ran in Ticket 1. These passing focused
+checks do not close the outstanding Expo/full-workspace installation gate or the
+normal-terminal API packaging gate. UI-06/UI-07 rendered acceptance stays open.
+
+Rollback: remove Ticket 1's scripts/test/command and specific formatter/doc notes;
+retain the supplied bundle, existing changes and all data. Next: prepare additive
+catalog migration 0003 and migration-registry tests. No schema execution, asset
+delivery, publication or master push is authorized by this ticket. See docs/45.
+
+### 2026-11-14 — owner reproduces the outstanding terminal dependency failure
+
+Owner normal-terminal mobile-toolchain test reports 0/1, resolving supports-color
+10.2.2 without supportsColor. Agent read-only inspection confirms the correct
+lockfile edge to 7.2.0 and its existing package files, but missing sibling path
+under supports-hyperlinks (ENOENT). Cause of the missing link remains unknown;
+no source version change is justified. Exact cached pnpm reports 10.34.2 and
+installed metadata agrees. No installer or manual link edit ran during this
+diagnosis. Requested confirmation that project servers/installers are stopped
+before a supported frozen repair. Details and preservation rules: docs/37.
+Owner has not yet supplied API packaging output. Milestone push remains pending.
+
+### 2026-11-14 — owner applies subject interests and confirms live SQL probe
+
+Owner explicitly approves the new-table setup and supplies successful output from
+Node24 catalog-db.mjs setup-interests: migration 0001 already applied/checksum
+matches; migration 0002 applied with limited interests-table grants; actual login
+restricted without elevated membership or schema/database creation; catalog 4/4
+and existing private isolation checks pass. Subject interests reports:
+
+```text
+Subject interests verification: save/edit/skip/reset; two-user reads isolated; cross-user writes denied; unsigned reads empty; fixtures rolled back.
+```
+
+This is owner-reported live development SQL evidence, not an agent-executed
+check or proof of browser/deployed behavior. It closes UI-07's permission/setup
+and real SQL probe gate. Do not rerun setup or ask for its approval again.
+Owner requests GitHub push after this milestone. Remaining normal-terminal API
+packaging and Expo link check precede checkpoint publication; explicitly deferred
+browser and hosted review remain open. No new source logic, Git write or deployment
+in this follow-up. Updated docs/44, architecture, ADR, backlog, README, checkpoint
+and compact ignored summary; documentation diff whitespace check only.
+
+### 2026-11-14 — UI-07 / M1-02a optional private subject onboarding prepared
+
+Owner explicitly deferred UI-06's browser review and authorized the next stage;
+the review remains open. Read the updated prompt, requirements, design prompt,
+Living Atlas foundation, existing schema and backlog before editing. Implemented
+only the first subject-choice slice: optional Profile multiselect with Save,
+Skip and Clear, private GET/PUT/DELETE API/BFF, strict shared/generated contract,
+pg repository and additive migration 0002. Dedicated scopes, independently verified
+managed identity, account precondition, exact write origin, strict JSON/byte/time
+limits, parameterized subject predicates, transaction-local identity and forced
+RLS retain the trust boundaries. No ranking, mastery, new provider/dependency,
+mobile changes or edits to the owner's docs/prompt.md.
+
+Tests first failed on the missing interests module. Final new interests suites
+pass 9/9; 60 focused API/client/auth/Library/catalog checks pass. Aggregate root
+suite: 157 tests, 156 pass, one fail, zero skips. Sole failure is the unchanged
+installed Expo supports-hyperlinks -> supports-color 10 link; no reinstall,
+generated-link mutation, exception or test removal. Node24.22.1/Windows root,
+API, web, domain and client TypeScript checks pass, repository ESLint and full
+Prettier check pass, generated types are current. Five-stage web build passes and
+emits /api/account/interests. Existing upstream bundler warnings and log EPERM
+remain. Explicit Miniflare/workerd API + built web + managed-session integration
+pass 20/20, zero skips, including new BFF rejection and revoked interest access.
+The managed test mocks Neon and has no database fallback; it is not live SQL proof.
+
+API Wrangler packaging dry run fails on sandbox ancestor-directory ACL access
+(cannot read ../../../../../.. / resolve worker.ts), plus log-file EPERM. No
+source workaround, packaging pass or standard Wrangler result claimed. Run the
+normal-terminal build:api:check before publication. No callable computer-use
+runtime exists; no screenshot, rendered acceptance or conformance claim.
+
+Prepared explicit setup-interests command: fixed existing development connection,
+owner/role guards, checksum/advisory lock, additive table and grants on only that
+table. It never runs during startup, ordinary migrate, CI or preview deployment.
+Real restricted-login probe is rollback-only and tests save/edit/skip/reset,
+cross-user UPDATE/DELETE/INSERT denial and unsigned reads. No migration/grant or
+live probe executed for this ticket; owner privilege decision remains required
+under AGENTS.md. Setup, source scope, rollback and copyable commands: docs/44.
+Source remains uncommitted over b0dc950; Git metadata is read-only. No new push or
+deployment. Evaluation delta N/A: ranking/prompts/retrieval unchanged. No latency
+or free-plan CPU benchmark. Compact ignored evidence: .cache/verification/ui07/summary.json.
+
+Next: approve and execute only the development interests setup, live rollback-only
+probe, deferred browser checks and normal-terminal packaging/current checks;
+then checkpoint publication and hosted verification. Retain table/data on source
+rollback; no destructive down migration or permission revocation is automatic.
+
+### 2026-11-13 — owner verifies UI-06 development grant and live isolation
+
+Owner ran the exact branch-scoped command from docs/43, targeting
+br-noisy-poetry-zaka8dav / neondb as neondb_owner. Pasted output shows
+BEGIN, SET, SET, DO, GRANT, COMMIT. The chained Node24 library-verify.mjs reports:
+
+```text
+Account Library verification: idempotent save; two-user reads isolated; own removal; cross-user delete denied; unsigned reads empty; fixtures rolled back.
+```
+
+This is owner-reported live SQL evidence for the approved DELETE extension, not
+an agent-executed pass. It closes the pending grant/restricted-login probe below;
+the prior agent ENOTCACHED/EACCES limitations remain historical evidence.
+No migration, role membership or Auth schema change. Rendered Profile copy/reload/
+remove, device-original preservation, second-account and keyboard/theme/reflow
+checks remain next, followed by current source checks and checkpoint publication.
+No new code, push or deployment in this follow-up.
+
+### 2026-11-13 — UI-06 account Library backend and Profile panel prepared
+
+Read owner's modified docs/prompt.md, canonical requirements/backlog, design
+foundation and current architecture. Preserve the owner's uncommitted prompt
+edits. GitHub connector independently confirms run #7 success for
+b0dc9504eb34f5240962b928a2de172cb81c221b; that is the previous hosted baseline,
+not verification of this new worktree. Owner further requests client improvement.
+
+Implemented private Library GET/PUT/DELETE, generated OpenAPI v0.3.0 and typed
+client, same-origin BFF and signed-in Profile panel. Exact origins, fresh managed
+identity/scope checks, body/response limits, no-store, account-change precondition,
+parameterized SQL and transaction-local forced RLS protect the boundaries.
+Idempotent save preserves timestamp; GET creates no users; removal affects only
+the current account. UI explicitly copies device saves, preserves originals,
+shows acknowledged partial results and aborts on account unmount. Distinct loading,
+empty, retry, session-change and pending states retain Living Atlas tokens and
+44px controls. No mastery, ranking, telemetry, new provider/dependency or mobile
+feature. Architecture/backlog/ADR/design/README and docs/43 updated.
+
+Tests first: API/BFF and browser-client suites fail on missing new modules before
+implementation. Final Library contracts 10/10 pass. Aggregate Node suite: 147/148,
+zero skips; sole failure is the existing installed Expo terminal-color dependency
+link (supports-hyperlinks resolves supports-color 10). No generated links altered,
+reinstall or test exclusion. Previous clean CI is green but does not override
+this local failure. Root/web/API TypeScript, repository ESLint, full exact
+Prettier command, generation check and five-stage web build pass on Node24.22.1.
+Build retains upstream sourcemap/dynamic-import warnings and a nonfatal Wrangler
+log-file EPERM. Explicit Miniflare/workerd API + built web + configured managed
+identity suites pass 20/20, zero skips; these mock identity and fixture DB absence,
+not live Neon persistence. Existing pg externalization warnings are retained.
+Compact private run summary: .cache/verification/ui06/summary.json.
+
+Prepared db/operations/enable_account_library.sql grants exactly DELETE on
+polymatik.saved_items to restricted polymatik_app, with owner/forced-RLS checks.
+It is not executed, added to server startup/CI, or part of migration 0001.
+The owner explicitly approved this exact development grant on 13 November.
+Agent execution through the pinned CLI failed with npm ENOTCACHED before Neon
+or SQL ran; no installed CLI was available. No permission change is claimed and
+no repeat approval is needed. New rollback-only
+scripts/library-verify.mjs probes actual restricted-role save/list/remove, two-user
+isolation, cross-user DELETE denial and unsigned denial. Agent run returns EACCES
+before live verification; no SQL pass or permission change claimed. No callable
+computer-use runtime/node_repl is available; no screenshot/rendered acceptance.
+
+Next: owner-terminal execution of the approved grant, actual restricted-login
+probe and local two-account/keyboard/theme/reflow checks, normal-terminal source
+checks, then checkpoint commit/push and hosted verification. Source is uncommitted
+over b0dc950; Git metadata remains read-only. No new deployment. Roll back source
+independently of data; permission revocation is a separate reviewed owner action.
+No AI behavior changed, so evaluation delta is N/A; latency/CPU not benchmarked.
+
 ### 2026-11-12 — first Cloudflare preview deployed; improve smoke failure diagnostics
 
 Agent reads [run #6](https://github.com/Oreolion/Polymatik-AI/actions/runs/43280482951)

@@ -45,9 +45,11 @@ evidence path. Update the checkpoint below only when its status, blocker or
 next action materially changes. Run checks appropriate to actual changes;
 ordinary questions require neither a full suite nor a checkpoint rewrite.
 
-## Current checkpoint — 10 November 2026
-- **Owner priority:** web/backend first; mobile parked. Current ticket: UI-04
-  Profile + Better Auth, Google OAuth 2.0 first. Retain UI-03's open rendered
+## Current checkpoint — 14 November 2026
+- **Owner priority:** web/backend first; mobile parked. Current ticket: UI-07 /
+  M1-02a optional account subject onboarding (docs/44). Owner explicitly defers
+  UI-06 browser review and authorizes the next slice; that review stays open.
+  Retain UI-03's open rendered
   checks; do not reinterpret continuation as acceptance of incomplete gates.
 - **Architecture:** Cloudflare Workers ? Hyperdrive ? Neon PostgreSQL; pgvector
   remains the initial semantic index. Disable Hyperdrive query caching for auth.
@@ -211,8 +213,70 @@ ordinary questions require neither a full suite nor a checkpoint rewrite.
   the first failure remains unknown. New privacy-safe diagnostic tests are red
   before implementation, then foundation/config 33/33, root tsc and full lint
   pass. No retry, relaxed check, provider or DB change. Exact versions: docs/24.
-- **Next:** owner commits/pushes smoke diagnostics using normal Git, then checks
-  the next Actions run and hosted Google/Profile/logout and collection controls.
+- **13 November UI-06:** owner requests next implementation plus client quality
+  and reading docs/prompt.md. Run #7 independently succeeds for b0dc950. Private
+  Library API/BFF/client and Profile copy/remove panel now implemented. Device
+  originals stay local and unchanged; saves are not mastery. Library contracts
+  10/10 and Miniflare Worker checks 20/20 pass; root/web/API tsc, ESLint, Prettier,
+  generation and web build pass. Root suite 147/148: installed Expo color-link
+  failure; no dependency reinstall or test removal. Agent SQL access returns EACCES;
+  owner's later live probe passes.
+- **Permission follow-up, 13 November:** owner explicitly approves the single
+  development DELETE grant on saved_items. Agent CLI attempt fails with npm
+  ENOTCACHED before Neon/SQL runs. Owner subsequently reports GRANT and COMMIT on
+  dev-auth-working and the real restricted-login probe passes: idempotent saves,
+  own removal, isolated users, denied cross-user delete and empty unsigned reads;
+  fixtures rolled back. No repeat grant/approval needed. Evidence: docs/43.
+- **14 November UI-07:** optional account subject choices, skip/edit/reset,
+  strict API/BFF/client contracts and Profile form are implemented. Additive
+  migration 0002 and narrowly scoped new-table grants were separately approved
+  and applied by the owner. Live restricted-login interests/isolation probe passes
+  with fixtures rolled back. No repeat setup/approval needed. No ranking/mastery
+  change. Rendered acceptance remains open; mobile parked. Exact results: docs/24.
+  Interests contracts 9/9 and Miniflare/workerd checks 20/20 pass; root/API/web/
+  domain/client types, lint/format and web build pass. Root suite 156/157 retains
+  the installed Expo color-link failure. Standard API packaging is blocked by
+  sandbox ancestor-directory ACL; normal-terminal build:api:check remains needed.
+- **Catalog priority, 14 November:** owner reviewed the read-only integration
+  inspection and authorized Ticket 1 only. Portable staging validation and a
+  deterministic dry-run proposal preserve four originals and 56 hidden drafts;
+  all art remains pending review. No application/schema/provider/data/asset
+  publication or Git push is part of this ticket. See docs/45 and docs/24. Later
+  schema work must use a new migration after occupied 0002. UI-06/07 rendered
+  acceptance and interrupted dependency-repair verification remain open.
+- **Catalog Ticket 2 preparation:** owner ran the dry run and requested the next
+  implementation. Migration 0003, ordered checksums, a file-only plan and rollback
+  SQL rehearsal are prepared, not applied. Legacy setup actions never auto-apply
+  expansion. Approve/verify an isolated endpoint before SQL execution; live
+  migration, restricted-role and two-user gates remain open. docs/45 and docs/24
+  distinguish mocked runner checks from PostgreSQL acceptance. No import or push.
+- **Catalog rehearsal authorized:** owner approves `dev-catalog-expansion` from
+  `dev-auth-working`, 0003 only on that child and real rollback/restricted-login
+  probes. Explicit `scripts/catalog-rehearsal.mjs --run` validates branch/compute
+  and preserves parent/private fingerprints without config/credential files.
+  Agent CLI fails EPERM at its Neon login directory; no remote mutation ran.
+  Owner-terminal command in docs/45 is pending; Ticket 2 live gates remain open.
+  No repeated permission request, preview repoint, import, upload, push or deploy.
+- **Catalog current gate:** owner reports isolated rehearsal passes on
+  br-muddy-bar-zayn69jl / ep-muddy-brook-za10nkn1, with 0003 applied, original/private
+  data preserved and real restricted-login isolation probes rolled back. No
+  import/assets/deployment. Ticket 3 adds versioned /v2 catalog pagination/domain
+  while preserving strict /v1 clients. Owner's read-only API SQL probe now passes;
+  standard Wrangler runtime is 5/5 and packaging dry run passes (227.35 KiB,
+  47.72 KiB gzip). Ticket 4a now implements opt-in v2 public pagination/details
+  and independent device Library resolution without resetting saved IDs.
+  Web/config/account tests 57/57 and built Miniflare web tests 16/16 pass; ordinary Wrangler
+  remains blocked by sandbox ancestor ACL. Chrome fixture checks cover pages,
+  saves/reload, seven subjects, search/themes, four responsive widths and basic
+  keyboard focus. Full accessibility/live-data gates remain. Next 4b expands account Library
+  and interests; no publication before those compatibility gates. No repeat SQL
+  setup, preview repoint, import, asset upload, master push or deployment.
+  Current results/remaining UI gates: docs/24 and 45.
+- **Earlier milestone follow-up:** normal-terminal API packaging and outstanding Expo toolchain check,
+  then milestone checkpoint and owner-requested GitHub push. Keep deferred
+  rendered checks (docs/43-44) and hosted acceptance explicit.
+  No new deployment ran. Hosted Google/Profile/logout and
+  collection-control acceptance remains open.
   No further
   plan or subdomain setup is needed.
   New collection-controls rendered acceptance remains pending.

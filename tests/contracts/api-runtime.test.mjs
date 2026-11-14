@@ -109,3 +109,25 @@ test('actual workerd serves the public preview catalog and validates resource ID
     assert.equal(response.status, status);
   }
 });
+
+test('actual workerd validates versioned queries and never substitutes preview data for missing expanded storage', async (t) => {
+  /** @type {[string, number][]} */
+  const cases = [
+    ['/v2/resources', 503],
+    ['/v2/resources?subject=Biology&kind=Book&limit=2', 503],
+    ['/v2/resources/atoms', 503],
+    ['/v2/resources?limit=6', 422],
+    ['/v2/resources?limit=2&limit=3', 422],
+    ['/v2/resources?cursor=malformed', 422],
+    ['/v2/resources/%ZZ', 422],
+  ];
+  for (const [path, status] of cases) {
+    const { response, value } = await readRuntimeJson(`${base}${path}`, {
+      label: 'expanded catalog validation',
+      diagnostic: (message) => t.diagnostic(message),
+    });
+    assert.equal(response.status, status);
+    assert.equal(value.error.request_id, response.headers.get('x-request-id'));
+    assert.equal(response.headers.get('cache-control'), 'no-store');
+  }
+});

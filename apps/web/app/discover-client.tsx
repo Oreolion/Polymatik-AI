@@ -3,14 +3,16 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   readSaves,
+  writeSaves,
   resources,
   selectCatalogResources,
   topics,
   setResourceSaved,
 } from '../src/discover';
 import type { Topic } from '../src/discover';
-import type { ResourceCatalogState } from '../src/catalog';
-import type { PreviewResource } from '@polymatik/domain-types';
+import type { ResourceCatalogState, WebResource } from '../src/catalog';
+import { useCatalogPages, useDeviceResources } from './use-catalog-pages';
+import ResourceArt from './resource-art';
 import type { CollectionView } from '../src/resource-navigation';
 import {
   emptyCollectionContext,
@@ -109,7 +111,7 @@ function ResourceRow({
   featured,
   view,
 }: {
-  resource: PreviewResource;
+  resource: WebResource;
   index: number;
   saved: boolean;
   ready: boolean;
@@ -120,7 +122,7 @@ function ResourceRow({
 }) {
   return (
     <article
-      className={`resource ${featured ? 'resource-featured' : ''}`}
+      className={`resource ${featured ? 'resource-featured' : ''} ${'cover' in resource && resource.cover ? 'resource-has-art' : ''}`}
       aria-labelledby={`title-${resource.id}`}
     >
       <div className="resource-margin" aria-hidden="true">
@@ -128,6 +130,7 @@ function ResourceRow({
         <span className="margin-line" />
       </div>
       <div className="resource-body">
+        <ResourceArt resource={resource} />
         <div className="resource-source">
           <span>{resource.source}</span>
           <span className="source-dot" aria-hidden="true">
@@ -145,7 +148,14 @@ function ResourceRow({
         </h3>
         <p className="resource-description">{resource.description}</p>
         <div className="resource-meta">
-          <span className="subject-label">{resource.topic}</span>
+          <span className="subject-label">
+            {[
+              resource.topic,
+              ...('secondary_subjects' in resource
+                ? resource.secondary_subjects
+                : []),
+            ].join(' · ')}
+          </span>
           <span>{resource.note}</span>
         </div>
         <div className="resource-actions">
@@ -176,7 +186,7 @@ function ResourceRow({
           )}
         </div>
       </div>
-      {featured && (
+      {featured && !('cover' in resource && resource.cover) && (
         <div className="atlas-index" aria-hidden="true">
           <span className="atlas-index-top">THE PHYSICAL WORLD</span>
           <span className="atlas-letter">
@@ -199,12 +209,14 @@ export default function DiscoverClient({
   catalog = { status: 'unavailable' },
   returnTo = 'discover',
   profilePage = false,
+  expandedCatalog = false,
 }: {
-  resource?: PreviewResource;
+  resource?: WebResource;
   resourceState?: ResourceState;
   catalog?: ResourceCatalogState;
   returnTo?: CollectionView;
   profilePage?: boolean;
+  expandedCatalog?: boolean;
 }) {
   const isResourcePage = Boolean(resource || resourceState);
   const isStandalonePage = isResourcePage || profilePage;
@@ -238,6 +250,22 @@ export default function DiscoverClient({
   const headingRef = useRef<HTMLHeadingElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const previousView = useRef<View>('discover');
+  const pages = useCatalogPages(
+    catalog,
+    expandedCatalog && !isStandalonePage && contextLoaded && view !== 'library',
+    topic,
+    query,
+  );
+  const device = useDeviceResources(
+    saved,
+    expandedCatalog && !isStandalonePage && view === 'library' && ready,
+  );
+  const activeCatalog: ResourceCatalogState = expandedCatalog
+    ? view === 'library'
+      ? { status: 'ready', items: device.items }
+      : pages.state
+    : catalog;
+  const availableTopics = expandedCatalog ? topics : topics.slice(0, 4);
 
   function clearFilters() {
     setContext((current) => resetCollectionFilters(current, view));
@@ -328,6 +356,11 @@ export default function DiscoverClient({
         window.localStorage,
         action.id,
         action.shouldSave,
+        resource?.id === action.id
+          ? resource
+          : activeCatalog.status === 'ready'
+            ? activeCatalog.items.find((item) => item.id === action.id)
+            : undefined,
       );
       setSaved(next);
       setReady(true);
@@ -363,19 +396,45 @@ export default function DiscoverClient({
       );
     }
   }
-  const visible = selectCatalogResources(catalog, {
-    topic,
-    query,
-    savedOnly: view === 'library',
-    saved,
-    dismissed,
-  });
-  const collectionPending = view !== 'library' && catalog.status !== 'ready';
+  const visible = selectCatalogResources(
+    view === 'library' && !expandedCatalog
+      ? { status: 'ready', items: resources }
+      : activeCatalog,
+    {
+      topic,
+      query: expandedCatalog && view !== 'library' ? '' : query,
+      savedOnly: view === 'library',
+      saved:
+        expandedCatalog && view === 'library'
+          ? device.items.map((item) => item.id)
+          : saved,
+      dismissed,
+    },
+  );
+  const collectionPending =
+    view !== 'library' && activeCatalog.status !== 'ready';
+  const hasFilters = topic !== 'All subjects' || query.length > 0;
   const emptyCatalog =
     view !== 'library' &&
-    catalog.status === 'ready' &&
-    catalog.items.length === 0;
-  const hasFilters = topic !== 'All subjects' || query.length > 0;
+    activeCatalog.status === 'ready' &&
+    activeCatalog.items.length === 0 &&
+    !hasFilters &&
+    (!expandedCatalog || pages.page === 1);
+  const queryInvalid = expandedCatalog && query.trim().length > 100;
+  function removeUnresolved(id: string | readonly string[]) {
+    const ids = typeof id === 'string' ? [id] : id;
+    try {
+      const current = readSaves(window.localStorage);
+      const next = current.filter((value) => !ids.includes(value));
+      writeSaves(window.localStorage, next);
+      setSaved(next);
+      setNotice('Removed from your device Library.');
+    } catch {
+      setStorageError(
+        'This saved ID could not be removed. Your previous saves are unchanged.',
+      );
+    }
+  }
   const isDark = theme === 'dark' || (theme === 'system' && systemDark);
   const collectionHref = (next: View) =>
     `${isStandalonePage ? '/' : ''}#${next}`;
@@ -527,6 +586,7 @@ export default function DiscoverClient({
                 theme={theme}
                 onThemeChange={changeTheme}
                 savedCount={saved.length}
+                savedIds={saved}
                 storageReady={ready}
               />
               {storageFeedback}
@@ -585,7 +645,7 @@ export default function DiscoverClient({
                   {view === 'library'
                     ? 'The ideas you chose to keep, ready when you are.'
                     : view === 'search'
-                      ? 'Find a starting point in this small preview collection.'
+                      ? 'Find a starting point across ideas, subjects and sources.'
                       : 'Ideas worth pausing for. Perspectives worth exploring. A starting point for your next rabbit hole.'}
                 </p>
               </div>
@@ -601,7 +661,14 @@ export default function DiscoverClient({
                 </p>
               </div>
               <div className="discovery-layout">
-                <div className="feed">
+                <div
+                  className="feed"
+                  aria-busy={
+                    collectionPending ||
+                    (expandedCatalog && view === 'library' && device.loading) ||
+                    undefined
+                  }
+                >
                   <div className="feed-toolbar">
                     <h2 ref={headingRef} tabIndex={-1}>
                       {view === 'library'
@@ -631,8 +698,8 @@ export default function DiscoverClient({
                       type="search"
                       name="query"
                       autoComplete="off"
-                      maxLength={MAX_COLLECTION_QUERY}
-                      disabled={collectionPending}
+                      maxLength={expandedCatalog ? 100 : MAX_COLLECTION_QUERY}
+                      disabled={!expandedCatalog && collectionPending}
                       placeholder="Search ideas, subjects, sources…"
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
@@ -651,17 +718,22 @@ export default function DiscoverClient({
                       </button>
                     )}
                   </form>
+                  {queryInvalid && (
+                    <p className="catalog-help" role="alert">
+                      Use 100 characters or fewer to search this collection.
+                    </p>
+                  )}
                   <div
                     className="topic-filters"
                     role="group"
                     aria-label="Filter by subject"
                   >
-                    {topics.map((value) => (
+                    {availableTopics.map((value) => (
                       <button
                         key={value}
                         type="button"
                         aria-pressed={topic === value}
-                        disabled={collectionPending}
+                        disabled={!expandedCatalog && collectionPending}
                         onClick={() => setTopic(value)}
                       >
                         {value}
@@ -676,10 +748,10 @@ export default function DiscoverClient({
                       aria-atomic="true"
                     >
                       {collectionPending
-                        ? catalog.status === 'loading'
+                        ? activeCatalog.status === 'loading'
                           ? 'Loading collection…'
                           : 'Collection unavailable'
-                        : `${visible.length} ${visible.length === 1 ? 'resource' : 'resources'}${query.trim() ? ` matching “${query.trim()}”` : ''}`}
+                        : `${visible.length} ${visible.length === 1 ? 'resource' : 'resources'}${expandedCatalog && view !== 'library' ? ' on this page' : ''}${query.trim() ? ` matching “${query.trim()}”` : ''}`}
                     </p>
                     {!collectionPending && (
                       <div
@@ -722,11 +794,13 @@ export default function DiscoverClient({
                   {collectionPending ? (
                     <div
                       className="empty-state catalog-state"
-                      role={catalog.status === 'loading' ? 'status' : 'alert'}
+                      role={
+                        activeCatalog.status === 'loading' ? 'status' : 'alert'
+                      }
                     >
                       <Icon name="atlas" />
                       <h3>
-                        {catalog.status === 'loading'
+                        {activeCatalog.status === 'loading'
                           ? 'Opening the collection…'
                           : 'The collection could not be loaded.'}
                       </h3>
@@ -739,11 +813,19 @@ export default function DiscoverClient({
                         className="detail-actions"
                         aria-label="Collection recovery"
                       >
-                        {catalog.status !== 'loading' && (
-                          <a className="detail-primary" href={`/#${view}`}>
-                            Retry collection
-                          </a>
-                        )}
+                        {activeCatalog.status !== 'loading' &&
+                          (expandedCatalog ? (
+                            <button
+                              className="detail-primary"
+                              onClick={pages.retry}
+                            >
+                              Retry collection
+                            </button>
+                          ) : (
+                            <a className="detail-primary" href={`/#${view}`}>
+                              Retry collection
+                            </a>
+                          ))}
                         <a
                           className="detail-save"
                           href="#library"
@@ -753,7 +835,8 @@ export default function DiscoverClient({
                         </a>
                       </nav>
                     </div>
-                  ) : view === 'library' && !ready ? (
+                  ) : view === 'library' &&
+                    (!ready || (expandedCatalog && device.loading)) ? (
                     <div className="empty-state">
                       <Icon name="bookmark" />
                       <h3>
@@ -767,22 +850,43 @@ export default function DiscoverClient({
                           : 'Reading saved resources from this browser.'}
                       </p>
                     </div>
+                  ) : expandedCatalog &&
+                    view === 'library' &&
+                    !hasFilters &&
+                    device.items.length === 0 &&
+                    device.unresolved.length > 0 ? (
+                    <p className="catalog-help">
+                      Your saved IDs are kept below. Resource details are not
+                      currently available.
+                    </p>
                   ) : visible.length ? (
                     visible.map((resource, index) => (
                       <ResourceRow
                         key={resource.id}
                         resource={resource}
                         view={view}
-                        index={resources.findIndex(
-                          (item) => item.id === resource.id,
-                        )}
-                        saved={saved.includes(resource.id)}
+                        index={
+                          expandedCatalog
+                            ? view === 'library'
+                              ? index
+                              : (pages.page - 1) * 5 + index
+                            : resources.findIndex(
+                                (item) => item.id === resource.id,
+                              )
+                        }
+                        saved={
+                          view === 'library' || saved.includes(resource.id)
+                        }
                         ready={ready}
                         onSave={() =>
-                          applySave({
-                            id: resource.id,
-                            shouldSave: !saved.includes(resource.id),
-                          })
+                          expandedCatalog && view === 'library'
+                            ? removeUnresolved(
+                                device.savedAs[resource.id] ?? [resource.id],
+                              )
+                            : applySave({
+                                id: resource.id,
+                                shouldSave: !saved.includes(resource.id),
+                              })
                         }
                         onDismiss={
                           view === 'library'
@@ -853,16 +957,99 @@ export default function DiscoverClient({
                       )}
                     </div>
                   )}
-                  {!collectionPending && (view !== 'library' || ready) && (
-                    <footer className="feed-end">
-                      <span aria-hidden="true">✳</span>
-                      <p>You’ve reached the edge of this little atlas.</p>
-                      <small>
-                        Good ideas deserve a moment. Come back when you’re
-                        curious.
-                      </small>
-                    </footer>
+                  {expandedCatalog &&
+                    view === 'library' &&
+                    ready &&
+                    !device.loading &&
+                    device.unresolved.length > 0 && (
+                      <section
+                        className="unresolved-saves"
+                        aria-labelledby="unresolved-saves-title"
+                      >
+                        <h3 id="unresolved-saves-title">
+                          Some saved resources need another look.
+                        </h3>
+                        <p>
+                          Their saved IDs are still in this browser. A missing
+                          or unavailable resource is never removed
+                          automatically.
+                        </p>
+                        <ul>
+                          {device.unresolved.map((item) => (
+                            <li key={item.id}>
+                              <div>
+                                <a
+                                  href={`/resource/${encodeURIComponent(item.id)}?from=library`}
+                                >
+                                  {item.id}
+                                </a>
+                                <p>
+                                  {item.status === 'not-found'
+                                    ? 'Not currently available in the public collection.'
+                                    : 'Could not be checked. Try again when the connection returns.'}
+                                </p>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => removeUnresolved(item.id)}
+                              >
+                                Remove saved ID
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                        <button
+                          type="button"
+                          className="catalog-retry"
+                          onClick={device.retry}
+                        >
+                          Check saved resources again
+                        </button>
+                      </section>
+                    )}
+                  {expandedCatalog && view !== 'library' && (
+                    <nav
+                      className="catalog-pagination"
+                      aria-label="Collection pages"
+                    >
+                      <button
+                        type="button"
+                        disabled={
+                          !pages.previous || activeCatalog.status === 'loading'
+                        }
+                        onClick={() => {
+                          pages.goPrevious();
+                          headingRef.current?.focus();
+                        }}
+                      >
+                        Previous page
+                      </button>
+                      <span>Page {pages.page}</span>
+                      <button
+                        type="button"
+                        disabled={!pages.next || collectionPending}
+                        onClick={() => {
+                          pages.goNext();
+                          headingRef.current?.focus();
+                        }}
+                      >
+                        Next page <span aria-hidden="true">→</span>
+                      </button>
+                    </nav>
                   )}
+                  {!collectionPending &&
+                    (view !== 'library' || ready) &&
+                    (!expandedCatalog ||
+                      (view === 'library' ? !device.loading : !pages.next)) && (
+                      <footer className="feed-end">
+                        <span aria-hidden="true">✳</span>
+                        <p>You’ve reached the edge of this little atlas.</p>
+                        <small>
+                          Good ideas deserve a moment. Come back when you’re
+                          curious.
+                        </small>
+                      </footer>
+                    )}
                 </div>
                 <aside
                   className="context-shelf"
@@ -884,11 +1071,11 @@ export default function DiscoverClient({
                   <p>This collection is an invitation to wander a little.</p>
                   <div className="subject-index">
                     <span className="eyebrow">IN THIS COLLECTION</span>
-                    {topics.slice(1).map((value, index) => (
+                    {availableTopics.slice(1).map((value, index) => (
                       <button
                         key={value}
                         type="button"
-                        disabled={collectionPending}
+                        disabled={!expandedCatalog && collectionPending}
                         onClick={() => {
                           setTopic(value);
                           setQuery('');

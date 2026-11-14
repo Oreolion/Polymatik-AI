@@ -1,6 +1,9 @@
 import { createApi } from './index';
 import { createManagedSessionVerifier } from './managed-session';
-import { workerCatalog } from './catalog';
+import { workerCatalog, workerCatalogQuery } from './catalog';
+import { postgresCatalogV2 } from './catalog-v2';
+import { workerLibrary } from './library';
+import { workerInterests } from './interests';
 
 const unavailable = () =>
   Response.json(
@@ -22,10 +25,19 @@ export default {
     // Managed Auth is mounted on the web BFF; do not retain a second issuer.
     if (authRoute) return unavailable();
     const catalog = workerCatalog(env, ctx);
+    const catalogV2Query = workerCatalogQuery(env, ctx);
+    const catalogV2 = catalogV2Query
+      ? postgresCatalogV2(catalogV2Query)
+      : undefined;
+    const library = workerLibrary(env, ctx);
+    const interests = workerInterests(env, ctx);
     return createApi({
       allowedOrigins,
       verifySession: createManagedSessionVerifier(env),
       ...(catalog ? { catalog } : {}),
+      ...(catalogV2 ? { catalogV2 } : {}),
+      ...(library ? { library } : {}),
+      ...(interests ? { interests } : {}),
     }).fetch(request);
   },
 } satisfies ExportedHandler<Env>;

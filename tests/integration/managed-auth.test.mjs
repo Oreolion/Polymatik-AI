@@ -59,12 +59,56 @@ test('configured API Worker revalidates managed identities, rejects revocation a
     active = false;
     assert.equal((await read('alice')).status, 401);
     assert.equal(calls, 4);
+    active = true;
+    const library = await fetch(`http://127.0.0.1:${worker.port}/v1/library`, {
+      headers: { cookie: '__Secure-neon-auth.session_token=alice' },
+      signal: AbortSignal.timeout(10000),
+    });
+    assert.equal(
+      library.status,
+      503,
+      'verified Library has no database fallback in fixture mode',
+    );
+    assert.equal((await library.json()).error.code, 'library_unavailable');
+    assert.equal(
+      calls,
+      5,
+      'Library independently revalidates the managed session',
+    );
     assert.equal(
       (await fetch(`http://127.0.0.1:${worker.port}/api/auth/get-session`))
         .status,
       503,
     );
-    assert.equal(calls, 4, 'old issuer route never calls a provider');
+    assert.equal(calls, 5, 'old issuer route never calls a provider');
+    const interests = await fetch(
+      `http://127.0.0.1:${worker.port}/v1/interests`,
+      {
+        headers: { cookie: '__Secure-neon-auth.session_token=alice' },
+        signal: AbortSignal.timeout(10000),
+      },
+    );
+    assert.equal(
+      interests.status,
+      503,
+      'verified interests have no fixture persistence fallback',
+    );
+    assert.equal((await interests.json()).error.code, 'interests_unavailable');
+    assert.equal(
+      calls,
+      6,
+      'interest reads independently revalidate the managed session',
+    );
+    active = false;
+    assert.equal(
+      (
+        await fetch(`http://127.0.0.1:${worker.port}/v1/interests`, {
+          headers: { cookie: '__Secure-neon-auth.session_token=alice' },
+          signal: AbortSignal.timeout(10000),
+        })
+      ).status,
+      401,
+    );
   } finally {
     await worker.stop();
   }

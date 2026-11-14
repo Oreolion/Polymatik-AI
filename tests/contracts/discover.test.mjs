@@ -177,7 +177,7 @@ test('preview filters intersect topic, search, dismissed and saved selections', 
   assert.equal(selectResources({}).length, 4);
 });
 
-test('device saves store only known resource IDs and deduplicate', () => {
+test('device saves preserve valid unloaded resource IDs and deduplicate', () => {
   let serialized = '';
   const store = {
     getItem: () => serialized || null,
@@ -188,8 +188,11 @@ test('device saves store only known resource IDs and deduplicate', () => {
   };
   assert.deepEqual(readSaves(store), []);
   writeSaves(store, ['browser', 'browser', 'untrusted']);
-  assert.deepEqual(readSaves(store), ['browser']);
-  assert.deepEqual(JSON.parse(serialized), { version: 1, ids: ['browser'] });
+  assert.deepEqual(readSaves(store), ['browser', 'untrusted']);
+  assert.deepEqual(JSON.parse(serialized), {
+    version: 1,
+    ids: ['browser', 'untrusted'],
+  });
   assert.ok(!serialized.includes('question'));
 });
 
@@ -222,6 +225,6 @@ test('malformed or future save data is preserved rather than silently overwritte
   );
   assert.deepEqual(
     readSaves({ getItem: () => '{"version":1,"ids":["obsolete","theory"]}' }),
-    ['theory'],
+    ['obsolete', 'theory'],
   );
 });

@@ -27,6 +27,30 @@ Learn remains a placeholder. Production deployment and
 broader accessibility verification are open. See the
 [verification ledger](docs/24_IMPLEMENTATION_LOG.md) for actual results and limits.
 
+Catalog expansion is staged separately: the isolated development schema rehearsal
+passed, and a versioned paginated `/v2/resources` contract now prepares seven
+subjects, six formats and reviewed cover references. No new resources or covers
+are published. Its live read-only SQL/API probe, five standard Worker tests and
+packaging dry run pass. The next web slice implements opt-in v2 pagination,
+seven-subject Search/details and independent device-Library resolution; local
+fixture checks pass, with normal-terminal runtime acceptance still open. Account
+Library/interests expansion and actual cover delivery remain next. See the
+[catalog integration guide](docs/45_CATALOG_INTEGRATION.md).
+
+UI-06 now prepares a private account Library panel in Profile with explicit
+copying from browser saves and account removal. Its API, typed client and privacy
+boundaries are implemented. The owner applied the development DELETE grant and
+passed the live SQL isolation probe on 13 November; rendered checks remain open.
+It is not deployed yet. Existing Discover/detail
+Save actions and the Library tab remain browser-local. See
+[account Library setup and acceptance](docs/43_ACCOUNT_LIBRARY.md).
+
+UI-07 adds optional account subject choices in Profile, with save, skip and clear
+controls. This first onboarding slice uses the three current catalog subjects.
+The owner applied its development migration/grants and passed the live restricted-
+login isolation probe on 14 November; rendered acceptance is open. Choices do not change ranking or
+learning progress yet. See [subject interests setup](docs/44_SUBJECT_INTERESTS.md).
+
 The development catalog migration, restricted application login and real
 PostgreSQL isolation probe passed in the owner's terminal on 11 November.
 The restarted PostgreSQL-mode local Worker also serves all four resources with

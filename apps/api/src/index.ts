@@ -5,6 +5,24 @@ import type {
   PreviewResource,
 } from '@polymatik/domain-types';
 import type { CatalogRepository } from './catalog';
+import type { CatalogV2Repository } from './catalog-v2';
+import {
+  catalogQuery,
+  isCatalogEntry,
+  isCatalogPageForQuery,
+  type CatalogPage,
+  type CatalogEntry,
+} from '@polymatik/domain-types/catalog-v2';
+import type { LibraryRepository } from './library';
+import type { InterestsRepository } from './interests';
+import {
+  interestsInput,
+  type Interests,
+} from '@polymatik/domain-types/interests';
+import {
+  libraryTarget,
+  libraryBodyError,
+} from '@polymatik/domain-types/library-request';
 import {
   getResource,
   resources,
@@ -23,6 +41,9 @@ type Options = {
   verifyBearer?: (token: string) => Promise<Principal | null>;
   verifySession?: (headers: Headers) => Promise<Principal | null>;
   catalog?: CatalogRepository;
+  catalogV2?: CatalogV2Repository;
+  library?: LibraryRepository;
+  interests?: InterestsRepository;
   log?: (entry: RequestLog) => void;
 };
 
@@ -33,9 +54,23 @@ export function createApi(options: Options = {}) {
       const requestId = crypto.randomUUID();
       const url = new URL(request.url);
       const resourceMatch = /^\/v1\/resources\/([^/]+)$/.exec(url.pathname);
+      const resourceV2Match = /^\/v2\/resources\/([^/]+)$/.exec(url.pathname);
+      const catalogV2Route =
+        url.pathname === '/v2/resources' || resourceV2Match !== null;
+      const library = libraryTarget(url.pathname, '/v1/library');
+      const libraryRoute = library.kind !== 'missing';
+      const interestsRoute = url.pathname === '/v1/interests';
+      const privateRoute = libraryRoute || interestsRoute;
+      const methods = interestsRoute
+        ? ['GET', 'PUT', 'DELETE']
+        : library.kind === 'item' || library.kind === 'invalid'
+          ? ['PUT', 'DELETE']
+          : ['GET'];
       const knownRoute =
         ['/v1/health', '/v1/me', '/v1/resources'].includes(url.pathname) ||
-        resourceMatch !== null;
+        resourceMatch !== null ||
+        catalogV2Route ||
+        privateRoute;
       const origin = request.headers.get('origin');
       const originAllowed =
         origin !== null && (options.allowedOrigins ?? []).includes(origin);
@@ -54,7 +89,10 @@ export function createApi(options: Options = {}) {
           | Health
           | Me
           | ApiError
+          | Interests
           | PreviewResource
+          | CatalogEntry
+          | CatalogPage
           | { items: readonly PreviewResource[] },
         status = 200,
       ) => Response.json(body, { status, headers });
@@ -82,7 +120,9 @@ export function createApi(options: Options = {}) {
             .filter(Boolean);
           if (
             !originAllowed ||
-            request.headers.get('access-control-request-method') !== 'GET' ||
+            !methods.includes(
+              request.headers.get('access-control-request-method') ?? '',
+            ) ||
             requestedHeaders.some(
               (name) => !['authorization', 'content-type'].includes(name),
             )
@@ -93,19 +133,21 @@ export function createApi(options: Options = {}) {
               'Preflight is not allowed.',
             );
           }
-          headers.set('access-control-allow-methods', 'GET');
+          headers.set('access-control-allow-methods', methods.join(', '));
           headers.set(
             'access-control-allow-headers',
             'authorization, content-type',
           );
           return new Response(null, { status: 204, headers });
         }
-        if (request.method !== 'GET') {
-          headers.set('allow', 'GET, OPTIONS');
+        if (!methods.includes(request.method)) {
+          headers.set('allow', [...methods, 'OPTIONS'].join(', '));
           return error(405, 'method_not_allowed', 'Method not allowed.');
         }
         let principal: Principal | null = null;
-        if (url.pathname === '/v1/me') {
+        if (privateRoute && request.method !== 'GET' && !originAllowed)
+          return error(403, 'origin_forbidden', 'Origin is not allowed.');
+        if (url.pathname === '/v1/me' || privateRoute) {
           const authorization = request.headers.get('authorization');
           const token = /^Bearer ([^\s]{1,4096})$/i.exec(
             authorization ?? '',
@@ -132,8 +174,77 @@ export function createApi(options: Options = {}) {
               'A verified identity is required.',
             );
           }
-          if (!principal.scopes.includes('profile:read')) {
+          const scope = interestsRoute
+            ? request.method === 'GET'
+              ? 'interests:read'
+              : 'interests:write'
+            : !libraryRoute
+              ? 'profile:read'
+              : request.method === 'GET'
+                ? 'library:read'
+                : 'library:write';
+          if (!principal.scopes.includes(scope)) {
             return error(403, 'forbidden', 'Required permission is missing.');
+          }
+          if (
+            privateRoute &&
+            request.headers.has('x-polymatik-account') &&
+            request.headers.get('x-polymatik-account') !== principal.userId
+          )
+            return error(
+              409,
+              'account_changed',
+              'The signed-in account changed. Reload before continuing.',
+            );
+        }
+        if (catalogV2Route) {
+          let query;
+          let id: string | undefined;
+          try {
+            if (resourceV2Match) {
+              id = decodeURIComponent(resourceV2Match[1] ?? '');
+              if (!/^[a-z][a-z0-9-]{0,47}$/.test(id) || url.searchParams.size)
+                throw new TypeError();
+            } else query = catalogQuery(url.searchParams);
+          } catch {
+            return error(
+              422,
+              'validation_error',
+              'Invalid catalog query or resource ID.',
+            );
+          }
+          if (!options.catalogV2)
+            return error(
+              503,
+              'catalog_unavailable',
+              'The resource collection is unavailable.',
+              true,
+            );
+          try {
+            const result =
+              id !== undefined
+                ? await options.catalogV2.get(id)
+                : query
+                  ? await options.catalogV2.page(query)
+                  : undefined;
+            if (result === undefined && id !== undefined)
+              return error(404, 'not_found', 'Resource not found.');
+            if (
+              !(id !== undefined
+                ? isCatalogEntry(result)
+                : query && isCatalogPageForQuery(result, query)) ||
+              new TextEncoder().encode(JSON.stringify(result)).byteLength >
+                64 * 1024
+            )
+              throw new TypeError('Invalid catalog response.');
+            return json(result as CatalogEntry | CatalogPage);
+          } catch {
+            return error(
+              503,
+              'catalog_unavailable',
+              'The resource collection is unavailable.',
+              true,
+            );
           }
         }
         if (url.searchParams.size > 0) {
@@ -142,6 +253,84 @@ export function createApi(options: Options = {}) {
             'validation_error',
             'Query parameters are not supported.',
           );
+        }
+        if (interestsRoute && principal) {
+          const input = await interestsInput(request);
+          if (input.error)
+            return error(
+              input.error,
+              'validation_error',
+              'Use the supported subject choices and request format.',
+            );
+          if (!options.interests)
+            return error(
+              503,
+              'interests_unavailable',
+              'Account interests are unavailable.',
+              true,
+            );
+          try {
+            const value =
+              request.method === 'GET'
+                ? await options.interests.read(principal.userId)
+                : request.method === 'DELETE'
+                  ? await options.interests.reset(principal.userId)
+                  : input.value
+                    ? await options.interests.write(
+                        principal.userId,
+                        input.value,
+                      )
+                    : undefined;
+            if (!value)
+              return error(422, 'validation_error', 'Invalid subject choices.');
+            return json(value);
+          } catch {
+            return error(
+              503,
+              'interests_unavailable',
+              'Account interests are unavailable.',
+              true,
+            );
+          }
+        }
+        if (libraryRoute && principal) {
+          if (library.kind === 'invalid')
+            return error(422, 'validation_error', 'Invalid resource ID.');
+          const bodyError = await libraryBodyError(request);
+          if (bodyError)
+            return error(
+              bodyError,
+              'validation_error',
+              'Library requests require an empty body.',
+            );
+          if (!options.library)
+            return error(
+              503,
+              'library_unavailable',
+              'Account Library is unavailable.',
+              true,
+            );
+          try {
+            const items =
+              library.kind === 'list'
+                ? await options.library.list(principal.userId)
+                : library.kind === 'item'
+                  ? await options.library.setSaved(
+                      principal.userId,
+                      library.id,
+                      request.method === 'PUT',
+                    )
+                  : undefined;
+            if (!items) return error(404, 'not_found', 'Resource not found.');
+            return json({ items });
+          } catch {
+            return error(
+              503,
+              'library_unavailable',
+              'Account Library is unavailable.',
+              true,
+            );
+          }
         }
         if (principal) return json({ user_id: principal.userId });
         if (url.pathname === '/v1/resources') {
@@ -201,11 +390,17 @@ export function createApi(options: Options = {}) {
       }
       const entry: RequestLog = {
         request_id: requestId,
-        route: resourceMatch
-          ? '/v1/resources/{id}'
-          : knownRoute
-            ? url.pathname
-            : 'unmatched',
+        route: libraryRoute
+          ? library.kind === 'list'
+            ? '/v1/library'
+            : '/v1/library/{id}'
+          : resourceV2Match
+            ? '/v2/resources/{id}'
+            : resourceMatch
+              ? '/v1/resources/{id}'
+              : knownRoute
+                ? url.pathname
+                : 'unmatched',
         status: response.status,
         duration_ms: Date.now() - started,
       };

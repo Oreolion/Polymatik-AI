@@ -13,6 +13,9 @@
     "./bounded-body": "./src/bounded-body.ts",
     "./auth-routes": "./src/auth-routes.ts",
     "./managed-session-cookie": "./src/managed-session-cookie.ts",
-    "./catalog-resource": "./src/catalog-resource.ts"
+    "./catalog-resource": "./src/catalog-resource.ts",
+    "./catalog-v2": "./src/catalog-v2.ts",
+    "./library-request": "./src/library-request.ts",
+    "./interests": "./src/interests.ts"
   }
 }

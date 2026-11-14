@@ -1,7 +1,26 @@
 import { createApiClient, type ApiClientOptions } from '@polymatik/api-client';
 import { readBoundedBody } from '@polymatik/domain-types/bounded-body';
 
-export type ProductApiOptions = { apiOrigin?: string; fetch?: typeof fetch };
+export type ProductApiOptions = {
+  apiOrigin?: string;
+  fetch?: typeof fetch;
+  catalogVersion?: string;
+};
+
+/** Explicit server configuration; callers cannot choose a mode/upstream by URL. */
+export function configuredProductApi(config: object): ProductApiOptions {
+  const origin: unknown = Reflect.get(config, 'PRODUCT_API_ORIGIN');
+  const version: unknown = Reflect.get(config, 'PRODUCT_CATALOG_VERSION');
+  return {
+    ...(typeof origin === 'string' ? { apiOrigin: origin } : {}),
+    catalogVersion:
+      version === undefined
+        ? 'v1'
+        : typeof version === 'string'
+          ? version
+          : 'invalid',
+  };
+}
 const MAX_RESPONSE_BYTES = 64 * 1024;
 
 /** Bound decoded bytes before JSON parsing; this adapter runs only on the server. */

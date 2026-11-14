@@ -1,4 +1,4 @@
-import { topics, type Topic } from '@polymatik/domain-types/discovery-preview';
+import { topics, type Topic } from './discover.ts';
 import type { CollectionView } from './resource-navigation';
 
 export const COLLECTION_CONTEXT_KEY = 'polymatik.preview.collection-context.v1';
@@ -27,7 +27,7 @@ export function resetCollectionFilters(
   return { ...context, [view]: { topic: 'All subjects', query: '' } };
 }
 
-/** Optional per-tab context; never use localStorage or send search terms upstream. */
+/** Optional per-tab context; expanded searches go only to our own catalog API. */
 export function readCollectionContext(
   store: Pick<Storage, 'getItem'>,
 ): CollectionContext {

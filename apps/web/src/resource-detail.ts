@@ -1,8 +1,8 @@
 import { productApiClient, type ProductApiOptions } from './product-api.ts';
-import type { PreviewResource } from '@polymatik/domain-types';
+import type { WebResource } from './catalog';
 
 export type ResourceDetailState =
-  | { status: 'ready'; resource: PreviewResource }
+  | { status: 'ready'; resource: WebResource }
   | { status: 'not-found' }
   | { status: 'unavailable' };
 
@@ -14,7 +14,16 @@ export async function loadResourceDetail(
   if (!/^[a-z][a-z0-9-]{0,47}$/.test(id)) return { status: 'not-found' };
   if (!options.apiOrigin) return { status: 'unavailable' };
   try {
-    const result = await productApiClient(options).resource(id, signal);
+    if (
+      options.catalogVersion !== undefined &&
+      !['v1', 'v2'].includes(options.catalogVersion)
+    )
+      throw new TypeError('Unknown catalog version.');
+    const client = productApiClient(options);
+    const result =
+      options.catalogVersion === 'v2'
+        ? await client.catalogResource(id, signal)
+        : await client.resource(id, signal);
     if (result.data) return { status: 'ready', resource: result.data };
     return {
       status:

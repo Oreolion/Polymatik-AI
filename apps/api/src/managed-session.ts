@@ -106,7 +106,16 @@ export function createManagedSessionVerifier(
       )
         throw new Error('Invalid identity response.');
       if (expiry <= Date.now()) return null;
-      return { userId: id, scopes: ['profile:read'] };
+      return {
+        userId: id,
+        scopes: [
+          'profile:read',
+          'library:read',
+          'library:write',
+          'interests:read',
+          'interests:write',
+        ],
+      };
     } finally {
       clearTimeout(timer);
     }

@@ -4,6 +4,103 @@
 
 ## Current owner priority - web resource details and backend checkpoint
 
+**14 November — Ticket 4a: public web and device Library implemented.**
+Explicit server v2 mode, bounded same-origin catalog reads, five-entry pages,
+seven subjects, accurate formats/details and independent device-save resolution
+replace finite preview gates only for the expanded client. Existing v1/account
+contracts, saved IDs, preview configuration and publication state are preserved.
+Agent web/config/account checks pass 57/57 and built Miniflare/workerd checks pass 16/16;
+standard Wrangler startup is blocked by sandbox ancestor ACL. Chrome verifies
+pagination/save/reload, seven subjects, search/themes, 320/360/768/1440px layout,
+image failure and basic keyboard focus with synthetic data. Remaining accessibility/
+live-data gates and exact commands are in docs/24 and 45. Next is 4b:
+account Library and seven-subject interests, before any publication. No import,
+asset delivery, migration, deployment or master push in this slice.
+
+**14 November — Ticket 3 verification passes; next is Ticket 4 web integration.**
+Owner's real restricted-login read-only API/SQL probe passes on the accepted
+isolated child, default Wrangler runtime passes 5/5, and API packaging dry run
+passes (227.35 KiB / 47.72 KiB gzip). No deployment. Retain expanded-data/cover
+review and rendered/hosted gates. Next migrate web pagination/domain and saved-ID
+handling with an explicit catalog API mode: only the isolated branch has 0003,
+and the current preview connection must not be silently repointed or given a
+fallback. Preserve browser storage, account privacy and old wire compatibility.
+No repeat migration or verification command is needed for this accepted slice.
+
+**14 November — Ticket 2 isolated rehearsal passes; Ticket 3 versioned API.**
+Owner output confirms 0003 on dev-catalog-expansion / br-muddy-bar-zayn69jl,
+endpoint ep-muddy-brook-za10nkn1: schema rollback probes, restricted login,
+two-user/unsigned isolation and original/private/source preservation all pass.
+No imports/assets/deployment. Implement the next API slice as /v2/resources with
+strict five-item keyset pages, filters, canonical alias detail and approved cover
+projection; preserve old /v1 and Library contracts until Ticket 4 migrates clients.
+OpenAPI/generated client evolve together. The later owner verification above
+passes the read-only API/SQL and normal Wrangler runtime/packaging gates.
+No new DB writes, configuration repoint, push or deployment authorized here.
+
+**14 November — isolated catalog rehearsal authorized; owner run pending.**
+The named `dev-catalog-expansion` data clone, child-only 0003 and rollback/real
+restricted-login probes are approved. The explicit command in docs/45 is ready;
+agent CLI access fails with EPERM at the Neon login directory. No remote branch
+or SQL change ran. Finish this live Ticket 2 gate before Ticket 3 API/pagination.
+Do not repoint the preview connection, import/publish resources, upload covers,
+push or deploy during this rehearsal. Source/private preservation remains to be
+proved by the actual command, not inferred from local mocked tests.
+
+**14 November — catalog integration Ticket 2 prepared; live DB gate OPEN.**
+Owner ran Ticket 1's dry run and requested the next implementation. Additive 0003
+and an ordered checksummed registry now prepare seven subjects/six kinds, hidden
+defaults, secondary subjects, private provenance, aliases and approved cover
+selection. Existing interest selection cap stays three. Legacy setup helpers
+share checksum loading but never auto-apply 0003. A source-file-only plan command
+and rollback SQL rehearsal are provided; no SQL/provider/asset/deployment change
+ran. Mock/structural checks are not real PostgreSQL/RLS acceptance. Next gate:
+approve and verify an isolated development endpoint, execute the reviewed schema
+rehearsal and restricted-login probes. API/client pagination remains Ticket 3.
+Details, command, alternatives and rollback: docs/45; actual checks: docs/24.
+
+**14 November — catalog integration Ticket 1: validated editorial staging.**
+Owner reviewed Ticket 0 and authorized implementation. Scope is the portable
+validator and deterministic zero-write proposal only: preserve four historical
+resources, stage 56 drafts, retain aliases/provenance/secondary subjects and keep
+all art pending review. Tests: tests/spikes/catalog-staging.test.mjs, included by
+the existing root test glob. Commands, boundaries and next dependencies: docs/45.
+No application/API/schema change, database write, asset delivery, push or deploy.
+Next is preparing additive migration 0003, not editing applied 0001/0002. API
+compatibility, interests and both Libraries must evolve together later. UI-06/07
+rendered checks and the interrupted dependency-repair acceptance remain open.
+
+**14 November — current ticket UI-07 / M1-02a: optional subject onboarding.**
+Owner explicitly defers UI-06 rendered acceptance and requests the next stage.
+Implement only account subject choices with skip/edit/reset, strict shared
+taxonomy/contract, private persistence and an accessible Profile form. Owner
+separately approved and applied migration 0002 and limited new-table privileges;
+the live restricted-login interests/isolation probe passes on 14 November. No ranking,
+mastery, thinkers/works/intent or mobile implementation. UI-06 and hosted checks
+remain open; do not mark either ticket complete. Scope and setup: docs/44.
+Owner requests the GitHub push after this milestone; current terminal checks and
+the explicitly deferred rendered/hosted checks retain their separate statuses.
+
+**13 November — preceding ticket UI-06: private account Library and Profile panel.**
+Owner requests continued web/backend implementation and client quality, with
+docs/prompt.md's cross-subject learning, adaptation, evidence-based progress and
+specialist/human-review goals retained. Smallest next slice: authenticated
+Library list/save/remove, same-origin BFF and an explicit browser-copy panel.
+Saving is interest, not mastery. Device Save/Library remain local. Account
+isolation, empty/loading/retry/expired states, scope/origin/body validation and
+idempotence are tested. The owner applied the development-only DELETE grant and
+passed the actual restricted-login save/read/remove and isolation probe on
+13 November. Rendered/browser acceptance remains open.
+Source scope/setup/rollback: docs/43. Mobile remains parked. Subsequent tickets:
+interest onboarding, reviewed catalog expansion and deterministic ranking, then
+grounded learning events/progress. No recommendation or mastery score is invented.
+
+**Hosted baseline:** run #7 succeeds for b0dc950 on Windows/Linux and preview
+deployment/smoke. This is the previous source, not UI-06 acceptance. Local UI-06
+Library contracts 10/10 and Worker checks 20/20 pass; aggregate root tests are
+147/148 due to the unchanged installed Expo terminal-color link. Do not alter
+generated links or omit that CI test. No new push/deployment has run.
+
 **12 November corrected deployment scope:** no Vercel project is connected to
 Polymatik. Owner explicitly authorizes master-push deployment to the Cloudflare
 development preview; production audit is for later production promotion.

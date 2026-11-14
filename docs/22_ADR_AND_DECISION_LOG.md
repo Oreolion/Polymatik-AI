@@ -5,6 +5,113 @@
 
 ## Accepted development-workflow decisions
 
+### 2026-11-14 — explicit catalog client mode and independent device resolution
+
+Continue the authorized catalog work as Ticket 4a (public web/device Library),
+then 4b (account Library/interests). Choose a server-owned v1/v2 flag over automatic
+fallback or repointing the shared preview: only the isolated child has 0003.
+Reuse the typed public API through bounded same-origin reads; do not expose an
+upstream selector or forward account cookies for public metadata. Keep explicit
+page controls and server filtering instead of loading the entire catalog.
+Retain the existing browser storage version and unloaded IDs, resolving Library
+details independently with bounded concurrency. A missing resource is an explicit
+removal choice, never an automatic storage mutation. Existing account contracts
+stay compatible until 4b; no expanded publication may precede that work.
+No dependency/provider/SQL/config change is required. Tests, limitations and code-
+only rollback are in docs/45. This does not authorize import, upload or deployment.
+
+### 2026-11-14 — additive catalog API version during client migration
+
+The owner reports complete isolated 0003 rehearsal success and requests the next
+implementation. Choose /v2/resources and CatalogEntry/CatalogPage over adding
+fields to strict existing /v1/Library responses or silently loading every row.
+Five-item keyset pages preserve the existing 64 KiB decoded budget; filters are
+exact subject/kind and literal source-metadata search, not ranking or ingestion.
+Opaque unsigned cursors bind filters, not authorization, and expose no private
+state. Public aliases return canonical detail bodies. Restricted SQL reads only
+approved-public views; editorial data and arbitrary asset URLs stay private.
+No new provider, dependency, migration or grant is needed. Ticket 4 must migrate
+web/Library/interests before any new publication; legacy clients intentionally
+retain their old limits meanwhile. The new read-only live API probe and ordinary
+runtime/packaging remain gates. Rollback removes the additive routes/client;
+preserve applied 0003 and all existing application state. Details: docs/45.
+
+### 2026-11-14 — isolated catalog rehearsal authorized; execution pending
+
+Owner approved the proposed `dev-catalog-expansion` clone of `dev-auth-working`
+and migration/probes there. Implement one explicit command instead of manually
+repointing shared preview credentials or weakening existing fixed-host guards.
+Validate CLI branch/compute metadata, direct connection role/database/TLS and
+checksums before child writes; inspect the parent only in read-only transactions.
+Retain created branches and committed migrations on failure. Do not reset,
+upgrade the plan, modify Auth or repair privileges implicitly. Existing pg and
+Neon CLI need no additional dependency. Environment files remain unchanged.
+The agent's CLI attempt cannot create/access its Neon credential directory
+(EPERM); a tested normal-terminal handoff is provided in docs/45. No remote
+operation succeeded. Live schema/RLS acceptance remains pending, as do publication,
+asset delivery and deployment authorization. Recovery and tests: docs/24 and 45.
+
+### 2026-11-14 — catalog expansion preparation; execution not authorized
+
+Owner requested the next implementation after running the validated staging
+proposal. Prepare a new 0003, never edit applied 0001/0002. Preserve the current
+visibility/quality columns for old explicit-column clients and change defaults
+only for future rows. Keep the existing three-interest selection cap; seven
+subjects are choices, not permission to broaden onboarding behavior silently.
+Normalize editorial source runs and private evidence separately from public
+resource data. Keep project-made versioned art metadata out of source rights.
+
+Use composite foreign keys with a generated approval requirement for public art,
+rather than an application-only check or a cross-table CHECK lookup that would
+not track changes to the referenced row. Explicit public projections avoid
+granting editorial table access. Canonical/alias IDs share serialized operator
+guards; artwork version metadata is immutable. No new provider or dependency.
+
+The ordered registry shares existing checksum loading; it does not silently
+extend ordinary migrate/setup/startup. Its prepared executor requires the known
+baseline, safe privileges/RLS, advisory lock, historical-data preservation and
+atomic ledger write. Isolated branch/endpoint verification belongs to a future
+explicitly authorized caller. Mock tests and prepared rollback SQL do not prove
+Neon compatibility. Schema details, alternatives, platform sources and recovery:
+docs/45. Database application and live acceptance remain pending, not Accepted
+as a deployed architecture reversal or publication approval.
+
+### 2026-11-14 — optional subject onboarding while rendered Library review is deferred
+
+Owner explicitly defers the UI-06 browser check and requests the next stage.
+Retain that open acceptance; do not reinterpret continuation as a release gate pass.
+UI-07 implements the subject-only first slice of M1-02 using the existing reviewed
+taxonomy and account trust boundary. Selection, skip and reset persist privately;
+no automatic inference or change in ranking/mastery. Optional native checkboxes
+fit Living Atlas and keep browsing available. Thinker/work/intent onboarding is
+still future work. Alternatives are local-only choices (no account persistence),
+mandatory onboarding (blocks exploration), or prematurely ranked content (no
+evaluation evidence); defer them. Additive migration 0002 and new-table privileges
+were separately approved and executed by the owner on 14 November, never by
+runtime/CI. The owner-reported live restricted-login probe passes. Owner requests
+the checkpoint push after this milestone; rendered review remains deferred.
+Actual SQL and browser acceptance remain separate from deterministic contracts;
+rollback source while preserving existing data. Scope and commands: docs/44.
+
+### 2026-11-13 — account Library before adaptive learning, explicit device copying
+
+Under the owner's web/backend continuation and request for client improvement,
+UI-06 builds private account Library operations on the existing product schema,
+managed-session boundary and Hyperdrive connection. Profile presents that
+Library separately from browser saves. Copying browser resources is an explicit
+action; sign-in alone never uploads them. Saves do not increment learning or
+mastery. docs/prompt.md's expanded learning/adaptation vision informs subsequent
+onboarding, ranking and assessed learning work without expanding this ticket.
+
+Use one transaction/client per operation and transaction-local RLS subject;
+retain explicit tenant predicates. Alternatives are silent device import,
+frontend-only persistence, or broad runtime owner grants; none meet privacy or
+isolation requirements. No new schema or provider is needed. The narrowly scoped
+DELETE grant on saved_items received explicit owner approval and was executed in
+the owner's development terminal on 13 November; it never runs automatically.
+The owner-reported restricted-login SQL probe passes; browser verification remains
+open. Rollback preserves data and device saves. docs/43.
+
 ### 2026-11-12 — master push deploys only the Cloudflare development preview
 
 Owner clarifies no Vercel project is connected to Polymatik and explicitly
