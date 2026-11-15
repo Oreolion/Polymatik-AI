@@ -8,8 +8,9 @@ import {
   copyDeviceLibrary,
   readAccountLibrary,
 } from '../src/account-library';
+import ExpandedAccountLibrary from './account-library-v2';
 
-export default function AccountLibrary({
+function LegacyAccountLibrary({
   accountId,
   deviceIds,
   storageReady,
@@ -241,5 +242,19 @@ export default function AccountLibrary({
         {notice}
       </p>
     </section>
+  );
+}
+
+export default function AccountLibrary(props: {
+  accountId: string;
+  deviceIds: readonly string[];
+  storageReady: boolean;
+  disabled: boolean;
+  expanded?: boolean;
+}) {
+  return props.expanded ? (
+    <ExpandedAccountLibrary {...props} />
+  ) : (
+    <LegacyAccountLibrary {...props} />
   );
 }

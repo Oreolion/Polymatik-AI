@@ -3,6 +3,7 @@ import { createManagedSessionVerifier } from './managed-session';
 import { workerCatalog, workerCatalogQuery } from './catalog';
 import { postgresCatalogV2 } from './catalog-v2';
 import { workerLibrary } from './library';
+import { workerLibraryV2 } from './library-v2';
 import { workerInterests } from './interests';
 
 const unavailable = () =>
@@ -31,6 +32,8 @@ export default {
       : undefined;
     const library = workerLibrary(env, ctx);
     const interests = workerInterests(env, ctx);
+    const libraryV2 = workerLibraryV2(env, ctx);
+    const interestsV2 = workerInterests(env, ctx, true);
     return createApi({
       allowedOrigins,
       verifySession: createManagedSessionVerifier(env),
@@ -38,6 +41,8 @@ export default {
       ...(catalogV2 ? { catalogV2 } : {}),
       ...(library ? { library } : {}),
       ...(interests ? { interests } : {}),
+      ...(libraryV2 ? { libraryV2 } : {}),
+      ...(interestsV2 ? { interestsV2 } : {}),
     }).fetch(request);
   },
 } satisfies ExportedHandler<Env>;

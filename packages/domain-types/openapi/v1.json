@@ -2,14 +2,11 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Polymatik Product API",
-    "version": "0.5.0",
-    "description": "Product API with reviewed catalog, private account Library and optional private subject interests. Managed sessions are revalidated. PostgreSQL uses Hyperdrive and row-level security. Interests do not change ranking or represent mastery. Versioned /v2/resources supports bounded catalog discovery; legacy v1 and account contracts remain unchanged."
+    "version": "0.6.0",
+    "description": "Product API with reviewed catalog, private account Library and optional private subject interests. Managed sessions are revalidated. PostgreSQL uses Hyperdrive and row-level security. Interests do not change ranking or represent mastery. Versioned /v2/resources supports bounded catalog discovery; legacy v1 and account contracts remain unchanged. Expanded /v2/library and /v2/interests preserve legacy v1 account wire shapes."
   },
   "servers": [
-    {
-      "url": "http://127.0.0.1:8789",
-      "description": "Local development only"
-    }
+    { "url": "http://127.0.0.1:8789", "description": "Local development only" }
   ],
   "paths": {
     "/v1/health": {
@@ -24,17 +21,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Health"
-                }
+                "schema": { "$ref": "#/components/schemas/Health" }
               }
             }
           },
@@ -43,17 +35,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -62,17 +49,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -81,17 +63,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -100,17 +77,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           }
@@ -121,25 +93,18 @@
         "summary": "Exact-origin CORS preflight; GET with authorization/content-type only.",
         "security": [],
         "responses": {
-          "204": {
-            "description": "Allowed preflight."
-          },
+          "204": { "description": "Allowed preflight." },
           "403": {
             "description": "Origin, method or request headers denied.",
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           }
@@ -150,11 +115,7 @@
       "get": {
         "operationId": "getMe",
         "summary": "Verified subject boundary",
-        "security": [
-          {
-            "managedSession": []
-          }
-        ],
+        "security": [{ "managedSession": [] }],
         "parameters": [],
         "responses": {
           "200": {
@@ -162,17 +123,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Me"
-                }
+                "schema": { "$ref": "#/components/schemas/Me" }
               }
             }
           },
@@ -181,17 +137,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -200,17 +151,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -219,17 +165,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -238,17 +179,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -257,17 +193,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -276,17 +207,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           }
@@ -297,25 +223,18 @@
         "summary": "Exact-origin CORS preflight; GET with authorization/content-type only.",
         "security": [],
         "responses": {
-          "204": {
-            "description": "Allowed preflight."
-          },
+          "204": { "description": "Allowed preflight." },
           "403": {
             "description": "Origin, method or request headers denied.",
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           }
@@ -334,17 +253,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceList"
-                }
+                "schema": { "$ref": "#/components/schemas/ResourceList" }
               }
             }
           },
@@ -353,17 +267,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -372,17 +281,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -391,17 +295,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -410,17 +309,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -429,17 +323,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           }
@@ -450,25 +339,18 @@
         "summary": "Exact-origin CORS preflight; GET with authorization/content-type only.",
         "security": [],
         "responses": {
-          "204": {
-            "description": "Allowed preflight."
-          },
+          "204": { "description": "Allowed preflight." },
           "403": {
             "description": "Origin, method or request headers denied.",
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           }
@@ -498,17 +380,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PreviewResource"
-                }
+                "schema": { "$ref": "#/components/schemas/PreviewResource" }
               }
             }
           },
@@ -517,17 +394,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -536,17 +408,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -555,17 +422,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -574,17 +436,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -593,17 +450,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -612,17 +464,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           }
@@ -633,25 +480,18 @@
         "summary": "Exact-origin CORS preflight; GET with authorization/content-type only.",
         "security": [],
         "responses": {
-          "204": {
-            "description": "Allowed preflight."
-          },
+          "204": { "description": "Allowed preflight." },
           "403": {
             "description": "Origin, method or request headers denied.",
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           }
@@ -675,20 +515,13 @@
         "operationId": "getLibrary",
         "summary": "Read the private account Library",
         "description": "Returns only the current verified account?s reviewed public saved-resource metadata, newest saves first. Unsigned requests are denied; no device Library fallback.",
-        "security": [
-          {
-            "managedSession": []
-          }
-        ],
+        "security": [{ "managedSession": [] }],
         "parameters": [
           {
             "name": "x-polymatik-account",
             "in": "header",
             "required": false,
-            "schema": {
-              "type": "string",
-              "pattern": "^[A-Za-z0-9_-]{1,128}$"
-            },
+            "schema": { "type": "string", "pattern": "^[A-Za-z0-9_-]{1,128}$" },
             "description": "Optional expected-account precondition. Compared with the independently verified subject; it never supplies identity."
           }
         ],
@@ -697,23 +530,15 @@
             "description": "Current private Library. Saving does not imply learning or mastery.",
             "headers": {
               "Cache-Control": {
-                "schema": {
-                  "type": "string",
-                  "const": "no-store"
-                }
+                "schema": { "type": "string", "const": "no-store" }
               },
               "X-Request-Id": {
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceList"
-                }
+                "schema": { "$ref": "#/components/schemas/ResourceList" }
               }
             }
           },
@@ -721,9 +546,7 @@
             "description": "Verified identity required.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -731,9 +554,7 @@
             "description": "Origin or scope denied.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -741,9 +562,7 @@
             "description": "Resource or route not found.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -751,9 +570,7 @@
             "description": "Method not allowed.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -761,9 +578,7 @@
             "description": "Request body deadline exceeded.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -771,9 +586,7 @@
             "description": "Signed-in account changed; reload before continuing.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -781,9 +594,7 @@
             "description": "Request body exceeds byte budget.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -791,9 +602,7 @@
             "description": "Invalid resource ID, query or nonempty request body.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -801,9 +610,7 @@
             "description": "Identity or private Library unavailable; no fallback.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           }
@@ -815,11 +622,7 @@
         "operationId": "saveResource",
         "summary": "Save a reviewed resource to the account Library",
         "description": "Idempotent mutation of only the current verified account. Exact allowed Origin and an empty request body are required; the response is the current Library.",
-        "security": [
-          {
-            "managedSession": []
-          }
-        ],
+        "security": [{ "managedSession": [] }],
         "parameters": [
           {
             "name": "id",
@@ -835,19 +638,14 @@
             "name": "Origin",
             "in": "header",
             "required": true,
-            "schema": {
-              "type": "string"
-            },
+            "schema": { "type": "string" },
             "description": "Exact configured public web origin."
           },
           {
             "name": "x-polymatik-account",
             "in": "header",
             "required": false,
-            "schema": {
-              "type": "string",
-              "pattern": "^[A-Za-z0-9_-]{1,128}$"
-            },
+            "schema": { "type": "string", "pattern": "^[A-Za-z0-9_-]{1,128}$" },
             "description": "Optional expected-account precondition. Compared with the independently verified subject; it never supplies identity."
           }
         ],
@@ -856,23 +654,15 @@
             "description": "Current private Library. Saving does not imply learning or mastery.",
             "headers": {
               "Cache-Control": {
-                "schema": {
-                  "type": "string",
-                  "const": "no-store"
-                }
+                "schema": { "type": "string", "const": "no-store" }
               },
               "X-Request-Id": {
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceList"
-                }
+                "schema": { "$ref": "#/components/schemas/ResourceList" }
               }
             }
           },
@@ -880,9 +670,7 @@
             "description": "Verified identity required.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -890,9 +678,7 @@
             "description": "Origin or scope denied.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -900,9 +686,7 @@
             "description": "Resource or route not found.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -910,9 +694,7 @@
             "description": "Method not allowed.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -920,9 +702,7 @@
             "description": "Request body deadline exceeded.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -930,9 +710,7 @@
             "description": "Signed-in account changed; reload before continuing.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -940,9 +718,7 @@
             "description": "Request body exceeds byte budget.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -950,9 +726,7 @@
             "description": "Invalid resource ID, query or nonempty request body.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -960,9 +734,7 @@
             "description": "Identity or private Library unavailable; no fallback.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           }
@@ -972,11 +744,7 @@
         "operationId": "removeResource",
         "summary": "Remove a resource from the account Library",
         "description": "Idempotent mutation of only the current verified account. Exact allowed Origin and an empty request body are required; the response is the current Library.",
-        "security": [
-          {
-            "managedSession": []
-          }
-        ],
+        "security": [{ "managedSession": [] }],
         "parameters": [
           {
             "name": "id",
@@ -992,19 +760,14 @@
             "name": "Origin",
             "in": "header",
             "required": true,
-            "schema": {
-              "type": "string"
-            },
+            "schema": { "type": "string" },
             "description": "Exact configured public web origin."
           },
           {
             "name": "x-polymatik-account",
             "in": "header",
             "required": false,
-            "schema": {
-              "type": "string",
-              "pattern": "^[A-Za-z0-9_-]{1,128}$"
-            },
+            "schema": { "type": "string", "pattern": "^[A-Za-z0-9_-]{1,128}$" },
             "description": "Optional expected-account precondition. Compared with the independently verified subject; it never supplies identity."
           }
         ],
@@ -1013,23 +776,15 @@
             "description": "Current private Library. Saving does not imply learning or mastery.",
             "headers": {
               "Cache-Control": {
-                "schema": {
-                  "type": "string",
-                  "const": "no-store"
-                }
+                "schema": { "type": "string", "const": "no-store" }
               },
               "X-Request-Id": {
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceList"
-                }
+                "schema": { "$ref": "#/components/schemas/ResourceList" }
               }
             }
           },
@@ -1037,9 +792,7 @@
             "description": "Verified identity required.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1047,9 +800,7 @@
             "description": "Origin or scope denied.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1057,9 +808,7 @@
             "description": "Resource or route not found.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1067,9 +816,7 @@
             "description": "Method not allowed.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1077,9 +824,7 @@
             "description": "Request body deadline exceeded.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1087,9 +832,7 @@
             "description": "Signed-in account changed; reload before continuing.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1097,9 +840,7 @@
             "description": "Request body exceeds byte budget.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1107,9 +848,7 @@
             "description": "Invalid resource ID, query or nonempty request body.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1117,9 +856,7 @@
             "description": "Identity or private Library unavailable; no fallback.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           }
@@ -1131,11 +868,7 @@
         "operationId": "getInterests",
         "summary": "Read current private subject choices",
         "description": "Request body and query parameters are not supported.",
-        "security": [
-          {
-            "managedSession": []
-          }
-        ],
+        "security": [{ "managedSession": [] }],
         "parameters": [
           {
             "in": "header",
@@ -1155,23 +888,15 @@
             "description": "Current private subject selection. No learning progress or ranking is inferred.",
             "headers": {
               "Cache-Control": {
-                "schema": {
-                  "type": "string",
-                  "const": "no-store"
-                }
+                "schema": { "type": "string", "const": "no-store" }
               },
               "X-Request-Id": {
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Interests"
-                }
+                "schema": { "$ref": "#/components/schemas/Interests" }
               }
             }
           },
@@ -1179,9 +904,7 @@
             "description": "Verified identity required.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1189,9 +912,7 @@
             "description": "Origin or scope denied.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1199,9 +920,7 @@
             "description": "Resource or route not found.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1209,9 +928,7 @@
             "description": "Method not allowed.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1219,9 +936,7 @@
             "description": "Request body deadline exceeded.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1229,9 +944,7 @@
             "description": "Verified account no longer matches the account precondition.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1239,9 +952,7 @@
             "description": "Body exceeds 1024 bytes.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1249,9 +960,7 @@
             "description": "PUT requires application/json.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1259,9 +968,7 @@
             "description": "Invalid query, body, subject or selection status.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1269,9 +976,7 @@
             "description": "Identity or persistence unavailable; no fallback.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           }
@@ -1281,11 +986,7 @@
         "operationId": "updateInterests",
         "summary": "Replace current subject choices or explicitly skip",
         "description": "Returns only the current verified account?s reviewed public saved-resource metadata, newest saves first. Unsigned requests are denied; no device Library fallback.",
-        "security": [
-          {
-            "managedSession": []
-          }
-        ],
+        "security": [{ "managedSession": [] }],
         "parameters": [
           {
             "in": "header",
@@ -1305,23 +1006,15 @@
             "description": "Current private subject selection. No learning progress or ranking is inferred.",
             "headers": {
               "Cache-Control": {
-                "schema": {
-                  "type": "string",
-                  "const": "no-store"
-                }
+                "schema": { "type": "string", "const": "no-store" }
               },
               "X-Request-Id": {
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Interests"
-                }
+                "schema": { "$ref": "#/components/schemas/Interests" }
               }
             }
           },
@@ -1329,9 +1022,7 @@
             "description": "Verified identity required.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1339,9 +1030,7 @@
             "description": "Origin or scope denied.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1349,9 +1038,7 @@
             "description": "Resource or route not found.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1359,9 +1046,7 @@
             "description": "Method not allowed.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1369,9 +1054,7 @@
             "description": "Request body deadline exceeded.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1379,9 +1062,7 @@
             "description": "Verified account no longer matches the account precondition.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1389,9 +1070,7 @@
             "description": "Body exceeds 1024 bytes.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1399,9 +1078,7 @@
             "description": "PUT requires application/json.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1409,9 +1086,7 @@
             "description": "Invalid query, body, subject or selection status.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1419,9 +1094,7 @@
             "description": "Identity or persistence unavailable; no fallback.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           }
@@ -1430,9 +1103,7 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/InterestUpdate"
-              }
+              "schema": { "$ref": "#/components/schemas/InterestUpdate" }
             }
           }
         }
@@ -1441,11 +1112,7 @@
         "operationId": "resetInterests",
         "summary": "Clear current subject choices without changing saved resources",
         "description": "Request body and query parameters are not supported.",
-        "security": [
-          {
-            "managedSession": []
-          }
-        ],
+        "security": [{ "managedSession": [] }],
         "parameters": [
           {
             "in": "header",
@@ -1465,23 +1132,15 @@
             "description": "Current private subject selection. No learning progress or ranking is inferred.",
             "headers": {
               "Cache-Control": {
-                "schema": {
-                  "type": "string",
-                  "const": "no-store"
-                }
+                "schema": { "type": "string", "const": "no-store" }
               },
               "X-Request-Id": {
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Interests"
-                }
+                "schema": { "$ref": "#/components/schemas/Interests" }
               }
             }
           },
@@ -1489,9 +1148,7 @@
             "description": "Verified identity required.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1499,9 +1156,7 @@
             "description": "Origin or scope denied.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1509,9 +1164,7 @@
             "description": "Resource or route not found.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1519,9 +1172,7 @@
             "description": "Method not allowed.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1529,9 +1180,7 @@
             "description": "Request body deadline exceeded.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1539,9 +1188,7 @@
             "description": "Verified account no longer matches the account precondition.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1549,9 +1196,7 @@
             "description": "Body exceeds 1024 bytes.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1559,9 +1204,7 @@
             "description": "PUT requires application/json.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1569,9 +1212,7 @@
             "description": "Invalid query, body, subject or selection status.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1579,9 +1220,7 @@
             "description": "Identity or persistence unavailable; no fallback.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           }
@@ -1673,17 +1312,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CatalogPage"
-                }
+                "schema": { "$ref": "#/components/schemas/CatalogPage" }
               }
             }
           },
@@ -1692,17 +1326,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1711,17 +1340,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1730,17 +1354,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1749,17 +1368,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1768,17 +1382,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           }
@@ -1789,25 +1398,18 @@
         "summary": "Exact-origin CORS preflight; GET with authorization/content-type only.",
         "security": [],
         "responses": {
-          "204": {
-            "description": "Allowed preflight."
-          },
+          "204": { "description": "Allowed preflight." },
           "403": {
             "description": "Origin, method or request headers denied.",
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           }
@@ -1837,17 +1439,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CatalogEntry"
-                }
+                "schema": { "$ref": "#/components/schemas/CatalogEntry" }
               }
             }
           },
@@ -1856,17 +1453,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1875,17 +1467,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1894,17 +1481,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1913,17 +1495,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1932,17 +1509,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
@@ -1951,17 +1523,12 @@
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           }
@@ -1972,25 +1539,758 @@
         "summary": "Exact-origin CORS preflight; GET with authorization/content-type only.",
         "security": [],
         "responses": {
-          "204": {
-            "description": "Allowed preflight."
-          },
+          "204": { "description": "Allowed preflight." },
           "403": {
             "description": "Origin, method or request headers denied.",
             "headers": {
               "X-Request-Id": {
                 "description": "Server-generated correlation ID.",
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
+                "schema": { "type": "string", "format": "uuid" }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/library": {
+      "get": {
+        "operationId": "getLibraryV2",
+        "summary": "Read the private account Library (expanded catalog)",
+        "description": "Private expanded Library; managed identity and exact mutation origin are rechecked. Saved identities remain removable if resource metadata becomes unavailable. No device fallback.",
+        "security": [{ "managedSession": [] }],
+        "parameters": [
+          {
+            "name": "x-polymatik-account",
+            "in": "header",
+            "required": false,
+            "schema": { "type": "string", "pattern": "^[A-Za-z0-9_-]{1,128}$" },
+            "description": "Optional expected-account precondition. Compared with the independently verified subject; it never supplies identity."
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "default": 5
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 512,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "At most five private saves and an opaque continuation. Unavailable public metadata is null; the saved identity remains removable.",
+            "headers": {
+              "Cache-Control": {
+                "schema": { "type": "string", "const": "no-store" }
+              },
+              "X-Request-Id": {
+                "schema": { "type": "string", "format": "uuid" }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AccountLibraryPage" }
+              }
+            }
+          },
+          "401": {
+            "description": "Verified identity required.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin or scope denied.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource or route not found.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "408": {
+            "description": "Request body deadline exceeded.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "409": {
+            "description": "Signed-in account changed; reload before continuing.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "413": {
+            "description": "Request body exceeds byte budget.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid resource ID, query or nonempty request body.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "503": {
+            "description": "Identity or private Library unavailable; no fallback.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/library/{id}": {
+      "put": {
+        "operationId": "saveResourceV2",
+        "summary": "Save a reviewed resource to the account Library (expanded catalog)",
+        "description": "Private expanded Library; managed identity and exact mutation origin are rechecked. Saved identities remain removable if resource metadata becomes unavailable. No device fallback.",
+        "security": [{ "managedSession": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,47}$",
+              "maxLength": 48
+            }
+          },
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Exact configured public web origin."
+          },
+          {
+            "name": "x-polymatik-account",
+            "in": "header",
+            "required": false,
+            "schema": { "type": "string", "pattern": "^[A-Za-z0-9_-]{1,128}$" },
+            "description": "Optional expected-account precondition. Compared with the independently verified subject; it never supplies identity."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Idempotent acknowledgement with canonical saved identity and saved state; no Library list or learning inference.",
+            "headers": {
+              "Cache-Control": {
+                "schema": { "type": "string", "const": "no-store" }
+              },
+              "X-Request-Id": {
+                "schema": { "type": "string", "format": "uuid" }
               }
             },
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/AccountLibraryChange"
                 }
+              }
+            }
+          },
+          "401": {
+            "description": "Verified identity required.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin or scope denied.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource or route not found.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "408": {
+            "description": "Request body deadline exceeded.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "409": {
+            "description": "Signed-in account changed; reload before continuing.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "413": {
+            "description": "Request body exceeds byte budget.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid resource ID, query or nonempty request body.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "503": {
+            "description": "Identity or private Library unavailable; no fallback.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "removeResourceV2",
+        "summary": "Remove a resource from the account Library (expanded catalog)",
+        "description": "Private expanded Library; managed identity and exact mutation origin are rechecked. Saved identities remain removable if resource metadata becomes unavailable. No device fallback.",
+        "security": [{ "managedSession": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,47}$",
+              "maxLength": 48
+            }
+          },
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Exact configured public web origin."
+          },
+          {
+            "name": "x-polymatik-account",
+            "in": "header",
+            "required": false,
+            "schema": { "type": "string", "pattern": "^[A-Za-z0-9_-]{1,128}$" },
+            "description": "Optional expected-account precondition. Compared with the independently verified subject; it never supplies identity."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Idempotent acknowledgement with canonical saved identity and saved state; no Library list or learning inference.",
+            "headers": {
+              "Cache-Control": {
+                "schema": { "type": "string", "const": "no-store" }
+              },
+              "X-Request-Id": {
+                "schema": { "type": "string", "format": "uuid" }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountLibraryChange"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Verified identity required.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin or scope denied.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource or route not found.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "408": {
+            "description": "Request body deadline exceeded.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "409": {
+            "description": "Signed-in account changed; reload before continuing.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "413": {
+            "description": "Request body exceeds byte budget.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid resource ID, query or nonempty request body.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "503": {
+            "description": "Identity or private Library unavailable; no fallback.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/interests": {
+      "get": {
+        "operationId": "getInterestsV2",
+        "summary": "Read current private subject choices (expanded catalog)",
+        "description": "Optional private choices from seven subjects, at most three selected. Managed identity and exact origin are rechecked. No ranking or mastery inference.",
+        "security": [{ "managedSession": [] }],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Polymatik-Account",
+            "required": false,
+            "description": "Optional precondition matched against the independently verified account; never selects identity.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current private subject selection. No learning progress or ranking is inferred.",
+            "headers": {
+              "Cache-Control": {
+                "schema": { "type": "string", "const": "no-store" }
+              },
+              "X-Request-Id": {
+                "schema": { "type": "string", "format": "uuid" }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/InterestsV2" }
+              }
+            }
+          },
+          "401": {
+            "description": "Verified identity required.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin or scope denied.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource or route not found.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "408": {
+            "description": "Request body deadline exceeded.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "409": {
+            "description": "Verified account no longer matches the account precondition.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "413": {
+            "description": "Body exceeds 1024 bytes.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "415": {
+            "description": "PUT requires application/json.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid query, body, subject or selection status.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "503": {
+            "description": "Identity or persistence unavailable; no fallback.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateInterestsV2",
+        "summary": "Replace current subject choices or explicitly skip (expanded catalog)",
+        "description": "Optional private choices from seven subjects, at most three selected. Managed identity and exact origin are rechecked. No ranking or mastery inference.",
+        "security": [{ "managedSession": [] }],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Polymatik-Account",
+            "required": false,
+            "description": "Optional precondition matched against the independently verified account; never selects identity.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current private subject selection. No learning progress or ranking is inferred.",
+            "headers": {
+              "Cache-Control": {
+                "schema": { "type": "string", "const": "no-store" }
+              },
+              "X-Request-Id": {
+                "schema": { "type": "string", "format": "uuid" }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/InterestsV2" }
+              }
+            }
+          },
+          "401": {
+            "description": "Verified identity required.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin or scope denied.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource or route not found.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "408": {
+            "description": "Request body deadline exceeded.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "409": {
+            "description": "Verified account no longer matches the account precondition.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "413": {
+            "description": "Body exceeds 1024 bytes.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "415": {
+            "description": "PUT requires application/json.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid query, body, subject or selection status.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "503": {
+            "description": "Identity or persistence unavailable; no fallback.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/InterestUpdateV2" }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "resetInterestsV2",
+        "summary": "Clear current subject choices without changing saved resources (expanded catalog)",
+        "description": "Optional private choices from seven subjects, at most three selected. Managed identity and exact origin are rechecked. No ranking or mastery inference.",
+        "security": [{ "managedSession": [] }],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Polymatik-Account",
+            "required": false,
+            "description": "Optional precondition matched against the independently verified account; never selects identity.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current private subject selection. No learning progress or ranking is inferred.",
+            "headers": {
+              "Cache-Control": {
+                "schema": { "type": "string", "const": "no-store" }
+              },
+              "X-Request-Id": {
+                "schema": { "type": "string", "format": "uuid" }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/InterestsV2" }
+              }
+            }
+          },
+          "401": {
+            "description": "Verified identity required.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin or scope denied.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource or route not found.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "408": {
+            "description": "Request body deadline exceeded.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "409": {
+            "description": "Verified account no longer matches the account precondition.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "413": {
+            "description": "Body exceeds 1024 bytes.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "415": {
+            "description": "PUT requires application/json.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid query, body, subject or selection status.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "503": {
+            "description": "Identity or persistence unavailable; no fallback.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           }
@@ -2018,18 +2318,9 @@
         "additionalProperties": false,
         "required": ["status", "service", "version"],
         "properties": {
-          "status": {
-            "type": "string",
-            "enum": ["ok"]
-          },
-          "service": {
-            "type": "string",
-            "enum": ["polymatik-api"]
-          },
-          "version": {
-            "type": "string",
-            "minLength": 1
-          }
+          "status": { "type": "string", "enum": ["ok"] },
+          "service": { "type": "string", "enum": ["polymatik-api"] },
+          "version": { "type": "string", "minLength": 1 }
         }
       },
       "Me": {
@@ -2037,11 +2328,7 @@
         "additionalProperties": false,
         "required": ["user_id"],
         "properties": {
-          "user_id": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 128
-          }
+          "user_id": { "type": "string", "minLength": 1, "maxLength": 128 }
         }
       },
       "ApiError": {
@@ -2054,21 +2341,10 @@
             "additionalProperties": false,
             "required": ["code", "message", "request_id", "retryable"],
             "properties": {
-              "code": {
-                "type": "string",
-                "minLength": 1
-              },
-              "message": {
-                "type": "string",
-                "minLength": 1
-              },
-              "request_id": {
-                "type": "string",
-                "format": "uuid"
-              },
-              "retryable": {
-                "type": "boolean"
-              }
+              "code": { "type": "string", "minLength": 1 },
+              "message": { "type": "string", "minLength": 1 },
+              "request_id": { "type": "string", "format": "uuid" },
+              "retryable": { "type": "boolean" }
             }
           }
         }
@@ -2093,21 +2369,9 @@
             "pattern": "^[a-z][a-z0-9-]{0,47}$",
             "maxLength": 48
           },
-          "title": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 240
-          },
-          "source": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 200
-          },
-          "publisher": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 200
-          },
+          "title": { "type": "string", "minLength": 1, "maxLength": 240 },
+          "source": { "type": "string", "minLength": 1, "maxLength": 200 },
+          "publisher": { "type": "string", "minLength": 1, "maxLength": 200 },
           "kind": {
             "type": "string",
             "enum": ["Chapter", "Interactive", "Article", "Course"]
@@ -2127,11 +2391,7 @@
             "minLength": 1,
             "maxLength": 1000
           },
-          "note": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 200
-          }
+          "note": { "type": "string", "minLength": 1, "maxLength": 200 }
         }
       },
       "ResourceList": {
@@ -2142,9 +2402,7 @@
           "items": {
             "type": "array",
             "maxItems": 4,
-            "items": {
-              "$ref": "#/components/schemas/PreviewResource"
-            },
+            "items": { "$ref": "#/components/schemas/PreviewResource" },
             "uniqueItems": true
           }
         }
@@ -2156,10 +2414,7 @@
             "additionalProperties": false,
             "required": ["status", "subjects"],
             "properties": {
-              "status": {
-                "type": "string",
-                "const": "selected"
-              },
+              "status": { "type": "string", "const": "selected" },
               "subjects": {
                 "type": "array",
                 "uniqueItems": true,
@@ -2177,10 +2432,7 @@
             "additionalProperties": false,
             "required": ["status", "subjects"],
             "properties": {
-              "status": {
-                "type": "string",
-                "const": "skipped"
-              },
+              "status": { "type": "string", "const": "skipped" },
               "subjects": {
                 "type": "array",
                 "maxItems": 0,
@@ -2200,10 +2452,7 @@
             "additionalProperties": false,
             "required": ["status", "subjects"],
             "properties": {
-              "status": {
-                "type": "string",
-                "const": "not_started"
-              },
+              "status": { "type": "string", "const": "not_started" },
               "subjects": {
                 "type": "array",
                 "maxItems": 0,
@@ -2219,10 +2468,7 @@
             "additionalProperties": false,
             "required": ["status", "subjects"],
             "properties": {
-              "status": {
-                "type": "string",
-                "const": "selected"
-              },
+              "status": { "type": "string", "const": "selected" },
               "subjects": {
                 "type": "array",
                 "uniqueItems": true,
@@ -2240,10 +2486,7 @@
             "additionalProperties": false,
             "required": ["status", "subjects"],
             "properties": {
-              "status": {
-                "type": "string",
-                "const": "skipped"
-              },
+              "status": { "type": "string", "const": "skipped" },
               "subjects": {
                 "type": "array",
                 "maxItems": 0,
@@ -2267,31 +2510,16 @@
             "pattern": "^resource-covers/[a-z][a-z0-9-]{0,47}/cover-v[1-9][0-9]{0,5}\\.webp$",
             "description": "Must match the enclosing canonical ID and version. Delivery is enabled separately after asset review."
           },
-          "version": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 999999
-          },
+          "version": { "type": "integer", "minimum": 1, "maximum": 999999 },
           "alt": {
             "type": "string",
             "minLength": 1,
             "maxLength": 300,
             "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
           },
-          "width": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 8192
-          },
-          "height": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 8192
-          },
-          "media_type": {
-            "type": "string",
-            "const": "image/webp"
-          }
+          "width": { "type": "integer", "minimum": 1, "maximum": 8192 },
+          "height": { "type": "integer", "minimum": 1, "maximum": 8192 },
+          "media_type": { "type": "string", "const": "image/webp" }
         },
         "description": "Approved selected cover metadata with exact 3:2 dimensions; no master path or reviewer fields."
       },
@@ -2397,12 +2625,8 @@
           },
           "cover": {
             "oneOf": [
-              {
-                "$ref": "#/components/schemas/CatalogCover"
-              },
-              {
-                "type": "null"
-              }
+              { "$ref": "#/components/schemas/CatalogCover" },
+              { "type": "null" }
             ]
           }
         },
@@ -2417,9 +2641,7 @@
             "type": "array",
             "maxItems": 5,
             "uniqueItems": true,
-            "items": {
-              "$ref": "#/components/schemas/CatalogEntry"
-            }
+            "items": { "$ref": "#/components/schemas/CatalogEntry" }
           },
           "next_cursor": {
             "oneOf": [
@@ -2429,13 +2651,199 @@
                 "maxLength": 1024,
                 "pattern": "^[A-Za-z0-9_-]+$"
               },
-              {
-                "type": "null"
-              }
+              { "type": "null" }
             ],
             "description": "Opaque versioned continuation, bound to subject/kind/q; null at end. Not an authorization token or snapshot guarantee."
           }
         }
+      },
+      "InterestsV2": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["status", "subjects"],
+            "properties": {
+              "status": { "type": "string", "const": "not_started" },
+              "subjects": {
+                "type": "array",
+                "maxItems": 0,
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "Physics",
+                    "Mathematics",
+                    "Computing",
+                    "Biology",
+                    "Psychology",
+                    "Philosophy",
+                    "Sociology"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["status", "subjects"],
+            "properties": {
+              "status": { "type": "string", "const": "selected" },
+              "subjects": {
+                "type": "array",
+                "uniqueItems": true,
+                "minItems": 1,
+                "maxItems": 3,
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "Physics",
+                    "Mathematics",
+                    "Computing",
+                    "Biology",
+                    "Psychology",
+                    "Philosophy",
+                    "Sociology"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["status", "subjects"],
+            "properties": {
+              "status": { "type": "string", "const": "skipped" },
+              "subjects": {
+                "type": "array",
+                "maxItems": 0,
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "Physics",
+                    "Mathematics",
+                    "Computing",
+                    "Biology",
+                    "Psychology",
+                    "Philosophy",
+                    "Sociology"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "InterestUpdateV2": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["status", "subjects"],
+            "properties": {
+              "status": { "type": "string", "const": "selected" },
+              "subjects": {
+                "type": "array",
+                "uniqueItems": true,
+                "minItems": 1,
+                "maxItems": 3,
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "Physics",
+                    "Mathematics",
+                    "Computing",
+                    "Biology",
+                    "Psychology",
+                    "Philosophy",
+                    "Sociology"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["status", "subjects"],
+            "properties": {
+              "status": { "type": "string", "const": "skipped" },
+              "subjects": {
+                "type": "array",
+                "maxItems": 0,
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "Physics",
+                    "Mathematics",
+                    "Computing",
+                    "Biology",
+                    "Psychology",
+                    "Philosophy",
+                    "Sociology"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "AccountLibraryItem": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "resource"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,47}$",
+            "maxLength": 48
+          },
+          "resource": {
+            "oneOf": [
+              { "$ref": "#/components/schemas/CatalogEntry" },
+              { "type": "null" }
+            ]
+          }
+        },
+        "description": "Only the verified account owns this save. Null metadata retains an unavailable saved identity without exposing unpublished content."
+      },
+      "AccountLibraryPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["items", "next_cursor"],
+        "properties": {
+          "items": {
+            "type": "array",
+            "maxItems": 5,
+            "items": { "$ref": "#/components/schemas/AccountLibraryItem" }
+          },
+          "next_cursor": {
+            "oneOf": [
+              {
+                "type": "string",
+                "maxLength": 512,
+                "pattern": "^[A-Za-z0-9_-]+$"
+              },
+              { "type": "null" }
+            ]
+          }
+        },
+        "description": "Newest saves first, canonical ID breaks timestamp ties. Five-item keyset pages; continuations never confer identity or snapshot guarantees."
+      },
+      "AccountLibraryChange": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "saved"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,47}$",
+            "maxLength": 48
+          },
+          "saved": { "type": "boolean" }
+        },
+        "description": "Idempotent mutation acknowledgement; refresh paginated reads separately. PUT resolves public aliases to canonical IDs."
       }
     },
     "responses": {
@@ -2444,17 +2852,12 @@
         "headers": {
           "X-Request-Id": {
             "description": "Server-generated correlation ID.",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "schema": { "type": "string", "format": "uuid" }
           }
         },
         "content": {
           "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/ApiError"
-            }
+            "schema": { "$ref": "#/components/schemas/ApiError" }
           }
         }
       }

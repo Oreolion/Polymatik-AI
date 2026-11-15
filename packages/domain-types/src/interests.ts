@@ -5,6 +5,10 @@ import {
 } from '@polymatik/domain-types/bounded-body';
 import { libraryBodyError } from '@polymatik/domain-types/library-request';
 import type { components } from './api.generated';
+import {
+  interestUpdateV2,
+  type InterestUpdateV2,
+} from '@polymatik/domain-types/account-v2';
 
 /** Initial taxonomy follows the reviewed collection, not invented catalog coverage. */
 export const interestSubjects = topics.slice(1) as readonly Exclude<
@@ -63,9 +67,17 @@ export function isInterests(value: unknown): value is Interests {
 }
 
 /** Shared API/BFF policy: strict, small JSON writes; reads/resets carry no body. */
+export function interestsInput(
+  request: Request,
+): Promise<{ value?: InterestUpdate; error?: number }>;
+export function interestsInput(
+  request: Request,
+  expanded: true,
+): Promise<{ value?: InterestUpdateV2; error?: number }>;
 export async function interestsInput(
   request: Request,
-): Promise<{ value?: InterestUpdate; error?: number }> {
+  expanded = false,
+): Promise<{ value?: InterestUpdateV2; error?: number }> {
   if (request.method !== 'PUT') {
     const error = await libraryBodyError(request);
     return error ? { error } : {};
@@ -81,7 +93,7 @@ export async function interestsInput(
   try {
     if (!request.body) return { error: 422 };
     const bytes = await readBoundedBody(request.body, 1024, signal);
-    const value = interestUpdate(
+    const value = (expanded ? interestUpdateV2 : interestUpdate)(
       JSON.parse(
         new TextDecoder('utf-8', { fatal: true, ignoreBOM: false }).decode(
           bytes,

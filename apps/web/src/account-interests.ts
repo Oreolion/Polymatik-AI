@@ -4,6 +4,12 @@ import {
   type InterestUpdate,
 } from '@polymatik/domain-types/interests';
 import { readBoundedBody } from '@polymatik/domain-types/bounded-body';
+import {
+  interestUpdateV2,
+  isInterestsV2,
+  type InterestsV2,
+  type InterestUpdateV2,
+} from '@polymatik/domain-types/account-v2';
 
 export class AccountInterestsError extends Error {
   readonly status: number;
@@ -19,11 +25,12 @@ export class AccountInterestsError extends Error {
 
 export async function accountInterests(
   method: 'GET' | 'PUT' | 'DELETE',
-  value?: InterestUpdate,
+  value?: InterestUpdate | InterestUpdateV2,
   options: {
     accountId?: string;
     fetch?: typeof fetch;
     signal?: AbortSignal;
+    expanded?: boolean;
   } = {},
 ) {
   options.signal?.throwIfAborted();
@@ -32,28 +39,32 @@ export async function accountInterests(
     !/^[A-Za-z0-9_-]{1,128}$/.test(options.accountId)
   )
     throw new AccountInterestsError(422);
-  const body = value && interestUpdate(value);
+  const body =
+    value && (options.expanded ? interestUpdateV2 : interestUpdate)(value);
   if ((method === 'PUT' && !body) || (method !== 'PUT' && value !== undefined))
     throw new AccountInterestsError(422);
   const signal = options.signal
     ? AbortSignal.any([options.signal, AbortSignal.timeout(10000)])
     : AbortSignal.timeout(10000);
   try {
-    const response = await (options.fetch ?? fetch)('/api/account/interests', {
-      method,
-      credentials: 'same-origin',
-      cache: 'no-store',
-      redirect: 'error',
-      signal,
-      headers: {
-        accept: 'application/json',
-        ...(body ? { 'content-type': 'application/json' } : {}),
-        ...(options.accountId
-          ? { 'x-polymatik-account': options.accountId }
-          : {}),
+    const response = await (options.fetch ?? fetch)(
+      options.expanded ? '/api/account/v2/interests' : '/api/account/interests',
+      {
+        method,
+        credentials: 'same-origin',
+        cache: 'no-store',
+        redirect: 'error',
+        signal,
+        headers: {
+          accept: 'application/json',
+          ...(body ? { 'content-type': 'application/json' } : {}),
+          ...(options.accountId
+            ? { 'x-polymatik-account': options.accountId }
+            : {}),
+        },
+        ...(body ? { body: JSON.stringify(body) } : {}),
       },
-      ...(body ? { body: JSON.stringify(body) } : {}),
-    });
+    );
     if (response.status !== 200 || !response.body) {
       await response.body?.cancel();
       throw new AccountInterestsError(response.status);
@@ -63,8 +74,9 @@ export async function accountInterests(
         await readBoundedBody(response.body, 4096, signal),
       ),
     );
-    if (!isInterests(data)) throw new AccountInterestsError(502);
-    return data;
+    if (!(options.expanded ? isInterestsV2(data) : isInterests(data)))
+      throw new AccountInterestsError(502);
+    return data as InterestsV2;
   } catch (error) {
     if (error instanceof AccountInterestsError) throw error;
     throw new AccountInterestsError(503);

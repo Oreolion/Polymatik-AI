@@ -4,13 +4,27 @@
 
 ## Current owner priority - web resource details and backend checkpoint
 
+**15 November — Ticket 4b: expanded private Library and interests implemented.**
+Additive v2 contracts/API/BFF/clients and opt-in Profile UI support five-entry
+account pages, unavailable saved references, explicit reviewed browser-copy
+batches and seven subjects with a three-choice cap. v1 shapes/configuration and
+private/device data are preserved. Deterministic checks and configured built
+Worker tests pass; Firefox verifies synthetic pagination/copy/reload/interests/
+account changes. Owner's normal-terminal web build, API 6/6, web 17/17 and API
+packaging dry run (239.52 KiB / 49.76 KiB gzip) now pass, closing those local
+gates despite the agent sandbox ACL. Expanded live SQL and hosted acceptance
+remain open. Commands/evidence/rollback: docs/45 and 24. No migration/import, asset
+delivery, provider/config change, push or deployment. Next smallest ticket is 5,
+individual cover QA; live writes/publication remain separately authorized.
+
 **14 November — Ticket 4a: public web and device Library implemented.**
 Explicit server v2 mode, bounded same-origin catalog reads, five-entry pages,
 seven subjects, accurate formats/details and independent device-save resolution
 replace finite preview gates only for the expanded client. Existing v1/account
 contracts, saved IDs, preview configuration and publication state are preserved.
 Agent web/config/account checks pass 57/57 and built Miniflare/workerd checks pass 16/16;
-standard Wrangler startup is blocked by sandbox ancestor ACL. Chrome verifies
+the owner's standard Wrangler run also passes 16/16 (20,584 ms), closing the
+ordinary-runtime gate despite the agent's earlier sandbox ACL failure. Chrome verifies
 pagination/save/reload, seven subjects, search/themes, 320/360/768/1440px layout,
 image failure and basic keyboard focus with synthetic data. Remaining accessibility/
 live-data gates and exact commands are in docs/24 and 45. Next is 4b:

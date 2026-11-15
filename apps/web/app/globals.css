@@ -1409,6 +1409,31 @@ h1 em {
 .account-library-copy {
   padding-top: 28px;
 }
+.account-library-entry {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.account-library-entry .resource-art {
+  width: 144px;
+  max-width: 100%;
+  margin-block: 16px 0;
+}
+.account-copy-preview {
+  list-style: none;
+  padding: 0;
+  margin-block: 20px;
+}
+.account-copy-preview li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 12px;
+  border-top: 1px solid var(--rule);
+}
+.account-copy-preview li span:last-child {
+  color: var(--muted);
+  flex-shrink: 0;
+}
 .account-library-copy h3 {
   font-size: 17px;
   font-weight: 600;
@@ -1417,6 +1442,10 @@ h1 em {
 .account-library-copy button,
 .account-library .profile-error button {
   margin-top: 16px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--controlBorder);
+  border-radius: 8px;
   white-space: normal;
   text-align: left;
 }

@@ -31,10 +31,13 @@ Catalog expansion is staged separately: the isolated development schema rehearsa
 passed, and a versioned paginated `/v2/resources` contract now prepares seven
 subjects, six formats and reviewed cover references. No new resources or covers
 are published. Its live read-only SQL/API probe, five standard Worker tests and
-packaging dry run pass. The next web slice implements opt-in v2 pagination,
+packaging dry run pass. The web slice implements opt-in v2 pagination,
 seven-subject Search/details and independent device-Library resolution; local
-fixture checks pass, with normal-terminal runtime acceptance still open. Account
-Library/interests expansion and actual cover delivery remain next. See the
+fixture checks and the owner's standard Wrangler runtime pass (16/16). The next
+slice now implements opt-in expanded account Library pages, reviewed browser-save
+copying and seven-subject interests. Deterministic and synthetic browser checks
+pass, along with the owner's web build, API 6/6, web 17/17 and API packaging dry
+run. Expanded live SQL and actual cover delivery remain gates. See the
 [catalog integration guide](docs/45_CATALOG_INTEGRATION.md).
 
 UI-06 now prepares a private account Library panel in Profile with explicit
@@ -46,7 +49,8 @@ Save actions and the Library tab remain browser-local. See
 [account Library setup and acceptance](docs/43_ACCOUNT_LIBRARY.md).
 
 UI-07 adds optional account subject choices in Profile, with save, skip and clear
-controls. This first onboarding slice uses the three current catalog subjects.
+controls. Default v1 uses three catalog subjects; opt-in v2 offers seven, with
+at most three selected in either mode.
 The owner applied its development migration/grants and passed the live restricted-
 login isolation probe on 14 November; rendered acceptance is open. Choices do not change ranking or
 learning progress yet. See [subject interests setup](docs/44_SUBJECT_INTERESTS.md).

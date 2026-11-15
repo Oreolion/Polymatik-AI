@@ -1,31 +1,39 @@
 'use client';
 
 import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { interestSubjects } from '@polymatik/domain-types/interests';
 import {
-  interestSubjects,
-  type Interests,
-  type InterestSubject,
-} from '@polymatik/domain-types/interests';
+  catalogSubjects,
+  type CatalogSubject,
+} from '@polymatik/domain-types/catalog-v2';
+import type { InterestsV2 } from '@polymatik/domain-types/account-v2';
 import {
   accountInterests,
   AccountInterestsError,
 } from '../src/account-interests';
 
-const descriptions: Record<InterestSubject, string> = {
+const descriptions: Record<CatalogSubject, string> = {
   Physics: 'Matter, motion, and the rules beneath everyday things.',
   Mathematics: 'Patterns, probability, and new ways to reason.',
   Computing: 'The systems and tools that shape our digital world.',
+  Biology: 'Living systems, from cells to ecosystems.',
+  Psychology: 'How minds, behavior, and experience connect.',
+  Philosophy: 'Questions about knowledge, ethics, and meaning.',
+  Sociology: 'People, institutions, and the patterns of shared life.',
 };
 
 export default function AccountInterests({
   accountId,
   disabled,
+  expanded = false,
 }: {
   accountId: string;
   disabled: boolean;
+  expanded?: boolean;
 }) {
-  const [saved, setSaved] = useState<Interests | null>(null);
-  const [subjects, setSubjects] = useState<InterestSubject[]>([]);
+  const [saved, setSaved] = useState<InterestsV2 | null>(null);
+  const [subjects, setSubjects] = useState<CatalogSubject[]>([]);
+  const choices = expanded ? catalogSubjects : interestSubjects;
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -47,6 +55,7 @@ export default function AccountInterests({
     void accountInterests('GET', undefined, {
       accountId,
       signal: controller.signal,
+      expanded,
     })
       .then((value) => {
         if (!controller.signal.aborted) {
@@ -74,7 +83,7 @@ export default function AccountInterests({
       controller.abort();
       active.current?.abort();
     };
-  }, [accountId, revision]);
+  }, [accountId, revision, expanded]);
 
   const dirty = saved && subjects.join('|') !== saved.subjects.join('|');
   async function change(action: 'save' | 'skip' | 'reset', event?: FormEvent) {
@@ -97,7 +106,7 @@ export default function AccountInterests({
           : action === 'skip'
             ? { status: 'skipped', subjects: [] }
             : { status: 'selected', subjects },
-        { accountId, signal: controller.signal },
+        { accountId, signal: controller.signal, expanded },
       );
       if (!controller.signal.aborted) {
         setSaved(value);
@@ -168,22 +177,27 @@ export default function AccountInterests({
                 </span>
               </legend>
               <p id="interests-help" className="profile-caption">
-                The first collection covers these three subjects. You can change
-                your choices later.
+                {expanded
+                  ? 'Choose up to three subjects from the seven catalog areas.'
+                  : 'Choose up to three subjects from the current collection.'}{' '}
+                You can change your choices later.
               </p>
-              {interestSubjects.map((subject, index) => (
+              {choices.map((subject, index) => (
                 <label className="interest-choice" key={subject}>
                   <input
                     type="checkbox"
                     name="subject"
                     value={subject}
                     checked={subjects.includes(subject)}
+                    disabled={
+                      !subjects.includes(subject) && subjects.length >= 3
+                    }
                     onChange={(event) => {
                       const next = event.currentTarget.checked
                         ? [...subjects, subject]
                         : subjects.filter((item) => item !== subject);
                       setSubjects(
-                        interestSubjects.filter((item) => next.includes(item)),
+                        choices.filter((item) => next.includes(item)),
                       );
                       setNotice('');
                     }}

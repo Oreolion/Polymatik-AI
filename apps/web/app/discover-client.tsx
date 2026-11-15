@@ -588,6 +588,7 @@ export default function DiscoverClient({
                 savedCount={saved.length}
                 savedIds={saved}
                 storageReady={ready}
+                expandedCatalog={expandedCatalog}
               />
               {storageFeedback}
             </>

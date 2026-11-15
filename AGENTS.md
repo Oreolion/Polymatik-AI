@@ -265,13 +265,25 @@ ordinary questions require neither a full suite nor a checkpoint rewrite.
   standard Wrangler runtime is 5/5 and packaging dry run passes (227.35 KiB,
   47.72 KiB gzip). Ticket 4a now implements opt-in v2 public pagination/details
   and independent device Library resolution without resetting saved IDs.
-  Web/config/account tests 57/57 and built Miniflare web tests 16/16 pass; ordinary Wrangler
-  remains blocked by sandbox ancestor ACL. Chrome fixture checks cover pages,
+  Web/config/account tests 57/57 and built Miniflare web tests 16/16 pass. Owner's
+  standard Wrangler run also passes 16/16, closing that runtime gate; the agent's
+  earlier sandbox ACL failure remains historical. Chrome fixture checks cover pages,
   saves/reload, seven subjects, search/themes, four responsive widths and basic
-  keyboard focus. Full accessibility/live-data gates remain. Next 4b expands account Library
-  and interests; no publication before those compatibility gates. No repeat SQL
+  keyboard focus. Full accessibility/live-data gates remain. Ticket 4b's new
+  implementation/gates are recorded below; no publication before acceptance. No repeat SQL
   setup, preview repoint, import, asset upload, master push or deployment.
   Current results/remaining UI gates: docs/24 and 45.
+- **15 November — catalog Ticket 4b:** additive /v2/library pages/mutation
+  acknowledgements and /v2/interests (seven choices, maximum three selected),
+  same-origin private BFF/client and opt-in Profile UI are implemented. v1 wire
+  compatibility and default configuration remain. Synthetic Firefox checks cover
+  pages, withdrawn save removal, reviewed copy/reload, original browser saves,
+  interests and changed-account denial. Deterministic tests and explicit managed
+  workerd pass. Owner's web build, standard API 6/6, web 17/17 and API packaging
+  dry run (239.52 KiB / 49.76 KiB gzip) now pass; local gates closed despite the
+  agent's ancestor-directory ACL. No accepted check rerun. Live expanded SQL/hosted gates:
+  docs/45 and 24. No migration/import/upload/config change, push or deployment.
+  Next smallest ticket is individual cover QA, not live publication.
 - **Earlier milestone follow-up:** normal-terminal API packaging and outstanding Expo toolchain check,
   then milestone checkpoint and owner-requested GitHub push. Keep deferred
   rendered checks (docs/43-44) and hosted acceptance explicit.

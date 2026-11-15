@@ -14,6 +14,7 @@ type ProfileProps = {
   savedCount: number;
   savedIds: readonly string[];
   storageReady: boolean;
+  expandedCatalog?: boolean;
 };
 type AuthClient = typeof managedClient;
 type SessionState = ReturnType<AuthClient['useSession']>;
@@ -62,6 +63,7 @@ function ProfileContent({
   savedCount,
   savedIds,
   storageReady,
+  expandedCatalog = false,
   client: authClient,
   sessionState,
   loadFailed,
@@ -280,6 +282,7 @@ function ProfileContent({
               deviceIds={savedIds}
               storageReady={storageReady}
               disabled={Boolean(busy)}
+              expanded={expandedCatalog}
             />
           )}
           {user && !isPending && (
@@ -287,6 +290,7 @@ function ProfileContent({
               key={`interests:${user.id}`}
               accountId={user.id}
               disabled={Boolean(busy)}
+              expanded={expandedCatalog}
             />
           )}
           <section

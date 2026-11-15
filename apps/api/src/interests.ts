@@ -4,6 +4,12 @@ import {
   type Interests,
   type InterestUpdate,
 } from '@polymatik/domain-types/interests';
+import {
+  interestUpdateV2,
+  isInterestsV2,
+  type InterestsV2,
+  type InterestUpdateV2,
+} from '@polymatik/domain-types/account-v2';
 
 export type InterestsRepository = {
   read(subject: string): Promise<Interests>;
@@ -14,19 +20,33 @@ type Connection = {
   query(sql: string, values?: unknown[]): Promise<{ rows: unknown[] }>;
   end(): Promise<void>;
 };
+export type InterestsV2Repository = {
+  read(subject: string): Promise<InterestsV2>;
+  write(subject: string, value: InterestUpdateV2): Promise<InterestsV2>;
+  reset(subject: string): Promise<InterestsV2>;
+};
 const initial = (): Interests => ({ status: 'not_started', subjects: [] });
 
 export function postgresInterests(
   connect: () => Promise<Connection>,
-): InterestsRepository {
+): InterestsRepository;
+export function postgresInterests(
+  connect: () => Promise<Connection>,
+  expanded: true,
+): InterestsV2Repository;
+export function postgresInterests(
+  connect: () => Promise<Connection>,
+  expanded = false,
+): InterestsV2Repository {
+  const parse = expanded ? interestUpdateV2 : interestUpdate;
+  const valid = expanded ? isInterestsV2 : isInterests;
   async function run(
     subject: string,
-    mutation?: InterestUpdate | 'reset',
-  ): Promise<Interests> {
+    mutation?: InterestUpdateV2 | 'reset',
+  ): Promise<InterestsV2> {
     if (!/^[A-Za-z0-9_-]{1,128}$/.test(subject))
       throw new Error('Invalid subject.');
-    const parsed =
-      mutation && mutation !== 'reset' ? interestUpdate(mutation) : null;
+    const parsed = mutation && mutation !== 'reset' ? parse(mutation) : null;
     if (mutation && mutation !== 'reset' && !parsed)
       throw new Error('Invalid interests.');
     const client = await connect();
@@ -50,7 +70,7 @@ export function postgresInterests(
           RETURNING status,subjects`,
           [subject, parsed.status, parsed.subjects],
         );
-        if (result.rows.length !== 1 || !isInterests(result.rows[0]))
+        if (result.rows.length !== 1 || !valid(result.rows[0]))
           throw new Error('Interests write unavailable.');
       } else if (mutation === 'reset') {
         await client.query(
@@ -67,11 +87,11 @@ export function postgresInterests(
       );
       if (
         result.rows.length > 1 ||
-        (result.rows.length === 1 && !isInterests(result.rows[0]))
+        (result.rows.length === 1 && !valid(result.rows[0]))
       )
         throw new Error('Invalid interests result.');
       const value = result.rows[0] ?? initial();
-      if (!isInterests(value)) throw new Error('Invalid interests result.');
+      if (!valid(value)) throw new Error('Invalid interests result.');
       await client.query('COMMIT');
       return value;
     } catch (error) {
@@ -88,13 +108,27 @@ export function postgresInterests(
   };
 }
 
+type Context = { waitUntil(promise: Promise<unknown>): void };
+export function workerInterests(
+  env: object,
+  ctx: Context,
+): InterestsRepository | undefined;
+export function workerInterests(
+  env: object,
+  ctx: Context,
+  expanded: true,
+): InterestsV2Repository | undefined;
 export function workerInterests(
   env: object,
   ctx: { waitUntil(promise: Promise<unknown>): void },
-): InterestsRepository | undefined {
+  expanded = false,
+): InterestsV2Repository | undefined {
   const mode: unknown = Reflect.get(env, 'CATALOG_BACKEND') ?? 'preview';
   if (mode === 'preview') return undefined;
-  return postgresInterests(async () => {
+  const factory = expanded
+    ? (connect: () => Promise<Connection>) => postgresInterests(connect, true)
+    : (connect: () => Promise<Connection>) => postgresInterests(connect);
+  return factory(async () => {
     const binding: unknown = Reflect.get(env, 'HYPERDRIVE');
     const connection: unknown =
       binding && typeof binding === 'object'

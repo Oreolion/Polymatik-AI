@@ -71,6 +71,33 @@ test('actual workerd accepts only the configured local web origin', async () => 
   assert.equal(response.headers.get('access-control-allow-origin'), origin);
 });
 
+test('expanded private routes deny forged identity and foreign mutations before unavailable storage', async () => {
+  for (const path of ['/v2/library', '/v2/interests']) {
+    const response = await fetch(`${base}${path}`, {
+      headers: {
+        cookie: 'neon-auth.session_token=forged',
+        authorization: 'Bearer forged.jwt.token',
+        'x-polymatik-account': 'victim',
+        'x-user-id': 'victim',
+      },
+      signal: AbortSignal.timeout(10000),
+    });
+    assert.equal(response.status, 401);
+    assert.equal(response.headers.get('cache-control'), 'no-store');
+    assert.equal((await response.json()).error.code, 'unauthorized');
+  }
+  assert.equal(
+    (
+      await fetch(`${base}/v2/library/atoms`, {
+        method: 'PUT',
+        headers: { origin: 'https://evil.test' },
+        signal: AbortSignal.timeout(10000),
+      })
+    ).status,
+    403,
+  );
+});
+
 test('unconfigured account routes fail closed without accepting forged cookies', async () => {
   const response = await fetch(`${base}/api/auth/get-session`, {
     headers: {

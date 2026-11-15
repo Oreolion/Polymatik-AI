@@ -25,7 +25,7 @@ async function start(options) {
     convertV4MiniflareOptions({
       ...options,
       host: '127.0.0.1',
-      port: 0,
+      port: options.port ?? 0,
       cf: false,
     }),
   );
@@ -89,8 +89,8 @@ export async function startApiWorker(options = {}) {
   });
 }
 
-/** @param {string} apiOrigin @param {Record<string,string>} [bindings] */
-export async function startWebWorker(apiOrigin, bindings = {}) {
+/** @param {string} apiOrigin @param {Record<string,string>} [bindings] @param {{port?:number,outboundService?:(request:Request)=>Promise<Response>}} [options] */
+export async function startWebWorker(apiOrigin, bindings = {}, options = {}) {
   const origin = loopbackOrigin(apiOrigin);
   const server = new URL('apps/web/dist/server/', root);
   const config = JSON.parse(
@@ -115,6 +115,10 @@ export async function startWebWorker(apiOrigin, bindings = {}) {
     compatibilityDate: config.compatibility_date,
     compatibilityFlags: config.compatibility_flags ?? [],
     bindings: { ...config.vars, PRODUCT_API_ORIGIN: origin, ...bindings },
+    ...(options.port ? { port: options.port } : {}),
+    ...(options.outboundService
+      ? { outboundService: options.outboundService }
+      : {}),
     assets: {
       directory: fileURLToPath(new URL('../client/', server)),
       binding: 'ASSETS',

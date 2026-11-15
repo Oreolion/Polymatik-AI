@@ -22,6 +22,17 @@ import {
   interestUpdate,
   type InterestUpdate,
 } from '@polymatik/domain-types/interests';
+import {
+  librarySearch,
+  isLibraryPage,
+  isLibraryChange,
+  interestUpdateV2,
+  isInterestsV2,
+  type LibraryPageInput,
+  type InterestUpdateV2,
+  type AccountLibraryPage,
+  type AccountLibraryChange,
+} from '@polymatik/domain-types/account-v2';
 
 export type { ApiError, Health, Me } from '@polymatik/domain-types';
 type Result<T> = { data: T; error?: never } | { data?: never; error: ApiError };
@@ -100,12 +111,14 @@ export function createApiClient(options: ApiClientOptions) {
       | `/v2/resources/${string}`
       | '/v1/library'
       | '/v1/interests'
-      | `/v1/library/${string}`,
+      | `/v1/library/${string}`
+      | `/v2/library?${string}`
+      | `/v2/library/${string}`,
     validate: (value: unknown) => value is T,
     signal?: AbortSignal,
     token?: string,
     method: 'GET' | 'PUT' | 'DELETE' = 'GET',
-    body?: InterestUpdate,
+    body?: InterestUpdate | InterestUpdateV2,
   ): Promise<Result<T>> {
     const controller = new AbortController();
     const abort = () => controller.abort();
@@ -167,6 +180,51 @@ export function createApiClient(options: ApiClientOptions) {
     );
   }
   return {
+    libraryPage: (
+      input: LibraryPageInput = {},
+      token?: string,
+      signal?: AbortSignal,
+    ) => {
+      const params = librarySearch(input);
+      return get(
+        `/v2/library?${params}`,
+        (value): value is AccountLibraryPage =>
+          isLibraryPage(value) &&
+          value.items.length <= Number(params.get('limit') ?? 5),
+        signal,
+        token,
+      );
+    },
+    changeLibrary: async (
+      id: string,
+      saved: boolean,
+      token?: string,
+      signal?: AbortSignal,
+    ) => {
+      if (!/^[a-z][a-z0-9-]{0,47}$/.test(id))
+        throw new TypeError('Invalid resource ID.');
+      return get(
+        `/v2/library/${encodeURIComponent(id)}`,
+        (value): value is AccountLibraryChange =>
+          isLibraryChange(value) && value.saved === saved,
+        signal,
+        token,
+        saved ? 'PUT' : 'DELETE',
+      );
+    },
+    interestsV2: (token?: string, signal?: AbortSignal) =>
+      get('/v2/interests', isInterestsV2, signal, token),
+    updateInterestsV2: (
+      value: InterestUpdateV2,
+      token?: string,
+      signal?: AbortSignal,
+    ) => {
+      const parsed = interestUpdateV2(value);
+      if (!parsed) throw new TypeError('Invalid subject choices.');
+      return get('/v2/interests', isInterestsV2, signal, token, 'PUT', parsed);
+    },
+    resetInterestsV2: (token?: string, signal?: AbortSignal) =>
+      get('/v2/interests', isInterestsV2, signal, token, 'DELETE'),
     health: (signal?: AbortSignal) => get('/v1/health', isHealth, signal),
     // Server adapters may supply the session cookie through their trusted fetch.
     me: (token?: string, signal?: AbortSignal) =>

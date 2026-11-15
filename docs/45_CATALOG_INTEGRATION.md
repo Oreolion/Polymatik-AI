@@ -16,7 +16,7 @@ Library and mobile consumers. Their wire contracts therefore stay unchanged whil
 new consumers use `CatalogEntry`, `CatalogPage`, `catalogPage()` and
 `catalogResource()`. The expanded domain no longer uses PreviewResource as its
 authority. OpenAPI remains in the existing v1.json source file (document version
-0.5.0) and generates both route versions atomically; its filename is not a route.
+0.6.0) and generates both route versions atomically; its filename is not a route.
 
 | Query | Contract |
 |---|---|
@@ -71,9 +71,9 @@ prove deployed Hyperdrive or expanded published data. The expected 503 runtime
 cases explicitly use missing storage.
 
 Ticket 4 is split into independently testable slices. **4a** implements public
-Discover/Search/details and the device Library; **4b** must expand the account
+Discover/Search/details and the device Library; **4b** now prepares the account
 Library and seven-subject interest contracts/UI before publication. Account
-Library/Profile still use the legacy domain in 4a. Cover review and authorized
+Library/Profile use the expanded domain only in server v2 mode. Cover review and authorized
 draft import remain separate; no push/deployment is included in either slice.
 
 ## Ticket 4a — paginated web collection and device Library
@@ -120,19 +120,22 @@ cover approval, successful delivery and visual/scientific QA remain Ticket 5.
 Agent checks use a local **synthetic** 11-entry API through the actual v2 handler,
 typed client, built web Worker and Chrome; this is not imported catalog data or
 live Neon/Hyperdrive acceptance. Exact results and screenshot paths are in docs/24.
-The ordinary Wrangler harness remains blocked by the agent's ancestor-directory
-ACL, so run the following from the normal owner terminal (no install needed):
+The owner's normal-terminal run of the ordinary Wrangler harness now passes
+16/16, zero failures/skips, in 20,584 ms. First/repeated SSR were 323/74 ms.
+This closes 4a's remaining runtime gate; the agent's earlier ancestor-directory
+ACL failure is historical, not an unresolved owner gate. The accepted command is
+shown for reference; no repeat is required:
 
 ```bash
 bash scripts/node24.sh npx.cmd --yes pnpm@10.34.2 test:web
 ```
 
-The current built artifact already passes the agent build; no reinstall or
-accepted unit rerun is needed. If building a fresh checkout, run `build:web`
-before `test:web`. These tests launch ephemeral local fixtures and do not migrate/import/upload or
-deploy. Do not change the runtime selector to conceal a default-harness failure.
-Ticket 4b, expanded live-data acceptance and full accessibility checks remain
-open. No new publication should precede those compatibility gates.
+The built artifact also passes the agent build. If building a fresh checkout,
+run `build:web` before `test:web`. These tests launch ephemeral local fixtures
+and do not migrate/import/upload or deploy. Do not change the runtime selector
+to conceal a default-harness failure.
+Ticket 4b is implemented below and its owner-run local checks pass. Live-data and
+full accessibility gates remain open. No publication should precede those gates.
 
 Rollback: remove the additive public BFF/browser helpers and UI integration or
 keep the default v1 configuration. Preserve browser saved-ID data and all applied
@@ -141,6 +144,104 @@ delete their IDs; re-enabling v2 resolves them again. No SQL rollback is needed.
 
 Sources: [PostgreSQL deterministic ordering and pagination](https://www.postgresql.org/docs/18/queries-limit.html),
 [Cloudflare pg/Hyperdrive request connections](https://developers.cloudflare.com/hyperdrive/examples/connect-to-postgres/postgres-drivers-and-libraries/node-postgres/).
+
+## Ticket 4b — private expanded Library and subject choices
+
+Implemented on 15 November 2026 without changing runtime configuration or any
+database/provider state. The same server-owned v2 flag enables Profile's expanded
+account panels. The default preview remains on v1. No migration, grant, dependency
+install, catalog import, publication, cover upload, deployment or push is included.
+
+The additive OpenAPI 0.6.0 boundary includes:
+
+| Route | Behavior |
+|---|---|
+| `GET /v2/library` | `limit` 1–5 and optional opaque `cursor` (max 512); `{items:[{id,resource}],next_cursor}`. |
+| `PUT /v2/library/{id}` | Save an eligible public canonical resource; public aliases resolve once. Idempotent `{id,saved:true}` acknowledgement. |
+| `DELETE /v2/library/{id}` | Remove that stored canonical ID from the verified account, even after resource withdrawal. Idempotent `{id,saved:false}`. |
+| `GET/PUT/DELETE /v2/interests` | Read, select 1–3 of seven subjects, explicitly skip, or reset. Existing statuses and RLS remain. |
+
+Library order is `(saved_at DESC, content_id COLLATE "C" ASC)`. SQL serializes
+timestamps with all six fractional digits; converting through JavaScript Date
+would lose PostgreSQL microseconds and could skip ties. The same byte ordering
+is used in the cursor predicate and response validator. SQL fetches at most six
+rows and the wire response stays below 64 KiB. No total, automatic sync or
+cross-request snapshot is claimed. Refresh restarts a traversal after edits.
+Cursor positions never select a user: each request independently verifies the
+Neon session, checks scopes/origin/expected account, and sets transaction-local
+RLS context with explicit user predicates. Each operation owns a Hyperdrive pg
+connection, a five-second statement timeout and one-second lock timeout, then
+commits/rolls back and releases it.
+
+Withdrawn metadata becomes `resource:null` while the account's saved ID remains
+visible and removable. Titles, editorial evidence, hidden cover metadata and
+other users' saves are excluded. New saves require a reviewed public resource;
+deletion deliberately does not depend on public metadata availability.
+
+Legacy v1 wire shapes stay unchanged. Its Library projection contains only the
+four original identities, while v2 reads all that account's saves. A legacy
+interests read encountering expanded subjects returns unavailable rather than
+silently truncating, clearing or rewriting them. Therefore rolling the UI flag
+back to v1 preserves data but can make expanded interests unavailable. Restore
+v2 to edit them; never rewrite saved choices as a rollback step.
+
+Same-origin `/api/account/v2/*` handlers forward only the managed session cookie,
+the configured public origin and the optional expected-account precondition.
+Browser clients always send that precondition; it is compared with independently
+verified identity and never supplies identity. Foreign writes, caller-selected
+users/upstreams, Bearer substitutions, unsupported bodies/queries and malformed
+responses are rejected. Account data remains no-store. No auth provider changes.
+
+Profile shows five account saves at a time, unavailable references with Remove,
+accurate source/format labels and existing approved-art fallback. Browser saves
+are reviewed in explicit groups of five. Only pressing Copy issues sequential,
+idempotent writes; confirmation is tracked per item, so partial failure preserves
+confirmed copies and offers recovery. Unavailable browser references and all
+original device data are kept. Sign-out/unmount cancels pending work; a changed
+session clears the affected panel and requests reload. Seven optional subject
+choices keep the three-selection cap, save/edit/skip/reset and honest scope copy.
+Unchecked choices disable at three, with checked choices still editable.
+
+Deterministic API/SQL/client tests and a configured built Worker test cover these
+boundaries. The configured Worker uses the installed Neon SDK with synthetic
+Neon/session and storage doubles; it does not prove live Google or PostgreSQL.
+Firefox checks synthetic account pagination, removal after withdrawal, reviewed
+copy and reload, unchanged browser originals, seven choices/three-choice cap,
+skip/reset, account change and separate-user rendering. Real cover delivery,
+expanded live SQL, hosted sessions, query plans at scale and full accessibility
+acceptance remain open. Existing two-user SQL evidence from earlier tickets is
+not relabeled as a new expanded-account SQL pass. Exact evidence is in docs/24.
+
+The agent's explicit Miniflare/workerd checks pass; its ordinary Wrangler build
+fails before runtime on the sandbox ancestor-directory ACL. The owner has now
+passed the normal-terminal web build, API 6/6 and web 17/17, followed by API
+packaging dry run (239.52 KiB / 49.76 KiB gzip). This closes the local runtime/
+packaging gate. The accepted commands are retained for reference; no repeat is
+needed for this slice:
+
+```bash
+bash scripts/node24.sh npx.cmd --yes pnpm@10.34.2 build:web &&
+bash scripts/node24.sh npx.cmd --yes pnpm@10.34.2 test:api:runtime &&
+bash scripts/node24.sh npx.cmd --yes pnpm@10.34.2 test:web &&
+bash scripts/node24.sh npx.cmd --yes pnpm@10.34.2 build:api:check
+```
+
+These commands do not apply SQL or deploy. Keep `POLYMATIK_RUNTIME` unset for the
+ordinary harness; the configured SDK fixture test explicitly identifies its
+Miniflare/workerd runtime. Expected API/web suite sizes are 6 and 17. No install,
+role setup or accepted migration needs to be repeated for this code slice.
+
+Next: Ticket 5 individual cover visual/scientific QA. Ticket 6 must separately
+authorize a live expanded-account SQL rehearsal, draft import, per-item review,
+asset delivery and preview configuration. Do not repoint the existing preview
+or migrate its branch merely to exercise this UI. Roll back by retaining the
+default v1 mode or reverting this additive code; preserve all private records,
+browser IDs and applied migration checksums. API clients can be rolled back
+independently while the additive routes remain.
+
+References: [PostgreSQL timestamp precision](https://www.postgresql.org/docs/18/datatype-datetime.html),
+[row-security behavior](https://www.postgresql.org/docs/18/ddl-rowsecurity.html),
+[Hyperdrive pg connection lifecycle](https://developers.cloudflare.com/hyperdrive/examples/connect-to-postgres/postgres-drivers-and-libraries/node-postgres/).
 
 ## Authorized next operation: development rehearsal
 

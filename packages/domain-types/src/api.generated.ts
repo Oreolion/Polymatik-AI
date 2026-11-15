@@ -1,5 +1,5 @@
 // Generated from openapi/v1.json by openapi-typescript. Do not edit.
-// Schema SHA-256: 6ba3d1635a4a9f04ba790902668a6f4dc0e97a557709c5c423e6b1f39815b8a9
+// Schema SHA-256: 0f637f26683e9397a9d012e4d14c8c37e4a0c7ef8685b4fe357245eca8bf9d58
 export interface paths {
   '/v1/health': {
     parameters: {
@@ -186,6 +186,78 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/v2/library': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Read the private account Library (expanded catalog)
+     * @description Private expanded Library; managed identity and exact mutation origin are rechecked. Saved identities remain removable if resource metadata becomes unavailable. No device fallback.
+     */
+    get: operations['getLibraryV2'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/v2/library/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    /**
+     * Save a reviewed resource to the account Library (expanded catalog)
+     * @description Private expanded Library; managed identity and exact mutation origin are rechecked. Saved identities remain removable if resource metadata becomes unavailable. No device fallback.
+     */
+    put: operations['saveResourceV2'];
+    post?: never;
+    /**
+     * Remove a resource from the account Library (expanded catalog)
+     * @description Private expanded Library; managed identity and exact mutation origin are rechecked. Saved identities remain removable if resource metadata becomes unavailable. No device fallback.
+     */
+    delete: operations['removeResourceV2'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/v2/interests': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Read current private subject choices (expanded catalog)
+     * @description Optional private choices from seven subjects, at most three selected. Managed identity and exact origin are rechecked. No ranking or mastery inference.
+     */
+    get: operations['getInterestsV2'];
+    /**
+     * Replace current subject choices or explicitly skip (expanded catalog)
+     * @description Optional private choices from seven subjects, at most three selected. Managed identity and exact origin are rechecked. No ranking or mastery inference.
+     */
+    put: operations['updateInterestsV2'];
+    post?: never;
+    /**
+     * Clear current subject choices without changing saved resources (expanded catalog)
+     * @description Optional private choices from seven subjects, at most three selected. Managed identity and exact origin are rechecked. No ranking or mastery inference.
+     */
+    delete: operations['resetInterestsV2'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -307,6 +379,88 @@ export interface components {
       items: components['schemas']['CatalogEntry'][];
       /** @description Opaque versioned continuation, bound to subject/kind/q; null at end. Not an authorization token or snapshot guarantee. */
       next_cursor: string | null;
+    };
+    InterestsV2:
+      | {
+          /** @constant */
+          status: 'not_started';
+          subjects: (
+            | 'Physics'
+            | 'Mathematics'
+            | 'Computing'
+            | 'Biology'
+            | 'Psychology'
+            | 'Philosophy'
+            | 'Sociology'
+          )[];
+        }
+      | {
+          /** @constant */
+          status: 'selected';
+          subjects: (
+            | 'Physics'
+            | 'Mathematics'
+            | 'Computing'
+            | 'Biology'
+            | 'Psychology'
+            | 'Philosophy'
+            | 'Sociology'
+          )[];
+        }
+      | {
+          /** @constant */
+          status: 'skipped';
+          subjects: (
+            | 'Physics'
+            | 'Mathematics'
+            | 'Computing'
+            | 'Biology'
+            | 'Psychology'
+            | 'Philosophy'
+            | 'Sociology'
+          )[];
+        };
+    InterestUpdateV2:
+      | {
+          /** @constant */
+          status: 'selected';
+          subjects: (
+            | 'Physics'
+            | 'Mathematics'
+            | 'Computing'
+            | 'Biology'
+            | 'Psychology'
+            | 'Philosophy'
+            | 'Sociology'
+          )[];
+        }
+      | {
+          /** @constant */
+          status: 'skipped';
+          subjects: (
+            | 'Physics'
+            | 'Mathematics'
+            | 'Computing'
+            | 'Biology'
+            | 'Psychology'
+            | 'Philosophy'
+            | 'Sociology'
+          )[];
+        };
+    /** @description Only the verified account owns this save. Null metadata retains an unavailable saved identity without exposing unpublished content. */
+    AccountLibraryItem: {
+      id: string;
+      resource: components['schemas']['CatalogEntry'] | null;
+    };
+    /** @description Newest saves first, canonical ID breaks timestamp ties. Five-item keyset pages; continuations never confer identity or snapshot guarantees. */
+    AccountLibraryPage: {
+      items: components['schemas']['AccountLibraryItem'][];
+      next_cursor: string | null;
+    };
+    /** @description Idempotent mutation acknowledgement; refresh paginated reads separately. PUT resolves public aliases to canonical IDs. */
+    AccountLibraryChange: {
+      id: string;
+      saved: boolean;
     };
   };
   responses: {
@@ -1684,6 +1838,684 @@ export interface operations {
         headers: {
           /** @description Server-generated correlation ID. */
           'X-Request-Id'?: string;
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+    };
+  };
+  getLibraryV2: {
+    parameters: {
+      query?: {
+        limit?: number;
+        cursor?: string;
+      };
+      header?: {
+        /** @description Optional expected-account precondition. Compared with the independently verified subject; it never supplies identity. */
+        'x-polymatik-account'?: string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description At most five private saves and an opaque continuation. Unavailable public metadata is null; the saved identity remains removable. */
+      200: {
+        headers: {
+          'Cache-Control'?: 'no-store';
+          'X-Request-Id'?: string;
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AccountLibraryPage'];
+        };
+      };
+      /** @description Verified identity required. */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Origin or scope denied. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Resource or route not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Method not allowed. */
+      405: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Request body deadline exceeded. */
+      408: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Signed-in account changed; reload before continuing. */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Request body exceeds byte budget. */
+      413: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Invalid resource ID, query or nonempty request body. */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Identity or private Library unavailable; no fallback. */
+      503: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+    };
+  };
+  saveResourceV2: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Exact configured public web origin. */
+        Origin: string;
+        /** @description Optional expected-account precondition. Compared with the independently verified subject; it never supplies identity. */
+        'x-polymatik-account'?: string;
+      };
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Idempotent acknowledgement with canonical saved identity and saved state; no Library list or learning inference. */
+      200: {
+        headers: {
+          'Cache-Control'?: 'no-store';
+          'X-Request-Id'?: string;
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AccountLibraryChange'];
+        };
+      };
+      /** @description Verified identity required. */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Origin or scope denied. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Resource or route not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Method not allowed. */
+      405: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Request body deadline exceeded. */
+      408: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Signed-in account changed; reload before continuing. */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Request body exceeds byte budget. */
+      413: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Invalid resource ID, query or nonempty request body. */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Identity or private Library unavailable; no fallback. */
+      503: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+    };
+  };
+  removeResourceV2: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Exact configured public web origin. */
+        Origin: string;
+        /** @description Optional expected-account precondition. Compared with the independently verified subject; it never supplies identity. */
+        'x-polymatik-account'?: string;
+      };
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Idempotent acknowledgement with canonical saved identity and saved state; no Library list or learning inference. */
+      200: {
+        headers: {
+          'Cache-Control'?: 'no-store';
+          'X-Request-Id'?: string;
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AccountLibraryChange'];
+        };
+      };
+      /** @description Verified identity required. */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Origin or scope denied. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Resource or route not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Method not allowed. */
+      405: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Request body deadline exceeded. */
+      408: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Signed-in account changed; reload before continuing. */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Request body exceeds byte budget. */
+      413: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Invalid resource ID, query or nonempty request body. */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Identity or private Library unavailable; no fallback. */
+      503: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+    };
+  };
+  getInterestsV2: {
+    parameters: {
+      query?: never;
+      header?: {
+        /** @description Optional precondition matched against the independently verified account; never selects identity. */
+        'X-Polymatik-Account'?: string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Current private subject selection. No learning progress or ranking is inferred. */
+      200: {
+        headers: {
+          'Cache-Control'?: 'no-store';
+          'X-Request-Id'?: string;
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InterestsV2'];
+        };
+      };
+      /** @description Verified identity required. */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Origin or scope denied. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Resource or route not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Method not allowed. */
+      405: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Request body deadline exceeded. */
+      408: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Verified account no longer matches the account precondition. */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Body exceeds 1024 bytes. */
+      413: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description PUT requires application/json. */
+      415: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Invalid query, body, subject or selection status. */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Identity or persistence unavailable; no fallback. */
+      503: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+    };
+  };
+  updateInterestsV2: {
+    parameters: {
+      query?: never;
+      header?: {
+        /** @description Optional precondition matched against the independently verified account; never selects identity. */
+        'X-Polymatik-Account'?: string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['InterestUpdateV2'];
+      };
+    };
+    responses: {
+      /** @description Current private subject selection. No learning progress or ranking is inferred. */
+      200: {
+        headers: {
+          'Cache-Control'?: 'no-store';
+          'X-Request-Id'?: string;
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InterestsV2'];
+        };
+      };
+      /** @description Verified identity required. */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Origin or scope denied. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Resource or route not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Method not allowed. */
+      405: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Request body deadline exceeded. */
+      408: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Verified account no longer matches the account precondition. */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Body exceeds 1024 bytes. */
+      413: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description PUT requires application/json. */
+      415: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Invalid query, body, subject or selection status. */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Identity or persistence unavailable; no fallback. */
+      503: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+    };
+  };
+  resetInterestsV2: {
+    parameters: {
+      query?: never;
+      header?: {
+        /** @description Optional precondition matched against the independently verified account; never selects identity. */
+        'X-Polymatik-Account'?: string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Current private subject selection. No learning progress or ranking is inferred. */
+      200: {
+        headers: {
+          'Cache-Control'?: 'no-store';
+          'X-Request-Id'?: string;
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InterestsV2'];
+        };
+      };
+      /** @description Verified identity required. */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Origin or scope denied. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Resource or route not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Method not allowed. */
+      405: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Request body deadline exceeded. */
+      408: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Verified account no longer matches the account precondition. */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Body exceeds 1024 bytes. */
+      413: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description PUT requires application/json. */
+      415: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Invalid query, body, subject or selection status. */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Identity or persistence unavailable; no fallback. */
+      503: {
+        headers: {
           [name: string]: unknown;
         };
         content: {

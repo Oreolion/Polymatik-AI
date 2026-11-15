@@ -16,6 +16,7 @@
     "./catalog-resource": "./src/catalog-resource.ts",
     "./catalog-v2": "./src/catalog-v2.ts",
     "./library-request": "./src/library-request.ts",
-    "./interests": "./src/interests.ts"
+    "./interests": "./src/interests.ts",
+    "./account-v2": "./src/account-v2.ts"
   }
 }

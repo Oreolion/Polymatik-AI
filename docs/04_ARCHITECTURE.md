@@ -2,6 +2,20 @@
 
 ## Architecture style
 
+**Private catalog compatibility, 15 November 2026:** Ticket 4b adds versioned
+Library pages/individual mutation acknowledgements and seven-subject interests.
+Keep v1 wire shapes and the default runtime configuration intact. Private cursor
+positions retain PostgreSQL microseconds and use identical explicit byte ordering
+in SQL and validation; they never grant account access. Each boundary verifies
+the session and expected account, with transaction-local RLS through Hyperdrive.
+A withdrawn resource keeps its user's saved identity with null public metadata;
+removal must not depend on the resource still being public. Browser-to-account
+copy is explicit and bounded, retaining originals and confirmed partial writes.
+Legacy interests fail closed on expanded choices rather than truncate them.
+Code rollback does not justify data rewrites. Deterministic and synthetic-browser
+evidence does not replace live expanded SQL or hosted authentication acceptance.
+No schema/provider/config changes in this slice. Details and tests: docs/45, 24.
+
 **Public web catalog boundary, 14 November 2026:** Ticket 4a uses an explicit
 server catalog version (default v1), not schema detection or a browser-selected
 upstream. The v2 client renders authoritative five-entry pages, seven subjects

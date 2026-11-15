@@ -11,7 +11,7 @@ export type LibraryRepository = {
   ): Promise<readonly PreviewResource[] | undefined>;
 };
 export type LibraryConnection = {
-  query(sql: string, values?: string[]): Promise<{ rows: unknown[] }>;
+  query(sql: string, values?: unknown[]): Promise<{ rows: unknown[] }>;
   end(): Promise<void>;
 };
 
@@ -22,6 +22,7 @@ const listSql = `SELECT c.id,c.title,c.source,c.publisher,c.kind,c.topic,
   JOIN polymatik.content_items c ON c.id = s.content_id
   WHERE u.auth_subject = $1 AND u.deleted_at IS NULL
     AND c.visibility = 'public' AND c.quality_status = 'reviewed'
+    AND c.id IN ('atoms','theory','browser','semester')
   ORDER BY s.saved_at DESC,c.id LIMIT 5`;
 
 function checkedRows(rows: unknown[]) {
@@ -107,7 +108,15 @@ export function workerLibrary(
 ): LibraryRepository | undefined {
   const mode: unknown = Reflect.get(env, 'CATALOG_BACKEND') ?? 'preview';
   if (mode === 'preview') return undefined;
-  return postgresLibrary(async () => {
+  return postgresLibrary(libraryConnector(env, ctx));
+}
+
+export function libraryConnector(
+  env: object,
+  ctx: { waitUntil(promise: Promise<unknown>): void },
+): () => Promise<LibraryConnection> {
+  return async () => {
+    const mode: unknown = Reflect.get(env, 'CATALOG_BACKEND') ?? 'preview';
     const binding: unknown = Reflect.get(env, 'HYPERDRIVE');
     const connection: unknown =
       binding && typeof binding === 'object'
@@ -141,5 +150,5 @@ export function workerLibrary(
         );
       },
     };
-  });
+  };
 }

@@ -10,6 +10,7 @@ import {
 } from '../helpers/local-workers.mjs';
 import { startWranglerWorker } from '../helpers/worker-harness.mjs';
 import { startExpandedCatalog } from '../helpers/expanded-catalog.mjs';
+import { startAccountWebWorker } from '../helpers/account-web-worker.mjs';
 
 let base = new URL(
   process.env.POLYMATIK_WEB_BASE_URL ?? 'http://127.0.0.1:8787',
@@ -68,6 +69,91 @@ after(async () => {
   }
 });
 
+test('configured expanded account BFF uses the real built Worker and mocked Neon/storage with private page and mutation contracts', async () => {
+  console.log(
+    'Configured account test runtime: Miniflare/workerd; deterministic Neon and storage doubles.',
+  );
+  const fixture = await startAccountWebWorker();
+  try {
+    /** @param {string} path @param {string} [method] @param {unknown} [body] @param {string} [user] @param {string} [expected] */
+    const call = (
+      path,
+      method = 'GET',
+      body,
+      user = 'alice',
+      expected = user,
+    ) =>
+      fetch(`${fixture.origin}${path}`, {
+        method,
+        headers: {
+          origin: fixture.origin,
+          cookie: `__Secure-neon-auth.session_token=${user}`,
+          'x-polymatik-account': expected,
+          ...(body ? { 'content-type': 'application/json' } : {}),
+        },
+        ...(body ? { body: JSON.stringify(body) } : {}),
+        signal: AbortSignal.timeout(10000),
+      });
+    const auth = await call('/api/auth/get-session');
+    assert.equal(auth.status, 200);
+    assert.equal((await auth.json()).user.id, 'alice');
+    const first = await call('/api/account/v2/library');
+    assert.equal(first.status, 200);
+    const page = await first.json();
+    assert.equal(page.items.length, 5);
+    assert.ok(page.next_cursor);
+    const second = await (
+      await call(`/api/account/v2/library?cursor=${page.next_cursor}`)
+    ).json();
+    assert.equal(second.items.length, 2);
+    assert.deepEqual(second.items[1], { id: 'fixture-6', resource: null });
+    assert.equal(
+      (await call('/api/account/v2/library', 'GET', undefined, 'bob', 'alice'))
+        .status,
+      409,
+    );
+    assert.equal(
+      (await call('/api/account/v2/library', 'GET', undefined, 'forged'))
+        .status,
+      401,
+    );
+    const change = await call('/api/account/v2/library/fixture-9', 'PUT');
+    assert.equal(change.status, 200);
+    assert.deepEqual(await change.json(), { id: 'fixture-9', saved: true });
+    const interests = await call('/api/account/v2/interests', 'PUT', {
+      status: 'selected',
+      subjects: ['Sociology', 'Biology'],
+    });
+    assert.equal(interests.status, 200);
+    assert.deepEqual(await interests.json(), {
+      status: 'selected',
+      subjects: ['Biology', 'Sociology'],
+    });
+    assert.equal(fixture.api.interests.has('bob'), false);
+    assert.equal(
+      (
+        await fetch(`${fixture.origin}/api/account/v2/library/fixture-9`, {
+          method: 'DELETE',
+          headers: {
+            origin: 'https://evil.test',
+            cookie: 'neon-auth.session_token=alice',
+          },
+        })
+      ).status,
+      403,
+    );
+    assert.ok(fixture.api.saves.get('alice')?.has('fixture-9'));
+    fixture.api.active.delete('alice');
+    assert.equal(
+      (await call('/api/account/v2/library')).status,
+      401,
+      'revocation is not concealed by cached UI or a device fallback',
+    );
+  } finally {
+    await fixture.stop();
+  }
+});
+
 test('expanded web SSR and same-origin pages use seven subjects, canonical detail and bounded independent reads', async () => {
   const api = await startExpandedCatalog();
   /** @type {{port:number;stop:()=>Promise<void>}|undefined} */
@@ -108,6 +194,21 @@ test('expanded web SSR and same-origin pages use seven subjects, canonical detai
     ])
       assert.ok(html.includes(text), text);
     assert.ok(!html.includes('Fixture learning resource 5'));
+    for (const path of ['/api/account/v2/library', '/api/account/v2/interests'])
+      assert.equal(
+        (await fetch(`${origin}${path}`)).status,
+        503,
+        'expanded private route exists and has no unconfigured fallback',
+      );
+    assert.equal(
+      (
+        await fetch(`${origin}/api/account/v2/library/atoms`, {
+          method: 'PUT',
+          headers: { origin: 'https://evil.test' },
+        })
+      ).status,
+      403,
+    );
     const first = await (
       await fetch(`${origin}/api/catalog`, {
         signal: AbortSignal.timeout(10000),

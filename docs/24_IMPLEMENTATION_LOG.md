@@ -1,6 +1,125 @@
 # 24 — Implementation Status and Evidence Ledger
 
-### 2026-11-14 — Ticket 4a public web/device Library; ordinary-runtime gate open
+### 2026-11-15 — owner verifies Ticket 4b build, runtime and API packaging
+
+Owner supplied the normal-terminal chained check output: web `Build complete`,
+ordinary Wrangler API **6/6** (14,715 ms), built web **17/17** (33,592 ms), zero
+failures/skips, and API `--dry-run: exiting now`. API package size is **239.52 KiB /
+49.76 KiB gzip**. First/repeated SSR are 328/81 ms under unchanged deadlines.
+Web runtime reports Wrangler; its configured account test explicitly uses
+Miniflare/workerd with deterministic Neon and storage doubles, as designed.
+
+This closes Ticket 4b's outstanding local build/runtime/packaging gates. The
+agent's ancestor-directory ACL failure below remains an environment limitation,
+not an unresolved owner-runtime failure. No repeat install, test run or migration
+is needed for this accepted code slice. These are owner-reported results, not
+agent-executed ordinary Wrangler results or live expanded SQL/hosted acceptance.
+The dry run uploaded/deployed nothing. No configuration, database, application
+code, Git metadata, push or deployment change was made while recording them.
+Next smallest ticket: 5, individual cover QA. Preserve live expanded SQL,
+publication/asset delivery and hosted/accessibility gates in docs/45.
+
+### 2026-11-15 — Ticket 4b expanded account Library and interests
+
+Owner requested continuation after the accepted Ticket 4a Wrangler run. Inspected
+the actual tree, README/source of truth, handoff, architecture/backlog and design
+instructions. Five existing documentation edits were retained. Implemented only
+the private account compatibility slice; no migration, live SQL, catalog import,
+publication, cover upload, dependency install/lockfile, provider/configuration,
+Git metadata, push or deployment changes. No AI/retrieval/ranking change or eval delta.
+
+Changed files by responsibility:
+
+- Domain OpenAPI/generated types, new `account-v2.ts`, interests request overload
+  and api-client: additive v2 private pages/acknowledgements and seven choices.
+- API `library-v2.ts`, existing library/interests/index/worker and API tsconfig:
+  bounded microsecond keysets, tenant context, null withdrawn metadata, independent
+  removal, unchanged legacy wire shapes and connection lifecycle.
+- Web `account-v2-api/server.ts`, three `/api/account/v2` handlers, browser Library/
+  interests clients, expanded Library component, Profile/Discover wiring and CSS:
+  explicit reviewed copy, pagination, recovery/account guards and seven subjects.
+- Contract/runtime tests and deterministic account/built-Worker helpers; README,
+  architecture, backlog, this ledger, docs/45 and checkpoint instructions.
+
+Alternatives: extending strict v1 responses would break legacy decoders; changing
+preview configuration would mix schema/runtime states. Additive opt-in routes
+avoid both. Database impact: none; later live use requires verified 0003 and the
+existing limited role. Never apply/rewrite SQL or grants as an install/start side
+effect. Details, migration prerequisites and code/data rollback are in docs/45.
+
+Agent checks on Windows with isolated Node 24.22.1, installed pinned dependencies:
+
+| Check | Actual result / local artifact |
+|---|---|
+| Catalog, Library, interests, API/client, account, configuration and harness contracts | **96/96**, zero skips, 13,960 ms; `.cache/ticket4b-contracts.txt`. Includes ten new expanded contract/SQL-double tests. |
+| All auth contracts plus installed Neon SDK checks | **28/28**, zero skips, 34,225 ms; `.cache/ticket4b-auth.txt`. Some coverage overlaps the contract suite. |
+| Explicit Miniflare/workerd API + built web + managed-auth integration | **24/24**, zero skips, 25,788 ms; `.cache/ticket4b-runtime-final.txt`: API 6, web 17, managed API session integration 1. |
+| Web production build | Pass after final touch-target change; `.cache/ticket4b-build.txt`. Additive private routes included. Existing framework sourcemap/chunk-analysis warnings remain. |
+| TypeScript | Root, API, web, domain types and api-client pass. No mobile or Python-wide claim. |
+| Configured lint/format/whitespace | ESLint with zero warnings, repository Prettier check and `git diff --check` pass; `.cache/ticket4b-quality.txt`. Existing Git LF/CRLF advisory only. |
+| Generation/compatibility | `generate-api.mjs --check` passes; every pre-existing OpenAPI path/schema is structurally identical to HEAD. |
+
+Configured account Worker coverage uses the real built web/installed Neon SDK
+with synthetic session and storage doubles. The API managed-session integration
+uses workerd with a deterministic provider response. PostgreSQL repository tests
+inspect SQL/transaction behavior through doubles; none is live expanded SQL proof.
+The initial configured fixture used a cookie name the installed SDK excludes;
+using its actual secure cookie prefix fixed that fixture without changing app
+guards. Foreign-origin, wrong-account, forged/expired identity, malformed input,
+response budgets, withdrawn metadata/removal and partial copy are covered.
+
+Firefox Developer Edition 160, local built Worker with synthetic Alice/Bob only:
+page 1/2; accurate Book/Video labels; kept unavailable reference and explicit
+removal; review without copy; explicit two-save copy and reload; unchanged three
+browser originals; seven interest controls, three-choice cap, save/reload/skip/
+clear and heading focus; changed-account request rejects and clears the affected
+panel, reload renders only Bob's own save; logout removes both private panels
+and keeps browser originals. Invalid fixture storage also showed recovery without
+overwriting it. Light/dark and 320/360/1440px have no horizontal overflow. After
+finding a 24px review control, final CSS was rebuilt and measured: every new
+Library/interests button/choice is at least 44px high at 360px.
+
+Screenshots: `.cache/ticket4b-profile-mobile-dark.png` and
+`.cache/ticket4b-profile-desktop-light.png`. Synthetic covers intentionally have no
+deployed bytes; this is fallback/layout evidence, not cover approval or delivery.
+Only the task's local tab/fixture processes were closed; user dev servers retained.
+
+Ordinary Wrangler API and API packaging were attempted and blocked before app
+execution by esbuild's ancestor-directory `Access is denied`; see
+`.cache/ticket4b-standard-api.txt` and `.cache/ticket4b-api-package.txt`. No silent
+runtime fallback or altered deadlines/assertions. The owner has now passed the
+exact build/API/web/dry-run sequence in docs/45, as recorded above. The prior
+owner results accepted earlier code; this new run accepts the 4b local checks.
+No reinstall or repeated accepted check is needed.
+
+Security/privacy: verified subject and expected-account checks remain separate;
+RLS context is transaction-local, hidden metadata excluded and account data
+no-store. Performance: five/six-row pages, 64 KiB responses, two concurrent public
+review reads and at most five sequential idempotent writes. Large-account SQL
+plans, live expanded persistence, deployed Hyperdrive behavior, live multi-user
+auth, full accessibility and hosted acceptance remain open. No readiness/release
+claim. Next smallest ticket is 5, individual cover QA; Ticket 6 live writes,
+publication and preview configuration require separate authorization.
+
+### 2026-11-14 — owner verifies Ticket 4a standard Wrangler runtime
+
+Owner supplied complete `bash scripts/node24.sh npx.cmd --yes pnpm@10.34.2
+test:web` output: runtime `wrangler`, 16 tests, 16 passes, zero failures/skips,
+20,584 ms. Harness startup times: 3,335 / 2,447 / 3,901 ms. First request-specific
+SSR was 323 ms and repeat SSR 74 ms under the existing deadlines.
+
+This closes the remaining ordinary-runtime gate for the public web/device
+Library slice. Coverage includes expanded seven-subject SSR/pages/canonical
+details, independent saved-resource reads, legacy catalog, protected account
+boundaries, bootstrap dependencies, routing, streams and outage recovery.
+The expanded API remains a local synthetic fixture: this does not establish new
+published data, live expanded Neon/Hyperdrive, account Library/interests expansion,
+cover approval/delivery or hosted acceptance. No repeat install, migration or
+accepted test rerun is needed. Next smallest ticket is 4b, account Library and
+seven-subject interests. No application, database, provider, deployment or Git
+publication changes were made while recording this owner-reported result.
+
+### 2026-11-14 — Ticket 4a public web/device Library implementation
 
 Owner requested continuation after accepting Ticket 3. Inspected the dirty tree,
 handoff, README/source of truth, architecture/backlog and Living Atlas design
@@ -24,7 +143,7 @@ UI-06/UI-07 work, staged bundle, docs/prompt.md and applied SQL bytes.
 | Focused catalog/discover/detail | 27/27 pass, zero skips. Later v2 suite 8/8 includes prototype-name and whole-batch deadline regressions (29 focused cases total). |
 | Web/config/tokens/account Library/interests/stream contracts | Final run 57/57 pass including prototype-ID/deadline regressions, zero skips; 3,426 ms. Raw output: `.cache/ticket4-units.txt`. |
 | Built web runtime, explicit `POLYMATIK_RUNTIME=miniflare` | Final rebuilt artifact: 16/16 pass, zero skips; 11,701 ms. Actual workerd, local synthetic API and unconfigured account paths; no live expanded SQL or Hyperdrive. Raw output: `.cache/ticket4-runtime.txt`. |
-| Standard Wrangler web runtime | Exit 1 in setup: esbuild cannot read ancestor directory, Access denied/entry resolution. No test assertion coverage accepted from this run; no deadlines raised or runtime fallback silently selected. |
+| Agent standard Wrangler web runtime | Exit 1 in setup: esbuild cannot read ancestor directory, Access denied/entry resolution. No assertion coverage accepted from this agent run. Owner's later standard run above passes 16/16; no deadlines raised or runtime fallback silently selected. |
 | Root and web TypeScript | Exit 0 in both scopes. Mobile is parked; no recursive/mobile typecheck claim. |
 | Full configured ESLint / full configured Prettier | Both exit 0. Existing ESLint configuration covers JavaScript/MJS, not TSX; a targeted TSX invocation reports ignored-file warning, not a TSX lint pass. TypeScript compilation checks the web sources. Prettier intentionally excludes existing documentation/provider inputs. |
 | Web `vite build` | Exit 0, `Build complete`; source-map/dynamic-import diagnostics remain. Initial Wrangler log EPERM was avoided in later runs by a process-local `.cache` log path, without changing credentials/config. Raw build output: `.cache/ticket4-build.txt`. |

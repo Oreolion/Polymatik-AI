@@ -14,9 +14,20 @@ import {
   type CatalogEntry,
 } from '@polymatik/domain-types/catalog-v2';
 import type { LibraryRepository } from './library';
-import type { InterestsRepository } from './interests';
+import type { InterestsRepository, InterestsV2Repository } from './interests';
+import type { LibraryV2Repository } from './library-v2';
+import {
+  libraryQuery,
+  isLibraryPage,
+  isLibraryChange,
+  isInterestsV2,
+  type AccountLibraryPage,
+  type AccountLibraryChange,
+  type InterestsV2,
+} from '@polymatik/domain-types/account-v2';
 import {
   interestsInput,
+  isInterests,
   type Interests,
 } from '@polymatik/domain-types/interests';
 import {
@@ -43,7 +54,9 @@ type Options = {
   catalog?: CatalogRepository;
   catalogV2?: CatalogV2Repository;
   library?: LibraryRepository;
+  libraryV2?: LibraryV2Repository;
   interests?: InterestsRepository;
+  interestsV2?: InterestsV2Repository;
   log?: (entry: RequestLog) => void;
 };
 
@@ -57,9 +70,15 @@ export function createApi(options: Options = {}) {
       const resourceV2Match = /^\/v2\/resources\/([^/]+)$/.exec(url.pathname);
       const catalogV2Route =
         url.pathname === '/v2/resources' || resourceV2Match !== null;
-      const library = libraryTarget(url.pathname, '/v1/library');
+      const expandedLibrary = libraryTarget(url.pathname, '/v2/library');
+      const libraryV2Route = expandedLibrary.kind !== 'missing';
+      const library = libraryV2Route
+        ? expandedLibrary
+        : libraryTarget(url.pathname, '/v1/library');
       const libraryRoute = library.kind !== 'missing';
-      const interestsRoute = url.pathname === '/v1/interests';
+      const interestsV2Route = url.pathname === '/v2/interests';
+      const interestsRoute =
+        url.pathname === '/v1/interests' || interestsV2Route;
       const privateRoute = libraryRoute || interestsRoute;
       const methods = interestsRoute
         ? ['GET', 'PUT', 'DELETE']
@@ -93,6 +112,9 @@ export function createApi(options: Options = {}) {
           | PreviewResource
           | CatalogEntry
           | CatalogPage
+          | AccountLibraryPage
+          | AccountLibraryChange
+          | InterestsV2
           | { items: readonly PreviewResource[] },
         status = 200,
       ) => Response.json(body, { status, headers });
@@ -247,6 +269,64 @@ export function createApi(options: Options = {}) {
             );
           }
         }
+        if (libraryV2Route && principal) {
+          let query;
+          try {
+            if (library.kind === 'invalid') throw new TypeError();
+            if (library.kind === 'list') query = libraryQuery(url.searchParams);
+            else if (url.searchParams.size) throw new TypeError();
+          } catch {
+            return error(
+              422,
+              'validation_error',
+              'Invalid Library query or identity.',
+            );
+          }
+          const bodyError = await libraryBodyError(request);
+          if (bodyError)
+            return error(
+              bodyError,
+              'validation_error',
+              'Library requests require an empty body.',
+            );
+          if (!options.libraryV2)
+            return error(
+              503,
+              'library_unavailable',
+              'Account Library is unavailable.',
+              true,
+            );
+          try {
+            const result = query
+              ? await options.libraryV2.page(principal.userId, query)
+              : library.kind === 'item'
+                ? await options.libraryV2.setSaved(
+                    principal.userId,
+                    library.id,
+                    request.method === 'PUT',
+                  )
+                : undefined;
+            if (result === undefined)
+              return error(404, 'not_found', 'Resource not found.');
+            if (
+              !(query
+                ? isLibraryPage(result) && result.items.length <= query.limit
+                : isLibraryChange(result) &&
+                  result.saved === (request.method === 'PUT')) ||
+              new TextEncoder().encode(JSON.stringify(result)).byteLength >
+                65536
+            )
+              throw new Error('Invalid Library response.');
+            return json(result);
+          } catch {
+            return error(
+              503,
+              'library_unavailable',
+              'Account Library is unavailable.',
+              true,
+            );
+          }
+        }
         if (url.searchParams.size > 0) {
           return error(
             422,
@@ -255,14 +335,19 @@ export function createApi(options: Options = {}) {
           );
         }
         if (interestsRoute && principal) {
-          const input = await interestsInput(request);
+          const input = interestsV2Route
+            ? await interestsInput(request, true)
+            : await interestsInput(request);
           if (input.error)
             return error(
               input.error,
               'validation_error',
               'Use the supported subject choices and request format.',
             );
-          if (!options.interests)
+          const repository: InterestsV2Repository | undefined = interestsV2Route
+            ? options.interestsV2
+            : options.interests;
+          if (!repository)
             return error(
               503,
               'interests_unavailable',
@@ -272,17 +357,16 @@ export function createApi(options: Options = {}) {
           try {
             const value =
               request.method === 'GET'
-                ? await options.interests.read(principal.userId)
+                ? await repository.read(principal.userId)
                 : request.method === 'DELETE'
-                  ? await options.interests.reset(principal.userId)
+                  ? await repository.reset(principal.userId)
                   : input.value
-                    ? await options.interests.write(
-                        principal.userId,
-                        input.value,
-                      )
+                    ? await repository.write(principal.userId, input.value)
                     : undefined;
             if (!value)
               return error(422, 'validation_error', 'Invalid subject choices.');
+            if (!(interestsV2Route ? isInterestsV2(value) : isInterests(value)))
+              throw new Error('Invalid interests result.');
             return json(value);
           } catch {
             return error(
@@ -392,8 +476,12 @@ export function createApi(options: Options = {}) {
         request_id: requestId,
         route: libraryRoute
           ? library.kind === 'list'
-            ? '/v1/library'
-            : '/v1/library/{id}'
+            ? libraryV2Route
+              ? '/v2/library'
+              : '/v1/library'
+            : libraryV2Route
+              ? '/v2/library/{id}'
+              : '/v1/library/{id}'
           : resourceV2Match
             ? '/v2/resources/{id}'
             : resourceMatch

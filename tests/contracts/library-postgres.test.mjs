@@ -5,7 +5,7 @@ import { resources } from '../../packages/domain-types/src/discovery-preview.ts'
 
 /** @param {unknown[]} [rows] @param {boolean} [eligible] */
 function database(rows = [resources[0]], eligible = true) {
-  /** @type {{sql:string,values:string[]}[]} */
+  /** @type {{sql:string,values:unknown[]}[]} */
   const calls = [];
   let closed = 0;
   const repository = postgresLibrary(async () => ({
@@ -60,6 +60,11 @@ test('Library SQL uses one bounded transaction, transaction-local RLS and explic
       /c.visibility = 'public'.*c.quality_status = 'reviewed'/s,
     );
     assert.match(list.sql, /LIMIT 5/);
+    assert.match(
+      list.sql,
+      /c.id IN \('atoms','theory','browser','semester'\)/,
+      'legacy readers intentionally project only the historical four identities',
+    );
     if (action === 'save')
       assert.ok(
         f.calls.some(({ sql }) =>
