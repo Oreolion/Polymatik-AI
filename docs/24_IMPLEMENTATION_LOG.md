@@ -1,5 +1,53 @@
 # 24 — Implementation Status and Evidence Ledger
 
+### 2026-11-15 — CI #9 catalog checksum failure; byte-preservation fix
+
+Inspected clean working tree at `bc067a239442cdfe43a9c91e4dacf2c691cf521f`,
+README/source of truth, workflow and full remote job logs through read-only
+GitHub access. [Run #9](https://github.com/Oreolion/Polymatik-AI/actions/runs/43714630971)
+failed `pnpm test` on both Windows and Ubuntu: 221/224 passed, three staging
+tests failed at `CHECKSUM_MISMATCH`. Lint/typecheck passed; later checks and
+deployment were skipped. The Node 20 action warning was not the failing step.
+
+Compared all 128 manifest-covered working files with actual HEAD blobs. Only
+`assets/catalog_review.csv` differs: the local original matches its SHA256 and
+contains CRLF; the committed blob contains LF and fails that checksum.
+Replacing CRLF with LF makes the two byte strings identical. The repository's
+`* text=auto eol=lf` rule normalized this checksum input during staging. This
+explains local 224/224 success and both clean-checkout CI failures; it is not an
+API, dependency, Windows-only or authentication failure.
+
+Changed `.gitattributes` to preserve this CSV's exact bytes with a path-specific
+`-text` rule. Its whitespace policy accepts the supplied CRLF while retaining
+ordinary trailing-whitespace checks. Application source LF rules stay intact.
+Added one regression in `tests/spikes/catalog-staging.test.mjs`: verify the CSV
+SHA256, then exercise Git's actual clean filter with autocrlf false/true/input
+and compare its object identity with the original bytes. No `-w`, staging,
+configuration mutation or index/object writes occur in that test. It was red
+before the attribute fix and passes after it. No checksum regeneration,
+validator weakening, original package edits, app/runtime/dependency/workflow,
+database, publication or deployment changes. No AI/evaluation delta.
+
+Agent verification, Windows Node 24.22.1 and installed pinned dependencies:
+
+- Full root `package.json` test command with CI workflow environment: **225/225**,
+  zero failures/skips, 64,264 ms; `.cache/ci-full-tests-fixed.txt`. Baseline was
+  224/224 in the original working tree, `.cache/ci-full-tests.txt`.
+- Dedicated staging suite **15/15**, zero skips; `.cache/ci-checksum-green.txt`.
+  Regression red output: `.cache/ci-checksum-red.txt`.
+- Root TypeScript, targeted ESLint with zero warnings and Prettier check pass.
+  Existing integrity, active-content, duplicate-cover and corruption tests pass.
+
+**Commit prerequisite:** the existing Git blob is still normalized. Merely
+committing `.gitattributes` cannot repair it. In the owner's normal terminal,
+explicitly stage the verified original with
+`git add --renormalize -- assets/catalog_review.csv`, together with the changed
+attribute/test/notes, then commit and push. This session keeps `.git` read-only;
+no commit/push or remote rerun was performed. CI must pass on the new commit
+before claiming recovery; later pipeline stages were never tested by failed #9.
+Rollback means reverting the attribute/test patch, which restores the known
+clean-checkout failure; do not edit checksums to conceal a byte mismatch.
+
 ### 2026-11-15 — owner verifies Ticket 4b build, runtime and API packaging
 
 Owner supplied the normal-terminal chained check output: web `Build complete`,

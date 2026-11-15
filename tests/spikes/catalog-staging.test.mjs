@@ -273,6 +273,43 @@ async function rehash(dir, name) {
   await writeFile(sums, lines.join('\n'));
 }
 
+test('Git preserves the checksummed catalog CSV bytes under every autocrlf setting', async () => {
+  const bytes = await readFile(join(packageRoot, 'catalog_review.csv'));
+  const sums = await readFile(join(packageRoot, 'SHA256SUMS.txt'), 'utf8');
+  const expected = sums
+    .split(/\r?\n/)
+    .find((line) => line.endsWith('  catalog_review.csv'))
+    ?.slice(0, 64);
+  assert.equal(createHash('sha256').update(bytes).digest('hex'), expected);
+  const rawObject = createHash('sha1')
+    .update(`blob ${bytes.length}\0`)
+    .update(bytes)
+    .digest('hex');
+  for (const autocrlf of ['false', 'true', 'input']) {
+    // hash-object without -w applies Git's real clean filter without writing
+    // objects, staging files, or changing the working tree or Git configuration.
+    const result = spawnSync(
+      'git',
+      [
+        '-c',
+        `core.autocrlf=${autocrlf}`,
+        '-c',
+        'core.safecrlf=false',
+        'hash-object',
+        '--path=assets/catalog_review.csv',
+        '--stdin',
+      ],
+      { cwd: root, input: bytes, encoding: 'utf8', windowsHide: true },
+    );
+    assert.equal(result.status, 0, result.stderr || result.error?.message);
+    assert.equal(
+      result.stdout.trim(),
+      rawObject,
+      `Git must preserve the original checksum input with core.autocrlf=${autocrlf}`,
+    );
+  }
+});
+
 test('real package validates without writes; CLI is deterministic and rejects write flags', async () => {
   const sums = await readFile(join(packageRoot, 'SHA256SUMS.txt'), 'utf8');
   const inspection = await inspectStagingPackage(packageRoot);

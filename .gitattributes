@@ -1,2 +1,5 @@
 * text=auto eol=lf
 *.cmd text eol=crlf
+
+# This external CSV is a byte-exact SHA256SUMS.txt input, including its CRLF.
+/assets/catalog_review.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

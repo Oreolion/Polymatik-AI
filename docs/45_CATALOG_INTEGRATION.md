@@ -356,8 +356,13 @@ Validated inventory:
   they are never executed or proposed as delivered browser assets.
 
 The proposal is deterministic and includes the SHA256 of the checksum manifest
-for identifying the inspected bundle. It is **not a database diff**: no live IDs,
-rows, permissions or migration ledger are read. A future importer must inspect
+for identifying the inspected bundle. Git must preserve checksum-covered bytes:
+the supplied `catalog_review.csv` uses CRLF and has a path-specific `-text` rule.
+CI #9 exposed that its earlier committed blob had been normalized to LF. Preserve
+the verified original and re-stage it explicitly when applying that fix; never
+regenerate the checksum manifest merely to accept transformed bytes (docs/24).
+The proposal is **not a database diff**: no live IDs, rows, permissions or
+migration ledger are read. A future importer must inspect
 its explicitly approved database target and reconcile existing records there.
 Source rights claims, redirect/work equivalence, scientific accuracy, full image
 decoding, 60-cover visual review and responsive/browser acceptance remain open.

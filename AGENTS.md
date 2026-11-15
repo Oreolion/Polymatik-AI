@@ -284,6 +284,13 @@ ordinary questions require neither a full suite nor a checkpoint rewrite.
   agent's ancestor-directory ACL. No accepted check rerun. Live expanded SQL/hosted gates:
   docs/45 and 24. No migration/import/upload/config change, push or deployment.
   Next smallest ticket is individual cover QA, not live publication.
+- **CI #9 follow-up:** both OS jobs fail staging checksum checks because Git
+  normalized the supplied review CSV to LF. Original local bytes match all 128
+  checksums. Path-specific byte preservation and regression are prepared; local
+  full suite 225/225, staging 15/15 and root types/lint/format pass. Owner must
+  explicitly re-stage the original CSV, commit/push and verify new CI before
+  advancing. No manifest rewrite or app/workflow/provider/data changes. Docs/24.
+  Git metadata remains read-only; do not bypass it through a remote write.
 - **Earlier milestone follow-up:** normal-terminal API packaging and outstanding Expo toolchain check,
   then milestone checkpoint and owner-requested GitHub push. Keep deferred
   rendered checks (docs/43-44) and hosted acceptance explicit.

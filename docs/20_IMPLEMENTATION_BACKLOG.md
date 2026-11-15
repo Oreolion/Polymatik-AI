@@ -4,6 +4,13 @@
 
 ## Current owner priority - web resource details and backend checkpoint
 
+**15 November — CI #9 recovery precedes the next catalog ticket.** Both CI OS
+jobs fail three staging tests because Git normalized the checksummed review CSV
+to LF. The local original is intact. A byte-preserving attribute and regression
+are prepared; local full tests pass 225/225. Owner must stage the original CSV
+explicitly, commit/push the fix and verify the new CI run. No checksum edits,
+app changes, imports or deployment. Evidence and exact prerequisite: docs/24.
+
 **15 November — Ticket 4b: expanded private Library and interests implemented.**
 Additive v2 contracts/API/BFF/clients and opt-in Profile UI support five-entry
 account pages, unavailable saved references, explicit reviewed browser-copy
