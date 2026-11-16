@@ -1,5 +1,44 @@
 # Cloudflare Free development-preview checkpoint
 
+## 16 November — run #10 transport recovery
+
+Run #10 (`b411436a86f59c1fa3fcbb9c5ac27c77876178c7`) passes both complete CI
+matrix jobs, resolving the CSV checksum failure. It deploys API version
+`da6d47c0-06ae-4e48-bf9f-bffcefbbcc9c` and web version
+`30110508-f38e-4811-bf14-c94af83fc013`, then fails `web-detail` content validation
+despite HTTP 200. Do not treat that deployment as a healthy preview.
+
+Read-only Firefox inspection confirms a real recovery screen: the direct public
+API `/v1/resources/atoms` returns the valid resource, but web SSR omits it on both
+home and detail. The configured web-to-API call uses a public workers.dev URL
+without a service binding. This conflicts with Cloudflare's documented same-zone
+routing guidance. The exact platform exception is not available here (Cloudflare
+MCP needs reconnection); no particular error code or CPU-limit cause is claimed.
+
+Prepared repair: bind web `PRODUCT_API` to existing `polymatik-api-preview`, use
+that Fetcher for public and private product calls, and validate its exact target
+in both source and generated preview configurations. Missing/broken bindings fail
+closed; no public-network fallback. The public URL remains a trusted request URL,
+not a caller-selected upstream. Local loopback development is unchanged. Neon
+Auth transport, API session revalidation, secrets, Hyperdrive target, catalog
+version/schema and deployment workflow/order remain unchanged.
+
+Smoke remains six credential-free reads with the original 15-second/byte limits.
+Home must contain all four API-validated resource titles, and detail must contain
+its title, About section and original source URL. HTTP 200 branding/metadata-only
+recovery screens now fail. No retries, delays, skipped assertions or weaker checks.
+Tests exercise a real built web Worker with service binding and public-network
+access denied, plus configured account calls through the binding.
+
+This is a code/configuration repair for the development preview, not a live
+provider edit or production rollout. No new service/account/plan is required.
+Commit/push and the new deployment smoke plus rendered acceptance must establish
+delivery before claiming recovery. See docs/24 for executed evidence. The older
+setup/deployment history below is retained as history.
+
+[Cloudflare routing restrictions](https://developers.cloudflare.com/workers/configuration/routing/custom-domains/),
+[HTTP service bindings](https://developers.cloudflare.com/workers/runtime-apis/bindings/service-bindings/http/).
+
 Owner selected Cloudflare Free on 11 November 2026. Preserve the existing
 vinext/Workers web, API Worker, Hyperdrive and Neon-managed Auth/PostgreSQL.
 Mobile and the Python/AI service are outside this first hosted preview.

@@ -17,7 +17,8 @@ export function postgresCatalog(query: CatalogQuery): CatalogRepository {
   return {
     async list() {
       const result = await query(
-        `SELECT ${columns} FROM polymatik.content_items WHERE ${published} ORDER BY sort_order LIMIT 5`,
+        `SELECT ${columns} FROM polymatik.content_items WHERE ${published}
+        AND id IN ('atoms','theory','browser','semester') ORDER BY sort_order LIMIT 5`,
         [],
       );
       if (

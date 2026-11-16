@@ -5,6 +5,37 @@
 
 ## Accepted development-workflow decisions
 
+### 2026-11-16 — reviewed subset import and explicit development activation
+
+Owner requests "import and activate the expanded collection". Retain existing
+Neon project, Auth, Hyperdrive and all private state; production is excluded.
+Use the already accepted child for rehearsal before the existing development
+branch. Stage all 56 additions as hidden drafts, separately publish only the
+54 identities with accepted project-created conceptual covers, and retain six
+held illustrations as drafts. Agent full-size visual review is explicitly
+identified as agent review in `catalog/initial-review.json`; it is not a claim
+that the owner individually reviewed these assets or that source science was
+revalidated. The owner's current request supplies development publication scope.
+
+Prefer existing static WebP delivery over another bucket/provider, with exact
+package/resource/art hashes and no delivered masters. Prefer parameterized,
+transactional, repeatable operator tooling over hand-written seed replacements.
+Publish the legacy SQL compatibility fix before increasing the shared database's
+public inventory. Activate local/preview v2 only after actual restricted-login
+verification, preserving the independent auth and tenant boundaries.
+
+Rejected alternatives: bulk-approving weak art, importing public by default,
+resetting existing catalog/user state, rewriting applied migrations, silently
+repointing Hyperdrive/Auth, or selecting mode/upstream from a browser request.
+Tests cover hashes, fixed targets, conflicts/rollback/idempotence, original
+metadata, private fingerprints, asset copying and verified configuration gates.
+Owner-terminal rehearsal on 16 November now proves actual child SQL/publication:
+54 public, six held, legacy four and private isolation preserved. Shared parent
+publication and local/hosted activation remain pending; docs/45 has the precise
+commands and live gates. This agent's credential access remains unavailable.
+Rollback to v1 preserves all data but does not withdraw public v2 metadata;
+editorial withdrawal must hide the affected additions without deleting saved IDs.
+
 ### 2026-11-14 — explicit catalog client mode and independent device resolution
 
 Continue the authorized catalog work as Ticket 4a (public web/device Library),

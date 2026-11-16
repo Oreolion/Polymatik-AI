@@ -4,6 +4,10 @@ import { createRequire } from 'node:module';
 import test from 'node:test';
 import { smokePreview } from '../../scripts/smoke-cloudflare-preview.mjs';
 import { resources } from '../../packages/domain-types/src/discovery-preview.ts';
+import {
+  catalogSubjects,
+  encodeCatalogCursor,
+} from '../../packages/domain-types/src/catalog-v2.ts';
 
 const require = createRequire(import.meta.url);
 const { load } = createRequire(require.resolve('eslint/package.json'))(
@@ -74,9 +78,13 @@ function previewTransport(overrides = {}) {
     if (url.pathname === '/v1/resources')
       return Response.json({ items: resources });
     if (url.pathname === '/')
-      return new Response('<title>Polymatik AI</title>');
+      return new Response(
+        `<title>Polymatik AI</title>${resources.map((item) => `<h2>${item.title}</h2>`).join('')}`,
+      );
     if (url.pathname === '/resource/atoms')
-      return new Response('<h1>Atoms in Motion</h1>');
+      return new Response(
+        '<h1>Atoms in Motion</h1><h2>About this resource</h2><a href="https://www.feynmanlectures.caltech.edu/I_01.html">Open original</a>',
+      );
     return Response.json({ code: 'UNAUTHORIZED' }, { status: 401 });
   };
   return { paths, transport };
@@ -95,11 +103,68 @@ test('preview smoke uses six bounded credential-free reads and includes unsigned
   ]);
 });
 
+test('expanded preview smoke requires a real first v2 page and all seven web subjects', async () => {
+  const next = encodeCatalogCursor(
+    { sort_order: 4, id: 'new-chapter' },
+    { subject: null, kind: null, q: null, limit: 5, after: null },
+  );
+  const items = [
+    ...resources,
+    {
+      ...resources[0],
+      id: 'new-chapter',
+      title: 'New chapter',
+      url: 'https://example.org/new-chapter',
+    },
+  ].map((r) => ({
+    ...r,
+    secondary_subjects: [],
+    cover:
+      r.id === 'new-chapter'
+        ? {
+            key: 'resource-covers/new-chapter/cover-v1.webp',
+            version: 1,
+            alt: 'An original conceptual cover.',
+            width: 1200,
+            height: 800,
+            media_type: 'image/webp',
+          }
+        : null,
+  }));
+  const f = previewTransport({
+    '/v2/resources': () => Response.json({ items, next_cursor: next }),
+    '/': () =>
+      new Response(
+        `Polymatik AI ${items.map((i) => i.title).join(' ')} ${catalogSubjects.join(' ')}`,
+      ),
+  });
+  await smokePreview(f.transport, () => {}, 'v2');
+  assert.equal(f.paths[1], '/v2/resources');
+  const missingSubjects = previewTransport({
+    '/v2/resources': () => Response.json({ items, next_cursor: next }),
+    '/': () =>
+      new Response(`Polymatik AI ${items.map((i) => i.title).join(' ')}`),
+  });
+  await assert.rejects(smokePreview(missingSubjects.transport, () => {}, 'v2'));
+});
+
 test('preview smoke fails on catalog corruption, redirects, oversized HTML or unsigned access', async () => {
   for (const overrides of [
     { '/v1/resources': () => Response.json({ items: [] }) },
     { '/': () => Response.redirect('https://unexpected.example') },
     { '/': () => new Response('x'.repeat(524289)) },
+    {
+      '/': () =>
+        new Response(
+          '<title>Polymatik AI</title><p>Collection unavailable</p>',
+        ),
+    },
+    {
+      '/resource/atoms': () =>
+        new Response(
+          '<title>Atoms in Motion — Polymatik AI</title><p>Resource unavailable</p>',
+        ),
+    },
     { '/v1/me': () => Response.json({ private: 'test-only-user' }) },
     { '/api/account/me': () => Response.json({ private: 'test-only-user' }) },
   ])

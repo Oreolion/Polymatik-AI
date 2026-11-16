@@ -69,6 +69,82 @@ after(async () => {
   }
 });
 
+test('built web renders catalog and detail through its service binding with public-network access denied', async () => {
+  console.log(
+    'Service-binding test runtime: Miniflare/workerd; real local API Worker, no public-network fallback.',
+  );
+  const api = await startApiWorker();
+  let web;
+  let publicCalls = 0;
+  let available = true;
+  /** @type {string[]} */ const paths = [];
+  const origin = 'https://polymatik-api-preview.remyoreo11.workers.dev';
+  try {
+    web = await startWebWorker(
+      `http://127.0.0.1:${api.port}`,
+      {
+        PRODUCT_API_ORIGIN: origin,
+      },
+      {
+        serviceBindings: {
+          PRODUCT_API: async (request) => {
+            const target = new URL(request.url);
+            assert.equal(target.origin, origin);
+            paths.push(target.pathname);
+            if (!available) return Response.json({}, { status: 503 });
+            return fetch(
+              `http://127.0.0.1:${api.port}${target.pathname}${target.search}`,
+              {
+                method: request.method,
+                headers: request.headers,
+                signal: request.signal,
+                redirect: 'manual',
+              },
+            );
+          },
+        },
+        outboundService: async () => {
+          publicCalls++;
+          throw new Error('Public network disabled in binding test.');
+        },
+      },
+    );
+    const home = await (
+      await fetch(`${web.origin}/`, { signal: AbortSignal.timeout(10000) })
+    ).text();
+    for (const resource of resources) assert.ok(home.includes(resource.title));
+    const detail = await fetch(`${web.origin}/resource/atoms`, {
+      signal: AbortSignal.timeout(10000),
+    });
+    assert.equal(detail.status, 200);
+    const html = await detail.text();
+    assert.ok(html.includes('Atoms in Motion'));
+    assert.ok(html.includes('About this resource'));
+    assert.ok(html.includes(resources[0].url));
+    assert.ok(paths.includes('/v1/resources'));
+    assert.ok(paths.includes('/v1/resources/atoms'));
+    available = false;
+    const outage = await (
+      await fetch(`${web.origin}/resource/atoms`, {
+        signal: AbortSignal.timeout(10000),
+      })
+    ).text();
+    assert.ok(outage.includes('This resource is unavailable'));
+    assert.ok(!outage.includes('About this resource'));
+    assert.equal(
+      publicCalls,
+      0,
+      'failed service calls never fall back to a public host',
+    );
+  } finally {
+    try {
+      await web?.stop();
+    } finally {
+      await api.stop();
+    }
+  }
+});
+
 test('configured expanded account BFF uses the real built Worker and mocked Neon/storage with private page and mutation contracts', async () => {
   console.log(
     'Configured account test runtime: Miniflare/workerd; deterministic Neon and storage doubles.',
@@ -97,6 +173,9 @@ test('configured expanded account BFF uses the real built Worker and mocked Neon
     const auth = await call('/api/auth/get-session');
     assert.equal(auth.status, 200);
     assert.equal((await auth.json()).user.id, 'alice');
+    const me = await call('/api/account/me');
+    assert.equal(me.status, 200);
+    assert.equal((await me.json()).user_id, 'alice');
     const first = await call('/api/account/v2/library');
     assert.equal(first.status, 200);
     const page = await first.json();

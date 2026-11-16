@@ -40,6 +40,14 @@ pass, along with the owner's web build, API 6/6, web 17/17 and API packaging dry
 run. Expanded live SQL and actual cover delivery remain gates. See the
 [catalog integration guide](docs/45_CATALOG_INTEGRATION.md).
 
+The owner has now authorized development import and activation. The transactional
+importer passed the owner's live isolated-branch rehearsal: **54 public resources,
+seven subjects and six formats**, with six held drafts and private state preserved.
+Full-size review accepts 54 conceptual covers; their static WebP files are prepared
+locally. **The shared local/hosted development catalog is not activated yet.**
+Compatibility code must deploy before applying the import to that shared branch.
+Follow the [ordered activation commands](docs/45_CATALOG_INTEGRATION.md).
+
 UI-06 now prepares a private account Library panel in Profile with explicit
 copying from browser saves and account removal. Its API, typed client and privacy
 boundaries are implemented. The owner applied the development DELETE grant and
@@ -63,7 +71,10 @@ HTTP 200. The owner confirms local Discover/details, saves/reload and themes wor
 include a further typography/control-spacing polish, with browser review open.
 
 The [Cloudflare development preview](https://polymatik-web-preview.remyoreo11.workers.dev)
-is deployed from master. Collection recovery now
+is deployed from master. Latest run #10 passes both CI checks jobs, but its web
+resource-detail smoke fails on an unavailable screen. A service-binding transport
+repair is prepared; hosted recovery remains unverified. See
+[preview recovery](docs/42_CLOUDFLARE_DEPLOYMENT.md). Collection recovery now
 separates clearing filters from restoring set-aside items; these new controls
 await a browser check. See the [preview deployment guide](docs/42_CLOUDFLARE_DEPLOYMENT.md)
 for setup and verification. On 12 November, Windows/Linux CI and both deployment

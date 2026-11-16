@@ -7,18 +7,70 @@ export type ProductApiOptions = {
   catalogVersion?: string;
 };
 
+function isApiService(value: unknown): value is { fetch: typeof fetch } {
+  return (
+    value !== null &&
+    typeof value === 'object' &&
+    typeof Reflect.get(value, 'fetch') === 'function'
+  );
+}
+
+/** Preserve Fetcher's receiver; a configured service never falls back to public fetch. */
+function configuredTransport(
+  config: object,
+  origin: unknown,
+): typeof fetch | undefined {
+  const service: unknown = Reflect.get(config, 'PRODUCT_API');
+  let workersDev = false;
+  try {
+    workersDev =
+      typeof origin === 'string' &&
+      new URL(origin).hostname.endsWith('.workers.dev');
+  } catch {
+    // The client validates invalid origins before any request.
+  }
+  if (service === undefined && !workersDev) return undefined;
+  return async (input, init) => {
+    if (!isApiService(service) || typeof origin !== 'string')
+      throw new TypeError('Product API service binding is unavailable.');
+    const target = new URL(
+      input instanceof Request ? input.url : String(input),
+    );
+    const redirect =
+      init?.redirect ?? (input instanceof Request ? input.redirect : 'manual');
+    if (
+      target.origin !== new URL(origin).origin ||
+      target.username ||
+      target.password ||
+      redirect === 'follow'
+    )
+      throw new TypeError('Invalid product API service request.');
+    return service.fetch(input, { ...init, redirect });
+  };
+}
+
 /** Explicit server configuration; callers cannot choose a mode/upstream by URL. */
 export function configuredProductApi(config: object): ProductApiOptions {
   const origin: unknown = Reflect.get(config, 'PRODUCT_API_ORIGIN');
   const version: unknown = Reflect.get(config, 'PRODUCT_CATALOG_VERSION');
+  const transport = configuredTransport(config, origin);
   return {
     ...(typeof origin === 'string' ? { apiOrigin: origin } : {}),
+    ...(transport ? { fetch: transport } : {}),
     catalogVersion:
       version === undefined
         ? 'v1'
         : typeof version === 'string'
           ? version
           : 'invalid',
+  };
+}
+
+export function configuredAccountApi(config: object) {
+  const origin: unknown = Reflect.get(config, 'AUTH_PUBLIC_ORIGIN');
+  return {
+    ...configuredProductApi(config),
+    ...(typeof origin === 'string' ? { publicOrigin: origin } : {}),
   };
 }
 const MAX_RESPONSE_BYTES = 64 * 1024;

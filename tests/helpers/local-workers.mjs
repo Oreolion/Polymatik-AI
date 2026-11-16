@@ -89,7 +89,7 @@ export async function startApiWorker(options = {}) {
   });
 }
 
-/** @param {string} apiOrigin @param {Record<string,string>} [bindings] @param {{port?:number,outboundService?:(request:Request)=>Promise<Response>}} [options] */
+/** @param {string} apiOrigin @param {Record<string,string>} [bindings] @param {{port?:number,outboundService?:(request:Request)=>Promise<Response>,serviceBindings?:Record<string,(request:Request)=>Promise<Response>>}} [options] */
 export async function startWebWorker(apiOrigin, bindings = {}, options = {}) {
   const origin = loopbackOrigin(apiOrigin);
   const server = new URL('apps/web/dist/server/', root);
@@ -115,6 +115,9 @@ export async function startWebWorker(apiOrigin, bindings = {}, options = {}) {
     compatibilityDate: config.compatibility_date,
     compatibilityFlags: config.compatibility_flags ?? [],
     bindings: { ...config.vars, PRODUCT_API_ORIGIN: origin, ...bindings },
+    ...(options.serviceBindings
+      ? { serviceBindings: options.serviceBindings }
+      : {}),
     ...(options.port ? { port: options.port } : {}),
     ...(options.outboundService
       ? { outboundService: options.outboundService }

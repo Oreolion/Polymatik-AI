@@ -4,6 +4,25 @@
 
 ## Current owner priority - web resource details and backend checkpoint
 
+**16 November — owner requests expanded collection import and activation.**
+Prepared reviewed-subset tooling and 54 accepted static covers; six illustrations
+are held. Import 56 hidden additions separately from publication of the accepted
+54 total; retain originals/private data. Legacy catalog SQL now explicitly
+filters its four identities. Owner's live isolated-child rehearsal now passes:
+56 new drafts, 54 public, six held, seven subjects/six formats, legacy four and
+private isolation preserved. Shared development parent remains unchanged.
+Neon preflight returns NEON_CREDENTIAL_ACCESS in this agent session. Docs/45
+provides the normal-terminal apply/verify/activation sequence; docs/24 separates
+local tests from live acceptance. Compatibility code must deploy before shared
+database publication; v2 preview configuration stays inactive until verification.
+
+**16 November — preview #10 smoke recovery before cover QA.** Both complete CI
+OS jobs pass after the CSV fix. Deployment succeeds, but resource-detail smoke
+fails on a real HTTP 200 unavailable screen. Prepared web-to-API service binding
+and stronger home/detail content checks; local verification is in docs/24.
+Do not claim hosted recovery before the new commit deploys and passes smoke and
+rendered acceptance. No migrations/imports or expanded catalog activation.
+
 **15 November — CI #9 recovery precedes the next catalog ticket.** Both CI OS
 jobs fail three staging tests because Git normalized the checksummed review CSV
 to LF. The local original is intact. A byte-preserving attribute and regression

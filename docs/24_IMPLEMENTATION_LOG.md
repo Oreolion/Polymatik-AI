@@ -1,5 +1,200 @@
 # 24 — Implementation Status and Evidence Ledger
 
+### 2026-11-16 — reviewed catalog import and accepted isolated activation rehearsal
+
+Scope: owner's request to import and activate the expanded collection on existing
+development infrastructure. Inspected the actual dirty tree, immutable handoff,
+schema/repositories, versioned contracts, migration runner and deployment path.
+Carried forward the pending preview service-binding repair below. Preserved the
+owner's unrelated `docs/prompt.md` edit; it is outside this checkpoint's staging.
+No new dependencies, providers, AI/ranking changes or production operations.
+
+Full-size inspection of all 60 WebP covers accepts 54 conceptual illustrations
+and holds six (`p-quantum`, `p-doppler`, `m-euler`, `c-raft`, `b-transcriptome`,
+`y-designs`) for the specific corrections in docs/45. Agent visual QA is not
+represented as owner artwork review or source-science validation. The owner's
+development request authorizes the reviewed subset. `catalog/initial-review.json`
+binds decisions to metadata/art hashes and review identity/time. Package SHA256:
+`1f00533dcdce03e111183948d3fb920dc20db28f87cb42f9e3e4a131d7e76afe`;
+review SHA256:
+`cc86b70c684e1b9e4821dc44130a303b5070a2ceb35ef23b6a6aba7ff8e47de6`.
+Original staging data/checksums and applied migration SQL remain unchanged.
+
+Changed file groups:
+
+- `scripts/catalog-activation.mjs` and `catalog-activate.mjs`: fixed existing
+  child/development targets, live provider/connection checks, checksummed 0003,
+  parameterized hidden staging followed by separate approved publication,
+  conflict refusal, idempotence, private fingerprints and restricted-role probes.
+  Phase failures report committed work; later failure cannot undo an earlier
+  committed migration or staging phase. No startup/CI database mutation.
+- `apps/api/src/catalog.ts`: legacy SQL explicitly selects the original four
+  IDs before LIMIT, so expanded publication does not break the v1 row guard.
+  Deploy this compatibility code before publishing to the shared development DB.
+- 54 approved WebP files under `apps/web/public/resource-covers/`, byte-matched
+  to source. Held art and masters are excluded from delivered assets. Existing
+  static delivery suffices; no bucket/upload command or new resource is needed.
+- Local/preview activation requires matching real development verification and
+  review hashes. Local changes preserve secrets/API origin with a private backup;
+  preview preparation changes only the known catalog flag and never deploys.
+  Packaging/smoke understand explicit v2 while source preview remains v1 now.
+- Focused activation, legacy SQL, transport and preview smoke regressions plus
+  README, architecture, ADR, backlog, operator guide and checkpoint updates.
+
+Agent-run evidence: Windows, Node 24.22.1, installed pinned dependencies, no
+install/relink. Deterministic third-party services remain mocked.
+
+| Check | Result and captured output |
+|---|---|
+| Full root `package.json` test command | **239/239**, zero failures/skips, 50,783 ms; `.cache/catalog-activation-full-tests.txt`. |
+| Built web, explicit `POLYMATIK_RUNTIME=miniflare` | **18/18**, zero failures/skips, 21,479 ms; `.cache/catalog-activation-web-runtime.txt`. Real workerd, deterministic Neon/storage; not live Google/Postgres. |
+| Focused activation/compatibility/preview tests | **23/23**; `.cache/catalog-activation-focused.txt`; initial red `.cache/catalog-activation-red.txt`. |
+| Root/API/web TypeScript, OpenAPI generation, ESLint | Pass, zero lint warnings; `.cache/catalog-activation-quality.txt`. |
+| Ordinary web build with accepted static assets | **Build complete**; `.cache/catalog-activation-build.txt`. |
+| Full Prettier check | Pass; `.cache/catalog-activation-format-final.txt`. The first aggregate check found formatting in the newly edited catalog test fixture; corrected before this passing check. |
+
+Firefox exercised the real built web against a local catalog repository fixture
+containing the exact 54 approved entries, not a live database/session. All 54
+covers decode at 1200×800 across 11 pages; seven subjects, six formats, unique IDs
+and held-entry exclusion verified. Evidence:
+`.cache/catalog-activation-browser-covers.json`. Desktop dark and 390px mobile
+light screenshots: `.cache/catalog-activation-discover.png` and
+`.cache/catalog-activation-biology-mobile-light.png`. Subject filtering, next-page
+navigation and saved Natural Selection in device Library after returning from a
+detail page work; no horizontal overflow at 390px. Video detail was verified by
+direct navigation with source, format, cover and original link. The tool's click
+on a title near the sticky header did not establish navigation; do not count
+that interaction as accepted or claim a complete accessibility audit.
+
+**Owner-run live rehearsal accepted, 16 November:**
+`bash scripts/node24.sh node scripts/catalog-activate.mjs --rehearse` on
+`dev-catalog-expansion` / `br-muddy-bar-zayn69jl`, endpoint
+`ep-muddy-brook-za10nkn1`. Owner supplied:
+
+```text
+0003 already applied; all checksums match
+Draft import: new_drafts=56; unchanged_resources=4; cover_associations=60; aliases=1; private_data_preserved=true
+Publication: public_resources=54; changed_publication_rows=54; held_drafts=6; private_data_preserved=true
+Restricted public API verification: public_resources=54; held_drafts=6; subjects=7; kinds=6; legacy_resources=4
+Expanded Library/interests: repeat save, new subject choices, two-user and unsigned isolation, own removal; fixtures rolled back.
+Rehearsal accepted on the existing isolated child. Development parent unchanged.
+```
+
+This establishes actual child SQL, publication, repository/client and restricted-
+login isolation acceptance. It does not establish hosted cover delivery or actual
+Google/account browser behavior. Agent credential preflight still fails with
+`NEON_CREDENTIAL_ACCESS`; no credential/permission bypass. Git metadata remains
+read-only; no agent commit/push. Preview v2 source flag is still inactive.
+
+Next: owner commits/pushes compatibility/service-binding code and accepted static
+files, excluding the unrelated prompt edit; verify new development-preview CI and
+smoke. Then owner runs `--apply` on `dev-auth-working`, restarts local API/web and
+checks seven subjects/details/saves. After local acceptance, `--prepare-preview`
+and a second push activate hosted v2, followed by exact-artifact smoke and rendered
+acceptance. Shared-parent migration/import, local v2 flag and hosted expanded
+activation have **not** happened yet. No production operation occurred.
+
+Performance/privacy: five-item keyset pages, bounded reads, static covers and
+unchanged request deadlines; brief private-table SHARE locks apply only during
+operator fingerprint checks. No private rows are edited or exposed by import.
+Rollback to v1 preserves rows/saves/interests but does not withdraw public v2
+metadata or evict images. Any withdrawal hides identities without deleting saved
+references. Ordinary agent Wrangler ancestor-ACL and credential limits remain;
+do not describe explicit Miniflare results as ordinary Wrangler or hosted proof.
+
+### 2026-11-16 — preview #10 service transport repair and local catalog diagnosis
+
+Inspected clean working tree at `b411436a86f59c1fa3fcbb9c5ac27c77876178c7`,
+repository instructions, architecture, backlog, deployment configuration and
+read-only GitHub job logs. [Run #10](https://github.com/Oreolion/Polymatik-AI/actions/runs/43737844558)
+passes both complete Windows/Ubuntu checks jobs, confirming the prior CSV repair.
+It deploys API `da6d47c0-06ae-4e48-bf9f-bffcefbbcc9c` and web
+`30110508-f38e-4811-bf14-c94af83fc013`, but detail smoke fails content validation
+despite HTTP 200. Those deployed versions are not accepted as healthy.
+
+Read-only Firefox inspection shows the real unavailable-resource screen. Public
+API detail returns the valid original; web home and detail omit its content.
+Evidence: `.cache/preview-detail-inspection.json` and
+`.cache/preview-smoke-before.png`. Web used the public workers.dev API origin
+without a service binding, contrary to the documented same-zone routing path.
+Cloudflare MCP is unauthenticated here: the exact provider exception is unknown;
+neither error 1042 nor CPU exhaustion was observed or established.
+
+Changed file groups and behavior:
+
+- Web preview Wrangler configuration binds `PRODUCT_API` to the existing
+  `polymatik-api-preview`. Packaging validates the exact binding/target and rejects
+  extra targets or overrides in source and generated configurations.
+- `product-api.ts` selects the service Fetcher, preserves its receiver and rejects
+  unexpected origins, embedded credentials and automatic redirects. Missing or
+  broken workers.dev bindings fail closed without public-network fallback.
+  Local loopback HTTP retains its existing behavior and five-second/64 KiB bounds.
+- Account me/Library/interests routes and the expanded account server share that
+  configuration. Managed Auth transport, cookie/origin policies, independently
+  verified API identity and tenant isolation remain intact.
+- Preview smoke still makes six credential-free reads with unchanged deadlines
+  and budgets. Home now requires all four API-validated titles; detail requires
+  its title, About section and original URL. Branding/metadata-only recovery
+  responses fail, even with status 200.
+- Transport, packaging, smoke and built-Worker regressions cover these paths.
+  Test helpers exercise public and configured private calls through a service
+  binding with public API network access denied. README, architecture, backlog,
+  deployment guide and checkpoint record the scope and open delivery gate.
+
+Alternatives rejected: weakening the smoke assertion, public-network fallback,
+changing account verification or silently activating the expanded catalog. The
+existing HTTP service binding supplies the required Worker-to-Worker path;
+no new provider, paid plan or external dependency is introduced. See
+[HTTP service bindings](https://developers.cloudflare.com/workers/runtime-apis/bindings/service-bindings/http/)
+and [routing restrictions](https://developers.cloudflare.com/workers/configuration/routing/custom-domains/).
+
+Agent checks on Windows, Node 24.22.1 and installed pinned dependencies:
+
+| Check | Result and captured output |
+|---|---|
+| Root `package.json` test command, CI environment | **228/228**, zero skips, 111,329 ms; `.cache/preview-binding-full-tests.txt`. |
+| Built web runtime, explicit `POLYMATIK_RUNTIME=miniflare` | **18/18**, zero skips, 43,840 ms; `.cache/preview-binding-runtime-final.txt`. Real workerd, deterministic Neon/storage; not live Google/Postgres. |
+| Root and web TypeScript | Pass; `.cache/preview-binding-types.txt`, `.cache/preview-binding-web-types.txt`. |
+| Full ESLint and configured Prettier check | Pass, zero warnings; `.cache/preview-binding-quality.txt`. |
+| Ordinary web build | Pass; `.cache/preview-binding-build.txt`. |
+| Isolated preview web build | Pass; `.cache/preview-binding-isolated.txt`. Generated binding validates and local secrets are excluded; nothing deployed. |
+| Focused transport/smoke/account tests | **22/22**; `.cache/preview-binding-units.txt`. Initial red transport/smoke output: `.cache/preview-transport-red.txt`. |
+
+One initial runtime run overlapped the isolated preview build. The build cleared
+shared ordinary output, causing two asset/bootstrap failures; the new service
+and account cases already passed. Serialized the builds, restored ordinary
+output and reran the complete runtime suite: 18/18 above. Historical failure is
+retained in `.cache/preview-binding-runtime.txt`; no assertion or deadline was
+weakened. Future artifact builds and dependent runtime checks must be sequential.
+
+Latest owner question also prompted local inspection. `apps/web/.dev.vars`
+points to `http://127.0.0.1:8789` and has no catalog-version override. Firefox
+shows three subjects and Collection unavailable; both local API probes fail to
+connect. These are separate causes: default v1 has three subjects, while the
+stopped API prevents resource cards loading. Attempted `catalog-db.mjs serve`
+using the existing restricted development connection, without migrations. It
+exits on this session's known ancestor-directory ACL during Wrangler bundling;
+the local API was not restored. Owner should run pinned `dev:api` in the normal
+terminal and reload web. No dependency repair is indicated. Seven-subject v2
+activation and new catalog import require their remaining docs/45 gates; no
+local secret file, database target or catalog mode was changed as a shortcut.
+
+Security/privacy: binding transport retains all auth boundaries and no new
+credentials enter source, logs or public responses. Performance: no extra
+product requests, retries or raised budgets; deployed free-tier CPU behavior
+remains unmeasured for this repair. No AI/ranking change or evaluation delta.
+No migration, import/publication, cover upload, secrets/provider mutation,
+deployment, commit or push occurred. Git metadata is read-only in this session.
+Ordinary Wrangler verification of this repair remains for the owner's terminal
+or new CI run; explicit Miniflare results are not represented as Wrangler results.
+
+Next: owner commits/pushes the coherent repair; verify the exact new CI deployment
+smoke and rendered home/detail/account delivery before claiming hosted recovery.
+Then resume Ticket 5 cover QA, followed by separately authorized catalog import
+and runtime activation. Rollback is reverting the transport/config/tests together;
+that restores the known preview routing failure. No database rollback is needed;
+retain existing user saves, interests and applied migration checksums.
+
 ### 2026-11-15 — CI #9 catalog checksum failure; byte-preservation fix
 
 Inspected clean working tree at `bc067a239442cdfe43a9c91e4dacf2c691cf521f`,

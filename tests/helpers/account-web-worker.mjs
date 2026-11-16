@@ -25,6 +25,8 @@ export async function startAccountWebWorker() {
       api.origin,
       {
         PRODUCT_CATALOG_VERSION: 'v2',
+        PRODUCT_API_ORIGIN:
+          'https://polymatik-api-preview.remyoreo11.workers.dev',
         AUTH_PUBLIC_ORIGIN: origin,
         NEON_AUTH_BASE_URL: neon,
         NEON_AUTH_COOKIE_SECRET:
@@ -32,17 +34,9 @@ export async function startAccountWebWorker() {
       },
       {
         port,
+        serviceBindings: { PRODUCT_API: (request) => api.api.fetch(request) },
         outboundService: async (request) => {
           const url = new URL(request.url);
-          if (url.origin === new URL(api.origin).origin) {
-            return fetch(request.url, {
-              method: request.method,
-              headers: request.headers,
-              ...(!['GET', 'HEAD'].includes(request.method)
-                ? { body: await request.arrayBuffer() }
-                : {}),
-            });
-          }
           if (url.origin !== new URL(neon).origin)
             throw new Error('Unexpected fixture upstream.');
           const id = api.identity(request.headers);

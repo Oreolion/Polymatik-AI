@@ -291,6 +291,25 @@ ordinary questions require neither a full suite nor a checkpoint rewrite.
   explicitly re-stage the original CSV, commit/push and verify new CI before
   advancing. No manifest rewrite or app/workflow/provider/data changes. Docs/24.
   Git metadata remains read-only; do not bypass it through a remote write.
+- **16 November — preview #10:** the CSV fix passes both full OS checks jobs.
+  API/web deploy, then detail smoke fails on a real unavailable screen (HTTP 200).
+  Direct API detail is valid. Prepared PRODUCT_API service binding to the existing
+  preview API and shared public/account transport; strict target/origin/redirect
+  guards and stronger smoke checks. Docs/42 and 24 hold evidence/limits. No
+  hosted recovery claim, migrations, provider changes or catalog activation.
+  Next is commit/push and verify new preview smoke/rendered delivery, then cover QA.
+  Git metadata remains read-only in this session.
+- **16 November — authorized reviewed catalog activation:** importer, hash-bound
+  per-item review and 54 accepted static covers prepared; six illustrations held.
+  Agent full suite 239/239, built Miniflare/workerd web 18/18, types, lint, format,
+  OpenAPI generation and web build pass. Local fixture browser decodes all 54
+  covers across 11 pages; this is separate from real SQL. Owner's live child
+  rehearsal passes: 56 additions staged, 54 total published, six held, all seven
+  subjects/six formats, legacy four and private isolation preserved. Parent
+  dev-auth-working is unchanged. First deploy compatibility/service-binding code
+  with preview still v1; then owner --apply, local acceptance, --prepare-preview
+  and the second development-preview push. No production or new provider changes.
+  Agent credentials and Git writes remain unavailable; no bypass. Docs/45 and 24.
 - **Earlier milestone follow-up:** normal-terminal API packaging and outstanding Expo toolchain check,
   then milestone checkpoint and owner-requested GitHub push. Keep deferred
   rendered checks (docs/43-44) and hosted acceptance explicit.

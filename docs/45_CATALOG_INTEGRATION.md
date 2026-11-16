@@ -1,6 +1,129 @@
 # Curated catalog integration — staging, schema and versioned API
 
-## Current result and Ticket 3 API slice
+## 16 November — authorized development import and activation
+
+The owner requested import and activation of the expanded collection. On
+16 November the owner ran `--rehearse` successfully on `dev-catalog-expansion`:
+56 new drafts staged, 54 total resources published, six drafts held, all seven
+subjects/six formats verified, legacy reads and private isolation preserved.
+**The shared development parent is unchanged; local/hosted activation is pending.**
+This agent's Neon preflight returns `NEON_CREDENTIAL_ACCESS`, so live commands
+run in the normal owner terminal. Do not share credentials or change production
+permissions to work around it.
+
+`catalog/initial-review.json` binds all 60 per-item decisions to the exact package,
+resource metadata and WebP SHA256 values. The contact sheet and every full-size
+image were inspected. **54 conceptual covers are accepted; six are held:**
+
+| Resource | Required correction |
+|---|---|
+| `p-quantum` | Replace classical electron orbits with an appropriate quantum/interference concept. |
+| `p-doppler` | Align wavefront compression with the indicated source motion. |
+| `m-euler` | Make the approximation follow the reference solution's direction. |
+| `c-raft` | Show leader-to-follower replication rather than a propagation tree. |
+| `b-transcriptome` | Distinguish RNA transcripts from a DNA-like double helix. |
+| `y-designs` | Show treatment/control assignment in parallel rather than sequential stages. |
+
+This is agent visual QA, not fabricated owner review or validation of all source
+science. The owner's latest request authorizes development import/publication of
+the reviewed subset; the six held resources remain hidden drafts. The intended
+result is **60 stored identities, 54 public (four originals + 50 additions), six
+hidden**, all seven subjects and six formats. Masters and the immutable staging
+bundle stay outside delivered assets; 54 accepted WebP files are prepared under
+`apps/web/public/resource-covers/`. No upload or deployment has occurred.
+
+`scripts/catalog-activate.mjs` has fixed project/branch/endpoint allowlists:
+the accepted rehearsal child and existing `dev-auth-working`. It verifies live
+provider identity, rejects a default/production branch and pooled or unexpected
+connection strings, and uses the existing direct owner login only for editorial
+operations. The existing restricted login verifies the real repositories/client,
+pagination, covers, subjects/formats, aliases, held-entry denial, legacy catalog
+and rollback-only two-user Library/interests isolation. Auth/Hyperdrive targets
+and passwords are not changed.
+
+The existing checksummed 0003 runner executes before import; prior migrations
+remain immutable. Draft metadata/provenance/aliases/pending cover associations
+commit separately from publication. Parameterized bulk writes, table/advisory
+locks and private-data fingerprints enforce consistency. Existing metadata is
+matched, never silently overwritten; conflicting URLs, identity, sort order,
+review or bytes abort. Repeat runs do not duplicate or demote published records.
+Only approved covers/identities publish; the original nine metadata fields stay
+unchanged. Failure reports which phases already committed. Do not delete a
+migration or blindly regenerate checksums after a later phase fails.
+
+### Run in this order
+
+First commit/push the prepared compatibility/transport repair and wait for green
+CI/deployment smoke. The old deployed API's unrestricted legacy SQL would reject
+an expanded public collection. The prepared fix explicitly projects the original
+four identities for `/v1`; `/v2` remains authoritative for the expanded UI.
+Leave preview mode at v1 for this first code deployment. It also delivers the
+accepted static files, without importing or publishing database rows.
+
+Then, from the project root in normal Git Bash, stop only Polymatik dev servers
+before applying DDL and run:
+
+```bash
+# Read-only local proposal; no database connection.
+bash scripts/node24.sh node scripts/catalog-activate.mjs --plan
+
+# Assets are already prepared here; this is safe to repeat on another checkout.
+bash scripts/node24.sh node scripts/catalog-activate.mjs --prepare-assets
+
+# Already passed in this checkout on 16 November; repeat only if reviewed inputs change.
+bash scripts/node24.sh node scripts/catalog-activate.mjs --rehearse
+
+# Run only after the rehearsal passes and the compatibility code is deployed.
+bash scripts/node24.sh node scripts/catalog-activate.mjs --apply
+```
+
+`--apply` requires the matching successful rehearsal receipt in `.cache`, applies
+0003 to **dev-auth-working only**, stages 56 drafts and all associations, publishes
+the 54 accepted entries, and verifies the actual restricted login. On complete
+success it backs up the local web variables privately and sets only
+`PRODUCT_CATALOG_VERSION=v2`, preserving secrets and the loopback API origin.
+Restart `dev:api` and `dev:web` in separate normal terminals. Check all seven
+subjects, page navigation, a Book/Video detail, actual covers and saved IDs.
+Local flag changes and SQL verification are not rendered browser acceptance.
+
+If a verification/configuration step failed after commit, fix that specific
+failure, then use the following to repeat restricted checks and local activation:
+
+```bash
+bash scripts/node24.sh node scripts/catalog-activate.mjs --verify
+```
+
+Verification creates product fixtures inside a transaction and rolls them back;
+it does not sign up real accounts, modify Auth or contact Google. Receipts record
+target and package/review hashes, never credentials. Changes to reviewed data
+invalidate the rehearsal receipt. Existing `.dev.vars` values are not printed.
+
+After local acceptance, prepare the preview source flag from the matching
+verified development receipt:
+
+```bash
+bash scripts/node24.sh node scripts/catalog-activate.mjs --prepare-preview
+```
+
+Review and commit/push that configuration change for the authorized development
+preview. This command itself deploys nothing. Packaging accepts only absent/v2
+catalog mode with the exact existing service/Hyperdrive/auth targets. Smoke reads
+the committed mode: v2 requires a valid first five-entry page with continuation,
+its titles on the homepage and all seven subjects. Verify the exact new hosted
+artifact, real image delivery and sign-in/account workflows before claiming
+completion. Production remains outside scope.
+
+Rollback of UI activation: restore the backed-up catalog flag or return to v1;
+the legacy four remain readable. This preserves all rows, saves, interests and
+migration history. It does **not** withdraw already public v2 entries or remove
+cached images. Any editorial withdrawal must explicitly hide the affected new
+identities; retain their IDs/foreign keys and never reset private user tables.
+
+Tests and execution evidence: docs/24. Existing Ticket 1 dry-run commands below
+remain unchanged and cannot write. Earlier statements saying nothing was copied
+to public assets describe those earlier tickets, not the preparation above.
+
+## Accepted schema baseline and Ticket 3 API slice
 
 **Owner-run live rehearsal passed on 14 November 2026.** Migration 0003 is applied
 only on `dev-catalog-expansion` / `br-muddy-bar-zayn69jl`, direct endpoint

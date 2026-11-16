@@ -11,9 +11,10 @@ const authBase =
 
 /**
  * @param {string} target
- * @param {{account_id?: string, name?: string, vars?: Record<string, unknown>, hyperdrive?: {binding?: string, id?: string}[]}} config
+ * @param {{account_id?: string, name?: string, vars?: Record<string, unknown>, hyperdrive?: {binding?: string, id?: string}[], services?: {binding?: string, service?: string}[]}} config
  */
 export function validatePreviewConfig(target, config) {
+  const version = config.vars?.PRODUCT_CATALOG_VERSION;
   const expected = {
     AUTH_PUBLIC_ORIGIN: webOrigin,
     NEON_AUTH_BASE_URL: authBase,
@@ -22,15 +23,24 @@ export function validatePreviewConfig(target, config) {
       : {
           PRODUCT_API_ORIGIN:
             'https://polymatik-api-preview.remyoreo11.workers.dev',
+          ...(version === 'v2' ? { PRODUCT_CATALOG_VERSION: 'v2' } : {}),
         }),
   };
   const vars = config.vars ?? {};
   if (
     !['api', 'web'].includes(target) ||
+    (version !== undefined && (target !== 'web' || version !== 'v2')) ||
     config.account_id !== account ||
     config.name !== `polymatik-${target}-preview` ||
     Object.keys(vars).length !== Object.keys(expected).length ||
     Object.entries(expected).some(([key, value]) => vars[key] !== value) ||
+    (target === 'web' &&
+      (config.services?.length !== 1 ||
+        config.services[0]?.binding !== 'PRODUCT_API' ||
+        config.services[0]?.service !== 'polymatik-api-preview' ||
+        Object.keys(config.services[0]).sort().join(',') !==
+          'binding,service')) ||
+    (target === 'api' && config.services !== undefined) ||
     (target === 'api' &&
       (config.hyperdrive?.length !== 1 ||
         config.hyperdrive[0]?.binding !== 'HYPERDRIVE' ||

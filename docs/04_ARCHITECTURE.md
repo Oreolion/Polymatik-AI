@@ -2,6 +2,39 @@
 
 ## Architecture style
 
+**Catalog activation, 16 November 2026:** initial import is an explicit operator
+workflow, never startup, CI or deployment DDL. Rehearse on the accepted child,
+then use the fixed existing development target. Check migration checksums,
+restricted-role privileges and full private-data fingerprints; separately commit
+hidden metadata/provenance/cover associations and reviewed publication. Review
+decisions bind both resource and image bytes. Known conflicting metadata/reviews
+abort rather than overwrite. Six held covers remain unpublished. Only WebP files
+from accepted reviews enter the existing static pipeline; no new storage provider.
+
+Legacy API **SQL must filter its four supported identities before LIMIT**. A
+runtime four-row validator alone fails when v2 publication grows the same table.
+Versioned public/private APIs and explicit web mode avoid that incompatibility.
+Local/preview v2 activation requires matching actual development verification;
+neither a successful build nor a staging checksum establishes a published catalog.
+Rollback to v1 retains expanded saves/rows. Docs/45 and ADR register define the
+operator sequence, limitations and outstanding live acceptance.
+
+**Web-to-API transport, 16 November 2026:** deployed web Workers call the existing
+API Worker through the `PRODUCT_API` HTTP service binding. The public API origin
+remains the server-owned URL/identity boundary; it is not the network transport
+for same-zone workers.dev calls. Preserve Fetcher's receiver, request deadlines,
+response budgets and manual redirects. Reject another origin and fail closed
+when a workers.dev binding is missing, malformed or unavailable; never retry via
+the public URL. Local loopback HTTP remains available for normal development.
+Catalog SSR/details and all account BFFs share this configuration. The binding
+does not supply identity or bypass API origin, scope, session or RLS checks.
+Preview source and generated artifact validation require exactly the existing
+`polymatik-api-preview` target, without an environment/entrypoint override. API
+still deploys before web. No database, provider, schema or secret changes.
+See docs/42 and 24 for the observed preview failure and verification limits.
+[Cloudflare HTTP service bindings](https://developers.cloudflare.com/workers/runtime-apis/bindings/service-bindings/http/)
+and [same-zone routing restrictions](https://developers.cloudflare.com/workers/configuration/routing/custom-domains/).
+
 **Private catalog compatibility, 15 November 2026:** Ticket 4b adds versioned
 Library pages/individual mutation acknowledgements and seven-subject interests.
 Keep v1 wire shapes and the default runtime configuration intact. Private cursor

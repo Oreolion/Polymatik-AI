@@ -40,6 +40,7 @@ test('PostgreSQL catalog membership/order and edited metadata reach the typed cl
       return { rows: values[0] === 'atoms' ? [edited] : [] };
     }
     assert.match(sql, /ORDER BY sort_order LIMIT 5/);
+    assert.match(sql, /AND id IN \('atoms','theory','browser','semester'\)/);
     return { rows: [resources[2], edited] };
   });
   const api = createApi({ catalog: repository, log: () => {} });
@@ -56,6 +57,20 @@ test('PostgreSQL catalog membership/order and edited metadata reach the typed cl
     (await client.resource('missing')).error?.error.code,
     'not_found',
   );
+});
+
+test('legacy catalog SQL excludes expanded published identities before applying its four-resource contract', async () => {
+  const expanded = {
+    ...resources[0],
+    id: 'expanded-chapter',
+    title: 'Expanded chapter',
+  };
+  const catalog = postgresCatalog(async (sql) => ({
+    rows: sql.includes("AND id IN ('atoms','theory','browser','semester')")
+      ? [...resources]
+      : [...resources, expanded],
+  }));
+  assert.deepEqual(await catalog.list(), resources);
 });
 
 test('database failure and invalid rows stay unavailable without preview fallback', async () => {

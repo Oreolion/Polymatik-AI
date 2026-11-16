@@ -1,0 +1,434 @@
+{
+  "scope": "development-only",
+  "package_sha256": "1f00533dcdce03e111183948d3fb920dc20db28f87cb42f9e3e4a131d7e76afe",
+  "owner_authorization": "2026-11-16: import and activate the expanded collection",
+  "reviewer": "Codex visual QA",
+  "reviewed_at": "2026-11-16T09:48:06.658Z",
+  "limitations": [
+    "Visual QA is for original conceptual covers, not validation of scientific source content.",
+    "Six illustrations are held; their resource metadata may be staged but not published.",
+    "Browser responsive, real SQL and hosted delivery acceptance remain separate."
+  ],
+  "entries": [
+    {
+      "id": "atoms",
+      "decision": "approved",
+      "resource_sha256": "5bd7361ae68161ebbbdf6d12296f4e26ad352371205a55ba17f9e08922413e7e",
+      "cover_sha256": "da4973b2c1c5a30be02e2ef720b405e75b3ca72d2c1e4087f2bbc5fdc9ec0e38",
+      "note": "Full-size visual review: Copper and teal particles moving along curved paths and meeting at an illuminated collision. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "theory",
+      "decision": "approved",
+      "resource_sha256": "d73368aaa1727b1063e5c9ad3d6bfd997af58b4b0409b3ec1a76f5ac5fb38164",
+      "cover_sha256": "68be754ee086918e534a8ffb7d8dc73480fadc3b9eeba95a9478fa68be9a50e4",
+      "note": "Full-size visual review: A histogram of colored bars with a superimposed probability distribution curve. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "browser",
+      "decision": "approved",
+      "resource_sha256": "3e519c7c72d3213a3964b6b8350d949db9b3ade3fc08e9970e46022f420c826a",
+      "cover_sha256": "a89fca0523e2094704f69d2de116e432c11685012033bd9272d99236438d5211",
+      "note": "Full-size visual review: Three connected stages labeled HTTP, DOM and PAINT represent the browser rendering pipeline. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "semester",
+      "decision": "approved",
+      "resource_sha256": "cd3506bb44c1b42d4c5fc7bbe562fed4749ab5b8291632ced056263f58cef608",
+      "cover_sha256": "c2a118c0b52725584c713792afd4d63ab48ce986b6a74c82556fd19954d0150e",
+      "note": "Full-size visual review: A terminal window displaying a Git status command and a ready-to-build message. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "p-work-energy",
+      "decision": "approved",
+      "resource_sha256": "717671a4cb58809908e598815b7df73f422f7f1df910209914bb675d9f005b03",
+      "cover_sha256": "a5a8a9d0bc7690010c0e446fbf5530afda8f8ed4daa4827c4e035d7d1d6ea529",
+      "note": "Full-size visual review: A plotted energy curve with a moving block and a direction arrow. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "p-equivalence",
+      "decision": "approved",
+      "resource_sha256": "5c4a587bdaf942869d72d3baca6821af5ae8a6bf3807da0a47f4c55de13798f8",
+      "cover_sha256": "80cc7c95b13461fdf8ffcfc8501e03841923999bad70cce3c4cb7d6fcb98c189",
+      "note": "Full-size visual review: A person in an elevator beside a stylized rocket, comparing gravitational and accelerated motion. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "p-thermodynamics",
+      "decision": "approved",
+      "resource_sha256": "fa42c0cfef300cd5306374d757d65cfabec92e142aad73791859aab6b15edf93",
+      "cover_sha256": "9ea5eafb9dbb68611d0af943a13144ae5791bc9823ff5b9b27c1fde293e65aa9",
+      "note": "Full-size visual review: Pressure-volume axes with two distinct thermodynamic process curves. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "p-quantum",
+      "decision": "held",
+      "resource_sha256": "5fced17d9aa99b673eb1de11dde710823064fdcc6c76c16348a7703cfbe91dae",
+      "cover_sha256": "20ef703c5050f767a72d280364c7be14aea9e6ea39e2b17a3c192c3c194a68a0",
+      "note": "Classical electron-orbit icon conflicts with the source chapter on quantum behavior and the double-slit experiment; replace with a reviewed interference illustration."
+    },
+    {
+      "id": "p-doppler",
+      "decision": "held",
+      "resource_sha256": "8506cd064675d47d82668f18f28115fc5f543a0716f18c4d2ac6a97810dc6cea",
+      "cover_sha256": "7e933bfe09d98e9cb733a72dc1de103829701c829f72fa504348d77aa692a3c6",
+      "note": "Wavefront compression is on the opposite side from the indicated rightward source motion; correct the source/front geometry."
+    },
+    {
+      "id": "m-nonlinear",
+      "decision": "approved",
+      "resource_sha256": "9874c20921281034046292831e09c1bbf751fd7665c61db6e390df32c3397bb7",
+      "cover_sha256": "20b0796f6cb197ab29a4022bbb564097a1cd939f5028601ca02a4bae71c550a3",
+      "note": "Full-size visual review: A looped phase-space trajectory curves inward and outward around an equilibrium. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "m-induction",
+      "decision": "approved",
+      "resource_sha256": "b817d3d8889d217f430b4397a145aab7e94b479740ce1c4e8283ffce510ddacc",
+      "cover_sha256": "664608368f280dee0f5dce26f95eb4e6d6be212f0effc07cbc734ed17824db1f",
+      "note": "Full-size visual review: A rising sequence of domino-shaped blocks evokes the steps of mathematical induction. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "m-generating",
+      "decision": "approved",
+      "resource_sha256": "2d52d9601634226a8075eb3d06c8f8d6867ab964dc2c95dc0940cf517c3719ef",
+      "cover_sha256": "00aa52522b037598181bc2e47f0d305580e62feb5c023623172b6ba4843839c4",
+      "note": "Full-size visual review: A distribution of coefficient bars beneath a formal power-series expression. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "m-probability",
+      "decision": "approved",
+      "resource_sha256": "0b8df2ed4ce40aadeb6f69f95488c61cdd3e7c9a59a950cf6aa7339fdfae1264",
+      "cover_sha256": "826b25d88c9bf8f88f63d309d5953697f0c32b31ef14046556db8a382d604693",
+      "note": "Full-size visual review: A branching probability tree with conditional paths. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "m-planar",
+      "decision": "approved",
+      "resource_sha256": "2595e40b217aaa7ed0b4a3a00585d14af3d2c1236fa895ed17faff438eed8c3d",
+      "cover_sha256": "fade9abe521c360fa90ed305ac1d7153fd6cafb2a62b92ef400f991c2b6595e6",
+      "note": "Full-size visual review: A connected planar graph drawn with nodes and noncrossing edges. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "c-agents",
+      "decision": "approved",
+      "resource_sha256": "3169b2d4bee0cede022d942933b388bb2f85b947b57d6e123094930a8b02050c",
+      "cover_sha256": "94c1684e550b103d9aec3325d74c07fc413d5e1eb1797ac3e9e4b46d724468d5",
+      "note": "Full-size visual review: A model, tools and feedback nodes linked in a looping agent workflow. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "c-overload",
+      "decision": "approved",
+      "resource_sha256": "ed44bd0b78d3641c6e4e3a13e2f1edb9eea5aa6fba695f3193780eb1a6a8e988",
+      "cover_sha256": "b4761ee4c4ccb15d093abce6fe12963f646ac1b97c9bb7adbaf4035e9833634a",
+      "note": "Full-size visual review: A service demand histogram rises above a dashed capacity limit. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "c-retries",
+      "decision": "approved",
+      "resource_sha256": "91e3dea34980ddb91d8d8a4c1220c542464ca525cec7aca815c431547cd26674",
+      "cover_sha256": "fcb5743560b7e6c35572b0b2861ab6e3a4814551fc1e253f618be577fdcdf184",
+      "note": "Full-size visual review: Call, retry and success stages linked by arrows beneath a backoff timing annotation. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "c-microservices",
+      "decision": "approved",
+      "resource_sha256": "21433d1d619f8e0a4a2d3db0c88a568edc2f47b7899760435f6fd760478966f4",
+      "cover_sha256": "a70fbed2fd0aaf625802bc1cd74553e09820b3c9780661870456fdae5b1bff32",
+      "note": "Full-size visual review: Several service nodes connect through a central event channel. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "c-async",
+      "decision": "approved",
+      "resource_sha256": "a842ae4147d849f58d7712d6b73dccb9ec3e1e2465b89e2db758b79772861a24",
+      "cover_sha256": "28a471de5d33b27758efcd220db8adcec7b4ac84b928e355b6d540c1ef783f7a",
+      "note": "Full-size visual review: Task, wait and resume stages linked along an asynchronous execution timeline. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "c-logical-clocks",
+      "decision": "approved",
+      "resource_sha256": "5090b3014d0f65db7d514bfb6fb726c67944fc544a1233526cd90c38c5647cd8",
+      "cover_sha256": "cc919e2ee3cf40b163c8e74d81554b51651a56c3a464fe7f022db1077aeadc24",
+      "note": "Full-size visual review: Multiple timelines with diagonal arrows showing the causal order of distributed events. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "b-selection",
+      "decision": "approved",
+      "resource_sha256": "5250e79e791b6980124ed5a1e13186c65c2cd6a5e5f68ebc43ea8b6ff444c469",
+      "cover_sha256": "425f6ec5ee53dba7d848b7451ab7efdd692ad468554ecbe1f4795395c18e0e95",
+      "note": "Full-size visual review: An evolutionary branching diagram indicates variation and selection in a population. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "b-signaling",
+      "decision": "approved",
+      "resource_sha256": "074825b16b23f39d8aec70446c3b82a6c0199162a9e4b3a12537609a0754ab6d",
+      "cover_sha256": "86b0e8e48f4d19e6eaebdd967de8303c0688a862f3c3a6bb7702b06267a95c24",
+      "note": "Full-size visual review: A circular cell with a nucleus and signaling arrows crossing its boundary. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "b-cell-control",
+      "decision": "approved",
+      "resource_sha256": "9efcdfd650824cbd6917f2085f536b02085faac55a9f6702932cf8f18279cfac",
+      "cover_sha256": "bae39617e3e441a1b95db7668903abdfd54694ff16eff34a14e7ccf7867fe57d",
+      "note": "Full-size visual review: A circular cell surrounded by regulatory markers with G1, S and G2 checkpoints. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "y-operant",
+      "decision": "approved",
+      "resource_sha256": "f9a9479c292e3c5ee2932f17534191aafd5abe9043fb0184b41d9730bc1a881b",
+      "cover_sha256": "c1e0dc056c9a3648820683ef8ff7ccd6ed85ea1f5ddffa1837c0f9b21345b977",
+      "note": "Full-size visual review: Cue, action and reward stages in a behavioral reinforcement sequence. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "y-attention",
+      "decision": "approved",
+      "resource_sha256": "e25dc7450a53c14db0850f1950c0a0d7d53aafff7a26717599c0920c3d24cfe2",
+      "cover_sha256": "17fe54b2742c714d9a64024fbee92a7192983be996dc7cde93dcc38dabae500b",
+      "note": "Full-size visual review: A bright circular attention field isolates some signals among many surrounding dots. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "y-study-toolbox",
+      "decision": "approved",
+      "resource_sha256": "c8d41612763ce909feb8a6ceb6cae48b24275ebb0cc25649b094bfacc5af3505",
+      "cover_sha256": "5fbc71ee7de5d091b0fc90b808c7f7c9319b9d2529139a61f90e46d4135e10c5",
+      "note": "Full-size visual review: Recall, spacing and repetition stages connected as a learning process. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "h-scientific-method",
+      "decision": "approved",
+      "resource_sha256": "53890dd9303e275801724a260e45b3d20f66b34e3dd9c4a8b183fd1315601ad4",
+      "cover_sha256": "f4c57c4bd10f6f2cdb65d2bb88f5084066a6d11b94fd7ab15d6478ac5d5f3bbc",
+      "note": "Full-size visual review: Question, test and revise stages form a loop for scientific inquiry. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "h-epistemology",
+      "decision": "approved",
+      "resource_sha256": "5ede9dcd266d61c70cbd185119ef01b7e0f8e2da51c2fa2ae810f2b530f23d62",
+      "cover_sha256": "aee39a3fc6fcdb14ffc8de92dee9bd06ee5ed22bbe9fa2d3fdc7726564cc1522",
+      "note": "Full-size visual review: Layered blocks of justification form a conceptual foundation. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "h-pragmatism",
+      "decision": "approved",
+      "resource_sha256": "42075b2971f30bc4ef4e3cc664ed6b91afcbd6fcb2166a569b241c149f77485d",
+      "cover_sha256": "376e6a4c3e7d59e3d08d25f9647bf87304d86f1b8d15a88f4683cfbdd1a19217",
+      "note": "Full-size visual review: Idea, action and effect are connected as a practical inquiry sequence. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "s-organizations",
+      "decision": "approved",
+      "resource_sha256": "2ab9b093773f939e26af10e6f3e003cd86666b1d14580de253c5364a152f7af9",
+      "cover_sha256": "b588fa13055eeed0d96d127a1a68a02b8e1e4f4a6e8e1de744ab0b3a80a9b8dc",
+      "note": "Full-size visual review: A branching organizational hierarchy with one root and multiple subordinate groups. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "s-collective",
+      "decision": "approved",
+      "resource_sha256": "c56c3b044c563a2a91963141092f956f338fb78863216cc639dc8d249ab73132",
+      "cover_sha256": "cefc1284378b0d1f242cc5a45a62971b7f54fd74580ff0ee4e98d44a1366e8c1",
+      "note": "Full-size visual review: An interconnected social network with additional crowd markers. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "s-institutions",
+      "decision": "approved",
+      "resource_sha256": "7292d6f417a4f35a7fcc4c00bad4651eb0d79a818c13ef9ed3fda769c50148f0",
+      "cover_sha256": "821281e60e01d57f79e1e848544ee75c9bf72dc064019a25a949513353565b66",
+      "note": "Full-size visual review: Four pillars support a lintel, representing durable social institutions. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "p-statphys",
+      "decision": "approved",
+      "resource_sha256": "d5acacd2febd19f2305c45d963c24e1f91ccf9d1cf7f24b64050a9e834e6c683",
+      "cover_sha256": "b281a93cd93cd8453a7f5fd8d765e3c7c7eb33fa96acdd5f231e80882016078c",
+      "note": "Full-size visual review: An ensemble distribution of colored bars with particles above it. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "p-coulomb",
+      "decision": "approved",
+      "resource_sha256": "3c331a6d333aa049113d58ab5f9f93790fd756122566f9d93927c7f349955574",
+      "cover_sha256": "780974d9922da9b6af5cdf0a04b9bb97a2b9bf37d18418abe3b4401f3e1195e3",
+      "note": "Full-size visual review: Oppositely charged spheres joined by simplified field trajectories. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "p-gravitation",
+      "decision": "approved",
+      "resource_sha256": "79c03a029c88e7afbad0e2976849fff35c3e4811efe2568b60d041657f44d085",
+      "cover_sha256": "50063f8cfdfa2c12f6293f373243870303da134c2f771d695259da3ec16a604a",
+      "note": "Full-size visual review: A small orbiting body follows an elliptical path around a central mass. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "p-processes",
+      "decision": "approved",
+      "resource_sha256": "5d5723e358b405b369648edf8f974cabfdb8180d1884c0b18688fd1a08ef9ea7",
+      "cover_sha256": "52b1024eb1962c5076cb9f6c6cc014d6e4223c95d0883bdc46d666129c905271",
+      "note": "Full-size visual review: Three different pressure-volume process curves show alternate thermodynamic paths. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "p-harmonic",
+      "decision": "approved",
+      "resource_sha256": "4c3f58bdf872001cad47659015bf2e556d56dca859d4233786703ce751198cdd",
+      "cover_sha256": "143824db243c803345a6975af7fda5f16f54e2bd31860f07d1030cb587529bd7",
+      "note": "Full-size visual review: A spring fixed to a wall stretches toward a block with a motion arrow. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "m-euler",
+      "decision": "held",
+      "resource_sha256": "a53e0df8cc04fb55cc287f3a055cf214265e9e7b84f94e779a42e7cde872c860",
+      "cover_sha256": "d6befc930cdd831964f688aba030d8a1d4016fb28a393d932df08e2c1933ed2a",
+      "note": "The staircase rises while the reference solution decreases, so it does not illustrate an Euler approximation of that curve."
+    },
+    {
+      "id": "m-binomial",
+      "decision": "approved",
+      "resource_sha256": "35379b40a35dd5cfbb333d741067134c1e1d9cb9d648fd80ddf5a3aaeb52bbeb",
+      "cover_sha256": "81aefddf219e7183d4e94ea6e371f9b2cc7e7ee7a93ff2f27ebe5e94def49257",
+      "note": "Full-size visual review: A triangular arrangement of nodes evokes Pascal’s triangle and binomial coefficients. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "m-trees",
+      "decision": "approved",
+      "resource_sha256": "e84bfbdcc803c446d61534d3b1913830e787c68bdd2c9dfd89bd354981a792ee",
+      "cover_sha256": "d49cca0aa0edb0d5146356fb199706db4ffc0543dbfb99f15894bd9ea9623d73",
+      "note": "Full-size visual review: A root graph divides into branches and leaf nodes without cycles. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "m-chain",
+      "decision": "approved",
+      "resource_sha256": "fad4fa54790032b142790d04efd9a87db3d4303efa7ea2803bd7dca97b7c846f",
+      "cover_sha256": "a6ecb7a1c62d1d73b4649d44b459e76d6eaf2eb6ceda6413d8b23d74e4827d90",
+      "note": "Full-size visual review: Three linked stages show a function input transformed by composition. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "c-raft",
+      "decision": "held",
+      "resource_sha256": "79ee056d9602f3f751adc7d232b3972f5b4ed10a824fb5e5d9a11f593fb37a42",
+      "cover_sha256": "a0a10d5517d028fd8f0de0c667747e84f3a847e66edc9e75148f59804be05f89",
+      "note": "The leader/follower tree suggests follower-to-follower replication; replace with direct leader-to-follower log replication."
+    },
+    {
+      "id": "c-slo",
+      "decision": "approved",
+      "resource_sha256": "d7005cefb12e2dd6458a81ca7bcaee7f025c4a4866089c60417024d9b2b908c8",
+      "cover_sha256": "60f38d668c0913582732c33b574fc3a06fca11798afd17fc8c3cceb601f50501",
+      "note": "Full-size visual review: A measured service curve crosses a dashed objective threshold. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "c-idempotency",
+      "decision": "approved",
+      "resource_sha256": "7efb22e9dff8e13da94f02d6cea3e3eb0713059963433febe8a56f7e2374a376",
+      "cover_sha256": "8696a07ea742e925602deb0aaa11f0135318a37d8240f2ba452cb8962e0d473a",
+      "note": "Full-size visual review: A request passes through an idempotency-key check to a single result. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "c-injection",
+      "decision": "approved",
+      "resource_sha256": "09a61f346d181c1ade7efd7c9c837fdf79f6e6e674a97456014c8dbc205b10a6",
+      "cover_sha256": "49482f8498a141a7fbc24c9d10afc4d75c11268861bc03e6f5dc4277fd3dad09",
+      "note": "Full-size visual review: Client, interface and service modules illustrate dependency injection boundaries. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "c-promises",
+      "decision": "approved",
+      "resource_sha256": "768ffadd6efbc2e763c7ec146d74ac85f0556585ecd9787e074ef72af12abb1f",
+      "cover_sha256": "63b7083110fd87642da8b1ba8a1ccafeae3816126d27bbca05caac72c6a5ce0c",
+      "note": "Full-size visual review: A chain of promise stages culminates in an error-handling branch. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "c-rust",
+      "decision": "approved",
+      "resource_sha256": "579c81f39b70b30e1c67348f714644b900b6bfb883d3db882719161a3ab76807",
+      "cover_sha256": "eae7fb2b4c06631129f426e6283f10779274d98123644dca566ca5fce9eaf040",
+      "note": "Full-size visual review: A borrowing reference points toward a labeled value inside a memory block. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "b-drift",
+      "decision": "approved",
+      "resource_sha256": "21d4b5f752a0b7866d7402d8b328e7fe1558b4e07c3554a94a05d39733b0415d",
+      "cover_sha256": "e102005d5406ca70c843c45523f01575c7834834cec0e9e6176e653ac97bf47f",
+      "note": "Full-size visual review: A population-frequency histogram represents random changes in allele prevalence. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "b-transcriptome",
+      "decision": "held",
+      "resource_sha256": "7d4e2550b4af7e1f5eb06288826d6583036a1539268db485f0a5b0fabdb2f96d",
+      "cover_sha256": "4b5e0e71464a9764cc3d79af540d827ea1a57f0da44cd372a5ffeba3eb007e3c",
+      "note": "A DNA-like double helix labeled RNA risks confusing the transcriptome with the genome; use distinct RNA transcripts."
+    },
+    {
+      "id": "b-species",
+      "decision": "approved",
+      "resource_sha256": "38224ed8a235807f9edbb005cdd46ff26147a2b2bca9e731af2d34f7078d6ef7",
+      "cover_sha256": "e5e14d51a650c7e04a6bc9855a1a1fdb0aa4d3cd8d2548d6eb45571b06507c5f",
+      "note": "Full-size visual review: An evolutionary tree separates branches along a reproductive boundary. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "y-conditioning",
+      "decision": "approved",
+      "resource_sha256": "5263053be04c1ff76ae0349948127556d0b8d46d7a5a147815a1d98ce157ddb4",
+      "cover_sha256": "8489e2c905cf4b1fcbdb5fa272ec3c349f1da928874c9abb6c3a77e7a8a673a7",
+      "note": "Full-size visual review: Stimulus, association and response stages represent conditioned learning. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "y-judgment",
+      "decision": "approved",
+      "resource_sha256": "78f4b5f58133c77e02654d6b624b8f6665371fae4f5666a3d370c336bb410e62",
+      "cover_sha256": "0d9f49a718334572731f021576c020461d4925f1be5e04fa830e3159c4800e94",
+      "note": "Full-size visual review: Branching decision paths show how framing can change perceived choices. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "y-designs",
+      "decision": "held",
+      "resource_sha256": "651be0ccdfab3e00402849a8f7ef158b2ee04324b7511fe5cebd08993105546a",
+      "cover_sha256": "7b8baadfc6ca886cf0ff1cbf8c2f81bf6125df0ffa8990b5ee6cdac7bb14a6fc",
+      "note": "The sequential RANDOM to TEST to CONTROL graphic can misrepresent randomized experimental assignment; show parallel treatment/control groups."
+    },
+    {
+      "id": "f-models",
+      "decision": "approved",
+      "resource_sha256": "8864b83af88065c7fae1121a51a6f4259d24344c2496ad96b1a3dd2ee0ad2383",
+      "cover_sha256": "ad28500ad1a6b38de3570c0532dc5553c6cbb61e5ab2c28c0a4a41e941bc1c6b",
+      "note": "Full-size visual review: Overlapping abstract frames compare a simplified scientific model and its target. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "f-realism",
+      "decision": "approved",
+      "resource_sha256": "42fc1f2568f165a9c451c45b2e13676dfa95368e76b49eff0181e2522b32db7a",
+      "cover_sha256": "dfb7c893c37dfd6ae7272e2103c10676dfc7dc70b9aa546d301fadfc034678a3",
+      "note": "Full-size visual review: Nested orbital lines and an observation arrow evoke the question of reality behind scientific models. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "f-counterfactual",
+      "decision": "approved",
+      "resource_sha256": "85c8e3fdd13608887f57d04380e24853470f1403db22df8e93942a7e59af2fa8",
+      "cover_sha256": "2118e6146ac619644dbcfdf320a6b541d6ea643aa22b6e0caadaa12315d38286",
+      "note": "Full-size visual review: Alternative branches labeled IF and ELSE represent counterfactual possibilities. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "f-virtue",
+      "decision": "approved",
+      "resource_sha256": "a4c3a53f7a5c0e2d21a6a1ff196127e4fc25a02e626f80401712a7fe692e8aa1",
+      "cover_sha256": "e0930448636eee9eabe4076a79fdd0ca3a22225146c50431c6478675a683af5a",
+      "note": "Full-size visual review: A balanced scale represents ethical judgment and practical wisdom. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "s-bc-intro",
+      "decision": "approved",
+      "resource_sha256": "1a0d387bc22c0368d85489566e0a7d65aaa364950a1e4121a9b1f4df80bee01a",
+      "cover_sha256": "4ff37edea22894e007b563ba7462fadcfd4a3bf2fc8b1a16fa8d372a2714afb2",
+      "note": "Full-size visual review: A connected set of individuals spans a larger social field, representing micro and macro perspectives. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "b-lizard-film",
+      "decision": "approved",
+      "resource_sha256": "8734d2a25f2e05d1d08b747430bcd0cecac68ba4bf7ab7b9330cf4524059490d",
+      "cover_sha256": "8c498fbf4a13db1087a4fd7ef373cb58401d387565d90ddaa3726b43ebff0195",
+      "note": "Full-size visual review: An evolutionary tree and curved lizard-like silhouette evoke island lizard speciation. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    },
+    {
+      "id": "h-hume-enquiry",
+      "decision": "approved",
+      "resource_sha256": "56410d86f5dc292bedc6d380560ae3c6c3769c3fda67a556689db461a7bee3e9",
+      "cover_sha256": "110e31c47a405c93bc512bf8f3ee680cd3332c38870440eec31ad20b4d1fda80",
+      "note": "Full-size visual review: Two spheres linked by a question-marked causal arrow evoke Hume’s inquiry into induction. Accepted as an editorial concept illustration, not a scientific diagram or official publisher cover."
+    }
+  ]
+}

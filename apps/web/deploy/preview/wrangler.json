@@ -7,6 +7,9 @@
   "compatibility_flags": ["nodejs_compat"],
   "workers_dev": true,
   "preview_urls": false,
+  "services": [
+    { "binding": "PRODUCT_API", "service": "polymatik-api-preview" }
+  ],
   "assets": {
     "directory": "../../../../.cache/cloudflare-preview/web/client",
     "not_found_handling": "none",
