@@ -2,6 +2,14 @@
 
 ## Architecture style
 
+**Appearance, 16 November 2026:** browser-local explicit light/dark preference
+is applied by a small synchronous head script before body content/hydration;
+system appearance remains CSS-driven when storage is unavailable or unset.
+The shared storage key has no migration. Inline semantic canvas colors avoid
+waiting for the main stylesheet. Only the html attribute mismatch is suppressed;
+normal React hydration remains checked. No preference cookie, user-specific SSR
+or server cache variation is required. Tests and rendered evidence: docs/24.
+
 **Catalog activation, 16 November 2026:** initial import is an explicit operator
 workflow, never startup, CI or deployment DDL. Rehearse on the accepted child,
 then use the fixed existing development target. Check migration checksums,

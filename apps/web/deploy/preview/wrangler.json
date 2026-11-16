@@ -18,7 +18,8 @@
   "vars": {
     "PRODUCT_API_ORIGIN": "https://polymatik-api-preview.remyoreo11.workers.dev",
     "AUTH_PUBLIC_ORIGIN": "https://polymatik-web-preview.remyoreo11.workers.dev",
-    "NEON_AUTH_BASE_URL": "https://ep-muddy-lab-za9hvwfl.neonauth.c-2.eu-west-2.aws.neon.tech/neondb/auth"
+    "NEON_AUTH_BASE_URL": "https://ep-muddy-lab-za9hvwfl.neonauth.c-2.eu-west-2.aws.neon.tech/neondb/auth",
+    "PRODUCT_CATALOG_VERSION": "v2"
   },
   "observability": {
     "enabled": true,

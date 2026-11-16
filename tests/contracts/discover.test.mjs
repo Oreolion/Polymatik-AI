@@ -1,5 +1,11 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { runInNewContext } from 'node:vm';
+import { readFile } from 'node:fs/promises';
+import {
+  APPEARANCE_KEY,
+  appearanceBootstrap,
+} from '../../apps/web/src/appearance.ts';
 import {
   emptyCollectionContext,
   readCollectionContext,
@@ -15,6 +21,57 @@ import {
   setResourceSaved,
   SAVE_KEY,
 } from '../../apps/web/src/discover.ts';
+
+test('saved appearance is established before hydration without writing browser storage', async () => {
+  for (const preference of [
+    'dark',
+    'light',
+    null,
+    'system',
+    '<script>bad</script>',
+  ]) {
+    const dataset = /** @type {{theme?: string}} */ ({});
+    runInNewContext(appearanceBootstrap, {
+      document: { documentElement: { dataset } },
+      localStorage: {
+        getItem: (/** @type {string} */ key) => {
+          assert.equal(key, APPEARANCE_KEY);
+          return preference;
+        },
+      },
+    });
+    assert.equal(
+      dataset.theme,
+      preference === 'dark' || preference === 'light' ? preference : undefined,
+    );
+  }
+  const dataset = {};
+  const context = { document: { documentElement: { dataset } } };
+  Object.defineProperty(context, 'localStorage', {
+    get() {
+      throw new Error('SecurityError');
+    },
+  });
+  assert.doesNotThrow(() => runInNewContext(appearanceBootstrap, context));
+  assert.deepEqual(dataset, {});
+  assert.doesNotThrow(() =>
+    runInNewContext(appearanceBootstrap, {
+      document: { documentElement: { dataset } },
+      localStorage: {
+        getItem() {
+          throw new Error('SecurityError');
+        },
+      },
+    }),
+  );
+  const layout = await readFile(
+    new URL('../../apps/web/app/layout.tsx', import.meta.url),
+    'utf8',
+  );
+  assert.ok(layout.indexOf('appearanceBootstrap') >= 0);
+  assert.ok(layout.indexOf('<script') < layout.indexOf('<body>'));
+  assert.ok(layout.includes('suppressHydrationWarning'));
+});
 
 test('clearing one collection restores its results without changing other views or dismissals', () => {
   const context = emptyCollectionContext();

@@ -310,6 +310,32 @@ ordinary questions require neither a full suite nor a checkpoint rewrite.
   with preview still v1; then owner --apply, local acceptance, --prepare-preview
   and the second development-preview push. No production or new provider changes.
   Agent credentials and Git writes remain unavailable; no bypass. Docs/45 and 24.
+- **16 November — compatibility deployment accepted:** owner commit `3e97973`
+  passes complete Windows/Ubuntu CI #11 and all six preview smoke checks. API
+  `98ad2d58-e060-4a91-aa23-5254ac97e908`, web
+  `32a9d672-d80d-4790-9fc9-5b0670039f6a`; detail recovery is verified by HTTP
+  content checks, not a new rendered/auth acceptance claim. Preview remains v1.
+  Shared development import has not run; owner was given --apply in the normal
+  terminal. After success: local acceptance, --prepare-preview, second push and
+  exact hosted v2 verification. No repeat rehearsal or installs. Docs/24 and 45.
+- **16 November — shared development import accepted:** owner --apply succeeds
+  on dev-auth-working: 0003, 56 additions, 54 public/six held, seven subjects/six
+  formats, legacy four and rollback-only private isolation pass; fingerprints
+  preserved. Receipt 2026-11-16T17:27:40.988Z matches package/review. Local v2
+  configured, hosted preview still v1. API 8789 responds; web 5173 initially
+  refuses connections despite owner reporting servers running. Await actual web
+  startup URL/error, finish real local acceptance, then --prepare-preview and
+  owner push. No repeat import or production change. Docs/24 and 45.
+- **16 November — real local v2 acceptance and added appearance fix:** API/BFF
+  traverse 54 resources/11 pages, all 54 covers decode; seven subjects/six formats,
+  Book/Video details, device Library round trip and desktop/mobile themes pass.
+  Early head theme restoration fixes post-hydration light flash; shared storage
+  key, strict values and blocked-storage fallback. Unit 16/16, built Miniflare web
+  18/18, activation/config 19/19, root/web types/lint/format and web build pass.
+  --prepare-preview ran from matching development receipt; source v2 flag prepared
+  but not deployed. Isolated packaging still blocked by sandbox ancestor ACL;
+  owner checked push/CI packaging and exact hosted v2 delivery are next. No SQL,
+  auth/provider or dependency changes. Preserve owner's prompt edit. Docs/24/45.
 - **Earlier milestone follow-up:** normal-terminal API packaging and outstanding Expo toolchain check,
   then milestone checkpoint and owner-requested GitHub push. Keep deferred
   rendered checks (docs/43-44) and hosted acceptance explicit.

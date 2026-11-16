@@ -19,7 +19,10 @@ This is an actively developed preview, available locally and on Cloudflare.
 - **Mobile:** Expo preview with app-session saves. Basic iPhone checks and SDK 58
   iOS/Android exports passed. Feature work is parked while web/backend work advances.
 
-The collection contains four source-attributed resources. The owner verified
+The development database now contains **54 public source-attributed resources**
+across seven subjects and six formats, with six further drafts held for cover
+correction. Hosted web is still in four-resource compatibility mode until the
+expanded activation flag is deployed. The owner verified
 Google sign-in and signed-in API access on the development branch; an unsigned
 browser is correctly denied. Library sync, personalized
 ranking, persistent research memory and learning assessments are not implemented.
@@ -29,23 +32,30 @@ broader accessibility verification are open. See the
 
 Catalog expansion is staged separately: the isolated development schema rehearsal
 passed, and a versioned paginated `/v2/resources` contract now prepares seven
-subjects, six formats and reviewed cover references. No new resources or covers
-are published. Its live read-only SQL/API probe, five standard Worker tests and
+subjects, six formats and reviewed cover references. Its live read-only SQL/API
+probe, five standard Worker tests and
 packaging dry run pass. The web slice implements opt-in v2 pagination,
 seven-subject Search/details and independent device-Library resolution; local
 fixture checks and the owner's standard Wrangler runtime pass (16/16). The next
 slice now implements opt-in expanded account Library pages, reviewed browser-save
 copying and seven-subject interests. Deterministic and synthetic browser checks
 pass, along with the owner's web build, API 6/6, web 17/17 and API packaging dry
-run. Expanded live SQL and actual cover delivery remain gates. See the
+run. The owner's subsequent expanded SQL import/verification now passes; actual
+expanded local/hosted browser acceptance remains a gate. See the
 [catalog integration guide](docs/45_CATALOG_INTEGRATION.md).
 
 The owner has now authorized development import and activation. The transactional
 importer passed the owner's live isolated-branch rehearsal: **54 public resources,
 seven subjects and six formats**, with six held drafts and private state preserved.
 Full-size review accepts 54 conceptual covers; their static WebP files are prepared
-locally. **The shared local/hosted development catalog is not activated yet.**
-Compatibility code must deploy before applying the import to that shared branch.
+locally and delivered by the compatibility deployment. The owner has applied
+the shared-development import successfully; **real local v2 checks now pass**,
+including all 54 covers, pagination, Book/Video details and device saves. The
+hosted v2 flag and appearance-flash fix are prepared for the next checked push;
+hosted expanded acceptance remains pending.
+Compatibility code is now deployed: CI #11 passes on Windows/Ubuntu and all six
+development-preview smoke checks pass. Deploy and verify the prepared v2 preview
+flag and appearance fix next.
 Follow the [ordered activation commands](docs/45_CATALOG_INTEGRATION.md).
 
 UI-06 now prepares a private account Library panel in Profile with explicit

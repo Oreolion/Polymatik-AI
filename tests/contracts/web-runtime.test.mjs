@@ -402,6 +402,21 @@ test('SSR includes request-specific data in initial HTML and a client-component 
   assert.ok(html.includes(marker), 'request marker is rendered on the server');
   assert.ok(html.includes('data-testid="counter"'));
   assert.ok(html.includes('Polymatik AI'));
+  const bootstrap = html.match(
+    /<script\b[^>]*id="appearance-bootstrap"[^>]*>([\s\S]*?)<\/script>/,
+  );
+  assert.ok(
+    bootstrap,
+    'saved appearance is restored by a parser-blocking head script',
+  );
+  assert.ok(html.indexOf(bootstrap[0]) < html.indexOf('<body'));
+  assert.ok(
+    !/\b(async|defer|src)=/.test(
+      bootstrap[0].slice(0, bootstrap[0].indexOf('>')),
+    ),
+  );
+  assert.ok(bootstrap[1]);
+  assert.ok(bootstrap[1].includes('localStorage'));
   const secondHtml = await readSsr('second-request', 10_000, 'repeat SSR');
   assert.ok(secondHtml.includes('second-request'));
   assert.ok(

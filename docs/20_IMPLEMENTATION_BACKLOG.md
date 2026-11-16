@@ -10,11 +10,25 @@ are held. Import 56 hidden additions separately from publication of the accepted
 54 total; retain originals/private data. Legacy catalog SQL now explicitly
 filters its four identities. Owner's live isolated-child rehearsal now passes:
 56 new drafts, 54 public, six held, seven subjects/six formats, legacy four and
-private isolation preserved. Shared development parent remains unchanged.
+private isolation preserved. The owner's subsequent `--apply` on dev-auth-working
+also passes: 0003, staging/publication, actual restricted public/legacy APIs,
+expanded Library/interests isolation and private-data preservation. Local v2 is
+configured; hosted preview remains v1 pending real local acceptance.
 Neon preflight returns NEON_CREDENTIAL_ACCESS in this agent session. Docs/45
 provides the normal-terminal apply/verify/activation sequence; docs/24 separates
 local tests from live acceptance. Compatibility code must deploy before shared
 database publication; v2 preview configuration stays inactive until verification.
+
+**Compatibility prerequisite accepted:** owner-pushed `3e97973`, CI #11, both full
+OS checks jobs and six development-preview smoke checks pass. Exact deployed
+versions are in docs/24. `--apply` is now accepted. Next is local acceptance and
+the separate preview v2 activation push. Real local HTTP/BFF, 54 cover decodes,
+Book/Video details, device save round trip and responsive appearances now pass.
+Owner's added theme-flash fix runs saved appearance before hydration; unit/runtime,
+types/lint/build checks pass. Prepared the v2 flag from the matching receipt.
+Agent isolated packaging is blocked by ancestor ACL; checked CI packaging and
+exact hosted delivery remain gates. Do not repeat
+the accepted rehearsal or treat this v1 deployment as expanded acceptance.
 
 **16 November — preview #10 smoke recovery before cover QA.** Both complete CI
 OS jobs pass after the CSV fix. Deployment succeeds, but resource-detail smoke

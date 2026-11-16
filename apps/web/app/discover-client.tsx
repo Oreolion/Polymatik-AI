@@ -13,6 +13,7 @@ import type { Topic } from '../src/discover';
 import type { ResourceCatalogState, WebResource } from '../src/catalog';
 import { useCatalogPages, useDeviceResources } from './use-catalog-pages';
 import ResourceArt from './resource-art';
+import { APPEARANCE_KEY } from '../src/appearance';
 import type { CollectionView } from '../src/resource-navigation';
 import {
   emptyCollectionContext,
@@ -32,7 +33,6 @@ import ResourceStateView, {
 type View = 'discover' | 'search' | 'library';
 type Theme = 'system' | 'light' | 'dark';
 type SaveAction = { id: string; shouldSave: boolean };
-const THEME_KEY = 'polymatik.preview.appearance.v1';
 
 function Icon({
   name,
@@ -306,7 +306,7 @@ export default function DiscoverClient({
     const onScheme = () => setSystemDark(scheme.matches);
     scheme.addEventListener('change', onScheme);
     try {
-      const stored = localStorage.getItem(THEME_KEY);
+      const stored = localStorage.getItem(APPEARANCE_KEY);
       if (stored === 'dark' || stored === 'light') {
         setTheme(stored);
         document.documentElement.dataset.theme = stored;
@@ -388,8 +388,8 @@ export default function DiscoverClient({
     setTheme(next);
     document.documentElement.dataset.theme = next;
     try {
-      if (next === 'system') localStorage.removeItem(THEME_KEY);
-      else localStorage.setItem(THEME_KEY, next);
+      if (next === 'system') localStorage.removeItem(APPEARANCE_KEY);
+      else localStorage.setItem(APPEARANCE_KEY, next);
     } catch {
       setNotice(
         'Appearance changed for this session. Your browser could not remember the preference.',

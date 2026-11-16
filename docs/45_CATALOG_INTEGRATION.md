@@ -6,7 +6,14 @@ The owner requested import and activation of the expanded collection. On
 16 November the owner ran `--rehearse` successfully on `dev-catalog-expansion`:
 56 new drafts staged, 54 total resources published, six drafts held, all seven
 subjects/six formats verified, legacy reads and private isolation preserved.
-**The shared development parent is unchanged; local/hosted activation is pending.**
+The owner subsequently ran `--apply` successfully on `dev-auth-working`:
+0003 applied, 56 additions staged and 54 total published with six held. Actual
+restricted-login public API/legacy/isolation probes pass and private data is
+preserved. The matching receipt is dated `2026-11-16T17:27:40.988Z`.
+**Real local acceptance now passes:** actual HTTP/BFF traversal, 54 cover decodes,
+seven subjects/six formats, pagination, Book/Video detail, device save round trip
+and desktop/mobile appearances. Hosted v2 activation remains pending. No repeat
+migration/import is needed. Evidence and limits are in docs/24.
 This agent's Neon preflight returns `NEON_CREDENTIAL_ACCESS`, so live commands
 run in the normal owner terminal. Do not share credentials or change production
 permissions to work around it.
@@ -30,7 +37,8 @@ the reviewed subset; the six held resources remain hidden drafts. The intended
 result is **60 stored identities, 54 public (four originals + 50 additions), six
 hidden**, all seven subjects and six formats. Masters and the immutable staging
 bundle stay outside delivered assets; 54 accepted WebP files are prepared under
-`apps/web/public/resource-covers/`. No upload or deployment has occurred.
+`apps/web/public/resource-covers/` and included in the accepted compatibility
+deployment. Expanded hosted rendering remains pending the v2 flag.
 
 `scripts/catalog-activate.mjs` has fixed project/branch/endpoint allowlists:
 the accepted rehearsal child and existing `dev-auth-working`. It verifies live
@@ -53,15 +61,22 @@ migration or blindly regenerate checksums after a later phase fails.
 
 ### Run in this order
 
-First commit/push the prepared compatibility/transport repair and wait for green
-CI/deployment smoke. The old deployed API's unrestricted legacy SQL would reject
+**Compatibility prerequisite is complete:** owner-pushed `3e97973` passes both
+full OS checks jobs and all six development-preview smoke checks in run #11.
+API `98ad2d58-e060-4a91-aa23-5254ac97e908` and web
+`32a9d672-d80d-4790-9fc9-5b0670039f6a` are the verified v1 compatibility versions;
+docs/24 records exact evidence. No repeat code push or rehearsal is needed while
+the reviewed inputs and receipt stay unchanged.
+
+The old deployed API's unrestricted legacy SQL would reject
 an expanded public collection. The prepared fix explicitly projects the original
 four identities for `/v1`; `/v2` remains authoritative for the expanded UI.
-Leave preview mode at v1 for this first code deployment. It also delivers the
-accepted static files, without importing or publishing database rows.
+Preview mode stays v1 until shared development verification and local acceptance.
+This first deployment delivers accepted static files without importing or
+publishing database rows. Actual expanded image/browser delivery is a later gate.
 
-Then, from the project root in normal Git Bash, stop only Polymatik dev servers
-before applying DDL and run:
+The owner completed the following preparation and shared-development apply.
+These are the operator reference commands, not a request to rerun accepted work:
 
 ```bash
 # Read-only local proposal; no database connection.
@@ -73,7 +88,7 @@ bash scripts/node24.sh node scripts/catalog-activate.mjs --prepare-assets
 # Already passed in this checkout on 16 November; repeat only if reviewed inputs change.
 bash scripts/node24.sh node scripts/catalog-activate.mjs --rehearse
 
-# Run only after the rehearsal passes and the compatibility code is deployed.
+# Passed on dev-auth-working on 16 November, after the compatibility deployment.
 bash scripts/node24.sh node scripts/catalog-activate.mjs --apply
 ```
 
@@ -98,8 +113,8 @@ it does not sign up real accounts, modify Auth or contact Google. Receipts recor
 target and package/review hashes, never credentials. Changes to reviewed data
 invalidate the rehearsal receipt. Existing `.dev.vars` values are not printed.
 
-After local acceptance, prepare the preview source flag from the matching
-verified development receipt:
+Agent has now prepared the preview source flag from the matching verified
+development receipt after real local acceptance; no repeat command is needed:
 
 ```bash
 bash scripts/node24.sh node scripts/catalog-activate.mjs --prepare-preview

@@ -1,5 +1,109 @@
 # 24 — Implementation Status and Evidence Ledger
 
+### 2026-11-16 — shared import accepted, real local catalog verified, appearance flash fix prepared
+
+Owner ran `catalog-activate.mjs --apply` against existing `dev-auth-working` /
+`br-noisy-poetry-zaka8dav`, endpoint `ep-muddy-lab-za9hvwfl`. Output confirms
+0003 applied, 56 hidden additions staged, four originals unchanged, 60 cover
+associations/one alias, then 54 public and six held drafts. Private fingerprints
+are preserved. Actual restricted-login public/legacy API checks and rollback-only
+expanded Library/interests repeat-save, new choices, two-user/unsigned isolation
+and removal checks pass. Matching development receipt is dated
+`2026-11-16T17:27:40.988Z`; package/review hashes remain those recorded below.
+Local web v2 is configured. Production/Auth/Hyperdrive targets are unchanged.
+
+Agent subsequently verified the owner's running real local services, not the
+earlier synthetic repository fixture:
+
+- API 8789: typed HTTP client traverses 11 pages/54 unique approved identities,
+  all seven subject filters/six formats, Book/Video detail, six held 404s and
+  unchanged four-resource v1 response. No HTTP mutation. Captured result:
+  `.cache/catalog-activation-local-http.json`.
+- Firefox at web 5173: real same-origin BFF traverses all 11 pages and decodes
+  all 54 selected covers at 1200×800, with seven subjects/six formats and no held
+  entries. `.cache/catalog-live-browser-covers.json` explicitly records
+  `fixture:false`, `liveDatabase:true`. Pagination reaches page 2. Book/Video
+  detail render metadata, cover, source/original links. Saved the new Hume Book
+  in this browser's device Library and verified it after full navigation; no
+  signed-in account mutation. The saved entry remains in this test browser.
+- Desktop dark Book screenshot: `.cache/catalog-live-book-dark.png`; mobile
+  390px light Video: `.cache/catalog-live-video-mobile-light.png`. Inspected
+  both images; no horizontal overflow at desktop/mobile. Light/dark preferences
+  persist through full detail/collection navigation. No new Google/session or
+  full accessibility acceptance is implied. Initial web connection refusal
+  cleared after owner startup progressed; no port/config workaround was needed.
+
+Owner additionally requested fixing the light-theme flash on tab changes.
+Inspection found appearance restored only by a post-hydration React effect.
+Added `apps/web/src/appearance.ts` with the unchanged storage key and a bounded
+head bootstrap accepting only fixed light/dark values. Root layout runs it
+synchronously before body content and sets the canvas color in its inline theme
+styles. Targeted html `suppressHydrationWarning` accommodates that intentional
+pre-hydration attribute; child hydration checks remain. Discover uses the shared
+key. Blocked/missing/invalid storage leaves system CSS behavior intact. No cookie,
+backend, dependency, preference migration or per-user SSR/cache variation added.
+Applied the React performance skill's no-flicker hydration rule. React's
+[hydration guidance](https://react.dev/reference/react-dom/client/hydrateRoot)
+documents the attribute mismatch escape hatch; it is scoped to html here.
+
+Windows/Node 24.22.1 checks:
+
+| Check | Result and captured output |
+|---|---|
+| Discovery/appearance/token unit regressions | **16/16**, no skips; `.cache/appearance-unit.txt`. Initial missing-module red: `.cache/appearance-red.txt`. Tests cover explicit values, invalid/missing/blocked storage and head placement. |
+| Built web, explicit Miniflare/workerd | **18/18**, no failures/skips, 18,291 ms; `.cache/appearance-web-runtime.txt`. New real SSR assertion requires the inline appearance script before body content. |
+| Ordinary web build | **Build complete**; `.cache/appearance-build.txt`. |
+| Root/web TypeScript, full ESLint and Prettier | Pass; `.cache/appearance-quality.txt`. First type run found an unchecked regex capture in the new test; added the assertion and reran successfully. |
+| Activation/preview transport/configuration regressions | **19/19**, no skips; `.cache/catalog-v2-activation-config-tests.txt`. |
+| Isolated preview packaging attempt | **Blocked**, not accepted: API bundler cannot read the sandbox ancestor directory; `.cache/catalog-v2-preview-packaging.txt`. No deploy/upload ran. CI must pass isolated packaging before publishing. |
+
+After real local acceptance, agent ran `catalog-activate.mjs --prepare-preview`
+using the matching verified development receipt. Source web preview configuration
+changes only `PRODUCT_CATALOG_VERSION` to `v2`, preserving binding/origins/Auth.
+Normalized formatting to retain the small reviewable diff. This prepares the
+authorized development deployment; it has **not** deployed it. New theme/source
+configuration changes need owner commit/push because Git metadata is read-only.
+Preserve/exclude the unrelated owner's `docs/prompt.md` edit.
+
+Next gate: checked master push, both CI jobs, isolated packaging, exact-version
+v2 smoke and rendered hosted catalog/cover/appearance acceptance. The accepted
+run #11 is the old v1 compatibility artifact, not this pending release. No repeat
+SQL import, permission setup or dependency install. Rollback the theme code and
+preview flag to restore prior UI while retaining expanded rows, saves/interests
+and migration history; that does not withdraw public v2 metadata or cached art.
+
+### 2026-11-16 — compatibility checkpoint deployed; shared import now unblocked
+
+Owner committed/pushed `3e9797389f80b1a7523a0d7b2a5e8f4e63526a31`
+(Prepare reviewed catalog activation and preview compatibility). Read-only
+GitHub inspection of [run #11](https://github.com/Oreolion/Polymatik-AI/actions/runs/43914795453)
+confirms both complete Ubuntu/Windows checks jobs and development-preview
+deployment pass. Deployment job `133468305115` checks out that exact commit and
+reports API version `98ad2d58-e060-4a91-aa23-5254ac97e908`, web version
+`32a9d672-d80d-4790-9fc9-5b0670039f6a` and the expected PRODUCT_API service binding.
+All six HTTP smoke checks pass: health/catalog/home/detail 200 with content
+validation, API/web unsigned account denial 401. The earlier #10 detail failure
+does not reproduce on these versions. Captured summary:
+`.cache/catalog-activation-ci11.json`. No claim of rendered Google/account or
+expanded catalog acceptance follows from these public smoke checks.
+
+The first deployment intentionally remains v1. The reviewed package and receipt
+hashes still match; a fresh local `--plan` reports 60 staged identities, intended
+54 public, six held, seven subjects/six formats and no applied changes. No
+development-activation receipt exists yet. The shared development database and
+local/preview v2 activation remain pending. Owner was given the now-unblocked
+`--apply` command for the normal terminal, because this agent session's Neon
+credential read remains unavailable. Stop only local Polymatik servers first.
+After successful verification, restart both servers for local acceptance, then
+prepare/push the preview v2 flag and verify that separate deployment.
+
+Git status after the owner's commit contains only the owner's unrelated prompt
+edit before these status notes. It remains preserved and excluded. No new
+functional code, dependency, provider, database or production change in this
+follow-up; no repeated tests needed for this evidence-only update. The last Book
+browser check remains unverified after automatic approval review could not
+complete due to an account usage limit; prior browser results remain separate.
+
 ### 2026-11-16 — reviewed catalog import and accepted isolated activation rehearsal
 
 Scope: owner's request to import and activate the expanded collection on existing
