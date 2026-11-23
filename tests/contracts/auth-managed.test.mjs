@@ -76,15 +76,36 @@ test('managed profile edits and Google redirects are server constrained', async 
   assert.ok(!(update instanceof Response));
   assert.deepEqual(await update.request.json(), { name: 'Reader' });
   const signin = await prepareManagedAuthRequest(
-    post('sign-in/social', { provider: 'google', callbackURL: '/profile' }),
+    post('sign-in/social', { provider: 'google', callbackURL: '/onboarding' }),
     env,
   );
   assert.ok(!(signin instanceof Response));
   assert.deepEqual(await signin.request.json(), {
     provider: 'google',
-    callbackURL: `${origin}/profile`,
+    callbackURL: `${origin}/onboarding`,
     errorCallbackURL: `${origin}/profile?authError=1`,
   });
+  const defaultSignin = await prepareManagedAuthRequest(
+    post('sign-in/social', { provider: 'google' }),
+    env,
+  );
+  assert.ok(!(defaultSignin instanceof Response));
+  assert.equal(
+    (await defaultSignin.request.json()).callbackURL,
+    `${origin}/onboarding`,
+  );
+  for (const callbackURL of [
+    '/onboarding?next=https://evil.test',
+    '//evil.test',
+    '/profile',
+  ]) {
+    const rejected = await prepareManagedAuthRequest(
+      post('sign-in/social', { provider: 'google', callbackURL }),
+      env,
+    );
+    assert.ok(rejected instanceof Response);
+    assert.equal(rejected.status, 422);
+  }
 });
 
 test('managed session exchange preserves verifier but strips unrelated identity and bypasses cache', async () => {

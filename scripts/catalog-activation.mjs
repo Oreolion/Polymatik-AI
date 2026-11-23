@@ -200,7 +200,9 @@ async function begin(client) {
     )
   ).rows;
   requireThat(
-    planProductMigrations(registry, ledger).every((m) => m.state === 'applied'),
+    planProductMigrations(registry, ledger)
+      .filter((m) => m.version <= '0003')
+      .every((m) => m.state === 'applied'),
     'EXPANDED_SCHEMA_REQUIRED',
   );
   const safe = (

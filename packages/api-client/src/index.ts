@@ -7,6 +7,12 @@ import type {
   ResourceList,
 } from '@polymatik/domain-types';
 import { resources } from '@polymatik/domain-types/discovery-preview';
+import {
+  feedInput,
+  isFeedPageForRequest,
+  type FeedPage,
+  type FeedRequest,
+} from '@polymatik/domain-types/feed';
 import { isCatalogResource } from '@polymatik/domain-types/catalog-resource';
 import { readBoundedBody } from '@polymatik/domain-types/bounded-body';
 import {
@@ -117,8 +123,8 @@ export function createApiClient(options: ApiClientOptions) {
     validate: (value: unknown) => value is T,
     signal?: AbortSignal,
     token?: string,
-    method: 'GET' | 'PUT' | 'DELETE' = 'GET',
-    body?: InterestUpdate | InterestUpdateV2,
+    method: 'GET' | 'PUT' | 'DELETE' | 'POST' = 'GET',
+    body?: InterestUpdate | InterestUpdateV2 | FeedRequest,
   ): Promise<Result<T>> {
     const controller = new AbortController();
     const abort = () => controller.abort();
@@ -180,6 +186,18 @@ export function createApiClient(options: ApiClientOptions) {
     );
   }
   return {
+    feed: (input: FeedRequest = {}, token?: string, signal?: AbortSignal) => {
+      const body = feedInput(input);
+      if (!body) throw new TypeError('Invalid feed request.');
+      return get(
+        '/v2/feed',
+        (value): value is FeedPage => isFeedPageForRequest(value, body),
+        signal,
+        token,
+        'POST',
+        body,
+      );
+    },
     libraryPage: (
       input: LibraryPageInput = {},
       token?: string,

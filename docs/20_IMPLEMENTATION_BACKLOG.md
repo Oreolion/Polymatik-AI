@@ -4,6 +4,81 @@
 
 ## Current owner priority - web resource details and backend checkpoint
 
+**23 November — M1-04a subject-aware Discover:** owner authorizes implementation
+and a master push, and requests a standard README. For you uses independently
+verified account interests, bounded deterministic relevance/diversity, reasons,
+stable pagination and per-visit exclusions. Explore all retains the complete
+public catalog. Welcome opens For you; Profile retains editing. No migration,
+provider, model call, stored batch or cross-device dismissal history is added.
+This is the first testable M1-04 slice, not completion of the full feed roadmap.
+See docs/48 for policy/rollback and docs/24 for checks and browser/delivery gates.
+Git metadata is read-only; do not bypass it to push. Preserve docs/prompt.md.
+After accepted delivery, persisted batches/dismissals require separately reviewed
+schema, isolation tests and evaluation. Contextual cited questions about saved
+items remain a later specialized-learning milestone.
+
+**22 November — shared taxonomy accepted; fourteen-choice application rollout:**
+owner apply succeeds on dev-auth-working with matching child checksum, unchanged
+private data/protections and child, all fourteen round trips, cap/skip/reset,
+two-user/unsigned isolation and retained Library. No repeat migration or grant.
+Local v2 account OpenAPI/domain validators and the shared welcome/Profile form
+now use the same fourteen-subject order as browse. Legacy v1 remains strict.
+Descriptions, selected/3 status and two-digit row markers cover all choices.
+Current-source full suite 257/257, API workerd 6/6, built web 18/18, affected
+types, generation, lint/format and web build pass. Browser startup is blocked
+by cached Firefox protocol mismatch and Chromium Session closed. Next is owner
+rendered save/edit/reload/skip/reset/theme acceptance, checkpoint push and exact
+hosted verification. No new screenshot or hosted acceptance is claimed.
+Exact evidence and remaining live Google/hosted gates: docs/24. New subject
+content curation and preference ranking are separate tickets.
+
+**22 November — shared taxonomy CLI diagnosis:** owner development apply returns
+`NEON_CLI_FAILED`. Underlying cause and shared application remain unverified.
+Accepted child rehearsal is retained. Fixed-phase/commit-state diagnostics now
+cover the initial branch inventory too; next step is the read-only owner branch
+list in docs/47, followed by repair of the actual CLI failure. Keep preference
+choices at seven; no speculative SQL, grants or repeated migration. Docs/24.
+
+**21 November — optional welcome and resource usability.** Google success now
+lands on `/onboarding`; confirmed selection/skip and returning-account handling
+reuse private Profile preferences. Breadcrumb links, Open source, prominent
+descriptions and format-specific guidance improve resource details. Browse adds
+Chemistry, Art, Metaphysics, Politics, History, Literature and Economics; new
+filters can be empty. Persisted choices remain seven until a separately reviewed
+0004 taxonomy migration and contract rollout. No data migration ran. Scope,
+dependencies and the owner’s specialized-workflow requirement: docs/46. Exact
+tests and browser limits: docs/24. Ranking/mastery/AI orchestration are unchanged.
+
+Next dependency: apply the accepted taxonomy migration to shared development,
+then expand account API/OpenAPI and welcome/Profile choices together. No new
+subject content import is included.
+
+**21 November — taxonomy database preparation:** additive 0004, baseline-drift
+guards, ordered checksums, SQL rollback probes and an explicit fixed-child-only
+runner are prepared. Owner-run child rehearsal now passes with existing data,
+Library and isolation preserved; shared development is unchanged. The explicit
+`--apply-development` command requires the matching child ledger before changing
+only dev-auth-working. Full plan, risks and owner-terminal command: docs/47.
+Root suite 255/255 and types/lint/format pass. The seven-choice app remains intact
+until shared application and subsequent contract rollout. Evidence: docs/24.
+
+**17 November — resource counter presentation and onboarding verification.**
+Owner requests removing catalog numbering from thumbnails and checking subject
+onboarding/editing after skip. Remove resource-row ordinal gutters and clip the
+initial art's obsolete counter footer in the shared list/detail/Library image
+presentation. Reviewed source bytes/hashes, IDs and database remain unchanged.
+Expanded Profile skip/resume/save/edit/reload, three-choice cap and two-account
+isolation pass synthetic browser and actual built-Worker BFF checks. This does
+not add a first-run wizard, granular topics or ranking. Next onboarding ticket:
+make the initial optional subject-selection journey discoverable after sign-in,
+reusing Profile preferences; keep topics/thinkers/intent separate. No new provider,
+migration or real-account changes. Exact results/remaining gates: docs/24/44.
+
+**Expanded hosted checkpoint accepted:** owner commit `6c977da`, CI #12, both OS
+checks/deployment and all six v2 smoke checks pass. Browser traverses 11 hosted
+pages/54 resources and decodes all 54 covers; seven subjects/six formats. Current
+thumbnail changes are not included in that deployed artifact. Docs/24.
+
 **16 November — owner requests expanded collection import and activation.**
 Prepared reviewed-subset tooling and 54 accepted static covers; six illustrations
 are held. Import 56 hidden additions separately from publication of the accepted

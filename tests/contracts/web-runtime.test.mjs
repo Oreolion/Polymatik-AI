@@ -151,6 +151,22 @@ test('configured expanded account BFF uses the real built Worker and mocked Neon
   );
   const fixture = await startAccountWebWorker();
   try {
+    const welcome = await fetch(`${fixture.origin}/onboarding`);
+    assert.equal(welcome.status, 200);
+    const welcomeHtml = await welcome.text();
+    for (const text of [
+      'Let curiosity',
+      'Checking your account',
+      'edit your choices in Profile',
+      'Browse the collection',
+    ])
+      assert.ok(welcomeHtml.includes(text), text);
+    assert.ok(!welcomeHtml.includes('alice@example.test'));
+    assert.equal(
+      fixture.api.interests.size,
+      0,
+      'rendering welcome never writes preferences',
+    );
     /** @param {string} path @param {string} [method] @param {unknown} [body] @param {string} [user] @param {string} [expected] */
     const call = (
       path,
@@ -201,13 +217,110 @@ test('configured expanded account BFF uses the real built Worker and mocked Neon
     assert.deepEqual(await change.json(), { id: 'fixture-9', saved: true });
     const interests = await call('/api/account/v2/interests', 'PUT', {
       status: 'selected',
-      subjects: ['Sociology', 'Biology'],
+      subjects: ['Politics', 'Art', 'Chemistry'],
     });
     assert.equal(interests.status, 200);
     assert.deepEqual(await interests.json(), {
       status: 'selected',
-      subjects: ['Biology', 'Sociology'],
+      subjects: ['Chemistry', 'Art', 'Politics'],
     });
+    const readSelection = (body = {}) =>
+      fetch(`${fixture.origin}/api/account/v2/feed`, {
+        method: 'POST',
+        headers: {
+          origin: fixture.origin,
+          'content-type': 'application/json',
+          cookie: 'neon-auth.session_token=alice',
+          'x-polymatik-account': 'alice',
+        },
+        body: JSON.stringify(body),
+      });
+    const selection = await readSelection();
+    assert.equal(selection.status, 200);
+    /** @type {import('../../packages/domain-types/src/feed.ts').FeedPage} */
+    const noMatches = await selection.json();
+    assert.equal(noMatches.basis, 'no_matches');
+    assert.equal(noMatches.items.length, 5);
+    assert.ok(noMatches.items.every((item) => item.reason.kind === 'explore'));
+    assert.equal(selection.headers.get('cache-control'), 'no-store');
+    await call('/api/account/v2/interests', 'PUT', {
+      status: 'selected',
+      subjects: ['Physics'],
+    });
+    assert.ok(noMatches.next_cursor);
+    assert.equal(
+      (await readSelection({ cursor: noMatches.next_cursor })).status,
+      409,
+    );
+    /** @type {import('../../packages/domain-types/src/feed.ts').FeedPage} */
+    const matching = await (await readSelection()).json();
+    assert.equal(matching.basis, 'interests');
+    assert.ok(matching.items.some((item) => item.reason.subject === 'Physics'));
+    assert.ok(matching.next_cursor);
+    /** @type {import('../../packages/domain-types/src/feed.ts').FeedPage} */
+    const continued = await (
+      await readSelection({ cursor: matching.next_cursor })
+    ).json();
+    const priorIds = new Set(matching.items.map((item) => item.resource.id));
+    assert.ok(continued.items.every((item) => !priorIds.has(item.resource.id)));
+    assert.equal(
+      (await call('/api/account/v2/feed', 'POST', {}, 'bob', 'alice')).status,
+      409,
+    );
+    assert.equal(
+      (await call('/api/account/v2/feed', 'POST', {}, 'forged')).status,
+      401,
+    );
+    const forYouHtml = await (
+      await fetch(`${fixture.origin}/?feed=for-you`)
+    ).text();
+    assert.ok(forYouHtml.includes('Opening your account'));
+    assert.ok(!forYouHtml.includes('alice@example.test'));
+    const skipped = { status: 'skipped', subjects: [] };
+    assert.deepEqual(
+      await (await call('/api/account/v2/interests', 'PUT', skipped)).json(),
+      skipped,
+    );
+    assert.deepEqual(
+      await (await call('/api/account/v2/interests')).json(),
+      skipped,
+    );
+    const resumed = {
+      status: 'selected',
+      subjects: ['Mathematics', 'Philosophy'],
+    };
+    assert.deepEqual(
+      await (await call('/api/account/v2/interests', 'PUT', resumed)).json(),
+      resumed,
+    );
+    assert.deepEqual(
+      await (await call('/api/account/v2/interests')).json(),
+      resumed,
+    );
+    assert.equal(
+      (
+        await call('/api/account/v2/interests', 'PUT', {
+          status: 'selected',
+          subjects: ['Physics', 'Mathematics', 'Computing', 'Biology'],
+        })
+      ).status,
+      422,
+    );
+    assert.equal(
+      (await call('/api/account/v2/interests', 'PUT', skipped, 'bob', 'alice'))
+        .status,
+      409,
+    );
+    assert.deepEqual(
+      await (await call('/api/account/v2/interests')).json(),
+      resumed,
+    );
+    assert.deepEqual(
+      await (
+        await call('/api/account/v2/interests', 'GET', undefined, 'bob')
+      ).json(),
+      { status: 'not_started', subjects: [] },
+    );
     assert.equal(fixture.api.interests.has('bob'), false);
     assert.equal(
       (
@@ -233,7 +346,7 @@ test('configured expanded account BFF uses the real built Worker and mocked Neon
   }
 });
 
-test('expanded web SSR and same-origin pages use seven subjects, canonical detail and bounded independent reads', async () => {
+test('expanded web SSR and same-origin pages use the browse taxonomy, canonical detail and bounded independent reads', async () => {
   const api = await startExpandedCatalog();
   /** @type {{port:number;stop:()=>Promise<void>}|undefined} */
   let expanded;
@@ -267,12 +380,27 @@ test('expanded web SSR and same-origin pages use seven subjects, canonical detai
       'Psychology',
       'Philosophy',
       'Sociology',
+      'Chemistry',
+      'Art',
+      'Metaphysics',
+      'Politics',
+      'History',
+      'Literature',
+      'Economics',
       'Collection pages',
       'Next page',
       'on this page',
     ])
       assert.ok(html.includes(text), text);
     assert.ok(!html.includes('Fixture learning resource 5'));
+    assert.ok(
+      html.includes('class="resource-art-window"'),
+      'cover footer is clipped in the shared presentation',
+    );
+    assert.ok(
+      !html.includes('class="resource-margin"'),
+      'resource cards do not imply catalog positions',
+    );
     for (const path of ['/api/account/v2/library', '/api/account/v2/interests'])
       assert.equal(
         (await fetch(`${origin}${path}`)).status,
@@ -307,6 +435,7 @@ test('expanded web SSR and same-origin pages use seven subjects, canonical detai
     });
     assert.equal(detail.status, 200);
     const markup = await detail.text();
+    assert.ok(markup.includes('class="resource-art-window"'));
     for (const text of [
       'Fixture learning resource 5',
       'Book',
@@ -365,9 +494,21 @@ function assertResourceShell(html) {
   for (const view of ['discover', 'search', 'library'])
     assert.ok(markup.includes(`href="/#${view}"`), `${view} is reachable`);
   assert.ok(markup.includes('aria-label="Switch to dark appearance"'));
+  for (const anchor of markup.matchAll(
+    /<a\b[^>]*href="(?:\/#(?:discover|search|library)|\/profile)"[^>]*>/g,
+  ))
+    assert.ok(
+      !anchor[0].includes('aria-current="page"'),
+      'a collection destination must not claim to be the resource page',
+    );
+  assert.match(
+    markup,
+    /<a\b[^>]*aria-current="page"[^>]*href="#resource-(?:detail|state)-title"/,
+  );
+  const target = markup.match(/aria-current="page"[^>]*href="#([^"]+)"/)?.[1];
   assert.ok(
-    !markup.includes('aria-current="page"'),
-    'a collection destination must not claim to be the resource page',
+    target && markup.includes(`id="${target}"`),
+    'breadcrumb target exists in success and recovery states',
   );
 }
 
@@ -558,12 +699,16 @@ test('resource details render backend metadata, safe return navigation and origi
       resource.title,
       'About this resource',
       `Published by ${resource.publisher}`,
-      'Open original',
+      'Open source',
+      resource.description,
       'Back to Library',
     ])
       assert.ok(text.includes(value), `${resource.id}: ${value}`);
     assert.ok(html.includes('href="/#library"'));
     assert.ok(html.includes(`href="${resource.url}"`));
+    assert.match(html, /<nav[^>]*aria-label="Breadcrumb"/);
+    assert.ok(html.includes('href="#resource-detail-title"'));
+    assert.ok(html.includes('class="detail-summary"'));
     assert.ok(!text.includes('This resource is unavailable right now.'));
   }
   const unsafe = await (

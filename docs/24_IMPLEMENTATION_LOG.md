@@ -1,5 +1,398 @@
 # 24 — Implementation Status and Evidence Ledger
 
+### 2026-11-23 — M1-04a personalized Discover and README checkpoint
+
+Owner authorizes subject-aware Discover implementation and master push, then
+requests a standard README before pushing. Web/backend only; no production,
+database/provider mutation or dependency installation. The previous authorized
+welcome/resource/taxonomy work remains in the checkpoint; owner's unrelated
+docs/prompt.md edit is preserved and excluded from the proposed stage command.
+
+Implemented explicit For you / Explore all, protected read-only POST /v2/feed,
+same-origin account BFF, typed input/page/cursor contracts, deterministic reviewed
+ranking and explanations, stable/excluded pagination and stale-session recovery.
+Account and session-bound HMAC prevents guessing private preference commitments;
+every page rechecks identity, scope and exact origin. Five-row/64 KiB responses,
+8192-byte JSON, 100 candidates/exclusions. Account-keyed client state aborts on
+unmount; no private feed payload is stored in browser storage. Device saves use
+validated resource metadata, remain device-local and retain retry/Undo behavior.
+Welcome opens For you; Profile still edits choices after skip. No inferred
+knowledge, scroll-time AI, persisted batches or cross-device dismissal history.
+The full catalog remains available independently. Detailed scope: docs/48.
+
+README is reorganized around product/status, architecture, prerequisites,
+fresh-checkout and Windows commands, SQL/Auth configuration, testing, deployment,
+privacy, repository layout, contributions and licensing. All local README links
+resolve. Applied migration 0004 SHA-256 is still
+`bd1232b0dbc54a71c318c46279108fcba128f9b2ddf345b253bf8d0d450bddec`.
+Ignore checks confirm local secrets, evaluation/cache output and browser captures
+remain excluded. No credential values were inspected or copied into documentation.
+
+Agent evidence, Node 24.22.1 / Windows:
+
+- Expected missing-module red: `.cache/feed-red.txt`; eight focused contracts
+  pass, including origins/scopes/account/session changes, malformed/bounded input,
+  response filter/exclusion validation, SQL visibility/101-row sentinel and
+  deterministic stable pagination. Complete root suite **265/265**, no skips:
+  `.cache/feed-unit.txt`.
+- Synthetic offline evaluation: 70 candidates, three explicit-interest profiles;
+  mean precision@5 **0.3333 → 0.8667**, nDCG@5 **0.3333 → 0.8997**. Each ranked
+  profile retains at least two subjects and formats with valid reasons; cold
+  start spans five subjects, absent Chemistry coverage labels exploration.
+  `.cache/feed-evaluation.json`. Synthetic relevance labels are a regression
+  baseline, not actual-user benefit. Node timing is neither deployed CPU nor a
+  free-plan fit claim.
+- Root/web/API/domain/client TypeScript, generated OpenAPI drift check, full
+  repository ESLint and maintained-source Prettier pass: `.cache/feed-quality.txt`.
+- Web production build completes: `.cache/feed-build.txt`. Framework sourcemap,
+  chunk and route-classification warnings remain; no warning suppression added.
+- Explicit Miniflare/workerd API **7/7**: `.cache/feed-runtime.txt`. New feed
+  foreign-origin/forged-bearer checks fail closed before storage. An initial test
+  used a managed cookie against unavailable Auth and correctly received 503;
+  its deterministic forged-identity probe now uses bearer credentials without
+  making a provider call. Configured cookie/auth behavior remains separately
+  exercised by account doubles and existing identity contracts.
+- Actual built web Worker **18/18**, no skips: `.cache/feed-web-final.txt`.
+  Configured synthetic Neon/storage verifies unmatched/matched interests,
+  freshness changes, page uniqueness, wrong/forged account denial, no-store,
+  For you SSR's nonprivate shell and existing Library/interests regressions.
+  Initial legacy-copy failure was fixed by retaining accurate nonpersonalized
+  fixture wording, not removing its assertion. These are deterministic doubles,
+  not a live Google/Neon browser or SQL-ranking claim.
+- API Wrangler dry-run attempted: `.cache/feed-api-package.txt`, fails before
+  bundling on sandbox ancestor-directory read ACLs. Explicit runtime bundling
+  passes; that does not replace the normal-terminal/CI packaging gate.
+- Browser attempt: cached Chromium headless shell crashes at startup; correct
+  browser download fails connect EACCES under restricted network
+  (`.cache/feed-browser-install.txt`). No new screenshot or rendered acceptance.
+  No sandbox escalation, global browser/dependency repair or fake UI acceptance.
+
+Review/remaining gates: bounded deterministic metadata ranking is intentionally
+simple; no live traffic relevance or free-plan CPU proof. Preference/catalog
+changes invalidate continuation rather than silently mixing pages. Candidate
+selection can omit later reviewed items beyond 100, disclosed as limited with
+Explore all recovery. Cached prior pages are session-only. Confirm live Google
+welcome→For you, new/edited/skipped interests, Next/Previous, dismissal/Undo/save,
+account changes, responsive light/dark rendering and keyboard focus. Earlier
+deferred UI-06/07 and broader accessibility gates remain open.
+
+Git metadata is explicitly read-only in this session. No commit, master push,
+provider mutation or deployment ran; do not use a second repository/remote API
+to bypass that boundary. Copyable owner checkpoint commands and staged-file
+review are in docs/48. Owner-normal packaging/rendered checks, master push,
+both-OS CI and exact resulting preview smoke/account acceptance remain. The old
+CI #12 preview is not evidence of this source delivery. Rollback: revert the
+application checkpoint or use Explore all; preserve 0004, interests, saves and
+the imported catalog. Future persisted batches/dismissals need a separate ticket.
+
+### 2026-11-22 — shared migration accepted; fourteen-subject account rollout
+
+Owner reports normal-terminal `--apply-development` success on
+br-noisy-poetry-zaka8dav: accepted child checksum verified read-only, 0004 applied,
+existing data/protections preserved, fourteen round trips, three-choice cap,
+skip/reset, two-user/unsigned isolation and retained Library; fixtures rolled
+back and child unchanged. This closes the shared SQL gate. No repeat migration,
+grants or agent remote execution. The earlier CLI error's cause remains unproven.
+
+Local v2 account validators and generated OpenAPI types now share browse's
+fourteen-value canonical order. The welcome/Profile component exposes all values,
+adds seven descriptions, announces selected/3 count and formats indexes 10–14
+correctly. Native checkboxes, cap, save/skip/reset, retry and changed-account
+handling are retained. Legacy v1 remains three subjects and fails closed on
+unrepresentable saved choices. New subjects need not have reviewed resources;
+no ranking, mastery, topic/thinker selection or resource publication is added.
+
+Changed application files: `packages/domain-types/src/account-v2.ts`,
+`packages/domain-types/openapi/v1.json`, generated `src/api.generated.ts`, and
+`apps/web/app/account-interests.tsx`. Tests expand catalog/Library v2 contracts,
+SQL adapter coverage and the built web runtime. Documentation updates README,
+architecture, backlog, subject/welcome/migration guides and AGENTS. The operator
+runner receives only a comment correction; applied 0004 bytes/hash stay fixed.
+Owner's unrelated `docs/prompt.md` edit remains untouched.
+
+Agent Node 24.22.1 evidence:
+
+- Expected rejected-Chemistry contract/BFF failures before implementation:
+  `.cache/fourteen-interests-red.txt`.
+- Complete root suite **257/257**, zero skips: `.cache/fourteen-unit.txt`.
+  All fourteen values round-trip through browser adapter/BFF/API doubles;
+  canonical three-choice order and malformed/duplicate/unknown/over-limit choices
+  are covered. The old pre-migration rejection assertion was updated only after
+  the owner's shared SQL acceptance; its empty-content assertion is retained.
+- Root/web/API/domain/client TypeScript, OpenAPI regeneration check, repository
+  ESLint and full maintained-source Prettier pass: `.cache/fourteen-quality.txt`.
+- Web production build completes: `.cache/fourteen-build.txt`.
+- Explicit Miniflare/workerd API **6/6**, built web **18/18**, no skips:
+  `.cache/fourteen-runtime.txt`. Configured account test saves Chemistry/Art/
+  Politics, verifies canonical response and existing skip/reset/isolation paths.
+  Neon/Auth/storage are deterministic doubles; this is not a live Google check.
+- `git diff --check` passes; accepted 0004 SHA-256 remains
+  `bd1232b0dbc54a71c318c46279108fcba128f9b2ddf345b253bf8d0d450bddec`.
+
+Rendered acceptance is open: this session exposes no Computer Use node runtime;
+the cached Playwright CLI/Firefox launch fails with an unsupported protocol
+`downloadOptions.legacyInterceptor` property. Existing Chromium also exits with
+`Session closed`. Neither attempt produced a screenshot or confirmed form
+interaction. No browser/dependency install or project lockfile change. Earlier
+seven-choice screenshots do not establish current fourteen-choice acceptance.
+Owner local check: all fourteen choices/descriptions, three-choice limit,
+save/reload/edit in Profile, welcome skip/return, failed-write recovery, keyboard
+and mobile/light/dark reflow. Actual Google-to-welcome and exact hosted artifact
+verification remain separate gates.
+
+Security/privacy: unchanged managed identity/origin rechecks and forced RLS;
+no new API routes, grants or providers. Performance: seven extra static rows/
+descriptions, existing request count and bounded payload/selection limits.
+Evaluation delta N/A; no prompt/model/retrieval/ranking change. Rollback keeps
+applied SQL and preferences; earlier clients cannot represent new values and
+must fail closed, never truncate data. No push or deployment ran; Git metadata
+is read-only. Next is rendered owner acceptance and the authorized development
+preview checkpoint, then exact hosted verification; production remains separate.
+
+### 2026-11-22 — shared taxonomy CLI failure diagnostics
+
+Owner `--apply-development` reports `NEON_CLI_FAILED`; underlying CLI cause and
+shared database state are not verified. No agent remote command or SQL ran.
+Moved the initial branch inventory inside the runner's failure/cleanup boundary.
+Every CLI failure now reports only a fixed operation phase; commit-state reporting
+also covers the first command. Raw CLI output and connection values remain hidden.
+There is no automatic retry, login, credential/config change or weakened target
+validation. Child rehearsal is still accepted; new preference UI remains gated.
+
+Agent Node 24.22.1 expected-red log: `.cache/taxonomy-cli-red.txt`. Focused taxonomy
+and rehearsal tests **26/26**: `.cache/taxonomy-cli-focused.txt`. New failure
+injection covers branch/compute inventory and owner/restricted credential lookup,
+before/after migration commit, connection cleanup and secret-free diagnostics.
+Root TypeScript, repository ESLint and maintained-source Prettier pass; captured
+in `.cache/taxonomy-cli-quality.txt`. No new UI/build
+or live database acceptance is claimed. Evaluation delta N/A. Next: owner-run
+read-only branch inventory to expose the real CLI error; copyable command docs/47.
+Do not repeat migration, branch creation or privileges before this evidence.
+
+### 2026-11-21 — child SQL gate accepted; shared development command prepared
+
+Owner-reported real PostgreSQL rehearsal passes on br-muddy-bar-zayn69jl:
+0004 applied, fourteen-subject round trips, three-choice cap, skip/reset,
+two-user/unsigned isolation and retained Library; fixtures rolled back. Reported
+source/private preservation is true and shared-development change is false.
+This supersedes the pending child gate below; do not repeat that rehearsal.
+
+Added explicit `--apply-development` to `scripts/subject-taxonomy.mjs`. It requires
+the child's matching 0004 ledger before DDL, validates exact branch/endpoint/role
+identities, and applies the immutable accepted migration only to dev-auth-working.
+Existing data/protections and non-target child snapshots must remain unchanged.
+Restricted-login/rollback probes run after commit; later failures report retained
+migration state without pretending to undo committed DDL. Connections close on
+every path. No config, grants, import, Auth, provider or deployment changes.
+The verification SQL's target comment now covers the explicit development target.
+
+Agent Node 24.22.1 evidence:
+
+- Missing-export expected red: `.cache/taxonomy-development-red.txt`.
+- Full root deterministic suite **255/255**, no skips:
+  `.cache/taxonomy-development-suite.txt`. New tests cover the accepted-child
+  prerequisite, fixed shared target/private preservation and post-commit failure.
+- Root TypeScript, repository ESLint and full maintained-source Prettier pass:
+  `.cache/taxonomy-development-quality.txt`.
+
+No agent remote SQL ran; known credential-directory restrictions were not retried.
+Shared development is still pending the owner command documented in docs/47.
+Current seven-choice forms deliberately remain intact. After shared success,
+the next ticket widens API/OpenAPI and welcome/Profile choices together. No new
+UI change or browser/build claim in this runner-only ticket. Evaluation delta:
+N/A, no model/retrieval/ranking change. Existing owner prompt edits are preserved.
+
+### 2026-11-21 — fourteen-subject SQL preparation, live gate open
+
+Owner continuation authorizes the next dependency from docs/46. Preserved the
+existing dirty welcome/resource work and owner's prompt edit. Read Neon/Postgres
+skills and official PostgreSQL constraint/locking and Neon branch references.
+No architecture/provider/driver change; Cloudflare Hyperdrive and pg remain.
+
+Prepared registered `0004_subject_taxonomy.sql`, exact normalized baseline-drift
+guards, the fixed-child-only `subject-taxonomy.mjs` runner and rollback-only SQL/
+restricted-login probes. The runner preserves rows and private protection digests,
+bounds locks/timeouts, records the checksum last and rejects wrong branches,
+endpoints, identities and ledgers. It reuses the existing child, never creates or
+resets a branch. Parent access uses read-only transactions only. No shared apply
+option, config writes, publication, grant or managed Auth mutation.
+
+Registering a future migration exposed an older overbroad activation dependency:
+catalog operations now require their actual schema through 0003 while validating
+all applied checksums. Regression covers pending 0004 with successful mocked
+catalog staging/publication. Historical 0001–0003 bytes are unchanged.
+
+Agent Node 24.22.1 checks:
+
+- Expected missing-module red captured in `.cache/taxonomy-red.txt` before code.
+- Focused migration/activation/target checks **31/31**:
+  `.cache/taxonomy-focused.txt`.
+- Full root deterministic suite **252/252**, no skips:
+  `.cache/taxonomy-full-suite.txt`. New tests are included in root `pnpm test`.
+- Root TypeScript, repository ESLint and full maintained-source Prettier checks
+  pass: `.cache/taxonomy-quality.txt`. File-only `--plan` passes without credentials
+  or database access and binds checksum
+  `bd1232b0dbc54a71c318c46279108fcba128f9b2ddf345b253bf8d0d450bddec`.
+
+These are mocked/preparation results, not PostgreSQL execution evidence. No remote
+SQL ran; live syntax, exact Neon definitions, private fingerprints and actual
+restricted-login isolation remain unverified until the owner-run child rehearsal.
+No repeat attempt against the known-inaccessible Neon credential directory. Scope,
+locks, failure handling and copyable owner command: docs/47. Review the live result
+before a separately authorized shared-development migration/API/UI expansion.
+The current seven-choice form remains working. No new rendered UI in this ticket;
+no build or browser rerun is needed for these migration-only source changes.
+Evaluation delta: N/A; no model, prompt, retrieval, ranking or mastery changes.
+No install, Git write, push or deployment. Production is outside this scope.
+
+### 2026-11-21 — optional welcome, resource context and broader browse subjects
+
+Inspected actual tree at `6c977dace8fb7a1fbee6f3c08810b587cadee953`, retaining
+the previous local presentation/docs changes and the owner's `docs/prompt.md`.
+Read current instructions, source of truth, design prompt/foundation, journeys,
+and actual auth/Profile/catalog/migration contracts. Applied frontend-design
+guidance and used Firefox computer interaction for rendered verification.
+
+Google success is constrained to `/onboarding`; shared optional preferences
+continue after confirmed save/skip and bypass returning selected/skipped users.
+Profile editing remains available. Resource breadcrumbs are actionable, source
+descriptions are prominent, Open source replaces Open original, and reading
+guidance varies by format. Browse/API subjects add Chemistry, Art, Metaphysics,
+Politics, History, Literature and Economics. Existing content/assets, seven saved
+preference choices, RLS and ranking remain unchanged. Data dependencies and the
+owner’s specialized-workflow requirement are recorded in docs/46.
+
+Node 24.22.1 agent checks (local source, not a hosted artifact):
+
+- Expected red auth-callback contract captured in `.cache/onboarding-red.txt`.
+  Focused catalog/auth/interests/detail contracts pass **31/31**:
+  `.cache/welcome-resource-units.txt`.
+- Complete root deterministic suite passes **241/241**, no skips:
+  `.cache/welcome-resource-full-suite.txt`. No reinstall or dependency changes.
+- Web production build completes: `.cache/welcome-resource-build.txt`.
+  Explicit Miniflare/workerd built-web **18/18** and API **6/6**, with deterministic
+  provider/storage doubles: `.cache/welcome-resource-runtime.txt` and
+  `.cache/welcome-resource-api-runtime.txt`. Ordinary Wrangler packaging is a
+  separate owner/CI check; these are not live Neon/Google or deployed proofs.
+- Root/web/API TypeScript, repository ESLint and generated OpenAPI checks pass;
+  quality/format logs: `.cache/welcome-resource-quality.txt` and
+  `.cache/welcome-resource-format.txt`. Initial fixture typing and a command
+  using a nonexistent app-local TypeScript executable were corrected using the
+  existing root compiler. No install was needed.
+- The new breadcrumb revealed an overly broad old assertion that prohibited
+  all current-page links. It now checks collection navigation separately and
+  requires a real breadcrumb anchor target in both resource/recovery states.
+
+Firefox against the actual built Worker with local synthetic accounts verified
+unsigned recovery, initial selection/save, skip, returning-account bypass,
+retained choices on a simulated failed write, and editing in Profile after skip.
+Evidence: `.cache/onboarding-{failure,saved,skipped,return,profile-edit}.json`.
+Welcome screenshots at 1280 and 390px, dark and mobile light:
+`.cache/welcome-desktop.png`, `.cache/welcome-mobile.png`,
+`.cache/welcome-mobile-light.png`. The Profile radio changes appearance before
+welcome navigation; measured mobile width/scrollWidth are both 390px.
+
+A separate read-only local fixture serves all 54 approved metadata records and
+existing cover files, without SQL/provider access. Resource desktop/mobile
+screenshots: `.cache/resource-context-desktop.png` and
+`.cache/resource-context-mobile.png`. The Book cover decodes to 1200px; summary,
+source action and actual breadcrumb keyboard navigation were observed. Chemistry
+returns an empty page with Clear filters and no horizontal overflow:
+`.cache/new-subject-empty.json`. Source counters remain clipped by the earlier
+presentation work; cover bytes are unchanged. A final alignment/recovery-anchor
+refinement follows the main screenshot observations; built tests cover it.
+
+No live Google-to-welcome, screen-reader conformance, new subject persistence,
+new resource curation, production or hosted-delivery claim. No Git writes, SQL,
+provider configuration, asset publication or deployment. Git metadata remains
+read-only; owner push and new development CI delivery are pending. Evaluation
+delta: N/A; retrieval, model prompts, ranking and mastery are unchanged.
+
+### 2026-11-17 — counter-free resource presentation and subject-preference verification
+
+Inspected tree at owner commit `6c977dace8fb7a1fbee6f3c08810b587cadee953`;
+only the owner's `docs/prompt.md` edit was dirty. Preserved it. Read repository
+instructions/source of truth, design prompt/foundation, journeys, current catalog
+and subject-preference contracts. Scope is the owner's thumbnail-number request
+and verification of existing skip/edit behavior, not a new onboarding wizard.
+
+First closed the previous hosted-public gate: read-only GitHub inspection of
+[CI #12](https://github.com/Oreolion/Polymatik-AI/actions/runs/43943775716)
+confirms both full OS jobs and development-preview deployment pass for that
+exact commit. Deployment job `133569972172` reports API
+`5c6945b4-95fe-4e26-b44b-7273a3fb6fa8`, web
+`2ad32149-b4f1-4385-94f3-688b487c944d`, explicit v2 mode and six successful
+smoke checks. Firefox traverses the real hosted BFF: 11 pages, 54 resources and
+54 decoded 1200×800 covers, seven subjects/six formats. Evidence:
+`.cache/catalog-hosted-ci12-browser.json`. This is public catalog delivery, not
+signed-in Google/account acceptance or acceptance of today's uncommitted crop.
+
+Changes:
+
+- `resource-art.tsx` adds a shared image viewport; `globals.css` uses a top-aligned
+  12:7 crop to exclude the bottom 100 source pixels of the initial 1200×800 art.
+  The obsolete fixed-count footer disappears in Discover, resource details and
+  both Library presentations; format/source remain accessible in surrounding
+  HTML. Intrinsic dimensions/alt text, lazy/eager behavior and failure states
+  stay intact. Source files, package/review hashes and database references are
+  unchanged; all 54 asset hashes reverified. Future covers must keep important
+  content inside this display crop; no raster rewriting or new assets/provider.
+- `discover-client.tsx` removes article ordinal gutters and unused index props,
+  with obsolete gutter CSS removed. Page controls/counts remain truthful.
+- Built runtime regressions require the shared cover viewport/no ordinal gutter
+  and extend v2 interests through skip/reload, resume, edit, invalid-fourth-choice
+  refusal and unchanged owner data after a mismatched-account write. Documentation
+  distinguishes Profile preference support from the unfinished first-run journey.
+
+Windows/Node 24.22.1 evidence:
+
+| Check | Result and output |
+|---|---|
+| New built cover regression before implementation | Expected assertion failure; `.cache/cover-footer-red.txt`. |
+| Interests/catalog-web unit contracts | **14/14**, zero skips; `.cache/cover-profile-units.txt`. |
+| Built web, explicit Miniflare/workerd | **18/18**, zero failures/skips, 19,349 ms; `.cache/cover-profile-runtime.txt`. Deterministic Neon/storage, not live SQL/Google. |
+| Ordinary web build | **Build complete**; `.cache/cover-profile-build.txt`. A formatting command initially used the wrong working directory; corrected using the root formatter, no install required. |
+| Root/web TypeScript and full ESLint | Pass; `.cache/cover-profile-quality.txt`. Final formatting/diff checks run after documentation updates. |
+
+Final whole-workspace Prettier check passes (`.cache/cover-profile-format.txt`),
+and `git diff --check` passes with only existing line-ending advisories.
+
+Browser subject test: real built web/SDK/BFF with the existing deterministic
+Neon/Postgres doubles, synthetic Alice/Bob only. Initial browser cookie setup
+used the bare test-cookie spelling, which the SDK did not recognize; corrected
+the fixture to its expected secure Neon cookie, without application/auth changes.
+Verified seven choices; Skip then reload preserves skipped status; choosing
+Physics/Philosophy/Sociology after skip saves and reloads; fourth choices disable;
+editing Physics to Biology persists after another reload. Bob sees no selections;
+Alice's edits remain on returning. No live profile/preference mutation. Evidence:
+`.cache/profile-preferences-alice-edited.json`,
+`.cache/profile-preferences-bob.json`,
+`.cache/profile-preferences-alice-return.json`, and inspected section screenshots
+`.cache/profile-subjects-desktop-full.png` /
+`.cache/profile-subjects-mobile-full.png`. Native keyboard controls and 390px
+reflow work; full accessibility/provider/session acceptance remains open.
+
+Curated local presentation fixture uses the 54 actual approved entries/assets,
+not live PostgreSQL. Desktop Book detail and mobile Discover show the crop and
+no ordinal gutter; image geometry proves 700/800 source pixels visible, top-aligned
+with overflow hidden. Evidence `.cache/cover-counter-layout.json`,
+`.cache/cover-no-counter-book-desktop.png`,
+`.cache/cover-no-counter-discover-mobile.png`. No horizontal overflow observed.
+
+Answer to the owner's onboarding question: **Profile subject preferences work in
+the tested flow, including after skipping**. Current sign-in returns to Profile;
+there is no guided first-run wizard, finer topic taxonomy, thinkers/intent step
+or preference-based ranking yet. Do not equate the implemented form and SQL
+isolation evidence with complete personalized onboarding. Next narrow ticket is
+the initial optional subject journey using this existing contract, followed by a
+real owner Google/Profile acceptance check. No schema/evaluation delta: AI/ranking
+unchanged. No deployment, Git write, SQL or provider mutation in this turn.
+
+Rollback: revert the three presentation files; all assets, identities, reviewed
+metadata and private preferences remain intact. Current source changes need a
+checked owner push because Git metadata is read-only. Keep the unrelated prompt
+edit excluded from that checkpoint.
+
 ### 2026-11-16 — shared import accepted, real local catalog verified, appearance flash fix prepared
 
 Owner ran `catalog-activate.mjs --apply` against existing `dev-auth-working` /

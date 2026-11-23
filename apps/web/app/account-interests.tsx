@@ -2,17 +2,15 @@
 
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { interestSubjects } from '@polymatik/domain-types/interests';
-import {
-  catalogSubjects,
-  type CatalogSubject,
-} from '@polymatik/domain-types/catalog-v2';
+import { catalogSubjects } from '@polymatik/domain-types/catalog-v2';
 import type { InterestsV2 } from '@polymatik/domain-types/account-v2';
 import {
   accountInterests,
   AccountInterestsError,
 } from '../src/account-interests';
 
-const descriptions: Record<CatalogSubject, string> = {
+type InterestSubject = (typeof catalogSubjects)[number];
+const descriptions: Record<InterestSubject, string> = {
   Physics: 'Matter, motion, and the rules beneath everyday things.',
   Mathematics: 'Patterns, probability, and new ways to reason.',
   Computing: 'The systems and tools that shape our digital world.',
@@ -20,19 +18,28 @@ const descriptions: Record<CatalogSubject, string> = {
   Psychology: 'How minds, behavior, and experience connect.',
   Philosophy: 'Questions about knowledge, ethics, and meaning.',
   Sociology: 'People, institutions, and the patterns of shared life.',
+  Chemistry: 'Elements, reactions, and the ways matter changes.',
+  Art: 'Images, materials, and ways of seeing and making.',
+  Metaphysics: 'Questions about existence, identity, time, and reality.',
+  Politics: 'Power, governance, and competing visions of public life.',
+  History: 'People, events, and the evidence that connects past and present.',
+  Literature: 'Stories, language, and the worlds they open.',
+  Economics: 'Choices, institutions, and how resources are shared.',
 };
 
 export default function AccountInterests({
   accountId,
   disabled,
   expanded = false,
+  onComplete,
 }: {
   accountId: string;
   disabled: boolean;
   expanded?: boolean;
+  onComplete?: () => void;
 }) {
   const [saved, setSaved] = useState<InterestsV2 | null>(null);
-  const [subjects, setSubjects] = useState<CatalogSubject[]>([]);
+  const [subjects, setSubjects] = useState<InterestSubject[]>([]);
   const choices = expanded ? catalogSubjects : interestSubjects;
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
@@ -59,6 +66,10 @@ export default function AccountInterests({
     })
       .then((value) => {
         if (!controller.signal.aborted) {
+          if (onComplete && value.status !== 'not_started') {
+            onComplete();
+            return;
+          }
           setSaved(value);
           setSubjects(value.subjects);
         }
@@ -83,7 +94,7 @@ export default function AccountInterests({
       controller.abort();
       active.current?.abort();
     };
-  }, [accountId, revision, expanded]);
+  }, [accountId, revision, expanded, onComplete]);
 
   const dirty = saved && subjects.join('|') !== saved.subjects.join('|');
   async function change(action: 'save' | 'skip' | 'reset', event?: FormEvent) {
@@ -109,6 +120,10 @@ export default function AccountInterests({
         { accountId, signal: controller.signal, expanded },
       );
       if (!controller.signal.aborted) {
+        if (onComplete && action !== 'reset') {
+          onComplete();
+          return;
+        }
         setSaved(value);
         setSubjects(value.subjects);
         setNotice(
@@ -148,7 +163,9 @@ export default function AccountInterests({
       aria-busy={loading || busy || undefined}
     >
       <div className="account-library-heading">
-        <p className="eyebrow">03 / FOLLOW YOUR CURIOSITY</p>
+        <p className="eyebrow">
+          {onComplete ? 'FOLLOW YOUR CURIOSITY' : '03 / FOLLOW YOUR CURIOSITY'}
+        </p>
         <span className="account-library-privacy">Optional · Private</span>
       </div>
       <h2 id="interests-title" ref={heading} tabIndex={-1}>
@@ -172,13 +189,13 @@ export default function AccountInterests({
             >
               <legend>
                 Your subjects{' '}
-                <span className="interest-count">
-                  {subjects.length} selected
+                <span className="interest-count" role="status">
+                  {subjects.length} / 3 selected
                 </span>
               </legend>
               <p id="interests-help" className="profile-caption">
                 {expanded
-                  ? 'Choose up to three subjects from the seven catalog areas.'
+                  ? 'Choose up to three of fourteen subjects. Some areas are still growing.'
                   : 'Choose up to three subjects from the current collection.'}{' '}
                 You can change your choices later.
               </p>
@@ -203,7 +220,7 @@ export default function AccountInterests({
                     }}
                   />
                   <span className="interest-index" aria-hidden="true">
-                    0{index + 1}
+                    {String(index + 1).padStart(2, '0')}
                   </span>
                   <span className="interest-copy">
                     <strong>{subject}</strong>
@@ -223,7 +240,11 @@ export default function AccountInterests({
                   (!dirty && saved.status === 'selected')
                 }
               >
-                {busy ? 'Saving…' : 'Save interests'}
+                {busy
+                  ? 'Saving…'
+                  : onComplete
+                    ? 'Save and explore'
+                    : 'Save interests'}
               </button>
               <button
                 className="interest-secondary"
@@ -252,8 +273,10 @@ export default function AccountInterests({
                   : saved.status === 'selected'
                     ? 'Saved to your account. '
                     : ''}
-              These choices record curiosity, not knowledge or progress. Feed
-              order stays the same for now.
+              These choices record curiosity, not knowledge or progress.{' '}
+              {expanded
+                ? 'Choose For you in Discover to explore your interests.'
+                : 'You can edit your choices here whenever you like.'}
             </p>
           </form>
         )

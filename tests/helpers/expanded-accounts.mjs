@@ -174,6 +174,22 @@ export function expandedAccountFixture(origin = 'https://app.test') {
         return { status: 'not_started', subjects: [] };
       },
     },
+    feedCandidates: async (input) => ({
+      items: resources.filter(
+        (r) =>
+          !hidden.has(r.id) &&
+          (!input.subject ||
+            r.topic === input.subject ||
+            r.secondary_subjects.includes(input.subject)) &&
+          (!input.kind || r.kind === input.kind) &&
+          (!input.q ||
+            [r.title, r.source, r.publisher, r.description]
+              .join(' ')
+              .toLowerCase()
+              .includes(input.q.toLowerCase())),
+      ),
+      limited: false,
+    }),
   });
   return {
     api,

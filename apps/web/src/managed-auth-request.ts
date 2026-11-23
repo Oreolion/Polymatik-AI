@@ -155,14 +155,15 @@ export async function prepareManagedAuthRequest(
         )
           return authFailure(422);
         if (
-          (data.callbackURL !== undefined && data.callbackURL !== '/profile') ||
+          (data.callbackURL !== undefined &&
+            data.callbackURL !== '/onboarding') ||
           (data.errorCallbackURL !== undefined &&
             data.errorCallbackURL !== '/profile?authError=1')
         )
           return authFailure(422);
         body = JSON.stringify({
           provider: 'google',
-          callbackURL: `${settings.origin}/profile`,
+          callbackURL: `${settings.origin}/onboarding`,
           errorCallbackURL: `${settings.origin}/profile?authError=1`,
         });
       } else {

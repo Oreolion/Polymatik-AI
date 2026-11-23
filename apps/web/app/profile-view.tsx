@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from 'react';
 import { profileName } from '@polymatik/domain-types/profile';
-import type { authClient as managedClient } from '../src/auth-client';
+import { useManagedClient, type AuthClient } from './use-managed-client';
 import AccountLibrary from './account-library';
 import AccountInterests from './account-interests';
 
@@ -16,28 +16,10 @@ type ProfileProps = {
   storageReady: boolean;
   expandedCatalog?: boolean;
 };
-type AuthClient = typeof managedClient;
 type SessionState = ReturnType<AuthClient['useSession']>;
 
 export default function ProfileView(props: ProfileProps) {
-  const [client, setClient] = useState<AuthClient | null>(null);
-  const [loadFailed, setLoadFailed] = useState(false);
-  useEffect(() => {
-    let active = true;
-    void import('../src/auth-client').then(
-      ({ authClient }) => {
-        // The SDK client is a callable Proxy. React otherwise invokes it as an
-        // updater, producing an unintended request to the bare /api/auth route.
-        if (active) setClient(() => authClient);
-      },
-      () => {
-        if (active) setLoadFailed(true);
-      },
-    );
-    return () => {
-      active = false;
-    };
-  }, []);
+  const { client, loadFailed } = useManagedClient();
   return client ? (
     <ConnectedProfile {...props} client={client} />
   ) : (
@@ -103,7 +85,7 @@ function ProfileContent({
     try {
       const result = await authClient.signIn.social({
         provider: 'google',
-        callbackURL: '/profile',
+        callbackURL: '/onboarding',
         errorCallbackURL: '/profile?authError=1',
       });
       if (result.error)

@@ -149,8 +149,16 @@ export async function verifyActivatedCatalog(client, plan) {
       assert.equal(row.cover?.key, expected.cover.storage_key);
       assert.deepEqual((await http.catalogResource(row.id)).data, row);
     }
-    for (const subject of catalogSubjects)
-      assert.ok((await http.catalogPage({ subject })).data?.items.length);
+    for (const subject of catalogSubjects) {
+      const expected = all.some(
+        (row) =>
+          row.topic === subject || row.secondary_subjects.includes(subject),
+      );
+      assert.equal(
+        Boolean((await http.catalogPage({ subject })).data?.items.length),
+        expected,
+      );
+    }
     for (const kind of catalogKinds)
       assert.ok((await http.catalogPage({ kind })).data?.items.length);
     for (const id of plan.held)

@@ -3,7 +3,9 @@ import type { components } from './api.generated';
 /** The expanded public domain. PreviewResource remains a legacy wire contract. */
 export type CatalogEntry = components['schemas']['CatalogEntry'];
 export type CatalogPage = components['schemas']['CatalogPage'];
-export const catalogSubjects = [
+// Existing persisted preferences retain this order until a separately reviewed
+// database taxonomy migration. Browse filters can safely return empty pages.
+export const establishedSubjects = [
   'Physics',
   'Mathematics',
   'Computing',
@@ -11,6 +13,16 @@ export const catalogSubjects = [
   'Psychology',
   'Philosophy',
   'Sociology',
+] as const;
+export const catalogSubjects = [
+  ...establishedSubjects,
+  'Chemistry',
+  'Art',
+  'Metaphysics',
+  'Politics',
+  'History',
+  'Literature',
+  'Economics',
 ] as const;
 export const catalogKinds = [
   'Chapter',

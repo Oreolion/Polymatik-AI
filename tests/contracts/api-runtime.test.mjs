@@ -118,6 +118,29 @@ test('unconfigured account routes fail closed without accepting forged cookies',
   assert.equal(response.headers.getSetCookie().length, 0);
 });
 
+test('actual workerd protects the new read-only feed before storage access', async () => {
+  /** @type {[string,number][]} */
+  const cases = [
+    ['https://evil.test', 403],
+    ['http://127.0.0.1:8788', 401],
+  ];
+  for (const [origin, status] of cases) {
+    const response = await fetch(`${base}/v2/feed`, {
+      method: 'POST',
+      headers: {
+        origin,
+        authorization: 'Bearer forged-session',
+        'content-type': 'application/json',
+      },
+      body: '{}',
+      signal: AbortSignal.timeout(10000),
+    });
+    assert.equal(response.status, status);
+    assert.equal(response.headers.get('cache-control'), 'no-store');
+    assert.doesNotMatch(await response.text(), /forged-session|postgres/);
+  }
+});
+
 test('actual workerd serves the public preview catalog and validates resource IDs', async () => {
   const list = await fetch(`${base}/v1/resources`, {
     signal: AbortSignal.timeout(10000),
@@ -142,6 +165,21 @@ test('actual workerd validates versioned queries and never substitutes preview d
   const cases = [
     ['/v2/resources', 503],
     ['/v2/resources?subject=Biology&kind=Book&limit=2', 503],
+    ...[
+      'Chemistry',
+      'Art',
+      'Metaphysics',
+      'Politics',
+      'History',
+      'Literature',
+      'Economics',
+    ].map(
+      (subject) =>
+        /** @type {[string,number]} */ ([
+          `/v2/resources?subject=${subject}`,
+          503,
+        ]),
+    ),
     ['/v2/resources/atoms', 503],
     ['/v2/resources?limit=6', 422],
     ['/v2/resources?limit=2&limit=3', 422],

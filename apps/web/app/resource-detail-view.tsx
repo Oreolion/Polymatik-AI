@@ -5,6 +5,20 @@ import type { WebResource } from '../src/catalog';
 import ResourceArt from './resource-art';
 import type { CollectionView } from '../src/resource-navigation';
 
+const readingGuide: Record<WebResource['kind'], string> = {
+  Article:
+    'Read the source in its original context. Pick one claim you want to understand, and follow the evidence or references behind it.',
+  Chapter:
+    'Start with this chapter, then use the surrounding chapters when an idea needs more context. Pause to explain a key idea in your own words.',
+  Book: 'Explore the contents before choosing a chapter. Keep a question in mind as you read, and return to the text to check your interpretation.',
+  Video:
+    'Watch at your own pace. Pause at a useful example and describe what it demonstrates before moving on.',
+  Course:
+    'Review the course outline and prerequisites at the source. Choose a starting lesson and try its exercises when available.',
+  Interactive:
+    'Change one variable at a time. Predict what will happen, then compare the result with your prediction.',
+};
+
 export default function ResourceDetailView({
   resource,
   returnTo,
@@ -43,9 +57,12 @@ export default function ResourceDetailView({
           {resource.source}
           <span>Published by {resource.publisher}</span>
         </p>
+        <p className="detail-summary" aria-label="Resource description">
+          {resource.description}
+        </p>
         <div className="detail-actions">
           <a className="detail-primary" href={resource.url}>
-            Open original <span aria-hidden="true">↗</span>
+            Open source <span aria-hidden="true">↗</span>
           </a>
           <button
             type="button"
@@ -68,10 +85,11 @@ export default function ResourceDetailView({
         >
           <p className="eyebrow">A STARTING POINT</p>
           <h2 id="about-resource">About this resource</h2>
-          <p>{resource.description}</p>
+          <p>{readingGuide[resource.kind]}</p>
           <p className="detail-editorial-note">
-            An introduction from our curated collection. Open the original for
-            the full resource and its context.
+            This is a curated starting point. Open the source for the full work,
+            its references and any access requirements. Your saves record
+            interest, not completion or understanding.
           </p>
         </section>
         <aside

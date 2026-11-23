@@ -1,0 +1,17 @@
+{
+  "description": "Synthetic editorial-order fixture. Relevance labels reflect explicitly selected subjects, not learning outcomes or production user judgments.",
+  "groups": [
+    "Physics",
+    "Mathematics",
+    "Computing",
+    "Biology",
+    "Psychology",
+    "Philosophy",
+    "Sociology"
+  ],
+  "profiles": [
+    { "id": "physics", "subjects": ["Physics"] },
+    { "id": "computing-biology", "subjects": ["Computing", "Biology"] },
+    { "id": "philosophy-sociology", "subjects": ["Philosophy", "Sociology"] }
+  ]
+}

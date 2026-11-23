@@ -4,6 +4,7 @@ import {
   libraryBodyError,
 } from '@polymatik/domain-types/library-request';
 import { interestsInput } from '@polymatik/domain-types/interests';
+import { feedRequestBody } from '@polymatik/domain-types/feed';
 import {
   libraryQuery,
   type LibraryPageInput,
@@ -14,11 +15,12 @@ const headers = {
   'cache-control': 'no-store',
   'x-content-type-options': 'nosniff',
 };
-const failure = (status: number) =>
+const failure = (status: number, feedChanged = false) =>
   Response.json(
     {
-      code:
-        status === 401
+      code: feedChanged
+        ? 'FEED_CHANGED'
+        : status === 401
           ? 'UNAUTHORIZED'
           : status === 409
             ? 'ACCOUNT_CHANGED'
@@ -34,14 +36,17 @@ export async function accountV2Request(
 ) {
   const url = new URL(request.url);
   const interests = url.pathname === '/api/account/v2/interests';
+  const feed = url.pathname === '/api/account/v2/feed';
   const target = libraryTarget(url.pathname, '/api/account/v2/library');
-  if (!interests && target.kind === 'missing') return failure(404);
+  if (!interests && !feed && target.kind === 'missing') return failure(404);
   if (target.kind === 'invalid') return failure(422);
-  const methods = interests
-    ? ['GET', 'PUT', 'DELETE']
-    : target.kind === 'list'
-      ? ['GET']
-      : ['PUT', 'DELETE'];
+  const methods = feed
+    ? ['POST']
+    : interests
+      ? ['GET', 'PUT', 'DELETE']
+      : target.kind === 'list'
+        ? ['GET']
+        : ['PUT', 'DELETE'];
   if (!methods.includes(request.method)) return failure(405);
   const origin = request.headers.get('origin');
   if (
@@ -70,9 +75,13 @@ export async function accountV2Request(
   } catch {
     return failure(422);
   }
-  const parsed = interests
-    ? await interestsInput(request, true)
-    : { error: await libraryBodyError(request) };
+  const feedBody = feed ? await feedRequestBody(request) : undefined;
+  if (feedBody?.error) return failure(feedBody.error);
+  const parsed = feed
+    ? {}
+    : interests
+      ? await interestsInput(request, true)
+      : { error: await libraryBodyError(request) };
   if (parsed.error) return failure(parsed.error);
   try {
     const client = productApiClient({
@@ -85,28 +94,30 @@ export async function accountV2Request(
         return (options.fetch ?? fetch)(url, { ...init, headers: next });
       },
     });
-    const result = interests
-      ? request.method === 'GET'
-        ? await client.interestsV2(undefined, request.signal)
-        : request.method === 'DELETE'
-          ? await client.resetInterestsV2(undefined, request.signal)
-          : 'value' in parsed && parsed.value
-            ? await client.updateInterestsV2(
-                parsed.value,
+    const result = feed
+      ? await client.feed(feedBody?.value ?? {}, undefined, request.signal)
+      : interests
+        ? request.method === 'GET'
+          ? await client.interestsV2(undefined, request.signal)
+          : request.method === 'DELETE'
+            ? await client.resetInterestsV2(undefined, request.signal)
+            : 'value' in parsed && parsed.value
+              ? await client.updateInterestsV2(
+                  parsed.value,
+                  undefined,
+                  request.signal,
+                )
+              : undefined
+        : target.kind === 'list'
+          ? await client.libraryPage(input, undefined, request.signal)
+          : target.kind === 'item'
+            ? await client.changeLibrary(
+                target.id,
+                request.method === 'PUT',
                 undefined,
                 request.signal,
               )
-            : undefined
-      : target.kind === 'list'
-        ? await client.libraryPage(input, undefined, request.signal)
-        : target.kind === 'item'
-          ? await client.changeLibrary(
-              target.id,
-              request.method === 'PUT',
-              undefined,
-              request.signal,
-            )
-          : undefined;
+            : undefined;
     if (!result) return failure(422);
     if (result.error)
       return failure(
@@ -117,8 +128,10 @@ export async function accountV2Request(
             account_changed: 409,
             not_found: 404,
             validation_error: 422,
+            feed_changed: 409,
           } as Record<string, number>
         )[result.error.error.code] ?? 503,
+        result.error.error.code === 'feed_changed',
       );
     return Response.json(result.data, { headers });
   } catch {

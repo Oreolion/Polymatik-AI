@@ -1,5 +1,18 @@
 # Cloudflare Free development-preview checkpoint
 
+## 17 November — run #12 expanded preview accepted
+
+Owner commit `6c977dace8fb7a1fbee6f3c08810b587cadee953` passes both full
+Windows/Ubuntu jobs, isolated preview packaging, deployment and all six v2 smoke
+checks in [run #12](https://github.com/Oreolion/Polymatik-AI/actions/runs/43943775716).
+API version `5c6945b4-95fe-4e26-b44b-7273a3fb6fa8`; web
+`2ad32149-b4f1-4385-94f3-688b487c944d`. Agent browser verifies all 54 resources
+over 11 pages and decodes all 54 covers on the real hosted preview. This accepts
+public expanded delivery and resolves the older unavailable-detail gate below.
+Real signed-in Google/Profile/session and free-plan CPU acceptance remain open.
+The new thumbnail-counter presentation is local only, outside this artifact.
+No repeat import, deployment setup or dependency repair is needed. Docs/24.
+
 ## 16 November — run #10 transport recovery
 
 Run #10 (`b411436a86f59c1fa3fcbb9c5ac27c77876178c7`) passes both complete CI

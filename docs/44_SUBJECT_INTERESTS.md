@@ -6,8 +6,45 @@ That deferral does not accept its unfinished rendered or hosted checks.
 
 ## Behavior and scope
 
-Signed-in Profile offers three subjects from the existing reviewed collection:
-Physics, Mathematics and Computing. Choose one or more and Save, Skip for now,
+**23 November continuation:** M1-04a now consumes these explicit interests in
+the separate For you view. Explore all remains fully browsable. Welcome Save/Skip
+leads to that view; missing content and skipped choices have honest varied
+fallbacks. Profile supports later edits, including after skipping. This supersedes
+the earlier no-ranking statement for the new local checkpoint only. No mastery
+inference or interest-storage changes. Evaluation and browser/delivery limits:
+docs/48 and docs/24.
+
+**22 November expansion:** after owner-verified migration 0004 on the child and
+shared development target, local v2 welcome/Profile now offers fourteen subjects:
+the established seven plus Chemistry, Art, Metaphysics, Politics, History,
+Literature and Economics. One canonical order is shared by browse, account
+validators and OpenAPI. Choose at most three; selected/3 status is announced,
+each subject has a description, and later editing/skip/reset retain existing
+private-account behavior. New subjects may have no reviewed resources yet.
+Legacy v1 retains its original three-value contract. No feed ranking or mastery
+inference changes. Exact application tests/rendered/hosted limits: docs/24.
+
+**17 November verification:** the expanded v2 Profile offers all seven catalog
+subjects, with at most three selected. Browser checks using synthetic accounts
+pass initial selection, skip/reload, return after skipping, save/reload, edit/
+reload, three-choice enforcement and two-account isolation. Desktop/mobile
+screenshots and real built-Worker BFF checks are recorded in docs/24. Existing
+live Neon isolation evidence is separate; a current real Google-to-Profile
+save/edit browser acceptance remains open. No real preferences were changed.
+
+**21 November continuation:** Google success now returns to `/onboarding` for
+optional subject selection. The shared form continues to Discover after confirmed
+Save/Skip; persisted selected/skipped accounts bypass the form. Profile retains
+later editing. Unsigned/error states offer browsing and Profile recovery. This
+does not add granular topics, authors/thinkers/intent or preference-driven ranking.
+At that checkpoint, browse offered fourteen subjects, while saved preferences remained the seven
+established choices until the reviewed database expansion. Scope and exact next
+data ticket: docs/46. Current tests and live-provider limits: docs/24.
+
+Default v1 Profile offers Physics, Mathematics and Computing; expanded v2 offers
+Physics, Mathematics, Computing, Biology, Psychology, Philosophy, Sociology,
+Chemistry, Art, Metaphysics, Politics, History, Literature and Economics.
+Choose one to three and Save, Skip for now,
 or Clear saved choices. The form uses native checkboxes, a selection count,
 visible selection/focus treatment, responsive rows and existing light/dark tokens.
 Browsing is never gated. Loading, retry, unsaved changes, confirmed saves and
@@ -15,8 +52,9 @@ changed-session feedback are explicit. Confirmed actions return focus to the
 section heading; account changes unmount and abort outstanding requests.
 
 Choices are private account data, not browser storage, inferred interests or
-learning evidence. They do not alter the feed yet. Thinkers, works, intent,
-additional subjects, ranking and mastery remain separate tickets. No provider,
+learning evidence. The original UI-07 did not alter ranking; M1-04a reads choices
+for the explicit For you view. Thinkers, works, intent and mastery remain separate
+tickets. No provider,
 dependency, tracking, mobile work or migration of existing saves is introduced.
 
 ## Contract and persistence
@@ -85,12 +123,11 @@ Subject interests verification: save/edit/skip/reset; two-user reads isolated; c
 ## Remaining acceptance and rollback
 
 The owner's pasted output supplies live restricted-login SQL evidence; it does
-not establish the browser flow or deployed Hyperdrive behavior. Verify
-select/save/reload/edit, skip/reset, preservation
-of Library saves, second-account isolation, revoked sessions and failed requests.
-Rendered keyboard, screen-reader, narrow reflow and both appearances remain open;
-no callable computer-use runtime is available in this session. UI-06's deferred
-browser checks and the local Expo color-link test failure remain tracked separately.
+not establish a live signed-in Google/browser flow or deployed Hyperdrive
+behavior. Synthetic browser keyboard, skip/resume/save/edit/reload, two-account
+and narrow reflow checks now pass. Real provider/session acceptance, full
+screen-reader and accessibility review remain open. UI-06's deferred real-account
+browser checks remain tracked separately.
 No production readiness or deployed behavior is claimed.
 
 Owner requests a GitHub push after this milestone. Before the checkpoint, obtain

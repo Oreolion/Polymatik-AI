@@ -189,11 +189,21 @@ select:focus-visible,
 .breadcrumb {
   color: var(--muted);
   display: flex;
+  align-items: center;
   gap: 16px;
 }
-.breadcrumb strong {
+.breadcrumb [aria-current='page'] {
   color: var(--ink);
   font-weight: 500;
+}
+.breadcrumb a {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.breadcrumb a:hover {
+  text-decoration: underline;
 }
 .topbar-note {
   display: flex;
@@ -398,22 +408,6 @@ h1 em {
   gap: 20px;
   padding: 32px 0;
   border-bottom: 1px solid var(--rule);
-}
-.resource-margin {
-  flex: 0 0 24px;
-  color: var(--muted);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  font-size: 11px;
-  padding-top: 3px;
-}
-.margin-line {
-  width: 1px;
-  flex-grow: 1;
-  background: var(--rule);
-  min-height: 32px;
 }
 .resource-body {
   flex: 1;
@@ -917,9 +911,6 @@ h1 em {
     gap: 12px;
     padding: 28px 0;
   }
-  .resource-margin {
-    flex-basis: 20px;
-  }
   .resource h3 {
     font-size: 26px;
   }
@@ -1093,6 +1084,11 @@ h1 em {
   color: var(--muted);
   margin-top: 4px;
 }
+.detail-summary {
+  max-width: 65ch;
+  margin-top: 24px;
+  font: 400 clamp(18px, 2vw, 22px) / 1.6 var(--serif);
+}
 .detail-actions {
   display: flex;
   flex-wrap: wrap;
@@ -1222,6 +1218,34 @@ h1 em {
 }
 .catalog-state .detail-actions {
   justify-content: center;
+}
+.onboarding-page {
+  width: min(860px, 100%);
+  margin: 0 auto;
+  padding: 32px clamp(20px, 5vw, 56px) 64px;
+}
+.onboarding-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 64px;
+}
+.onboarding-brand {
+  font: 600 24px var(--serif);
+  text-decoration: none;
+}
+.onboarding-page .page-intro {
+  padding-top: 0;
+}
+.onboarding-page .subject-interests {
+  margin-top: 32px;
+}
+.onboarding-page .detail-back {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 .profile-page {
   max-width: 1160px;
@@ -1698,6 +1722,77 @@ h1,
   margin-top: 20px;
 }
 
+/* Two deliberate discovery modes, using the same reading surface. */
+.feed-switch {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 28px;
+}
+.feed-switch button {
+  min-height: 48px;
+  padding: 12px 22px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  cursor: pointer;
+}
+.feed-switch button[aria-pressed='true'] {
+  border-bottom-color: var(--accent);
+  color: var(--ink);
+  font-weight: 600;
+}
+.feed-switch button:focus-visible,
+.selection-refresh:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.selection-intro {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.selection-intro h3 {
+  font: 400 28px/1.25 var(--serif);
+  margin: 0;
+}
+.selection-intro a {
+  color: var(--accent);
+  padding: 12px 0;
+  min-height: 44px;
+  text-underline-offset: 4px;
+}
+.selection-context {
+  color: var(--muted);
+  max-width: 60ch;
+  line-height: 1.65;
+  margin: 12px 0 24px;
+}
+.resource-reason {
+  color: var(--accent);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 4px 0 12px;
+}
+.selection-refresh {
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: 3px;
+  min-height: 44px;
+  padding: 10px 16px;
+  font: inherit;
+  cursor: pointer;
+}
+.selection-refresh:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
 /* Catalog pages retain the editorial rhythm without implying a total count. */
 .catalog-pagination {
   display: flex;
@@ -1753,10 +1848,18 @@ h1,
 .resource-art-fallback {
   display: block;
   width: 100%;
-  height: auto;
-  aspect-ratio: 3 / 2;
-  object-fit: contain;
+  height: 100%;
   background: var(--surface);
+}
+.resource-art-window {
+  /* Hide the initial artwork's fixed catalog-counter footer, at every size. */
+  aspect-ratio: 12 / 7;
+  overflow: hidden;
+  background: var(--surface);
+}
+.resource-art img {
+  object-fit: cover;
+  object-position: center top;
 }
 .resource-art-fallback {
   display: grid;

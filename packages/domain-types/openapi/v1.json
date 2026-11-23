@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Polymatik Product API",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "description": "Product API with reviewed catalog, private account Library and optional private subject interests. Managed sessions are revalidated. PostgreSQL uses Hyperdrive and row-level security. Interests do not change ranking or represent mastery. Versioned /v2/resources supports bounded catalog discovery; legacy v1 and account contracts remain unchanged. Expanded /v2/library and /v2/interests preserve legacy v1 account wire shapes."
   },
   "servers": [
@@ -1271,7 +1271,14 @@
                 "Biology",
                 "Psychology",
                 "Philosophy",
-                "Sociology"
+                "Sociology",
+                "Chemistry",
+                "Art",
+                "Metaphysics",
+                "Politics",
+                "History",
+                "Literature",
+                "Economics"
               ]
             },
             "description": "Matches primary OR secondary subject."
@@ -1937,7 +1944,7 @@
       "get": {
         "operationId": "getInterestsV2",
         "summary": "Read current private subject choices (expanded catalog)",
-        "description": "Optional private choices from seven subjects, at most three selected. Managed identity and exact origin are rechecked. No ranking or mastery inference.",
+        "description": "Optional private choices from fourteen subjects, at most three selected. Managed identity and exact origin are rechecked. No ranking or mastery inference.",
         "security": [{ "managedSession": [] }],
         "parameters": [
           {
@@ -2055,7 +2062,7 @@
       "put": {
         "operationId": "updateInterestsV2",
         "summary": "Replace current subject choices or explicitly skip (expanded catalog)",
-        "description": "Optional private choices from seven subjects, at most three selected. Managed identity and exact origin are rechecked. No ranking or mastery inference.",
+        "description": "Optional private choices from fourteen subjects, at most three selected. Managed identity and exact origin are rechecked. No ranking or mastery inference.",
         "security": [{ "managedSession": [] }],
         "parameters": [
           {
@@ -2181,7 +2188,7 @@
       "delete": {
         "operationId": "resetInterestsV2",
         "summary": "Clear current subject choices without changing saved resources (expanded catalog)",
-        "description": "Optional private choices from seven subjects, at most three selected. Managed identity and exact origin are rechecked. No ranking or mastery inference.",
+        "description": "Optional private choices from fourteen subjects, at most three selected. Managed identity and exact origin are rechecked. No ranking or mastery inference.",
         "security": [{ "managedSession": [] }],
         "parameters": [
           {
@@ -2292,6 +2299,134 @@
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ApiError" }
               }
+            }
+          }
+        }
+      }
+    },
+    "/v2/feed": {
+      "post": {
+        "operationId": "readFeedV2",
+        "summary": "Read a private subject-aware discovery page",
+        "description": "Read-only POST keeps session exclusions out of URLs. Managed identity, exact origin and interests:read are rechecked. Up to 100 reviewed candidates; deterministic relevance/diversity. Changed account, preferences, filters or candidates invalidate continuation with 409 feed_changed. No database writes or AI calls.",
+        "security": [{ "managedSession": [] }],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Polymatik-Account",
+            "required": false,
+            "description": "Optional precondition matched against the independently verified account; never selects identity.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A private bounded discovery selection with transparent reasons.",
+            "headers": {
+              "Cache-Control": {
+                "schema": { "type": "string", "const": "no-store" }
+              },
+              "X-Request-Id": {
+                "schema": { "type": "string", "format": "uuid" }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/FeedPage" }
+              }
+            }
+          },
+          "401": {
+            "description": "Verified identity required.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin or scope denied.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource or route not found.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "405": {
+            "description": "Only POST is supported.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "408": {
+            "description": "Request body deadline exceeded.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "409": {
+            "description": "Feed selection changed; refresh, or authenticated account precondition failed.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "413": {
+            "description": "Feed JSON exceeds 8192 bytes.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "415": {
+            "description": "POST requires application/json.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid query, body, subject or selection status.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "503": {
+            "description": "Identity or persistence unavailable; no fallback.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/FeedRequest" }
             }
           }
         }
@@ -2583,7 +2718,14 @@
               "Biology",
               "Psychology",
               "Philosophy",
-              "Sociology"
+              "Sociology",
+              "Chemistry",
+              "Art",
+              "Metaphysics",
+              "Politics",
+              "History",
+              "Literature",
+              "Economics"
             ]
           },
           "url": {
@@ -2618,7 +2760,14 @@
                 "Biology",
                 "Psychology",
                 "Philosophy",
-                "Sociology"
+                "Sociology",
+                "Chemistry",
+                "Art",
+                "Metaphysics",
+                "Politics",
+                "History",
+                "Literature",
+                "Economics"
               ]
             },
             "description": "Canonical subject order; excludes the primary topic."
@@ -2677,7 +2826,14 @@
                     "Biology",
                     "Psychology",
                     "Philosophy",
-                    "Sociology"
+                    "Sociology",
+                    "Chemistry",
+                    "Art",
+                    "Metaphysics",
+                    "Politics",
+                    "History",
+                    "Literature",
+                    "Economics"
                   ]
                 }
               }
@@ -2703,7 +2859,14 @@
                     "Biology",
                     "Psychology",
                     "Philosophy",
-                    "Sociology"
+                    "Sociology",
+                    "Chemistry",
+                    "Art",
+                    "Metaphysics",
+                    "Politics",
+                    "History",
+                    "Literature",
+                    "Economics"
                   ]
                 }
               }
@@ -2727,7 +2890,14 @@
                     "Biology",
                     "Psychology",
                     "Philosophy",
-                    "Sociology"
+                    "Sociology",
+                    "Chemistry",
+                    "Art",
+                    "Metaphysics",
+                    "Politics",
+                    "History",
+                    "Literature",
+                    "Economics"
                   ]
                 }
               }
@@ -2757,7 +2927,14 @@
                     "Biology",
                     "Psychology",
                     "Philosophy",
-                    "Sociology"
+                    "Sociology",
+                    "Chemistry",
+                    "Art",
+                    "Metaphysics",
+                    "Politics",
+                    "History",
+                    "Literature",
+                    "Economics"
                   ]
                 }
               }
@@ -2781,7 +2958,14 @@
                     "Biology",
                     "Psychology",
                     "Philosophy",
-                    "Sociology"
+                    "Sociology",
+                    "Chemistry",
+                    "Art",
+                    "Metaphysics",
+                    "Politics",
+                    "History",
+                    "Literature",
+                    "Economics"
                   ]
                 }
               }
@@ -2844,6 +3028,124 @@
           "saved": { "type": "boolean" }
         },
         "description": "Idempotent mutation acknowledgement; refresh paginated reads separately. PUT resolves public aliases to canonical IDs."
+      },
+      "FeedRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "cursor": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "Account/filter/catalog/preference-bound continuation; freshness only, never authorization."
+          },
+          "subject": {
+            "type": "string",
+            "enum": [
+              "Physics",
+              "Mathematics",
+              "Computing",
+              "Biology",
+              "Psychology",
+              "Philosophy",
+              "Sociology",
+              "Chemistry",
+              "Art",
+              "Metaphysics",
+              "Politics",
+              "History",
+              "Literature",
+              "Economics"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "Chapter",
+              "Interactive",
+              "Article",
+              "Course",
+              "Video",
+              "Book"
+            ]
+          },
+          "q": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "excluded": {
+            "type": "array",
+            "maxItems": 100,
+            "uniqueItems": true,
+            "items": { "type": "string", "pattern": "^[a-z][a-z0-9-]{0,47}$" },
+            "description": "Explicit resource exclusions for this browsing session; not persisted or inferred."
+          }
+        }
+      },
+      "FeedItem": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["resource", "reason"],
+        "properties": {
+          "resource": { "$ref": "#/components/schemas/CatalogEntry" },
+          "reason": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["kind", "subject"],
+                "properties": {
+                  "kind": { "const": "interest" },
+                  "subject": {
+                    "type": "string",
+                    "enum": [
+                      "Physics",
+                      "Mathematics",
+                      "Computing",
+                      "Biology",
+                      "Psychology",
+                      "Philosophy",
+                      "Sociology",
+                      "Chemistry",
+                      "Art",
+                      "Metaphysics",
+                      "Politics",
+                      "History",
+                      "Literature",
+                      "Economics"
+                    ]
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["kind", "subject"],
+                "properties": {
+                  "kind": { "const": "explore" },
+                  "subject": { "type": "null" }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "FeedPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["items", "next_cursor", "basis", "limited"],
+        "properties": {
+          "items": {
+            "type": "array",
+            "maxItems": 5,
+            "items": { "$ref": "#/components/schemas/FeedItem" }
+          },
+          "next_cursor": { "type": ["string", "null"], "maxLength": 256 },
+          "basis": {
+            "type": "string",
+            "enum": ["interests", "cold_start", "no_matches"]
+          },
+          "limited": {
+            "type": "boolean",
+            "description": "True if the reviewed candidate selection is bounded; Explore all remains the complete catalog."
+          }
+        }
       }
     },
     "responses": {

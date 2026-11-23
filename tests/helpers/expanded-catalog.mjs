@@ -1,7 +1,7 @@
 import { createServer } from 'node:http';
 import { createApi } from '../../apps/api/src/index.ts';
 import {
-  catalogSubjects,
+  establishedSubjects,
   catalogKinds,
   encodeCatalogCursor,
 } from '../../packages/domain-types/src/catalog-v2.ts';
@@ -16,7 +16,7 @@ export async function startExpandedCatalog() {
     source: 'Local acceptance fixture',
     publisher: 'Test publisher',
     kind: catalogKinds[index % catalogKinds.length] ?? 'Article',
-    topic: catalogSubjects[index % catalogSubjects.length] ?? 'Physics',
+    topic: establishedSubjects[index % establishedSubjects.length] ?? 'Physics',
     url: `https://example.org/fixture-${index}`,
     description: `Synthetic source metadata for resource ${index}.`,
     note: 'Not a published catalog resource',

@@ -19,6 +19,66 @@ import {
   copyLibraryBatch,
 } from '../../apps/web/src/account-library-v2.ts';
 import { accountInterests } from '../../apps/web/src/account-interests.ts';
+import { catalogSubjects } from '../../packages/domain-types/src/catalog-v2.ts';
+import { readFile } from 'node:fs/promises';
+
+test('fourteen saved subjects agree with OpenAPI while legacy choices and the three-choice cap remain strict', async () => {
+  const schema = JSON.parse(
+    await readFile(
+      new URL('../../packages/domain-types/openapi/v1.json', import.meta.url),
+      'utf8',
+    ),
+  );
+  const expected = [
+    'Physics',
+    'Mathematics',
+    'Computing',
+    'Biology',
+    'Psychology',
+    'Philosophy',
+    'Sociology',
+    'Chemistry',
+    'Art',
+    'Metaphysics',
+    'Politics',
+    'History',
+    'Literature',
+    'Economics',
+  ];
+  assert.deepEqual(catalogSubjects, expected);
+  for (const subject of expected) {
+    const choice = { status: 'selected', subjects: [subject] };
+    assert.deepEqual(interestUpdateV2(choice), choice);
+    assert.equal(isInterestsV2(choice), true);
+  }
+  for (const name of ['InterestsV2', 'InterestUpdateV2']) {
+    const variants = schema.components.schemas[name].oneOf;
+    for (const variant of variants) {
+      if (variant.properties.status.const === 'selected')
+        assert.deepEqual(variant.properties.subjects.items.enum, expected);
+    }
+  }
+  assert.deepEqual(
+    interestUpdateV2({
+      status: 'selected',
+      subjects: ['Economics', 'Art', 'Chemistry'],
+    }),
+    { status: 'selected', subjects: ['Chemistry', 'Art', 'Economics'] },
+  );
+  for (const subjects of [
+    ['Chemistry', 'Art', 'Politics', 'History'],
+    ['Art', 'Art'],
+    ['chemistry'],
+    ['Unknown'],
+    [null],
+    [],
+  ])
+    assert.equal(interestUpdateV2({ status: 'selected', subjects }), null);
+  assert.equal(
+    interestUpdate({ status: 'selected', subjects: ['Chemistry'] }),
+    null,
+  );
+});
 
 const resource = { ...resources[0], secondary_subjects: [], cover: null };
 test('expanded account contracts keep a three-choice cap, exact pages and microsecond cursor positions', () => {
@@ -258,6 +318,13 @@ test('expanded interests preserve selected/skip/reset, cap three choices and rec
       },
     );
   const options = { fetch: transport, expanded: true, accountId: 'alice' };
+  for (const subject of catalogSubjects) {
+    /** @type {import('../../packages/domain-types/src/account-v2.ts').InterestUpdateV2} */
+    const choice = { status: 'selected', subjects: [subject] };
+    assert.deepEqual(await accountInterests('PUT', choice, options), choice);
+    assert.deepEqual(await accountInterests('GET', undefined, options), choice);
+    assert.equal(f.interests.has('bob'), false);
+  }
   const selected = await accountInterests(
     'PUT',
     { status: 'selected', subjects: ['Sociology', 'Biology', 'Physics'] },

@@ -22,23 +22,25 @@ export default function ResourceArt({
   if (!cover) return null;
   return (
     <figure className={`resource-art ${detail ? 'resource-art-detail' : ''}`}>
-      {failed === source ? (
-        <div className="resource-art-fallback">
-          <span>{resource.topic}</span>
-          <p>Illustration unavailable</p>
-        </div>
-      ) : (
-        <img
-          ref={image}
-          src={source}
-          alt={cover.alt}
-          width={cover.width}
-          height={cover.height}
-          loading={detail ? 'eager' : 'lazy'}
-          decoding="async"
-          onError={() => setFailed(source)}
-        />
-      )}
+      <div className="resource-art-window">
+        {failed === source ? (
+          <div className="resource-art-fallback">
+            <span>{resource.topic}</span>
+            <p>Illustration unavailable</p>
+          </div>
+        ) : (
+          <img
+            ref={image}
+            src={source}
+            alt={cover.alt}
+            width={cover.width}
+            height={cover.height}
+            loading={detail ? 'eager' : 'lazy'}
+            decoding="async"
+            onError={() => setFailed(source)}
+          />
+        )}
+      </div>
       {detail && (
         <figcaption>
           Editorial concept illustration · {resource.topic}

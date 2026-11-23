@@ -1,5 +1,15 @@
 # Curated catalog integration — staging, schema and versioned API
 
+## 17 November — hosted expanded delivery accepted
+
+Owner commit `6c977da` passes CI #12 and all six v2 smoke checks. Browser checks
+on the actual hosted web traverse 11 pages/54 resources and decode all 54 covers,
+with seven subjects/six formats. Exact commit/API/web versions and evidence are
+in docs/24 and docs/42. The activation commands below are historical operator
+reference; do not rerun the accepted import or preview preparation. Private
+Google/Profile browser acceptance remains separate. The current counter-removal
+presentation change is local and is not part of that deployed artifact.
+
 ## 16 November — authorized development import and activation
 
 The owner requested import and activation of the expanded collection. On

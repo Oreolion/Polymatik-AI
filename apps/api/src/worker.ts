@@ -1,7 +1,7 @@
 import { createApi } from './index';
 import { createManagedSessionVerifier } from './managed-session';
 import { workerCatalog, workerCatalogQuery } from './catalog';
-import { postgresCatalogV2 } from './catalog-v2';
+import { postgresCatalogV2, postgresFeedCandidates } from './catalog-v2';
 import { workerLibrary } from './library';
 import { workerLibraryV2 } from './library-v2';
 import { workerInterests } from './interests';
@@ -43,6 +43,9 @@ export default {
       ...(interests ? { interests } : {}),
       ...(libraryV2 ? { libraryV2 } : {}),
       ...(interestsV2 ? { interestsV2 } : {}),
+      ...(catalogV2Query
+        ? { feedCandidates: postgresFeedCandidates(catalogV2Query) }
+        : {}),
     }).fetch(request);
   },
 } satisfies ExportedHandler<Env>;

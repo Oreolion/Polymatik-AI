@@ -6,6 +6,7 @@ const files = Object.freeze([
   ['0001', '0001_product_catalog.sql'],
   ['0002', '0002_subject_interests.sql'],
   ['0003', '0003_catalog_expansion.sql'],
+  ['0004', '0004_subject_taxonomy.sql'],
 ]);
 
 export class ProductMigrationError extends Error {

@@ -161,7 +161,12 @@ test('expanded interests preserve existing SQL operations and legacy readers fai
       return {
         rows:
           sql.includes('SELECT p.status') || sql.includes('RETURNING status')
-            ? [{ status: 'selected', subjects: ['Biology', 'Sociology'] }]
+            ? [
+                {
+                  status: 'selected',
+                  subjects: ['Chemistry', 'Art', 'Economics'],
+                },
+              ]
             : [],
       };
     },
@@ -171,9 +176,9 @@ test('expanded interests preserve existing SQL operations and legacy readers fai
   assert.deepEqual(
     await expanded.write('alice', {
       status: 'selected',
-      subjects: ['Sociology', 'Biology'],
+      subjects: ['Economics', 'Art', 'Chemistry'],
     }),
-    { status: 'selected', subjects: ['Biology', 'Sociology'] },
+    { status: 'selected', subjects: ['Chemistry', 'Art', 'Economics'] },
   );
   assert.ok(
     calls.some(
@@ -184,7 +189,7 @@ test('expanded interests preserve existing SQL operations and legacy readers fai
     calls.some(
       (call) =>
         Array.isArray(call.values[2]) &&
-        call.values[2].join(',') === 'Biology,Sociology',
+        call.values[2].join(',') === 'Chemistry,Art,Economics',
     ),
   );
   await assert.rejects(

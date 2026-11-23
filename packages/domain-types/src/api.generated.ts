@@ -1,5 +1,5 @@
 // Generated from openapi/v1.json by openapi-typescript. Do not edit.
-// Schema SHA-256: 0f637f26683e9397a9d012e4d14c8c37e4a0c7ef8685b4fe357245eca8bf9d58
+// Schema SHA-256: 5f0087f969ed94466613b558acf995250c393149d724a19758951a76f40f7c5c
 export interface paths {
   '/v1/health': {
     parameters: {
@@ -239,20 +239,40 @@ export interface paths {
     };
     /**
      * Read current private subject choices (expanded catalog)
-     * @description Optional private choices from seven subjects, at most three selected. Managed identity and exact origin are rechecked. No ranking or mastery inference.
+     * @description Optional private choices from fourteen subjects, at most three selected. Managed identity and exact origin are rechecked. No ranking or mastery inference.
      */
     get: operations['getInterestsV2'];
     /**
      * Replace current subject choices or explicitly skip (expanded catalog)
-     * @description Optional private choices from seven subjects, at most three selected. Managed identity and exact origin are rechecked. No ranking or mastery inference.
+     * @description Optional private choices from fourteen subjects, at most three selected. Managed identity and exact origin are rechecked. No ranking or mastery inference.
      */
     put: operations['updateInterestsV2'];
     post?: never;
     /**
      * Clear current subject choices without changing saved resources (expanded catalog)
-     * @description Optional private choices from seven subjects, at most three selected. Managed identity and exact origin are rechecked. No ranking or mastery inference.
+     * @description Optional private choices from fourteen subjects, at most three selected. Managed identity and exact origin are rechecked. No ranking or mastery inference.
      */
     delete: operations['resetInterestsV2'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/v2/feed': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Read a private subject-aware discovery page
+     * @description Read-only POST keeps session exclusions out of URLs. Managed identity, exact origin and interests:read are rechecked. Up to 100 reviewed candidates; deterministic relevance/diversity. Changed account, preferences, filters or candidates invalidate continuation with 409 feed_changed. No database writes or AI calls.
+     */
+    post: operations['readFeedV2'];
+    delete?: never;
     options?: never;
     head?: never;
     patch?: never;
@@ -355,7 +375,14 @@ export interface components {
         | 'Biology'
         | 'Psychology'
         | 'Philosophy'
-        | 'Sociology';
+        | 'Sociology'
+        | 'Chemistry'
+        | 'Art'
+        | 'Metaphysics'
+        | 'Politics'
+        | 'History'
+        | 'Literature'
+        | 'Economics';
       /**
        * Format: uri
        * @description Canonical ASCII HTTPS source URL, with no credentials; publication review is separate from transport validation.
@@ -372,6 +399,13 @@ export interface components {
         | 'Psychology'
         | 'Philosophy'
         | 'Sociology'
+        | 'Chemistry'
+        | 'Art'
+        | 'Metaphysics'
+        | 'Politics'
+        | 'History'
+        | 'Literature'
+        | 'Economics'
       )[];
       cover: components['schemas']['CatalogCover'] | null;
     };
@@ -392,6 +426,13 @@ export interface components {
             | 'Psychology'
             | 'Philosophy'
             | 'Sociology'
+            | 'Chemistry'
+            | 'Art'
+            | 'Metaphysics'
+            | 'Politics'
+            | 'History'
+            | 'Literature'
+            | 'Economics'
           )[];
         }
       | {
@@ -405,6 +446,13 @@ export interface components {
             | 'Psychology'
             | 'Philosophy'
             | 'Sociology'
+            | 'Chemistry'
+            | 'Art'
+            | 'Metaphysics'
+            | 'Politics'
+            | 'History'
+            | 'Literature'
+            | 'Economics'
           )[];
         }
       | {
@@ -418,6 +466,13 @@ export interface components {
             | 'Psychology'
             | 'Philosophy'
             | 'Sociology'
+            | 'Chemistry'
+            | 'Art'
+            | 'Metaphysics'
+            | 'Politics'
+            | 'History'
+            | 'Literature'
+            | 'Economics'
           )[];
         };
     InterestUpdateV2:
@@ -432,6 +487,13 @@ export interface components {
             | 'Psychology'
             | 'Philosophy'
             | 'Sociology'
+            | 'Chemistry'
+            | 'Art'
+            | 'Metaphysics'
+            | 'Politics'
+            | 'History'
+            | 'Literature'
+            | 'Economics'
           )[];
         }
       | {
@@ -445,6 +507,13 @@ export interface components {
             | 'Psychology'
             | 'Philosophy'
             | 'Sociology'
+            | 'Chemistry'
+            | 'Art'
+            | 'Metaphysics'
+            | 'Politics'
+            | 'History'
+            | 'Literature'
+            | 'Economics'
           )[];
         };
     /** @description Only the verified account owns this save. Null metadata retains an unavailable saved identity without exposing unpublished content. */
@@ -461,6 +530,74 @@ export interface components {
     AccountLibraryChange: {
       id: string;
       saved: boolean;
+    };
+    FeedRequest: {
+      /** @description Account/filter/catalog/preference-bound continuation; freshness only, never authorization. */
+      cursor?: string;
+      /** @enum {string} */
+      subject?:
+        | 'Physics'
+        | 'Mathematics'
+        | 'Computing'
+        | 'Biology'
+        | 'Psychology'
+        | 'Philosophy'
+        | 'Sociology'
+        | 'Chemistry'
+        | 'Art'
+        | 'Metaphysics'
+        | 'Politics'
+        | 'History'
+        | 'Literature'
+        | 'Economics';
+      /** @enum {string} */
+      kind?:
+        | 'Chapter'
+        | 'Interactive'
+        | 'Article'
+        | 'Course'
+        | 'Video'
+        | 'Book';
+      q?: string;
+      /** @description Explicit resource exclusions for this browsing session; not persisted or inferred. */
+      excluded?: string[];
+    };
+    FeedItem: {
+      resource: components['schemas']['CatalogEntry'];
+      reason:
+        | {
+            /** @constant */
+            kind: 'interest';
+            /** @enum {string} */
+            subject:
+              | 'Physics'
+              | 'Mathematics'
+              | 'Computing'
+              | 'Biology'
+              | 'Psychology'
+              | 'Philosophy'
+              | 'Sociology'
+              | 'Chemistry'
+              | 'Art'
+              | 'Metaphysics'
+              | 'Politics'
+              | 'History'
+              | 'Literature'
+              | 'Economics';
+          }
+        | {
+            /** @constant */
+            kind: 'explore';
+            subject: null;
+          };
+    };
+    FeedPage: {
+      items: components['schemas']['FeedItem'][];
+      next_cursor: string | null;
+      /** @enum {string} */
+      basis: 'interests' | 'cold_start' | 'no_matches';
+      /** @description True if the reviewed candidate selection is bounded; Explore all remains the complete catalog. */
+      limited: boolean;
     };
   };
   responses: {
@@ -1612,7 +1749,14 @@ export interface operations {
           | 'Biology'
           | 'Psychology'
           | 'Philosophy'
-          | 'Sociology';
+          | 'Sociology'
+          | 'Chemistry'
+          | 'Art'
+          | 'Metaphysics'
+          | 'Politics'
+          | 'History'
+          | 'Literature'
+          | 'Economics';
         /** @description Exact resource format. */
         kind?:
           | 'Chapter'
@@ -2496,6 +2640,125 @@ export interface operations {
         };
       };
       /** @description PUT requires application/json. */
+      415: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Invalid query, body, subject or selection status. */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Identity or persistence unavailable; no fallback. */
+      503: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+    };
+  };
+  readFeedV2: {
+    parameters: {
+      query?: never;
+      header?: {
+        /** @description Optional precondition matched against the independently verified account; never selects identity. */
+        'X-Polymatik-Account'?: string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['FeedRequest'];
+      };
+    };
+    responses: {
+      /** @description A private bounded discovery selection with transparent reasons. */
+      200: {
+        headers: {
+          'Cache-Control'?: 'no-store';
+          'X-Request-Id'?: string;
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['FeedPage'];
+        };
+      };
+      /** @description Verified identity required. */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Origin or scope denied. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Resource or route not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Only POST is supported. */
+      405: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Request body deadline exceeded. */
+      408: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Feed selection changed; refresh, or authenticated account precondition failed. */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Feed JSON exceeds 8192 bytes. */
+      413: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description POST requires application/json. */
       415: {
         headers: {
           [name: string]: unknown;

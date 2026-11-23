@@ -6,6 +6,7 @@ import {
   type CatalogQuery,
 } from '@polymatik/domain-types/catalog-v2';
 import type { CatalogQuery as SqlQuery } from './catalog';
+import { FEED_POOL_LIMIT } from '@polymatik/domain-types/feed';
 
 export type CatalogV2Repository = {
   page(query: CatalogQuery): Promise<CatalogPage>;
@@ -26,6 +27,25 @@ const tupleAfter = (
   id: string,
   prior: { sort_order: number; id: string },
 ) => order > prior.sort_order || (order === prior.sort_order && id > prior.id);
+
+/** Internal bounded selection; public catalog pagination remains capped at five. */
+export function postgresFeedCandidates(query: SqlQuery) {
+  const catalog = postgresCatalogV2(query);
+  return async (input: {
+    subject?: CatalogQuery['subject'];
+    kind?: CatalogQuery['kind'];
+    q?: string;
+  }) => {
+    const page = await catalog.page({
+      limit: FEED_POOL_LIMIT,
+      after: null,
+      subject: input.subject ?? null,
+      kind: input.kind ?? null,
+      q: input.q ?? null,
+    });
+    return { items: page.items, limited: page.next_cursor !== null };
+  };
+}
 
 export function postgresCatalogV2(query: SqlQuery): CatalogV2Repository {
   return {

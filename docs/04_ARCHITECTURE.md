@@ -2,6 +2,18 @@
 
 ## Architecture style
 
+**Subject taxonomy rollout, 22 November:** keep the canonical v2 browse and
+account subject order shared, but expand writable API/UI contracts only after
+the additive PostgreSQL constraint migration passes on an isolated child and
+the fixed shared-development target. Owner verification of 0004 now covers both;
+data/private protections and the three-choice cap are preserved. Migration SQL
+and applied checksums remain immutable. Legacy v1 readers fail closed on
+unrepresentable choices instead of silently truncating preferences. A selectable
+interest does not imply available reviewed content or changed ranking. Explicit
+operator tooling reports only fixed CLI phases and truthful commit state; raw
+connection-string output stays private. No startup/deploy DDL, new grants or
+provider changes. Exact acceptance and the unproven transient CLI cause: docs/47.
+
 **Appearance, 16 November 2026:** browser-local explicit light/dark preference
 is applied by a small synchronous head script before body content/hydration;
 system appearance remains CSS-driven when storage is unavailable or unset.
@@ -284,6 +296,21 @@ Sources: [Neon SQL-created roles](https://neon.com/docs/manage/roles),
 [PostgreSQL RLS bypass](https://www.postgresql.org/docs/current/ddl-rowsecurity.html).
 
 ## Link to source docs
+
+### Subject-aware discovery — 23 November 2026
+
+M1-04a derives a deterministic selection from reviewed catalog metadata and
+RLS-protected interests. Read-only POST /v2/feed and its same-origin BFF retain
+managed verification, exact origins, account preconditions and no-store. At most
+100 candidates and five results per page bound work; no per-scroll AI, new
+service or migration. A per-session HMAC binds continuation to current account,
+interests, filters, policy and catalog. It is freshness, never authorization;
+every page rechecks identity. No credential or preference is encoded in cursors.
+Account-keyed client state aborts on unmount; per-visit exclusions are explicit,
+not cross-device history. Explore all remains complete. Persisted batches and
+dismissals require a separate reviewed schema ticket. Policy/evaluation: docs/48;
+actual evidence and delivery limits: docs/24.
+
 - Cloudflare Next.js: https://developers.cloudflare.com/workers/framework-guides/web-apps/nextjs/
 - Cloudflare Queues guarantees: https://developers.cloudflare.com/queues/reference/delivery-guarantees/
 - Cloudflare Hyperdrive: https://developers.cloudflare.com/hyperdrive/get-started/

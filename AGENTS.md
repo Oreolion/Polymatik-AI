@@ -45,7 +45,62 @@ evidence path. Update the checkpoint below only when its status, blocker or
 next action materially changes. Run checks appropriate to actual changes;
 ordinary questions require neither a full suite nor a checkpoint rewrite.
 
-## Current checkpoint — 14 November 2026
+## Current checkpoint — 23 November 2026
+- **M1-04a:** owner authorizes personalized Discover, standard README and master
+  push. For you uses verified explicit interests, bounded deterministic ranking,
+  reasons, session-bound HMAC freshness, pagination and per-visit exclusions.
+  Explore all stays complete. No migration/provider/model call or persisted
+  batch/dismissal table. Root 265/265, affected types/generation/lint/format and
+  web build, API workerd 7/7 and built web 18/18 pass. API packaging is blocked
+  by sandbox ancestor-directory ACLs. Browser/delivery gates remain in docs/24.
+  Cached Chromium crashes; matching download is
+  sandbox network-denied. Git metadata remains read-only; no alternate-repository
+  or remote-write bypass. Preserve owner's docs/prompt.md.
+- **Shared taxonomy and app rollout accepted locally:** owner 0004 apply on
+  dev-auth-working passes checksum/data/protection/child preservation, fourteen
+  round trips, cap/skip/reset/Library and private isolation with fixtures rolled
+  back. No repeat SQL. Local v2 account OpenAPI/validators and shared welcome/
+  Profile form now use fourteen canonical choices; v1 remains strict. Agent
+  full suite 257/257, API Miniflare 6/6, built web 18/18, affected types, OpenAPI
+  generation, lint/format and build pass. New rendered review remains open:
+  cached Firefox protocol mismatch and Chromium Session closed prevent browser
+  startup; no new screenshot. Owner local save/edit/reload/skip/theme check,
+  checkpoint push and exact hosted acceptance are next. Git metadata read-only;
+  preserve prompt edit. No agent SQL, dependency install, push or deployment.
+  Exact evidence/limits: docs/24, 44 and 47. Earlier pending gates below are
+  historical where superseded by this result; transient CLI root cause unproven.
+- **Shared taxonomy CLI blocker:** owner apply reports NEON_CLI_FAILED; root
+  cause/shared SQL state unverified. Runner now reports fixed CLI phase and
+  commit state even on initial inventory failure; secret-free failure tests
+  pass 26/26. Next is owner read-only branches list (docs/47), not a repeated
+  migration or speculative permissions change. Child rehearsal remains accepted.
+- **Taxonomy child accepted:** owner reports 0004 applied on br-muddy-bar-zayn69jl;
+  fourteen-value, cap, skip/reset, Library and private isolation probes pass with
+  fixtures rolled back and shared development unchanged. No repeat rehearsal.
+  Explicit `--apply-development` now requires that matching child ledger and
+  targets only dev-auth-working, preserving data/protections and child snapshots.
+  Root suite 255/255, types/lint/format pass. Shared SQL has not run; owner command
+  and risks: docs/47. Keep saved choices seven until shared success, then expand
+  API/OpenAPI/welcome/Profile together. No config, import, publication or deploy.
+- **Latest owner scope:** optional first-sign-in subject welcome, meaningful resource
+  details/clickable breadcrumbs/Open source, and broader disciplines. Local
+  `/onboarding` reuses Profile choices with confirmed Save/Skip and returning-user
+  bypass. Browse/API taxonomy is fourteen; persisted preferences remain seven until
+  shared-development 0004 and matching contracts. Child migration is accepted;
+  no shared migration, publication, provider or production change.
+  Owner emphasizes durable specialized research/learning workflows beyond chat.
+  Exact local checks, screenshots and next dependency: docs/24 and docs/46.
+  Preserve existing uncommitted presentation work and owner's docs/prompt.md edit.
+- **17 November — counter presentation and preferences:** owner commit 6c977da
+  passes CI #12 and hosted v2 smoke; browser verifies 54 resources/covers over
+  11 pages, seven subjects/six formats. New local changes remove resource ordinal
+  gutters and clip the fixed-count art footer with a shared 12:7 viewport; source
+  hashes/DB untouched. Unit 14/14, built Miniflare web 18/18, types/lint/build pass.
+  Synthetic browser checks confirm Profile skip/resume/save/edit/reload, three-
+  choice cap and two-account isolation. A guided first-run wizard, granular topics
+  and preference ranking are not implemented. Real Google-to-Profile acceptance
+  remains open. Next narrow ticket: initial optional subject journey. Docs/24/44.
+  Git metadata read-only; preserve owner's prompt edit. No new SQL/provider/deploy.
 - **Owner priority:** web/backend first; mobile parked. Current ticket: UI-07 /
   M1-02a optional account subject onboarding (docs/44). Owner explicitly defers
   UI-06 browser review and authorizes the next slice; that review stays open.

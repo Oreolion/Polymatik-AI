@@ -17,6 +17,14 @@ import type { LibraryRepository } from './library';
 import type { InterestsRepository, InterestsV2Repository } from './interests';
 import type { LibraryV2Repository } from './library-v2';
 import {
+  feedRequestBody,
+  isFeedPage,
+  type FeedPage,
+  type FeedRequest,
+} from '@polymatik/domain-types/feed';
+import { feedPage, FeedChangedError } from './feed.ts';
+import { managedSessionCookie } from '@polymatik/domain-types/managed-session-cookie';
+import {
   libraryQuery,
   isLibraryPage,
   isLibraryChange,
@@ -57,6 +65,9 @@ type Options = {
   libraryV2?: LibraryV2Repository;
   interests?: InterestsRepository;
   interestsV2?: InterestsV2Repository;
+  feedCandidates?: (
+    input: FeedRequest,
+  ) => Promise<{ items: CatalogEntry[]; limited: boolean }>;
   log?: (entry: RequestLog) => void;
 };
 
@@ -77,14 +88,17 @@ export function createApi(options: Options = {}) {
         : libraryTarget(url.pathname, '/v1/library');
       const libraryRoute = library.kind !== 'missing';
       const interestsV2Route = url.pathname === '/v2/interests';
+      const feedRoute = url.pathname === '/v2/feed';
       const interestsRoute =
         url.pathname === '/v1/interests' || interestsV2Route;
-      const privateRoute = libraryRoute || interestsRoute;
-      const methods = interestsRoute
-        ? ['GET', 'PUT', 'DELETE']
-        : library.kind === 'item' || library.kind === 'invalid'
-          ? ['PUT', 'DELETE']
-          : ['GET'];
+      const privateRoute = libraryRoute || interestsRoute || feedRoute;
+      const methods = feedRoute
+        ? ['POST']
+        : interestsRoute
+          ? ['GET', 'PUT', 'DELETE']
+          : library.kind === 'item' || library.kind === 'invalid'
+            ? ['PUT', 'DELETE']
+            : ['GET'];
       const knownRoute =
         ['/v1/health', '/v1/me', '/v1/resources'].includes(url.pathname) ||
         resourceMatch !== null ||
@@ -115,6 +129,7 @@ export function createApi(options: Options = {}) {
           | AccountLibraryPage
           | AccountLibraryChange
           | InterestsV2
+          | FeedPage
           | { items: readonly PreviewResource[] },
         status = 200,
       ) => Response.json(body, { status, headers });
@@ -196,15 +211,17 @@ export function createApi(options: Options = {}) {
               'A verified identity is required.',
             );
           }
-          const scope = interestsRoute
-            ? request.method === 'GET'
-              ? 'interests:read'
-              : 'interests:write'
-            : !libraryRoute
-              ? 'profile:read'
-              : request.method === 'GET'
-                ? 'library:read'
-                : 'library:write';
+          const scope = feedRoute
+            ? 'interests:read'
+            : interestsRoute
+              ? request.method === 'GET'
+                ? 'interests:read'
+                : 'interests:write'
+              : !libraryRoute
+                ? 'profile:read'
+                : request.method === 'GET'
+                  ? 'library:read'
+                  : 'library:write';
           if (!principal.scopes.includes(scope)) {
             return error(403, 'forbidden', 'Required permission is missing.');
           }
@@ -265,6 +282,64 @@ export function createApi(options: Options = {}) {
               503,
               'catalog_unavailable',
               'The resource collection is unavailable.',
+              true,
+            );
+          }
+        }
+        if (feedRoute && principal) {
+          if (url.searchParams.size)
+            return error(
+              422,
+              'validation_error',
+              'Feed query parameters are not supported.',
+            );
+          const input = await feedRequestBody(request);
+          if (input.error || !input.value)
+            return error(
+              input.error ?? 422,
+              'validation_error',
+              'Use the supported feed request format.',
+            );
+          if (!options.feedCandidates || !options.interestsV2)
+            return error(
+              503,
+              'feed_unavailable',
+              'Your selection is unavailable.',
+              true,
+            );
+          try {
+            const preferences = await options.interestsV2.read(
+              principal.userId,
+            );
+            const candidates = await options.feedCandidates(input.value);
+            const result = await feedPage(
+              candidates.items,
+              preferences,
+              principal.userId,
+              input.value,
+              request.headers.get('authorization') ??
+                managedSessionCookie(request.headers) ??
+                '',
+              candidates.limited,
+            );
+            if (
+              !isFeedPage(result) ||
+              new TextEncoder().encode(JSON.stringify(result)).byteLength >
+                65536
+            )
+              throw new TypeError();
+            return json(result);
+          } catch (failure) {
+            if (failure instanceof FeedChangedError)
+              return error(
+                409,
+                'feed_changed',
+                'Your selection changed. Refresh to continue.',
+              );
+            return error(
+              503,
+              'feed_unavailable',
+              'Your selection is unavailable.',
               true,
             );
           }

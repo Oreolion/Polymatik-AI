@@ -145,6 +145,7 @@ function database({
   fail = false,
   tamper = false,
   failPublication = false,
+  ledgerThrough = 4,
 } = {}) {
   const calls = [];
   const state = {
@@ -182,7 +183,9 @@ function database({
         const { loadProductMigrations } = await import(
           '../../scripts/product-migrations.mjs'
         );
-        return { rows: await loadProductMigrations() };
+        return {
+          rows: (await loadProductMigrations()).slice(0, ledgerThrough),
+        };
       }
       const tables = {
         content_items: 'content',
@@ -295,6 +298,19 @@ test('draft import preserves historical rows, parameterizes metadata and rolls b
   const wrong = database({ identity: 'polymatik_app' });
   await assert.rejects(stageCatalog(wrong, plan));
   assert.ok(!wrong.calls.some((sql) => sql.startsWith('INSERT')));
+});
+
+test('catalog operations require 0003 but do not implicitly require or apply pending 0004', async () => {
+  const db = database({ ledgerThrough: 3 });
+  await stageCatalog(db, plan);
+  assert.equal((await publishCatalog(db, plan)).public_resources, 54);
+  assert.ok(
+    !db.calls.some(
+      (sql) =>
+        sql.includes('catalog_topic_v4') ||
+        sql.includes('interests_subjects_v4'),
+    ),
+  );
 });
 
 test('publication includes only reviewed identities and covers, preserves original metadata and is idempotent', async () => {

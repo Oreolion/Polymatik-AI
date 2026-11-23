@@ -6,7 +6,10 @@ import {
   encodeCatalogCursor,
   isCatalogEntry,
   isCatalogPage,
+  catalogSubjects,
+  establishedSubjects,
 } from '../../packages/domain-types/src/catalog-v2.ts';
+import { interestUpdateV2 } from '../../packages/domain-types/src/account-v2.ts';
 import { postgresCatalogV2 } from '../../apps/api/src/catalog-v2.ts';
 import { createApi } from '../../apps/api/src/index.ts';
 import { createApiClient } from '../../packages/api-client/src/index.ts';
@@ -38,15 +41,7 @@ const cursor = (after = 5, query = {}) =>
   );
 
 test('expanded public contract accepts all subjects/formats and only bounded approved metadata', () => {
-  for (const topic of [
-    'Physics',
-    'Mathematics',
-    'Computing',
-    'Biology',
-    'Psychology',
-    'Philosophy',
-    'Sociology',
-  ])
+  for (const topic of catalogSubjects)
     for (const kind of [
       'Chapter',
       'Interactive',
@@ -74,6 +69,45 @@ test('expanded public contract accepts all subjects/formats and only bounded app
     { ...entry(), cover: { ...entry().cover, reviewed_by: 'private' } },
   ])
     assert.equal(isCatalogEntry(bad), false);
+});
+
+test('new subjects allow saved curiosity while browse pages remain honestly empty without reviewed content', async () => {
+  const additional = [
+    'Chemistry',
+    'Art',
+    'Metaphysics',
+    'Politics',
+    'History',
+    'Literature',
+    'Economics',
+  ];
+  assert.deepEqual(catalogSubjects, [...establishedSubjects, ...additional]);
+  /** @type {(string|null)[]} */
+  const calls = [];
+  const api = createApi({
+    log: () => {},
+    catalogV2: {
+      async page(query) {
+        calls.push(query.subject);
+        return { items: [], next_cursor: null };
+      },
+      async get() {
+        return undefined;
+      },
+    },
+  });
+  for (const subject of additional) {
+    const response = await api.fetch(
+      new Request(`https://api.test/v2/resources?subject=${subject}`),
+    );
+    assert.equal(response.status, 200);
+    assert.deepEqual(await response.json(), { items: [], next_cursor: null });
+    assert.deepEqual(
+      interestUpdateV2({ status: 'selected', subjects: [subject] }),
+      { status: 'selected', subjects: [subject] },
+    );
+  }
+  assert.deepEqual(calls, additional);
 });
 
 test('query and cursor validation are bounded, strict and bound to the original filters', () => {
