@@ -151,6 +151,27 @@ test('configured expanded account BFF uses the real built Worker and mocked Neon
   );
   const fixture = await startAccountWebWorker();
   try {
+    const libraryShell = await fetch(`${fixture.origin}/library`);
+    assert.equal(libraryShell.status, 200);
+    const libraryHtml = await libraryShell.text();
+    for (const text of [
+      'Account Library',
+      'Browser saves',
+      'Opening your account',
+      'Saving records curiosity',
+    ])
+      assert.ok(libraryHtml.includes(text), text);
+    assert.ok(!libraryHtml.includes('alice@example.test'));
+    const accountDetail = await (
+      await fetch(`${fixture.origin}/resource/fixture-0?from=account-library`)
+    ).text();
+    assert.ok(
+      accountDetail
+        .replace(/<!--[\s\S]*?-->/g, '')
+        .includes('Back to account Library'),
+    );
+    assert.ok(accountDetail.includes('Save in this browser'));
+    assert.ok(accountDetail.includes('Checking account saving'));
     const welcome = await fetch(`${fixture.origin}/onboarding`);
     assert.equal(welcome.status, 200);
     const welcomeHtml = await welcome.text();
@@ -277,6 +298,58 @@ test('configured expanded account BFF uses the real built Worker and mocked Neon
     assert.equal(
       (await call('/api/account/v2/feed', 'POST', {}, 'forged')).status,
       401,
+    );
+    const setAside = await call(
+      '/api/account/v2/feed/dismissals/fixture-0',
+      'PUT',
+    );
+    assert.equal(setAside.status, 200);
+    assert.deepEqual(await setAside.json(), {
+      id: 'fixture-0',
+      dismissed: true,
+    });
+    const ownDismissals = await call('/api/account/v2/feed/dismissals');
+    assert.equal(ownDismissals.headers.get('cache-control'), 'no-store');
+    assert.deepEqual(
+      (await ownDismissals.json()).items.map(
+        (/** @type {{id:string}} */ item) => item.id,
+      ),
+      ['fixture-0'],
+    );
+    assert.deepEqual(
+      await (
+        await call('/api/account/v2/feed/dismissals', 'GET', undefined, 'bob')
+      ).json(),
+      { items: [], next_cursor: null },
+    );
+    assert.equal(
+      (
+        await call(
+          '/api/account/v2/feed/dismissals/fixture-0',
+          'DELETE',
+          undefined,
+          'bob',
+          'alice',
+        )
+      ).status,
+      409,
+    );
+    const afterDismissal = await (await readSelection()).json();
+    assert.ok(
+      afterDismissal.items.every(
+        (/** @type {{resource:{id:string}}} */ item) =>
+          item.resource.id !== 'fixture-0',
+      ),
+    );
+    assert.equal(
+      (await call('/api/account/v2/feed/dismissals?user_id=bob')).status,
+      422,
+    );
+    assert.deepEqual(
+      await (
+        await call('/api/account/v2/feed/dismissals/fixture-0', 'DELETE')
+      ).json(),
+      { id: 'fixture-0', dismissed: false },
     );
     const forYouHtml = await (
       await fetch(`${fixture.origin}/?feed=for-you`)
@@ -734,7 +807,7 @@ test('resource details render backend metadata, safe return navigation and origi
       `Published by ${resource.publisher}`,
       'Open source',
       resource.description,
-      'Back to Library',
+      'Back to browser saves',
     ])
       assert.ok(text.includes(value), `${resource.id}: ${value}`);
     assert.ok(html.includes('href="/#library"'));

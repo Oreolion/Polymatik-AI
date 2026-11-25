@@ -4,6 +4,15 @@
 
 ## Current owner priority - web resource details and backend checkpoint
 
+**25 November — owner authorizes a related Library journey bundle:** implement
+resource-to-account Save, dedicated account Library navigation and safe detail
+return links against the existing private API. Six focused checks, root 299/299,
+affected types/generation/lint/format, web build, API runtime 7/7 and built web
+18/18 pass. Rendered and combined live acceptance remain open. No migration/provider/ranking work.
+Prior dismissal build, API 7/7 and built web 18/18 now pass; rendered/live gates
+remain deferred and open. Owner continuation supersedes the earlier hold on all
+new feature work, without accepting incomplete UI checks. See docs/43 and 24.
+
 **25 November — durable account dismissals:** API/BFF/client and For you Set
 aside, Undo and paginated individual restoration are prepared against existing
 0005. No migration is needed. Root/affected-package types, OpenAPI, lint/format

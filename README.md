@@ -21,7 +21,7 @@ features, local implementation, owner confirmations and remaining acceptance wor
 | --- | --- |
 | Discover | Reviewed catalog, integrated search, subject/format filters, pagination and explicit recovery states |
 | Resource details | Attributed description, clickable breadcrumbs and an **Open source** action |
-| Library | Browser-local saves plus a separate private account Library with explicit copying |
+| Library | Dedicated private account Library, direct account saving from resource pages, and separate browser saves with explicit copying |
 | Accounts | Google sign-in through Neon-managed Auth; the API independently revalidates sessions |
 | Interests | Optional welcome, skip and later editing in Profile; fourteen subjects, up to three selected |
 | For you | New local checkpoint: deterministic subject-aware selection, varied exploration and explanations |
@@ -34,8 +34,10 @@ The legacy four-resource API remains compatible.
 
 For you prioritizes explicitly selected interests and offers a varied start when
 choices are skipped or unmatched. It ranks at most 100 reviewed candidates;
-**Explore all** remains the complete catalog, with visit-only dismissal controls, and
-Discover saves stay in the current browser. Account Library actions are separate.
+**Explore all** remains the complete catalog, with visit-only dismissal controls.
+Discover card saves stay in the current browser. Resource pages offer a separate
+**Save to account** action, and the main Library link opens the private account
+Library. Browser saves remain available at `/#library`; copying is always explicit.
 Neither saves nor interests establish knowledge or mastery.
 
 Search is part of Discover's Explore all view rather than a separate primary
@@ -43,18 +45,18 @@ tab. Library search only filters device saves. Old Search links still open the
 catalog search and restore their previous filters. For you remains the explicit
 personalized selection; use Explore all to search the complete reviewed catalog.
 
-New welcome, resource presentation, fourteen-subject and For you changes require
+New account Library, welcome, resource presentation, fourteen-subject and For you changes require
 checkpoint delivery and the remaining browser/hosted acceptance checks before
 being described as verified on the preview. See the
 [experience guide](docs/46_WELCOME_AND_RESOURCE_EXPERIENCE.md),
 [taxonomy migration](docs/47_SUBJECT_TAXONOMY_MIGRATION.md) and
 [personalized Discover scope](docs/48_PERSONALIZED_DISCOVER.md).
-Granular topic/thinker onboarding, research
-memory, retrieval and learning assessments remain future work.
+Granular topic/thinker onboarding, research memory, retrieval and learning
+assessments remain future work.
 
 The [feed persistence foundation](docs/49_FEED_PERSISTENCE.md), migration
 0005, passed on isolated and shared development with restricted-login verification.
-The new API slice reuses a private 24-hour selection across verified sessions;
+The new API slice reuses a private 24-hour selection across verified sessions.
 For you now includes account-backed Set aside, Undo and individual restore controls.
 Live combined API/database, rendered UI and hosted delivery checks remain open.
 

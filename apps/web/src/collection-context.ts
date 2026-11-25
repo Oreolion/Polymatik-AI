@@ -4,7 +4,9 @@ import type { CollectionView } from './resource-navigation';
 export const COLLECTION_CONTEXT_KEY = 'polymatik.preview.collection-context.v1';
 export const MAX_COLLECTION_QUERY = 200;
 export type CollectionFilters = { topic: Topic; query: string };
-export type CollectionContext = Record<CollectionView, CollectionFilters>;
+// Account Library is a private route, not a browser-persisted catalog filter.
+type FilterView = Exclude<CollectionView, 'account-library'>;
+export type CollectionContext = Record<FilterView, CollectionFilters>;
 const views = ['discover', 'search', 'library'] as const;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -29,7 +31,7 @@ export function restoreLegacySearch(
 /** Reset only the active view; saves and session dismissals are separate choices. */
 export function resetCollectionFilters(
   context: CollectionContext,
-  view: CollectionView,
+  view: FilterView,
 ): CollectionContext {
   return { ...context, [view]: { topic: 'All subjects', query: '' } };
 }

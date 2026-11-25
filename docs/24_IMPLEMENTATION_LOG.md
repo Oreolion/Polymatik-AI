@@ -1,5 +1,44 @@
 # 24 — Implementation Status and Evidence Ledger
 
+### 2026-11-25 — owner-authorized account Library journey bundle
+
+Owner asks for consecutive related small implementations rather than stopping
+after each small slice. Preserve deferred rendered dismissal checks; do not treat
+continuation as UI acceptance. Against owner commit `3714bd5`, this bundle adds
+direct account saving on resource details, dedicated `/library` through the
+existing session boundary, explicit browser/account scope and safe account return
+links. Profile's panel and legacy browser-save URLs remain. No account totals are
+guessed from browser counts. A canonical save needs an exact server acknowledgement;
+session changes unmount state/abort requests, uncertain failures offer explicit
+recovery, and no automatic copy or unbounded private-status scan occurs.
+
+Files: resource-account-save transport/component, library page/view, Discover shell,
+detail/recovery components, account Library links, navigation/filter types and CSS;
+tests in library-journey and built web-runtime. Existing private APIs, grants and
+schema are reused. No OpenAPI, migration, provider, ranking or evaluation changes.
+Six focused contracts pass. Final Node 24.22.1 checks pass: full unit/contract
+suite 299/299; root/web/API/domain/client TypeScript; OpenAPI generation;
+repository ESLint/Prettier; isolated web build; explicit Miniflare API 7/7 and
+built web Worker 18/18. New configured Worker assertions cover `/library`'s
+anonymous SSR, no leaked account identity, canonical account return navigation,
+separate browser action and hydration-safe account shell. These are HTTP/contract
+assertions, not rendered interactions. Captured output:
+`.cache/library-journey-unit.txt`, `library-journey-quality.txt`,
+`library-journey-build.txt` and `library-journey-runtime.txt` in `.cache`.
+The checks used `node .cache/verify-library-journey.mjs unit|quality|build|runtime`
+with the pinned Node executable; the wrapper runs the existing package commands
+without installing dependencies or deploying. `git diff --check` also passes.
+Browser verification remains blocked by the Windows browser URL-policy limitation;
+do not bypass it. No new screenshot, production change, Git write or deployment.
+Rollback reverts this code slice without touching saved data. Next is owner
+rendered cross-session save/Library/return review and exact development-preview
+delivery before M2 licensed-source retrieval work. Guide: docs/43.
+
+Earlier dismissal follow-up: isolated build completed; API Miniflare 7/7 and built
+web Miniflare/workerd 18/18 pass including new BFF dismissal operations. Evidence:
+`.cache/dismissal-build.txt` and `.cache/dismissal-runtime.txt`. Combined real
+SQL/authenticated HTTP and rendered acceptance remain distinct, open gates.
+
 ### 2026-11-25 — dismissal controls prepared; verification incomplete
 
 The current slice adds private dismissal pages, idempotent set-aside/restore

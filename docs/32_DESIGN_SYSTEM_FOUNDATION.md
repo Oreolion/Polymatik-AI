@@ -1,5 +1,14 @@
 # Living Atlas - design audit and foundation proposal
 
+**25 November — account Library journey:** primary expanded navigation opens the
+private account shelf, with a separate Browser saves location. The resource page
+uses explicit browser/account actions, acknowledgement-only success, changed-
+session recovery and a stable account Library link. Existing editorial type,
+surface/rule/ink/accent tokens and 44px action targets are reused; links wrap on
+narrow screens. Browser counts are not presented as account totals. No new visual
+assets, provider, motion system or fabricated progress is added. Local build and
+contracts pass; rendered keyboard/theme/reflow review remains open (docs/24/43).
+
 **23 November — web search consolidation:** catalog search is an action inside
 Discover / Explore all, not a second primary destination. For you retains its
 recommendation purpose; Library search explicitly says it filters device saves.

@@ -3,7 +3,9 @@
 import type { ReactNode } from 'react';
 import type { WebResource } from '../src/catalog';
 import ResourceArt from './resource-art';
+import ResourceAccountSave from './resource-account-save';
 import type { CollectionView } from '../src/resource-navigation';
+import { resourceReturnHref } from '../src/resource-navigation';
 
 const readingGuide: Record<WebResource['kind'], string> = {
   Article:
@@ -26,6 +28,7 @@ export default function ResourceDetailView({
   ready,
   onSave,
   feedback,
+  accountSaving = false,
 }: {
   resource: WebResource;
   returnTo: CollectionView;
@@ -33,14 +36,20 @@ export default function ResourceDetailView({
   ready: boolean;
   onSave: () => void;
   feedback: ReactNode;
+  accountSaving?: boolean;
 }) {
-  const destination = returnTo === 'library' ? 'Library' : 'Discover';
+  const destination =
+    returnTo === 'account-library'
+      ? 'account Library'
+      : returnTo === 'library'
+        ? 'browser saves'
+        : 'Discover';
   return (
     <article
       className="resource-detail"
       aria-labelledby="resource-detail-title"
     >
-      <a className="detail-back" href={`/#${returnTo}`}>
+      <a className="detail-back" href={resourceReturnHref(returnTo)}>
         <span aria-hidden="true">←</span> Back to {destination}
       </a>
       <header className="detail-header">
@@ -67,10 +76,11 @@ export default function ResourceDetailView({
             onClick={onSave}
             aria-label={`${saved ? 'Remove' : 'Save'} ${resource.title}${saved ? ' from device Library' : ' to device Library'}`}
           >
-            {saved ? 'Saved to Library' : 'Save for later'}
+            {saved ? 'Saved in this browser' : 'Save in this browser'}
           </button>
         </div>
         {feedback}
+        {accountSaving && <ResourceAccountSave id={resource.id} />}
       </header>
       <ResourceArt resource={resource} detail />
       <div className="detail-columns">
@@ -128,7 +138,10 @@ export default function ResourceDetailView({
         </aside>
       </div>
       <footer className="detail-privacy">
-        <p>Saves stay in this browser and are not synced to an account.</p>
+        <p>
+          Browser saves stay here. Account saves are separate and require
+          sign-in.
+        </p>
         <p>
           This page contains resource metadata, not the original work or a
           personalized recommendation.

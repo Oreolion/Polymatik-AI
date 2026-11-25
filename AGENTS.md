@@ -45,7 +45,23 @@ evidence path. Update the checkpoint below only when its status, blocker or
 next action materially changes. Run checks appropriate to actual changes;
 ordinary questions require neither a full suite nor a checkpoint rewrite.
 
-## Current checkpoint — 24 November 2026
+## Current checkpoint — 25 November 2026
+- **Owner-authorized Library journey bundle:** owner requests consecutive related
+  small implementations while rendered dismissal acceptance stays open. Direct
+  account saving from canonical resource details, dedicated `/library`, explicit
+  browser/account scopes and safe return links are prepared against existing
+  private APIs. No new schema, grants, provider or ranking change. Six focused
+  checks, root 299/299, API runtime 7/7, built web 18/18, affected types,
+  generation/lint/format and isolated web build pass. Do not claim rendered/live
+  acceptance or deployed delivery. Current diff preserves owner's commit 3714bd5
+  and earlier uncommitted web-runtime coverage. Evidence: docs/24 and 43.
+- **Dismissal local gates closed:** affected types, generation, lint/format,
+  full deterministic 296/296, API runtime 7/7, built web Worker 18/18 and isolated
+  web build pass. The first Windows build exit remains unexplained. Browser
+  connector crashes; native Computer Use refuses this browser because URL-policy
+  enforcement is unsupported. No bypass. Rendered and combined live SQL/API
+  gates remain open; owner continuation defers these without accepting them.
+  No new SQL or deployment. Details: docs/50 and .cache/dismissal-*.
 - **Shared 0005 accepted; batch API slice:** owner reports checksum-guarded shared
   apply verified on br-noisy-poetry-zaka8dav, child unchanged and private data
   preserved. No repeat SQL/approval. API now mounts restricted Hyperdrive batches

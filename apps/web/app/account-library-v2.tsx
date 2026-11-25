@@ -185,7 +185,9 @@ export default function ExpandedAccountLibrary({
                             · {item.resource.source}
                           </p>
                           <h3>
-                            <a href={`/resource/${item.id}`}>
+                            <a
+                              href={`/resource/${item.id}?from=account-library`}
+                            >
                               {item.resource.title}
                             </a>
                           </h3>

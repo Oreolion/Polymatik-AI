@@ -1,5 +1,26 @@
 # Account Library — UI-06
 
+## Direct account Library journey — 25 November 2026
+
+The expanded web navigation opens `/library`, a dedicated session-gated Library
+page. Browser saves remain reachable at `/#library`; Profile's existing account
+panel remains available. Resource pages expose separate browser/account actions.
+Account Save is explicit, idempotent and confirmed only by an exact canonical
+acknowledgement. Its initial label is an action, not an assertion that the item
+was absent: there is no unbounded scan of private pages to infer save status.
+Remove account saves through Library. Account switches unmount the old private
+state and abort its pending requests. No private save status is cached locally.
+
+Account Library resource links use the allowlisted `from=account-library` hint.
+Successful details and error/recovery screens return to `/library`; browser-save
+links retain their existing destination. No external hint can control the return.
+No database migration, permission grant or automatic syncing is included.
+
+The prior dismissal build and built web tests passed; rendered/live acceptance
+remains separate. This new journey's results and outstanding gates are recorded
+in docs/24. Rollback reverts the route/client/presentation change, preserving all
+account and browser saves and existing SQL.
+
 Development implementation, 13 November 2026. Web/backend first; mobile parked.
 This is the next private-persistence slice after the deployed catalog and managed
 session boundary. It does not close the earlier hosted Google/browser gates.

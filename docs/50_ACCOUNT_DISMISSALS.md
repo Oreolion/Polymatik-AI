@@ -36,13 +36,19 @@ layout and cross-session live PostgreSQL acceptance still require verification.
   OpenAPI generation, repository ESLint and repository Prettier checks. Output:
   `.cache/dismissal-quality.txt`. This is affected-scope checking, not a claim
   that the recursive mobile typecheck ran.
-- Web build exited with Windows status 3221226505 without a compiler diagnostic.
-  Output: `.cache/dismissal-build.txt`. The cause is unverified.
-- Firefox connector exited before UI inspection. No rendered acceptance claimed.
+- The first web build exited with Windows status 3221226505 without a compiler
+  diagnostic; its cause remains unverified. The later isolated build completed.
+  Output: `.cache/dismissal-build.txt`.
+- API runtime 7/7 and built web Worker 18/18 pass, including real BFF dismissal,
+  restore, changed-account denial and persisted-feed exclusion with deterministic
+  Neon/storage doubles. Output: `.cache/dismissal-runtime.txt`.
+- Firefox connector exited before UI inspection. Native Computer Use then stopped
+  because browser URL-policy enforcement is unsupported for this Windows browser.
+  No rendered acceptance claimed and no alternative bypass was attempted.
 
 No database operation, deployment, provider change or push occurred in this slice.
-The checkpoint remains incomplete until final types/lint/format, web build,
-built-Worker tests and rendered controls pass. Preserve earlier working-tree
+The checkpoint retains rendered controls and combined live SQL/API acceptance.
+Local types/lint/format, web build and built-Worker checks pass. Preserve earlier working-tree
 changes; Git metadata is read-only in the current session.
 
 Rollback is a code revert of the dismissal API/client/UI slice; retain migration

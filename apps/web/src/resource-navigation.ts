@@ -1,6 +1,9 @@
 export type ActiveCollectionView = 'discover' | 'library';
 // Preserve old resource-return hints without exposing Search as a destination.
-export type CollectionView = ActiveCollectionView | 'search';
+export type CollectionView =
+  | ActiveCollectionView
+  | 'search'
+  | 'account-library';
 
 export function collectionLocation(hash: string): {
   view: ActiveCollectionView;
@@ -16,5 +19,13 @@ export function collectionLocation(hash: string): {
 
 /** Only an internal collection destination can be selected by a URL hint. */
 export function returnView(value: unknown): CollectionView {
-  return value === 'search' || value === 'library' ? value : 'discover';
+  return value === 'search' ||
+    value === 'library' ||
+    value === 'account-library'
+    ? value
+    : 'discover';
+}
+
+export function resourceReturnHref(view: CollectionView) {
+  return view === 'account-library' ? '/library' : `/#${view}`;
 }

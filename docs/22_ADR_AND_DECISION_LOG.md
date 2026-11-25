@@ -1,6 +1,22 @@
 # 22 — Architecture Decision Records and Open Decision Register
 
 ## ADR status vocabulary
+
+### 25 November — account Library journey (Accepted implementation scope)
+
+Owner requests a coherent batch of small related implementations while rendered
+dismissal acceptance remains open. Complete direct account saving from resource
+details, a dedicated Library destination and safe return links as one web journey.
+Reuse existing private Library API/BFF, session checks and SQL; add no provider or
+migration. Browser saves stay separate, legacy `/#library` remains browser scope,
+and the account route never persists its contents in browser storage. The primary
+expanded-catalog Library link opens `/library`; do not show browser counts as an
+account total. Alternatives were automatic save syncing or unbounded save-status
+scans; both are rejected. An explicit idempotent Save to account needs a matching
+canonical acknowledgement and does not guess whether an older save exists.
+Verification and remaining browser gates: docs/24. Rollback reverts this route/
+presentation/client slice while retaining existing saves and database schema.
+
 `Proposed`, `Accepted`, `Superseded`, `Rejected`. Accepted ADRs require context, alternatives, consequences, tests and rollback path. Update index when chosen; do not silently reverse.
 
 ## Accepted development-workflow decisions

@@ -1,6 +1,7 @@
 'use client';
 
 import type { CollectionView } from '../src/resource-navigation';
+import { resourceReturnHref } from '../src/resource-navigation';
 
 export type ResourceState =
   | { status: 'loading' | 'not-found' }
@@ -21,7 +22,12 @@ export default function ResourceStateView({
   state: ResourceState;
   returnTo: CollectionView;
 }) {
-  const destination = returnTo === 'library' ? 'Library' : 'Discover';
+  const destination =
+    returnTo === 'account-library'
+      ? 'account Library'
+      : returnTo === 'library'
+        ? 'browser saves'
+        : 'Discover';
   return (
     <section className="resource-state" aria-labelledby="resource-state-title">
       <p className="eyebrow">THE PREVIEW COLLECTION</p>
@@ -58,7 +64,7 @@ export default function ResourceStateView({
             Try again
           </button>
         )}
-        <a className="detail-save" href={`/#${returnTo}`}>
+        <a className="detail-save" href={resourceReturnHref(returnTo)}>
           Back to {destination}
         </a>
       </nav>

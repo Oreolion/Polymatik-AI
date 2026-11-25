@@ -1760,6 +1760,57 @@ h1,
   padding-block: 1rem;
   border-block: 1px solid var(--rule);
 }
+
+.library-workspace {
+  max-width: 62rem;
+  margin-inline: auto;
+}
+.library-locations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  border-bottom: 1px solid var(--rule);
+  margin-block: 1.5rem 2rem;
+}
+.library-locations a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+.library-locations a[aria-current] {
+  color: var(--ink);
+  border-color: var(--accent);
+}
+.library-locations a:focus-visible,
+.resource-account-action a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+.resource-account-action {
+  border-top: 1px solid var(--rule);
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+.resource-account-action > a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent);
+}
+.resource-account-action p {
+  width: 100%;
+  margin: 0;
+}
+.library-workspace .account-library {
+  border-top: 0;
+}
 .set-aside-controls p {
   max-width: 54ch;
   color: var(--muted);

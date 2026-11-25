@@ -30,6 +30,7 @@ import {
 } from '../src/collection-context';
 import ResourceDetailView from './resource-detail-view';
 import ProfileView from './profile-view';
+import LibraryView from './library-view';
 import ForYouFeed from './for-you-feed';
 import ResourceStateView, {
   resourceStateTitles,
@@ -175,7 +176,7 @@ function ResourceRow({
             aria-label={`${saved ? 'Remove' : 'Save'} ${resource.title}${saved ? ' from device Library' : ' to device Library'}`}
           >
             <Icon name="bookmark" />
-            {saved ? 'Saved' : 'Save for later'}
+            {saved ? 'Saved here' : 'Save in browser'}
           </button>
           <a className="original-link" href={resource.url}>
             Open source <Icon name="arrow" />
@@ -217,6 +218,7 @@ export default function DiscoverClient({
   catalog = { status: 'unavailable' },
   returnTo = 'discover',
   profilePage = false,
+  accountLibraryPage = false,
   expandedCatalog = false,
   initialFeedMode = 'all',
 }: {
@@ -225,16 +227,19 @@ export default function DiscoverClient({
   catalog?: ResourceCatalogState;
   returnTo?: CollectionView;
   profilePage?: boolean;
+  accountLibraryPage?: boolean;
   expandedCatalog?: boolean;
   initialFeedMode?: 'all' | 'for-you';
 }) {
   const isResourcePage = Boolean(resource || resourceState);
-  const isStandalonePage = isResourcePage || profilePage;
-  const pageTitle = profilePage
-    ? 'Profile'
-    : resourceState
-      ? resourceStateTitles[resourceState.status]
-      : resource?.title;
+  const isStandalonePage = isResourcePage || profilePage || accountLibraryPage;
+  const pageTitle = accountLibraryPage
+    ? 'Library'
+    : profilePage
+      ? 'Profile'
+      : resourceState
+        ? resourceStateTitles[resourceState.status]
+        : resource?.title;
   const [view, setView] = useState<View>(
     returnTo === 'library' ? 'library' : 'discover',
   );
@@ -535,15 +540,21 @@ export default function DiscoverClient({
         <span>Discover</span>
       </a>
       <a
-        href={collectionHref('library')}
-        onClick={() => navigate('library')}
+        href={expandedCatalog ? '/library' : collectionHref('library')}
+        onClick={() => {
+          if (!expandedCatalog) navigate('library');
+        }}
         aria-current={
-          !isStandalonePage && view === 'library' ? 'page' : undefined
+          accountLibraryPage || (!isStandalonePage && view === 'library')
+            ? 'page'
+            : undefined
         }
       >
         <Icon name="bookmark" />
         <span>Library</span>
-        <span className="nav-count">{ready ? saved.length : '—'}</span>
+        {!expandedCatalog && (
+          <span className="nav-count">{ready ? saved.length : '—'}</span>
+        )}
       </a>
       <span className="nav-unavailable" aria-disabled="true">
         <Icon name="learn" />
@@ -610,22 +621,26 @@ export default function DiscoverClient({
             <a
               aria-current="page"
               href={
-                profilePage
-                  ? '/profile'
-                  : isResourcePage
-                    ? resourceState
-                      ? '#resource-state-title'
-                      : '#resource-detail-title'
-                    : `/#${view}`
+                accountLibraryPage
+                  ? '/library'
+                  : profilePage
+                    ? '/profile'
+                    : isResourcePage
+                      ? resourceState
+                        ? '#resource-state-title'
+                        : '#resource-detail-title'
+                      : `/#${view}`
               }
             >
-              {profilePage
-                ? 'Profile'
-                : isResourcePage
-                  ? 'Resource'
-                  : view === 'library'
-                    ? 'Library'
-                    : 'Discover'}
+              {accountLibraryPage
+                ? 'Library'
+                : profilePage
+                  ? 'Profile'
+                  : isResourcePage
+                    ? 'Resource'
+                    : view === 'library'
+                      ? 'Library'
+                      : 'Discover'}
             </a>
           </nav>
           <span className="topbar-note">
@@ -645,7 +660,13 @@ export default function DiscoverClient({
             undefined
           }
         >
-          {profilePage ? (
+          {accountLibraryPage ? (
+            <LibraryView
+              deviceIds={saved}
+              storageReady={ready}
+              expanded={expandedCatalog}
+            />
+          ) : profilePage ? (
             <>
               <ProfileView
                 theme={theme}
@@ -668,6 +689,7 @@ export default function DiscoverClient({
               returnTo={returnTo}
               saved={saved.includes(resource.id)}
               ready={ready}
+              accountSaving={expandedCatalog}
               onSave={() =>
                 applySave({
                   id: resource.id,
@@ -714,7 +736,7 @@ export default function DiscoverClient({
                   {view === 'library'
                     ? 'Saves stay in this browser, visible to anyone using this browser profile. They are not synced to an account.'
                     : expandedCatalog
-                      ? 'Explore a handpicked collection, or choose For you to start from your saved interests. Saves stay in this browser only.'
+                      ? 'Explore a handpicked collection, or choose For you to start from your saved interests. Card saves stay in this browser. Open a resource to save it to your account.'
                       : 'A handpicked collection, not personalized. Saves stay in this browser only.'}
                 </p>
               </div>
