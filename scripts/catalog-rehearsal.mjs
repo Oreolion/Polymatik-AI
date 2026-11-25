@@ -107,16 +107,18 @@ export function neonProcessSpec(args, platform = process.platform) {
           '/d',
           '/s',
           '/c',
-          ['npx.cmd', '--yes', 'neon@8.23.1', ...args].join(' '),
+          ['npx.cmd', '--offline', '--yes', 'neon@8.23.1', ...args].join(' '),
         ],
       }
-    : { file: 'npx', args: ['--yes', 'neon@8.23.1', ...args] };
+    : { file: 'npx', args: ['--offline', '--yes', 'neon@8.23.1', ...args] };
 }
 
-export async function runNeon(args) {
+// Use the owner's already-cached exact CLI; database operations never download
+// packages. Offline npm affects package lookup, not the CLI's Neon API requests.
+export async function runNeon(args, spawnProcess = spawn) {
   const command = neonProcessSpec(args);
   return new Promise((resolve, reject) => {
-    const child = spawn(command.file, command.args, {
+    const child = spawnProcess(command.file, command.args, {
       cwd: fileURLToPath(new URL('../', import.meta.url)),
       windowsHide: true,
       stdio: ['ignore', 'pipe', 'pipe'],
@@ -139,8 +141,17 @@ export async function runNeon(args) {
     child.on('close', (code) => {
       if (oversized) reject(new RehearsalError('NEON_OUTPUT_INVALID'));
       else if (code === 0) resolve(stdout.trim());
+      else if (child.killed) reject(new RehearsalError('NEON_CLI_TIMEOUT'));
+      else if (/\bENOTCACHED\b/.test(stderr))
+        reject(new RehearsalError('NEON_CLI_NOT_CACHED'));
       else if (/EPERM|EACCES/.test(stderr))
         reject(new RehearsalError('NEON_CREDENTIAL_ACCESS'));
+      else if (
+        /\b(?:ECONNRESET|ETIMEDOUT|ENOTFOUND|EAI_AGAIN|ECONNREFUSED)\b/.test(
+          stderr,
+        )
+      )
+        reject(new RehearsalError('NEON_NETWORK_FAILED'));
       else if (/login|authenticat|credentials|profile/i.test(stderr + stdout))
         reject(new RehearsalError('NEON_LOGIN_REQUIRED'));
       else reject(new RehearsalError('NEON_CLI_FAILED'));

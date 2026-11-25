@@ -12,7 +12,9 @@ import {
   writeCollectionContext,
   COLLECTION_CONTEXT_KEY,
   resetCollectionFilters,
+  restoreLegacySearch,
 } from '../../apps/web/src/collection-context.ts';
+import { collectionLocation } from '../../apps/web/src/resource-navigation.ts';
 import {
   resources,
   selectResources,
@@ -21,6 +23,44 @@ import {
   setResourceSaved,
   SAVE_KEY,
 } from '../../apps/web/src/discover.ts';
+
+test('collection navigation consolidates Search and leaves unrelated anchors alone', () => {
+  assert.deepEqual(collectionLocation('#search'), {
+    view: 'discover',
+    legacySearch: true,
+  });
+  for (const hash of ['', '#discover'])
+    assert.deepEqual(collectionLocation(hash), {
+      view: 'discover',
+      legacySearch: false,
+    });
+  assert.deepEqual(collectionLocation('#library'), {
+    view: 'library',
+    legacySearch: false,
+  });
+  for (const hash of [
+    '#main-content',
+    '#interests-title',
+    '#constructor',
+    'https://evil.test',
+  ])
+    assert.equal(collectionLocation(hash), null);
+});
+
+test('old Search links restore their filters in Discover without losing Library or legacy context', () => {
+  const original = emptyCollectionContext();
+  original.search = { topic: 'Computing', query: 'browser' };
+  original.discover = { topic: 'Physics', query: 'atoms' };
+  original.library = { topic: 'Mathematics', query: 'theory' };
+  const before = structuredClone(original);
+  const restored = restoreLegacySearch(original);
+  assert.deepEqual(restored.discover, original.search);
+  assert.deepEqual(restored.library, original.library);
+  assert.deepEqual(restored.search, original.search);
+  restored.discover.query = 'new question';
+  assert.deepEqual(original, before);
+  assert.equal(restored.search.query, 'browser');
+});
 
 test('saved appearance is established before hydration without writing browser storage', async () => {
   for (const preference of [

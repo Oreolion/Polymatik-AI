@@ -6,6 +6,7 @@ import {
   encodeCatalogCursor,
 } from '../../packages/domain-types/src/catalog-v2.ts';
 import { encodeLibraryCursor } from '../../packages/domain-types/src/account-v2.ts';
+import { feedBatchFixture } from './feed-batches.mjs';
 
 /** Deterministic account/catalog doubles, never provider access or a production auth bypass. */
 export function expandedAccountFixture(origin = 'https://app.test') {
@@ -49,11 +50,12 @@ export function expandedAccountFixture(origin = 'https://app.test') {
   ]);
   /** @type {Map<string,import('../../packages/domain-types/src/account-v2.ts').InterestsV2>} */
   const interests = new Map();
+  const feedBatches = feedBatchFixture((id) => get(id));
   let calls = 0;
   /** @param {Headers} headers */
   function identity(headers) {
     const id =
-      /(?:^|;\s*)(?:__Secure-)?neon-auth\.session_token=(alice|bob)(?:;|$)/.exec(
+      /(?:^|;\s*)(?:__Secure-)?neon-auth\.session_token=(alice|bob)(?:-rotated)?(?:;|$)/.exec(
         headers.get('cookie') ?? '',
       )?.[1];
     return id && active.has(id) ? id : null;
@@ -190,6 +192,8 @@ export function expandedAccountFixture(origin = 'https://app.test') {
       ),
       limited: false,
     }),
+    feedStorage: feedBatches.storage,
+    feedDismissals: feedBatches.storage,
   });
   return {
     api,
@@ -198,6 +202,7 @@ export function expandedAccountFixture(origin = 'https://app.test') {
     saves,
     interests,
     active,
+    feedBatches,
     identity,
     calls: () => calls,
   };

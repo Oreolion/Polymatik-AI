@@ -45,7 +45,52 @@ evidence path. Update the checkpoint below only when its status, blocker or
 next action materially changes. Run checks appropriate to actual changes;
 ordinary questions require neither a full suite nor a checkpoint rewrite.
 
-## Current checkpoint — 23 November 2026
+## Current checkpoint — 24 November 2026
+- **Shared 0005 accepted; batch API slice:** owner reports checksum-guarded shared
+  apply verified on br-noisy-poetry-zaka8dav, child unchanged and private data
+  preserved. No repeat SQL/approval. API now mounts restricted Hyperdrive batches
+  for For you: 24h reuse across verified sessions; continuations only read;
+  stale/expired cursors refresh; unavailable storage has no ephemeral fallback.
+  Existing ranking/wire format retained. Visit-only dismissals/copy remain until
+  their private contract and restore controls are implemented next. Combined live
+  API, browser and hosted delivery are unverified; schema success is not app
+  acceptance. Root 292/292, focused persistence 6/6, API/managed workerd 8/8 and
+  built web 18/18 pass; affected types/generation/lint/format and web build pass.
+  Standard API packaging hits the ancestor ACL; owner normal-terminal dry run
+  requested. No permission bypass, push or deployment. Evidence: docs/24 and 49.
+- **Shared 0005 authorized, not verified:** owner ran --apply-development, which
+  failed at branch-inventory with NEON_CLI_FAILED and development committed false,
+  before PostgreSQL access. No repeat approval needed for that same operation.
+  Runner now uses the pinned cached CLI via npx --offline and distinguishes
+  cache/timeout/transport failures. Earlier root cause remains unknown. Focused
+  39/39 pass; docs/49 has the retry and cache-only recovery. No shared SQL or
+  active API/UI persistence is accepted yet. Do not repeat the accepted child.
+- **0005 child accepted, 24 November:** owner reports 0005 applied and verified on
+  br-muddy-bar-zayn69jl, source unchanged, private data preserved and shared
+  development unchanged. No repeat child rehearsal is needed. Earlier CLI failure
+  cause remains unknown. Prepared explicit shared-development rollout rechecks
+  the child's checksummed ledger before any DDL, verifies restricted-login SQL and
+  fingerprints old data. Its separate shared-development decision is now given
+  by the owner command above; that attempt never reached SQL. Exact operation:
+  docs/49. Active feed remains visit/session-only; API/UI integration is next.
+- **M1-04b storage foundation:** owner authorizes continuation. Prepared 0005 and
+  unmounted feed storage: one bounded 24h batch/account, stable original positions,
+  reviewed/nondismissed loads and capped private dismissals with own restoration.
+  Existing tables/0001–0004 bytes remain. Root 280/280, affected types/generation/
+  lint/format and file-only plan pass; exact evidence/limits in docs/24.
+  Reviewed DDL/new-table grants on the fixed child are accepted; see above.
+  No shared cutover, API/UI activation or deployment ran.
+  Migration/restricted RLS proof and next operator command: docs/49. Preserve
+  uncommitted Search consolidation and read-only Git metadata.
+- **Web search consolidation:** owner questions redundant Search and authorizes
+  continuation. The tab duplicated the catalog. Discover / Explore all now owns
+  catalog search; Library retains scoped search. Old Search hashes/return hints
+  preserve filters via a canonical Discover alias and focus request; saved IDs
+  and the legacy context slot remain. Mobile web has four nav slots; native is
+  parked. Root 267/267, built web workerd 18/18 and affected types/generation/
+  lint/format/build pass. Browser GPU and software launches crash; no rendered
+  acceptance claimed. Exact results/remaining gates: docs/24. No API/SQL/ranking
+  changes. Baseline HEAD 1a7dc96; no new hosted acceptance or Git writes claimed.
 - **M1-04a:** owner authorizes personalized Discover, standard README and master
   push. For you uses verified explicit interests, bounded deterministic ranking,
   reasons, session-bound HMAC freshness, pagination and per-visit exclusions.

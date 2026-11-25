@@ -7,6 +7,7 @@ test('configured API Worker revalidates managed identities, rejects revocation a
   let calls = 0;
   const worker = await startApiWorker({
     bindings: {
+      ALLOWED_ORIGINS: 'https://app.test',
       NEON_AUTH_BASE_URL:
         'https://ep-test.neonauth.c-2.eu-west-2.aws.neon.tech/neondb/auth',
       AUTH_PUBLIC_ORIGIN: 'https://app.test',
@@ -99,6 +100,22 @@ test('configured API Worker revalidates managed identities, rejects revocation a
       6,
       'interest reads independently revalidate the managed session',
     );
+    const selection = await fetch(`http://127.0.0.1:${worker.port}/v2/feed`, {
+      method: 'POST',
+      headers: {
+        origin: 'https://app.test',
+        cookie: '__Secure-neon-auth.session_token=alice',
+        'content-type': 'application/json',
+      },
+      body: '{}',
+      signal: AbortSignal.timeout(10000),
+    });
+    assert.equal(
+      selection.status,
+      503,
+      'configured identity cannot bypass missing feed storage',
+    );
+    assert.equal((await selection.json()).error.code, 'feed_unavailable');
     active = false;
     assert.equal(
       (

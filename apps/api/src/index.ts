@@ -21,9 +21,21 @@ import {
   isFeedPage,
   type FeedPage,
   type FeedRequest,
+  dismissalQuery,
+  isDismissalPage,
+  isDismissalChange,
+  type FeedDismissalPage,
+  type FeedDismissalChange,
 } from '@polymatik/domain-types/feed';
-import { feedPage, FeedChangedError } from './feed.ts';
-import { managedSessionCookie } from '@polymatik/domain-types/managed-session-cookie';
+import {
+  DismissalLimitError,
+  type postgresFeedStorage,
+} from './feed-storage.ts';
+import {
+  persistedFeedPage,
+  FeedChangedError,
+  type FeedBatchStorage,
+} from './feed.ts';
 import {
   libraryQuery,
   isLibraryPage,
@@ -68,6 +80,11 @@ type Options = {
   feedCandidates?: (
     input: FeedRequest,
   ) => Promise<{ items: CatalogEntry[]; limited: boolean }>;
+  feedStorage?: FeedBatchStorage;
+  feedDismissals?: Pick<
+    ReturnType<typeof postgresFeedStorage>,
+    'dismissalPage' | 'setDismissed'
+  >;
   log?: (entry: RequestLog) => void;
 };
 
@@ -89,16 +106,23 @@ export function createApi(options: Options = {}) {
       const libraryRoute = library.kind !== 'missing';
       const interestsV2Route = url.pathname === '/v2/interests';
       const feedRoute = url.pathname === '/v2/feed';
+      const dismissal = libraryTarget(url.pathname, '/v2/feed/dismissals');
+      const dismissalRoute = dismissal.kind !== 'missing';
       const interestsRoute =
         url.pathname === '/v1/interests' || interestsV2Route;
-      const privateRoute = libraryRoute || interestsRoute || feedRoute;
+      const privateRoute =
+        libraryRoute || interestsRoute || feedRoute || dismissalRoute;
       const methods = feedRoute
         ? ['POST']
-        : interestsRoute
-          ? ['GET', 'PUT', 'DELETE']
-          : library.kind === 'item' || library.kind === 'invalid'
-            ? ['PUT', 'DELETE']
-            : ['GET'];
+        : dismissalRoute
+          ? dismissal.kind === 'list'
+            ? ['GET']
+            : ['PUT', 'DELETE']
+          : interestsRoute
+            ? ['GET', 'PUT', 'DELETE']
+            : library.kind === 'item' || library.kind === 'invalid'
+              ? ['PUT', 'DELETE']
+              : ['GET'];
       const knownRoute =
         ['/v1/health', '/v1/me', '/v1/resources'].includes(url.pathname) ||
         resourceMatch !== null ||
@@ -130,6 +154,8 @@ export function createApi(options: Options = {}) {
           | AccountLibraryChange
           | InterestsV2
           | FeedPage
+          | FeedDismissalPage
+          | FeedDismissalChange
           | { items: readonly PreviewResource[] },
         status = 200,
       ) => Response.json(body, { status, headers });
@@ -211,17 +237,21 @@ export function createApi(options: Options = {}) {
               'A verified identity is required.',
             );
           }
-          const scope = feedRoute
-            ? 'interests:read'
-            : interestsRoute
-              ? request.method === 'GET'
-                ? 'interests:read'
-                : 'interests:write'
-              : !libraryRoute
-                ? 'profile:read'
-                : request.method === 'GET'
-                  ? 'library:read'
-                  : 'library:write';
+          const scope = dismissalRoute
+            ? request.method === 'GET'
+              ? 'interests:read'
+              : 'interests:write'
+            : feedRoute
+              ? 'interests:read'
+              : interestsRoute
+                ? request.method === 'GET'
+                  ? 'interests:read'
+                  : 'interests:write'
+                : !libraryRoute
+                  ? 'profile:read'
+                  : request.method === 'GET'
+                    ? 'library:read'
+                    : 'library:write';
           if (!principal.scopes.includes(scope)) {
             return error(403, 'forbidden', 'Required permission is missing.');
           }
@@ -286,6 +316,74 @@ export function createApi(options: Options = {}) {
             );
           }
         }
+        if (dismissalRoute && principal) {
+          let after: string | null = null;
+          try {
+            if (dismissal.kind === 'invalid') throw new TypeError();
+            if (dismissal.kind === 'list')
+              after = dismissalQuery(url.searchParams);
+            else if (url.searchParams.size) throw new TypeError();
+          } catch {
+            return error(
+              422,
+              'validation_error',
+              'Use the supported set-aside request.',
+            );
+          }
+          const bodyError = await libraryBodyError(request);
+          if (bodyError)
+            return error(
+              bodyError,
+              'validation_error',
+              'Set-aside requests do not accept a body.',
+            );
+          if (!options.feedDismissals)
+            return error(
+              503,
+              'feed_unavailable',
+              'Your set-aside resources are unavailable.',
+              true,
+            );
+          try {
+            if (dismissal.kind === 'list') {
+              const page = await options.feedDismissals.dismissalPage(
+                principal.userId,
+                after,
+              );
+              if (!isDismissalPage(page, after)) throw new TypeError();
+              return json(page);
+            }
+            if (dismissal.kind !== 'item') throw new TypeError();
+            const dismissed = request.method === 'PUT';
+            const result = await options.feedDismissals.setDismissed(
+              principal.userId,
+              dismissal.id,
+              dismissed,
+            );
+            if (!result)
+              return error(404, 'not_found', 'This resource is unavailable.');
+            if (
+              !isDismissalChange(result) ||
+              result.id !== dismissal.id ||
+              result.dismissed !== dismissed
+            )
+              throw new TypeError();
+            return json(result);
+          } catch (failure) {
+            if (failure instanceof DismissalLimitError)
+              return error(
+                409,
+                'dismissal_limit',
+                'Restore a set-aside resource before hiding another.',
+              );
+            return error(
+              503,
+              'feed_unavailable',
+              'Your set-aside change could not be confirmed.',
+              true,
+            );
+          }
+        }
         if (feedRoute && principal) {
           if (url.searchParams.size)
             return error(
@@ -300,7 +398,11 @@ export function createApi(options: Options = {}) {
               'validation_error',
               'Use the supported feed request format.',
             );
-          if (!options.feedCandidates || !options.interestsV2)
+          if (
+            !options.feedCandidates ||
+            !options.interestsV2 ||
+            !options.feedStorage
+          )
             return error(
               503,
               'feed_unavailable',
@@ -312,14 +414,12 @@ export function createApi(options: Options = {}) {
               principal.userId,
             );
             const candidates = await options.feedCandidates(input.value);
-            const result = await feedPage(
+            const result = await persistedFeedPage(
               candidates.items,
               preferences,
               principal.userId,
               input.value,
-              request.headers.get('authorization') ??
-                managedSessionCookie(request.headers) ??
-                '',
+              options.feedStorage,
               candidates.limited,
             );
             if (

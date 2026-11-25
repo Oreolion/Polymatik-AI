@@ -8,6 +8,8 @@ import {
   applySubjectTaxonomy,
   applyDevelopmentTaxonomy,
   rehearseSubjectTaxonomy,
+  rehearseProductStorage,
+  applyDevelopmentProductStorage,
   taxonomyTarget,
 } from '../../scripts/subject-taxonomy.mjs';
 
@@ -58,7 +60,7 @@ function database(options = {}) {
 }
 test('0004 preserves old checksums and registers only the new fixed migration', async () => {
   assert.deepEqual(
-    registry.map((x) => x.version),
+    registry.filter((x) => x.version <= '0004').map((x) => x.version),
     ['0001', '0002', '0003', '0004'],
   );
   assert.equal(
@@ -250,7 +252,7 @@ function rehearsal(options = {}) {
             ? options.development && migrated
             : options.rehearsed || (!options.development && migrated)
         )
-          ? registry
+          ? registry.slice(0, options.taxonomyOnly ? 4 : registry.length)
           : baseline(),
       };
     },
@@ -311,6 +313,84 @@ test('mock rehearsal writes only the fixed isolated child and verifies restricte
     JSON.stringify(result),
     /synthetic-password|private-fingerprint/,
   );
+});
+
+test('feed storage rehearsal reuses the fixed child guards and closes all connections', async () => {
+  const f = rehearsal();
+  const result = await rehearseProductStorage(f.deps);
+  assert.equal(result.migration, '0005');
+  assert.equal(result.shared_development_changed, false);
+  assert.equal(result.source_unchanged, true);
+  assert.ok(f.connections.every((c) => c.ended));
+  const unsafe = rehearsal({ badEndpoint: true });
+  await assert.rejects(rehearseProductStorage(unsafe.deps), {
+    code: 'TAXONOMY_ENDPOINT_INVALID',
+  });
+  assert.equal(unsafe.status().migrated, false);
+});
+
+test('accepted taxonomy rehearsal does not require or execute future feed migration', async () => {
+  const f = rehearsal({ taxonomyOnly: true });
+  const result = await rehearseSubjectTaxonomy(f.deps);
+  assert.equal(result.migration, '0004');
+  assert.equal(result.verified, true);
+});
+
+test('feed development rollout requires accepted 0005 and cannot use a taxonomy-only child', async () => {
+  const f = rehearsal({
+    development: true,
+    rehearsed: true,
+    taxonomyOnly: true,
+  });
+  await assert.rejects(applyDevelopmentProductStorage(f.deps), {
+    code: 'TAXONOMY_REHEARSAL_REQUIRED',
+  });
+  assert.equal(f.status().migrated, false);
+  assert.ok(f.connections.every((c) => c.ended));
+});
+
+test('feed development rollout targets only the guarded parent and verifies private preservation', async () => {
+  const f = rehearsal({ development: true, rehearsed: true });
+  const result = await applyDevelopmentProductStorage(f.deps);
+  assert.equal(result.migration, '0005');
+  assert.equal(result.branch_id, taxonomyTarget.parentId);
+  assert.equal(result.rehearsal_child_unchanged, true);
+  assert.equal(result.private_data_preserved, true);
+  assert.equal(result.shared_development_changed, true);
+  assert.ok(
+    f.reports.includes(
+      'Accepted child migration 0005 checksum verified read-only.',
+    ),
+  );
+  assert.ok(f.connections.every((c) => c.ended));
+});
+
+test('feed rollout rejects unsafe targets and missing callbacks and reports postcommit failures', async () => {
+  assert.throws(
+    () => applyDevelopmentProductStorage({}),
+    /STORAGE_CALLBACKS_REQUIRED/,
+  );
+  for (const options of [
+    { badBranch: true },
+    { badEndpoint: true },
+    { badConnection: true },
+    { verifyFailure: true },
+    { changedParent: true },
+  ]) {
+    const f = rehearsal({ development: true, rehearsed: true, ...options });
+    await assert.rejects(applyDevelopmentProductStorage(f.deps));
+    assert.equal(
+      f.status().migrated,
+      !!(options.verifyFailure || options.changedParent),
+    );
+    assert.ok(f.connections.every((c) => c.ended));
+    if (f.status().migrated)
+      assert.ok(
+        f.reports.some((x) =>
+          x.includes('development migration committed: true'),
+        ),
+      );
+  }
 });
 
 test('shared development application requires the rehearsed child ledger before any DDL', async () => {

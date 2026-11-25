@@ -1,5 +1,12 @@
 # Personalized Discover — M1-04a
 
+**24 November follow-up:** this document records the original M1-04a design.
+The active API implementation now uses the accepted 0005 account batch storage
+described in docs/49. Session-keyed ephemeral cursors below remain the historical
+baseline; the current Worker never falls back to that path when storage fails.
+Ranking, wire format and visit-only dismissal scope are retained. Live API/hosted
+acceptance of this new slice is separate from SQL migration acceptance.
+
 Owner scope, 23 November 2026: implement subject-aware Discover and push the
 finished checkpoint to master, which deploys the existing development preview.
 Production and mobile remain outside this ticket. Preserve the owner's prompt edit.

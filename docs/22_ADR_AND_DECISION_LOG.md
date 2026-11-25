@@ -5,6 +5,51 @@
 
 ## Accepted development-workflow decisions
 
+### 2026-11-24 — account-owned feed batches retain the existing page contract
+
+After owner-run 0005 acceptance on isolated and shared development, mount the
+private batch repository for For you. Keep ranking, filters, five-row pages and
+the v1-shaped freshness cursor format; replace the active session-HMAC binding
+with a hash of the random stored batch ID, fingerprint and independently verified
+account. Session rotation then retains the batch without storing credentials or
+provisioning a new secret. Cursors remain freshness markers, never authorization.
+
+Alternatives: store raw session keys (unnecessary credential retention), provision
+a new signing key (additional configuration without an authorization need), or
+retain session-derived ephemeral selection (does not satisfy persistence).
+First-page derived writes are account-scoped and bounded. Continuations only
+read and cannot replace a newer batch. Expiry, changed input/account or old
+cursor requires refresh; storage failures are explicit, with no ephemeral fallback.
+Private responses remain no-store and identity/origin checks remain independent.
+
+Tests cover session rotation, isolation, stale cursors, expiry, storage failures,
+pagination gaps, attribution and missing binding; live combined HTTP/database
+acceptance remains separate from SQL proof. Roll back the API code if necessary;
+retain applied migration/user data. Do not silently switch storage behavior after
+an error. Durable dismiss/restore UI and production delivery are separate gates.
+
+### 2026-11-23 — consolidate web catalog search into Discover
+
+Owner requests the next implementation and questions the duplicate Search tab.
+Inspection confirms both destinations use the same public catalog, API, filters
+and pagination; Search adds only a second layout/context. Consolidate primary web
+navigation into Discover/Library/Profile (existing unavailable Learn stays labeled).
+For you remains explicit recommendations; Explore all contains catalog search.
+Library search stays scoped to browser saves. Native navigation is parked.
+
+Alternative: retain a Search destination for semantic research or cross-workspace
+queries. Those capabilities do not exist yet, so exposing it now duplicates a
+task. Reconsider only with a separately accepted distinct search capability.
+
+Old #search and from=search resource-return hints remain valid. Only an explicit
+legacy link copies its saved filters into Discover and focuses catalog search;
+ordinary Discover retains its own filters. The legacy storage slot is preserved,
+not erased or repurposed. Resource returns say Discover; skip/content anchors
+never change collection state. Four-column mobile navigation retains 44px targets.
+No API, auth, ranking, schema, provider or dependency change. Contracts, real built
+Worker checks and browser limits: docs/24. Rollback reverts the UI/navigation
+checkpoint without migrating storage or touching private records.
+
 ### 2026-11-16 — reviewed subset import and explicit development activation
 
 Owner requests "import and activate the expanded collection". Retain existing

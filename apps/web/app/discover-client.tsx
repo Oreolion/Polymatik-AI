@@ -14,13 +14,18 @@ import type { ResourceCatalogState, WebResource } from '../src/catalog';
 import { useCatalogPages, useDeviceResources } from './use-catalog-pages';
 import ResourceArt from './resource-art';
 import { APPEARANCE_KEY } from '../src/appearance';
-import type { CollectionView } from '../src/resource-navigation';
+import {
+  collectionLocation,
+  type ActiveCollectionView,
+  type CollectionView,
+} from '../src/resource-navigation';
 import {
   emptyCollectionContext,
   readCollectionContext,
   writeCollectionContext,
   MAX_COLLECTION_QUERY,
   resetCollectionFilters,
+  restoreLegacySearch,
   type CollectionFilters,
 } from '../src/collection-context';
 import ResourceDetailView from './resource-detail-view';
@@ -31,7 +36,7 @@ import ResourceStateView, {
   type ResourceState,
 } from './resource-state-view';
 
-type View = 'discover' | 'search' | 'library';
+type View = ActiveCollectionView;
 type Theme = 'system' | 'light' | 'dark';
 type SaveAction = { id: string; shouldSave: boolean; resource?: WebResource };
 
@@ -108,6 +113,8 @@ function ResourceRow({
   ready,
   onSave,
   onDismiss,
+  dismissPending = false,
+  accountDismissal = false,
   featured,
   view,
   reason,
@@ -117,6 +124,8 @@ function ResourceRow({
   ready: boolean;
   onSave: () => void;
   onDismiss?: (() => void) | undefined;
+  dismissPending?: boolean;
+  accountDismissal?: boolean;
   featured: boolean;
   view: View;
   reason?: string;
@@ -176,10 +185,11 @@ function ResourceRow({
               type="button"
               className="dismiss-button"
               onClick={onDismiss}
-              aria-label={`Dismiss ${resource.title}`}
+              disabled={dismissPending}
+              aria-label={`${accountDismissal ? 'Set aside' : 'Dismiss'} ${resource.title}${accountDismissal ? ' in your account' : ''}`}
             >
               <Icon name="close" />
-              <span>Not now</span>
+              <span>{accountDismissal ? 'Set aside' : 'Not now'}</span>
             </button>
           )}
         </div>
@@ -225,7 +235,10 @@ export default function DiscoverClient({
     : resourceState
       ? resourceStateTitles[resourceState.status]
       : resource?.title;
-  const [view, setView] = useState<View>(returnTo);
+  const [view, setView] = useState<View>(
+    returnTo === 'library' ? 'library' : 'discover',
+  );
+  const [searchRequested, setSearchRequested] = useState(false);
   const [feedMode, setFeedMode] = useState<'all' | 'for-you'>(initialFeedMode);
   const personalized =
     expandedCatalog &&
@@ -333,15 +346,24 @@ export default function DiscoverClient({
     }
     const onHash = () => {
       if (isStandalonePage) return;
-      setFeedMode(
-        new URL(window.location.href).searchParams.get('feed') === 'for-you'
-          ? 'for-you'
-          : 'all',
-      );
-      const value = window.location.hash.slice(1) || 'discover';
-      if (value === 'discover' || value === 'search' || value === 'library') {
-        setView(value);
+      const location = collectionLocation(window.location.hash);
+      if (!location) return;
+      if (location.legacySearch) {
+        setContext(restoreLegacySearch);
+        setFeedMode('all');
+        setSearchRequested(true);
+        const url = new URL(window.location.href);
+        url.searchParams.delete('feed');
+        url.hash = 'discover';
+        window.history.replaceState(window.history.state, '', url);
+      } else {
+        setFeedMode(
+          new URL(window.location.href).searchParams.get('feed') === 'for-you'
+            ? 'for-you'
+            : 'all',
+        );
       }
+      setView(location.view);
     };
     onHash();
     // Read again if another tab changed saves; never overwrite unreadable data.
@@ -365,12 +387,33 @@ export default function DiscoverClient({
   }, [context, contextLoaded, isStandalonePage]);
 
   useEffect(() => {
-    document.title = `${pageTitle ?? (view === 'library' ? 'Library' : view === 'search' ? 'Search' : 'Discover')} — Polymatik AI`;
+    document.title = `${pageTitle ?? (view === 'library' ? 'Library' : 'Discover')} — Polymatik AI`;
     if (isStandalonePage) return;
-    if (view === 'search') searchRef.current?.focus();
-    else if (view !== previousView.current) titleRef.current?.focus();
+    if (view !== previousView.current) titleRef.current?.focus();
     previousView.current = view;
   }, [view, pageTitle, isStandalonePage]);
+
+  useEffect(() => {
+    if (
+      !searchRequested ||
+      isStandalonePage ||
+      personalized ||
+      view !== 'discover' ||
+      !contextLoaded
+    )
+      return;
+    if (searchRef.current && !searchRef.current.disabled) {
+      searchRef.current.focus();
+      setSearchRequested(false);
+    }
+  }, [
+    searchRequested,
+    isStandalonePage,
+    personalized,
+    view,
+    contextLoaded,
+    catalog.status,
+  ]);
 
   function applySave(action: SaveAction) {
     try {
@@ -492,16 +535,6 @@ export default function DiscoverClient({
         <span>Discover</span>
       </a>
       <a
-        href={collectionHref('search')}
-        onClick={() => navigate('search')}
-        aria-current={
-          !isStandalonePage && view === 'search' ? 'page' : undefined
-        }
-      >
-        <Icon name="search" />
-        <span>Search</span>
-      </a>
-      <a
         href={collectionHref('library')}
         onClick={() => navigate('library')}
         aria-current={
@@ -592,9 +625,7 @@ export default function DiscoverClient({
                   ? 'Resource'
                   : view === 'library'
                     ? 'Library'
-                    : view === 'search'
-                      ? 'Search'
-                      : 'Discover'}
+                    : 'Discover'}
             </a>
           </nav>
           <span className="topbar-note">
@@ -651,9 +682,7 @@ export default function DiscoverClient({
                 <p className="eyebrow">
                   {view === 'library'
                     ? 'YOUR PERSONAL SHELF'
-                    : view === 'search'
-                      ? 'FOLLOW A QUESTION'
-                      : 'THE ART OF PAYING ATTENTION'}
+                    : 'THE ART OF PAYING ATTENTION'}
                 </p>
                 <h1 ref={titleRef} tabIndex={-1}>
                   {view === 'library' ? (
@@ -661,12 +690,6 @@ export default function DiscoverClient({
                       Keep a thought
                       <br />
                       <em>for later.</em>
-                    </>
-                  ) : view === 'search' ? (
-                    <>
-                      What are you
-                      <br />
-                      <em>curious about?</em>
                     </>
                   ) : (
                     <>
@@ -679,9 +702,7 @@ export default function DiscoverClient({
                 <p className="intro-description">
                   {view === 'library'
                     ? 'The ideas you chose to keep, ready when you are.'
-                    : view === 'search'
-                      ? 'Find a starting point across ideas, subjects and sources.'
-                      : 'Ideas worth pausing for. Perspectives worth exploring. A starting point for your next rabbit hole.'}
+                    : 'Ideas worth pausing for. Perspectives worth exploring. A starting point for your next rabbit hole.'}
                 </p>
               </div>
               <div className="preview-note">
@@ -710,9 +731,7 @@ export default function DiscoverClient({
                     <h2 ref={headingRef} tabIndex={-1}>
                       {view === 'library'
                         ? 'Your saved ideas'
-                        : view === 'search'
-                          ? 'Explore the collection'
-                          : 'Open a new thread'}
+                        : 'Open a new thread'}
                     </h2>
                     <span className="collection-label">
                       {view === 'library'
@@ -744,35 +763,9 @@ export default function DiscoverClient({
                   )}
                   {personalized ? (
                     <ForYouFeed
-                      dismissed={dismissed}
                       onExploreAll={() => switchFeed('all')}
-                      feedback={
-                        <>
-                          {storageFeedback}
-                          {dismissed.length > 0 && (
-                            <div className="undo-notice">
-                              <p>Set aside for this visit.</p>
-                              <button onClick={restoreDismissed}>
-                                Show set-aside resources
-                              </button>
-                              {undo && (
-                                <button
-                                  onClick={() => {
-                                    setDismissed((values) =>
-                                      values.filter((id) => id !== undo),
-                                    );
-                                    setUndo(null);
-                                    setNotice('Resource restored.');
-                                  }}
-                                >
-                                  Undo dismissal
-                                </button>
-                              )}
-                            </div>
-                          )}
-                        </>
-                      }
-                      renderItem={(item, index) => (
+                      feedback={storageFeedback}
+                      renderItem={(item, index, controls) => (
                         <ResourceRow
                           key={item.resource.id}
                           resource={item.resource}
@@ -792,26 +785,24 @@ export default function DiscoverClient({
                               resource: item.resource,
                             })
                           }
-                          onDismiss={() => {
-                            setDismissed((values) => [
-                              ...new Set([...values, item.resource.id]),
-                            ]);
-                            setUndo(item.resource.id);
-                            setNotice('Resource set aside for this visit.');
-                          }}
+                          onDismiss={controls.dismiss}
+                          dismissPending={controls.pending}
+                          accountDismissal
                         />
                       )}
                     />
                   ) : (
                     <>
                       <form
-                        className={`search-form ${view === 'search' ? 'search-prominent' : ''}`}
+                        className="search-form"
                         role="search"
                         onSubmit={(e) => e.preventDefault()}
                       >
                         <Icon name="search" />
                         <label className="sr-only" htmlFor="resource-search">
-                          Search this collection
+                          {view === 'library'
+                            ? 'Search your device Library'
+                            : 'Search the collection'}
                         </label>
                         <input
                           id="resource-search"
@@ -823,7 +814,11 @@ export default function DiscoverClient({
                             expandedCatalog ? 100 : MAX_COLLECTION_QUERY
                           }
                           disabled={!expandedCatalog && collectionPending}
-                          placeholder="Search ideas, subjects, sources…"
+                          placeholder={
+                            view === 'library'
+                              ? 'Search saved resources…'
+                              : 'Search ideas, subjects, sources…'
+                          }
                           value={query}
                           onChange={(e) => setQuery(e.target.value)}
                         />

@@ -13,6 +13,90 @@ import {
 export type FeedRequest = components['schemas']['FeedRequest'];
 export type FeedPage = components['schemas']['FeedPage'];
 export type FeedItem = FeedPage['items'][number];
+export type FeedDismissalPage = components['schemas']['FeedDismissalPage'];
+export type FeedDismissalChange = components['schemas']['FeedDismissalChange'];
+export const DISMISSAL_PAGE_LIMIT = 10;
+export function encodeDismissalCursor(id: string) {
+  return btoa(JSON.stringify({ v: 1, id }))
+    .replaceAll('+', '-')
+    .replaceAll('/', '_')
+    .replace(/=+$/, '');
+}
+export function dismissalQuery(params: URLSearchParams): string | null {
+  let unknownKey = false;
+  params.forEach((_value, key) => {
+    if (key !== 'cursor') unknownKey = true;
+  });
+  if (unknownKey || params.getAll('cursor').length > 1)
+    throw new TypeError('Invalid dismissal query.');
+  const cursor = params.get('cursor');
+  if (cursor === null) return null;
+  if (!/^[A-Za-z0-9_-]{1,128}$/.test(cursor))
+    throw new TypeError('Invalid dismissal cursor.');
+  const v: unknown = JSON.parse(
+    atob(cursor.replaceAll('-', '+').replaceAll('_', '/')),
+  );
+  if (
+    !object(v) ||
+    Object.keys(v).length !== 2 ||
+    v.v !== 1 ||
+    !id(v.id) ||
+    encodeDismissalCursor(v.id) !== cursor
+  )
+    throw new TypeError('Invalid dismissal cursor.');
+  return v.id;
+}
+export function isDismissalChange(v: unknown): v is FeedDismissalChange {
+  return (
+    object(v) &&
+    Object.keys(v).length === 2 &&
+    id(v.id) &&
+    typeof v.dismissed === 'boolean'
+  );
+}
+export function isDismissalPage(
+  v: unknown,
+  after: string | null = null,
+): v is FeedDismissalPage {
+  if (
+    !object(v) ||
+    Object.keys(v).length !== 2 ||
+    !Array.isArray(v.items) ||
+    v.items.length > DISMISSAL_PAGE_LIMIT
+  )
+    return false;
+  let previous = after ?? '';
+  for (const row of v.items) {
+    if (
+      !object(row) ||
+      Object.keys(row).length !== 3 ||
+      !id(row.id) ||
+      row.id <= previous ||
+      !(
+        (row.title === null && row.source === null) ||
+        (typeof row.title === 'string' &&
+          row.title.trim().length > 0 &&
+          row.title.length <= 240 &&
+          typeof row.source === 'string' &&
+          row.source.trim().length > 0 &&
+          row.source.length <= 200)
+      )
+    )
+      return false;
+    previous = row.id;
+  }
+  if (v.next_cursor === null) return true;
+  try {
+    return (
+      typeof v.next_cursor === 'string' &&
+      v.items.length === DISMISSAL_PAGE_LIMIT &&
+      dismissalQuery(new URLSearchParams({ cursor: v.next_cursor })) ===
+        previous
+    );
+  } catch {
+    return false;
+  }
+}
 export const FEED_POOL_LIMIT = 100;
 export const FEED_PAGE_LIMIT = 5;
 export function matchesFeedResource(

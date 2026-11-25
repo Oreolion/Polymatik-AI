@@ -19,7 +19,7 @@ const baseline = registry
 test('ordered registry preserves historical SQL bytes and rejects arbitrary versions', async () => {
   assert.deepEqual(
     registry.map((m) => m.version),
-    ['0001', '0002', '0003', '0004'],
+    ['0001', '0002', '0003', '0004', '0005'],
   );
   assert.equal(
     registry[0].checksum,
@@ -50,7 +50,7 @@ test('ordered registry preserves historical SQL bytes and rejects arbitrary vers
 test('ledger planning requires a known contiguous prefix with every checksum intact', () => {
   assert.deepEqual(
     planProductMigrations(registry, baseline).map((m) => m.state),
-    ['applied', 'applied', 'pending', 'pending'],
+    ['applied', 'applied', 'pending', 'pending', 'pending'],
   );
   assert.ok(
     planProductMigrations(registry, registry).every(
@@ -253,7 +253,7 @@ test('local migration plan CLI is deterministic, database-free and offers no app
   assert.equal(plan.database_inspected, false);
   assert.deepEqual(
     plan.migrations.map((entry) => entry.version),
-    ['0001', '0002', '0003', '0004'],
+    ['0001', '0002', '0003', '0004', '0005'],
   );
   assert.ok(
     plan.migrations.every((entry) => entry.database_state === 'unverified'),

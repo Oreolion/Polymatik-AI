@@ -17,6 +17,124 @@ import {
   type FeedPage,
   type FeedItem,
 } from '@polymatik/domain-types/feed';
+import type { BatchSeed, StoredBatch } from './feed-storage';
+
+export type FeedBatchStorage = {
+  load(subject: string): Promise<StoredBatch | undefined>;
+  batch(subject: string, seed: BatchSeed): Promise<StoredBatch>;
+};
+
+async function digest(value: unknown) {
+  const bytes = await crypto.subtle.digest(
+    'SHA-256',
+    new TextEncoder().encode(JSON.stringify(value)),
+  );
+  return [...new Uint8Array(bytes)]
+    .map((v) => v.toString(16).padStart(2, '0'))
+    .join('');
+}
+
+/** Account-owned derived selection. Cursors are freshness markers, never credentials.
+ * A continuation only reads; stale tabs cannot replace a newer account batch. */
+export async function persistedFeedPage(
+  resources: readonly CatalogEntry[],
+  preferences: unknown,
+  owner: string,
+  raw: FeedRequest | null,
+  storage: FeedBatchStorage,
+  limited = false,
+): Promise<FeedPage> {
+  const input = feedInput(raw);
+  if (
+    !input ||
+    !/^[A-Za-z0-9_-]{1,128}$/.test(owner) ||
+    typeof limited !== 'boolean'
+  )
+    throw new TypeError('Invalid feed request.');
+  const ranked = rankFeed(resources, preferences, input);
+  const choices = interestUpdateV2(preferences) ?? {
+    status: 'not_started',
+    subjects: [],
+  };
+  const basis: FeedPage['basis'] = choices.subjects.length
+    ? ranked.some((item) => item.reason.kind === 'interest')
+      ? 'interests'
+      : 'no_matches'
+    : 'cold_start';
+  const fingerprint = await digest({
+    policy: 'subjects-v1',
+    owner,
+    preferences: choices,
+    resources,
+    limited,
+    subject: input.subject ?? null,
+    kind: input.kind ?? null,
+    q: input.q ?? null,
+  });
+  const prior = input.cursor ? decodeFeedCursor(input.cursor) : null;
+  const current = prior
+    ? await storage.load(owner)
+    : await storage.batch(owner, {
+        fingerprint,
+        basis,
+        limited,
+        items: ranked.map((item) => ({
+          id: item.resource.id,
+          subject: item.reason.subject,
+        })),
+      });
+  if (
+    !current ||
+    current.fingerprint !== fingerprint ||
+    Date.parse(current.expires_at) <= Date.now()
+  )
+    throw new FeedChangedError();
+  if (
+    !/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/i.test(current.id) ||
+    !Number.isFinite(Date.parse(current.expires_at)) ||
+    current.basis !== basis ||
+    current.limited !== limited ||
+    !Array.isArray(current.items) ||
+    current.items.length > FEED_POOL_LIMIT
+  )
+    throw new TypeError('Invalid stored feed.');
+  // The random stored batch ID binds cursors across sessions without retaining a
+  // session key. Identity and SQL ownership are independently rechecked per page.
+  const token = await digest({ owner, id: current.id, fingerprint });
+  if (prior && (prior.batch !== token || prior.offset >= ranked.length))
+    throw new FeedChangedError();
+  let previous = -1;
+  const ids = new Set<string>();
+  for (const item of current.items) {
+    const expected = ranked[item.position];
+    if (
+      !Number.isInteger(item.position) ||
+      item.position <= previous ||
+      !expected ||
+      expected.resource.id !== item.id ||
+      expected.reason.subject !== item.subject ||
+      ids.has(item.id)
+    )
+      throw new TypeError('Invalid stored feed item.');
+    previous = item.position;
+    ids.add(item.id);
+  }
+  const excluded = new Set(input.excluded ?? []);
+  const remaining = current.items.filter(
+    (item) => item.position >= (prior?.offset ?? 0) && !excluded.has(item.id),
+  );
+  const selected = remaining.slice(0, FEED_PAGE_LIMIT);
+  const last = selected.at(-1);
+  return {
+    items: selected.map((item) => ranked[item.position]!),
+    next_cursor:
+      last && remaining.length > selected.length
+        ? encodeFeedCursor(token, last.position + 1)
+        : null,
+    basis,
+    limited,
+  };
+}
 
 /** Fixed policy, curated order breaks ties. No random, learned or inferred interests. */
 export function rankFeed(

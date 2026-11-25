@@ -19,6 +19,13 @@ export function emptyCollectionContext(): CollectionContext {
   };
 }
 
+/** Only an old Search link opts into these filters; ordinary Discover stays intact. */
+export function restoreLegacySearch(
+  context: CollectionContext,
+): CollectionContext {
+  return { ...context, discover: { ...context.search } };
+}
+
 /** Reset only the active view; saves and session dismissals are separate choices. */
 export function resetCollectionFilters(
   context: CollectionContext,

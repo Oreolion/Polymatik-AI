@@ -307,13 +307,27 @@ export async function verifyTaxonomyLogin(client) {
 export function rehearseSubjectTaxonomy(deps) {
   return operateTaxonomy(deps, false);
 }
+/** Reuse the fixed child/parent/endpoint and preservation guards. Never a cutover.
+ * @param {Dependencies} deps */
+export function rehearseProductStorage(deps) {
+  if (!deps.migrate || !deps.verify)
+    throw new TaxonomyError('STORAGE_CALLBACKS_REQUIRED');
+  return operateTaxonomy(deps, false, '0005');
+}
+/** Explicitly authorized shared-development operation, after accepted child proof.
+ * @param {Dependencies} deps */
+export function applyDevelopmentProductStorage(deps) {
+  if (!deps.migrate || !deps.verify)
+    throw new TaxonomyError('STORAGE_CALLBACKS_REQUIRED');
+  return operateTaxonomy(deps, true, '0005');
+}
 /** Explicit caller authorization is required; never used by startup or deploy.
  * @param {Dependencies} deps */
 export function applyDevelopmentTaxonomy(deps) {
   return operateTaxonomy(deps, true);
 }
-/** @param {Dependencies} deps @param {boolean} development */
-async function operateTaxonomy(deps, development) {
+/** @param {Dependencies} deps @param {boolean} development @param {'0004'|'0005'} version */
+async function operateTaxonomy(deps, development, version = '0004') {
   const global = ['--project-id', taxonomyTarget.projectId];
   const clients = [];
   /** Report a fixed phase only; CLI output can contain database credentials.
@@ -425,14 +439,13 @@ async function operateTaxonomy(deps, development) {
     const childBefore = await inspect(child);
     if (development) {
       requireThat(
-        planProductMigrations(
-          await loadProductMigrations(),
-          childBefore.ledger,
-        ).every((m) => m.state === 'applied'),
+        planProductMigrations(await loadProductMigrations(), childBefore.ledger)
+          .filter((m) => m.version <= version)
+          .every((m) => m.state === 'applied'),
         'TAXONOMY_REHEARSAL_REQUIRED',
       );
       deps.report?.(
-        'Accepted child migration 0004 checksum verified read-only.',
+        `Accepted child migration ${version} checksum verified read-only.`,
       );
     }
     const owner = development ? source : child;
@@ -464,9 +477,9 @@ async function operateTaxonomy(deps, development) {
     }
     const after = await inspect(owner);
     requireThat(
-      planProductMigrations(await loadProductMigrations(), after.ledger).every(
-        (m) => m.state === 'applied',
-      ),
+      planProductMigrations(await loadProductMigrations(), after.ledger)
+        .filter((m) => m.version <= version)
+        .every((m) => m.state === 'applied'),
       'TAXONOMY_REHEARSAL_LEDGER_INVALID',
     );
     assert.deepEqual(
@@ -481,7 +494,7 @@ async function operateTaxonomy(deps, development) {
     );
     return {
       branch_id: development ? parent.id : branch.id,
-      migration: '0004',
+      migration: version,
       verified: true,
       ...(development
         ? { rehearsal_child_unchanged: true }

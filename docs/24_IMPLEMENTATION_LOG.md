@@ -1,5 +1,328 @@
 # 24 — Implementation Status and Evidence Ledger
 
+### 2026-11-25 — dismissal controls prepared; verification incomplete
+
+The current slice adds private dismissal pages, idempotent set-aside/restore
+API and same-origin BFF/client contracts, and For you controls with Undo and
+individual restore. Explore all retains visit-only controls. Existing 0005 is
+reused; no SQL, new grants, provider changes, push or deployment ran. Withdrawn
+metadata is redacted while own restoration remains available. Account changes
+clear private UI state; uncertain writes do not pretend to succeed.
+
+Owner reported the previous batch API packaging dry run passed at 262.60 KiB /
+54.59 KiB gzip. This does not package subsequent dismissal changes. Agent's full
+deterministic suite passed 296/296 before the final test typing correction.
+Owner's recursive typecheck exposed a test tuple inference error; explicit tuple
+types and omission of absent bodies fix it without weakening compiler options.
+Afterward root/web/API/domain/client types, OpenAPI generation, repository ESLint
+and formatting pass, plus focused dismissal contracts 4/4. Captured quality:
+`.cache/dismissal-quality.txt`; earlier full suite `.cache/dismissal-unit.txt`.
+
+Build and rendered controls remain unaccepted: the first web build exited with
+3221226505 without diagnostics; the isolated rerun is pending. Firefox exited
+before inspection. Combined live API/SQL and hosted delivery remain open. No
+ranking change or new evaluation claim. Scope, rollback and limits: docs/50.
+
+### 2026-11-24 — shared SQL accepted; account batch API implemented
+
+Owner reports shared 0005 success on `br-noisy-poetry-zaka8dav`: verified child
+checksum, migration applied, restricted-login proof passed, child unchanged and
+private data preserved. This closes the shared schema gate; no repeat SQL,
+approval or setup command is needed. The earlier CLI failure cause is unproven.
+
+One bounded continuation mounts the existing restricted Hyperdrive feed storage
+in the real API Worker and routes `/v2/feed` through `persistedFeedPage`. The
+response format/ranking remain; OpenAPI description and generated checksum now
+state the first page may create/reuse an account batch. A continuation only reads.
+Random stored batch identity plus policy/account/preferences/catalog/filter
+fingerprints bind freshness without retaining session credentials. Session
+rotation can continue; expiry, replacement or changed input/account rejects old
+cursors. Original positions survive excluded/storage-filtered rows. Metadata and
+reasons are revalidated against the current bounded ranked pool. Storage/binding
+failure is explicit 503, never a successful ephemeral fallback. The ephemeral
+helper remains only as the prior baseline test path, not the mounted API.
+
+Changed runtime files: `apps/api/src/feed.ts`, `feed-storage.ts`, `index.ts`,
+`worker.ts`; OpenAPI/generated contract; account/storage doubles and
+`tests/contracts/feed-persistence.test.mjs`; managed Worker integration assertion.
+Docs/22, 48 and 49 record alternatives, privacy, expiry, rollback and limits.
+No new SQL, dependency, provider, UI, publication, deployment or Git write ran.
+Durable dismissal/read/restore endpoints and controls are the next ticket;
+existing dismissals honestly remain visit-only. Native remains parked.
+
+Node 24.22.1 / Windows evidence:
+
+- New missing-export red before implementation. Initial fixture typing/import
+  issues corrected without loosening compiler settings.
+- Final full root suite **292/292**, zero skips: `.cache/feed-batch-unit.txt`.
+  Focused persistence **6/6**: `.cache/feed-batch-persistence-final.txt`. Focused feed/
+  repository tests initially passed 18/18 before that extra assertion.
+- Root/web/API/domain/client TypeScript, OpenAPI drift, repository ESLint and
+  maintained-source Prettier pass: `.cache/feed-batch-quality.txt`. A nullable
+  fixture cursor annotation was corrected before this successful run. Final root
+  typecheck also passes: `.cache/feed-batch-types-final.txt`.
+- Existing 70-resource offline rank evaluation passes unchanged: precision@5
+  0.8667 and nDCG@5 0.8997; **zero relevance-policy change** from the prior slice.
+  `.cache/feed-evaluation.json` remains synthetic, not live relevance or Workers
+  CPU evidence. Persistence still revalidates/ranks at most 100 candidates.
+
+Combined live API/Neon/session and rendered cross-session acceptance remain open;
+deterministic storage doubles and migration SQL proof do not establish them.
+No UI acceptance or deployment success is claimed.
+
+- Web build passes: `.cache/feed-batch-build.txt`; framework source-map/dynamic
+  import warnings remain visible and were not suppressed.
+- API plus managed identity **8/8** in explicit Miniflare/workerd mode:
+  `.cache/feed-batch-api-runtime.txt`. Valid mocked identity cannot bypass missing
+  storage. This does not test a live PostgreSQL socket; Vite emits existing
+  Node-module externalization warnings in this harness.
+- Built web **18/18** in explicit Miniflare/workerd mode:
+  `.cache/feed-batch-web-runtime.txt`. The real BFF crosses to the Node API/storage
+  double, paginates and reuses the batch on a fresh request. Not live SQL or
+  rendered browser acceptance.
+- Standard Wrangler API packaging fails before bundling on the sandbox ancestor
+  directory ACL, followed by unresolved Worker entry:
+  `.cache/feed-batch-api-package.txt`. Owner normal-terminal `build:api:check`
+  requested; packaging remains open. No permission bypass or deploy ran.
+
+The final status/documentation tool calls stalled and were stopped; a subsequent
+read confirms the final suite and typecheck success. No migration/deployment
+process was involved. Next functional ticket: private dismiss/restore contract
+and controls. Keep combined live authenticated API/browser acceptance open; an
+old hosted health result is not delivery proof for this implementation.
+
+### 2026-11-24 — shared apply authorized; CLI package lookup bounded
+
+Owner executes the explicit shared-development command, supplying authorization
+for that reviewed operation. It fails at branch-inventory with NEON_CLI_FAILED
+and development migration committed false, before PostgreSQL access. The earlier
+cause is unverified. No repeat approval or child rehearsal is required.
+
+The common CLI bridge now selects the already-cached exact 8.23.1 package using
+npx --offline. This prevents package downloads/registry resolution during database
+operations; Neon service requests still require networking. Missing cache,
+timeout, known transport errors, access and login failures receive distinct
+trusted codes, never raw CLI/SQL output. Version, 60s limit and all target/SQL
+guards remain unchanged. No automatic retries or migration edits.
+
+Focused tests **39/39**, zero skips: `.cache/feed-cli-offline-tests.txt`. Fake
+subprocess events cover error categories without contacting providers; both OS
+command specs require offline exact-version lookup and retain argument validation.
+During the initial red test, the not-yet-injected runner accidentally launched
+a real read-only branch-list subprocess; the agent stopped its own test processes.
+No SQL/mutation command was used. Subsequent tests use the injected fake launcher.
+No live shared SQL, configuration, deployment or app behavior changed.
+
+Root TypeScript and affected ESLint pass, captured in
+`.cache/feed-cli-offline-types.txt` and `.cache/feed-cli-offline-lint.txt`.
+Changed-file Prettier and `git diff --check` also pass.
+
+### 2026-11-24 — feed storage child accepted; shared rollout prepared
+
+Owner reports `0005 applied; private feed storage only` and verified JSON for
+`br-muddy-bar-zayn69jl`, migration 0005, source unchanged, private data preserved,
+shared development unchanged. This is owner-run real PostgreSQL acceptance for
+the isolated child, not an active API/UI or deployed feature. Earlier CLI failure
+cause remains unknown; no repeat rehearsal is needed.
+
+Prepared `--apply-development` in the same operator. It reuses the fixed target,
+endpoint, TLS, role, checksummed-ledger and data-preservation guards; only the
+explicit mode can write the parent. The child must contain 0005 before any target
+DDL. Missing callbacks and a 0004-only child fail closed. Version-specific phase
+reporting now identifies 0005 correctly. Verification uses the same restricted
+login and rollback-only SQL proof on the target. Existing 0005 bytes are unchanged.
+No production/custom target mode or automatic startup/deploy hook is introduced.
+
+New tests were red for the missing rollout function, then focused tests passed
+**38/38**, zero skips: `.cache/feed-storage-rollout-tests.txt`. They cover parent
+targeting, accepted child prerequisite, endpoint/identity guards, callback bounds,
+preservation failure, postcommit reporting and closing all connections.
+Root TypeScript and affected ESLint pass (captured in
+`.cache/feed-storage-rollout-types.txt` and `.cache/feed-storage-rollout-lint.txt`);
+changed-file Prettier, file-only plan and `git diff --check` pass. The plan confirms
+the accepted 0005 checksum and performs no database lookup. No new
+live shared-development SQL, config, app endpoint/UI, provider, deployment or Git
+write ran. Docs/49 defines the exact operation awaiting a separate privileged
+shared-development decision under AGENTS.md. Next after live acceptance is the
+API/BFF/UI persistence slice and cross-visit/account-isolation checks.
+
+### 2026-11-24 — owner rehearsal stops before PostgreSQL
+
+Owner reports `Neon CLI failed during branch-inventory` and `child migration
+committed: false`. This run cannot reach a database connection, migration or
+verification fixture. The earlier silent agent attempt remains unverified.
+The CLI cause is still unknown; no login/network/privilege diagnosis is inferred.
+Requested the exact direct read-only branch-list command in docs/49.
+
+Fixed a diagnostic gap in `scripts/feed-storage-rehearsal.mjs`: the outer catch
+now renders the existing trusted error-code sanitizer, retaining the phase and
+commit-state reports while never printing raw CLI/SQL messages or credentials.
+Regression tests cover arbitrary/forged error codes, credential-shaped messages
+and branch-inventory failure preventing all PostgreSQL/migration callbacks.
+No SQL, dependency, provider, deployment or active app change in this follow-up.
+
+Owner's direct branch-list JSON subsequently succeeds: fixed child and expected
+parent remain ready, nondefault and correctly related. This proves that direct
+operation works in the owner terminal now; it does not establish the cause of
+the earlier nested failure or migration acceptance. Next is one guarded runner
+retry with the improved diagnostic code. No credential/config reset is justified.
+Focused runner/migration tests **35/35** (zero skips), root TypeScript, affected
+ESLint, changed-file Prettier and `git diff --check` pass on Node 24.22.1/Windows.
+Captured focused output: `.cache/feed-storage-diagnostics-tests.txt`.
+
+### 2026-11-24 — authorized feed-storage rehearsal attempt
+
+Owner authorizes migration 0005 and rollback-only proof on the fixed
+`dev-catalog-expansion` child only. The working tree and reviewed SHA-256
+`43116f94758021f111f82907b0daf82a2ebf04143f9dc5a69e681b582510b342`
+were checked before launch. The agent ran
+`bash scripts/node24.sh node scripts/feed-storage-rehearsal.mjs --rehearse`
+through Git Bash. It produced no phase or result output and remained stalled;
+the agent stopped its own Node processes and the command exited 1. This supplies
+no database acceptance evidence and does not prove whether remote SQL ran. The
+cause is unverified; do not label it a credential failure without evidence.
+
+Next: owner runs the same checksum-safe command in the normal project terminal
+(docs/49). Approval remains valid; no new approval, install, branch creation,
+grant workaround or production change is required. Preserve any committed
+migration and let the runner verify its checksum on repeat. Prior 280/280 and
+quality checks remain implementation evidence, not this live rehearsal's result.
+No active API/UI persistence, Git write, deployment or shared-development apply
+was performed. This follow-up changes documentation only.
+
+### 2026-11-23 — M1-04b private feed storage foundation prepared
+
+Owner requests continuation after navigation cleanup. Keep that uncommitted work
+intact. One prerequisite ticket: prepared storage/repository plus isolated-child
+rehearsal. The active For you API/UI remains session-derived and visit-only;
+cross-device persistence is not yet activated or accepted. No remote SQL ran.
+
+New files: `apps/api/src/feed-storage.ts`, migration/verification SQL 0005,
+`scripts/feed-storage-rehearsal.mjs`, repository/migration tests and docs/49.
+Registry appends 0005 and preserves accepted 0001–0004 hashes. The shared fixed
+branch/endpoint/preservation harness gains an explicit 0005 rehearsal entry with
+required migration and verification callbacks; 0004 checks only its own required
+prefix, never auto-applies 0005. Tests cover that future-pending regression.
+Operator tests stay in the existing spikes boundary and the root test command
+explicitly includes them; no assertions/tests or type strictness are disabled.
+
+Design: one active 24h batch/account, maximum 100 unique ordered IDs/reasons,
+no copied work or credentials. Per-account advisory transaction locks serialize
+batch/dismissal writes without UPDATE privilege on users. Read snapshots use
+repeatable-read and transaction-local identity. Loads exclude currently hidden,
+withdrawn, dismissed or reclassified/misattributed resources and keep original
+positions. Dismissals persist independently, with an application cap of 500 and
+individual idempotent restoration. Changed/expired batches replace only the
+account's derived batch; failed writes roll back and close connections.
+
+0005 creates three forced-RLS tables and grants only SELECT/INSERT/DELETE on
+batches/dismissals, SELECT/INSERT on items to the existing restricted login.
+Composite user/batch foreign keys prevent associating another account's batch.
+No UPDATE/TRUNCATE, elevated membership or existing-table privilege change.
+Prepared hash: `43116f94758021f111f82907b0daf82a2ebf04143f9dc5a69e681b582510b342`.
+Accepted 0004 remains `bd1232b0dbc54a71c318c46279108fcba128f9b2ddf345b253bf8d0d450bddec`.
+No startup, API, deploy or existing setup path invokes this migration/repository.
+
+Agent Node 24.22.1 / Windows evidence:
+
+- Expected missing-module red before repository implementation:
+  `.cache/feed-storage-red.txt`.
+- Complete root suite **280/280**, no skips: `.cache/storage-unit.txt`. Eleven
+  focused repository/migration tests plus two new fixed-harness/future-prefix
+  checks cover bounds, duplicate/bad seeds, original positions, reviewed-only SQL,
+  reuse/refresh, rollback/cleanup, restore, dismissal cap/idempotence, privilege
+  guards, atomic/checksummed migration, file-only plan and rejected apply modes.
+  Existing rank evaluation passes with no policy/evaluation change.
+- Root/web/API/domain/client TypeScript, OpenAPI drift, repository ESLint and full
+  maintained-source Prettier pass: `.cache/storage-quality.txt`. Initial fixture
+  JSDoc and package-format issues were corrected. New active runtime module is
+  typed; administrative script tests follow the existing operator-test layout.
+- `node scripts/feed-storage-rehearsal.mjs --plan` succeeds with
+  `database_inspected:false`, fixed child target and `active_app_changed:false`.
+  `--apply-development` is rejected; no production/shared apply mode exists.
+- `git diff --check` passes. No dependency installation or generated-link edit.
+  No new active module graph/UI change, so previous built-web 18/18/rendered
+  limitations remain separate evidence rather than a new claimed delivery.
+
+Real PostgreSQL syntax, constraints, RLS, expiry and lock behavior are pending.
+The prepared restricted-login proof rolls all fixtures back and checks own/other/
+unsigned behavior, composite ownership, duplicate/bad position rejection, own
+restore, expiry and child cascading. Mock SQL/query-order tests cannot establish
+those database properties. No deployed performance/free-plan claim; future API
+must still revalidate identity, ownership, current visibility and batch freshness.
+Account erasure/retention integration must cover these private rows before any
+production release; no production user data is introduced by this unmounted slice.
+
+Gate: explicit owner decision for privileged DDL/new-table grants, under AGENTS.md.
+Reviewable exact scope and copyable commands: docs/49. Rehearse only the already
+accepted `dev-catalog-expansion` child and preserve parent fingerprints. No live
+probe, migration commit, active API/BFF/UI integration, Git write or deployment
+has occurred. After child acceptance, prepare reviewed shared-development rollout
+and the next private API/UI slice; do not silently claim cross-visit behavior.
+Rollback source before activation; preserve applied ledgers/private rows if a
+later real rehearsal commits. Never auto-drop tables or reset a branch.
+
+### 2026-11-23 — consolidate duplicate web Search navigation
+
+Owner asks to continue and questions why Search repeats the inputs already in
+the discovery/home experience. Actual working tree starts clean at
+`1a7dc96b91cfd708860064b917c8d7d4cda87046`. That local commit does not establish
+new preview CI/deployment acceptance. Inspection confirms Search uses the same
+catalog, filters and pagination; it adds no distinct retrieval capability.
+
+Small acceptance-testable UI slice: remove Search from shared desktop/mobile
+primary navigation, retain catalog search in Discover / Explore all and label
+Library search as device-only. For you remains the explicit ranked view. Mobile
+web changes from five columns to four; existing Learn remains unavailable.
+Old #search links open Explore all, restore the legacy Search filters only on
+that explicit path, preserve the Library/legacy storage slot, canonicalize the
+URL without discarding history state, and request input focus. Old resource
+from=search returns still work and say Back to Discover. Unrelated skip/content
+anchors never navigate the collection. No saves are deleted or reinterpreted.
+
+Changed files: Discover shell, navigation/context helpers, detail/recovery labels,
+mobile CSS, Discover/runtime contracts, README, backlog, design guidance, decision
+register and AGENTS. No API/domain contract, schema, role, provider, dependency,
+ranking or native change. Alternative was retaining Search for future semantic
+research; it can become a distinct destination only when that capability exists.
+Decision: docs/22. Rollback reverts this UI checkpoint; existing storage shape,
+catalog and private records remain compatible. Legacy search context deliberately
+remains in the same versioned per-tab payload; no silent storage migration.
+
+Agent Node 24.22.1 / Windows evidence:
+
+- Expected missing-export red before implementation: `.cache/search-red.txt`.
+- Full root command from package.json (`node --test ...`) **267/267**, no skips:
+  `.cache/search-unit.txt`. New cases verify hash aliases, safe content anchors,
+  nonmutating restoration and isolation of Discover/Library/legacy filter state.
+  Ranking/evaluation behavior is unchanged; the existing offline gate still passes.
+- `.cache/verify-search.mjs quality`: root/web/API/domain/client TypeScript,
+  OpenAPI drift, full repository ESLint and maintained-source Prettier pass:
+  `.cache/search-quality.txt`. Focused discovery/detail tests also pass **15/15**.
+- Web production build passes: `.cache/search-build.txt`, retaining framework
+  sourcemap/chunk/classification warnings. No warning suppression or timeout change.
+- Explicit Miniflare/workerd real built web **18/18**: `.cache/search-web.txt`.
+  SSR assertions verify both primary menus contain Discover/Library/Profile,
+  neither exposes Search, catalog input remains, old Search detail return is
+  compatible, and existing configured account/private/outage paths still pass.
+  Initial failures identified obsolete Search reachability and an assertion that
+  counted streamed fallback plus replacement as one shell. Tests now assert every
+  streamed menu and the intended current navigation; no tests were skipped.
+- Cached Chromium headless attempt fails because the GPU process cannot start:
+  `.cache/search-browser.txt`. A separate software/no-GPU launch also crashes:
+  `.cache/search-browser-software.txt`. No native computer-use runtime is callable
+  in this session, and no dependency/global browser changes were made. No new
+  screenshot, keyboard focus, mobile reflow or theme acceptance is claimed.
+- `git diff --check` passes. No SQL, import, deployment, commit or push ran.
+
+Remaining gate: owner browser check on the printed local web URL: Discover / For
+you / Explore all, catalog query and subject filters, device Library search,
+resource round trip, old /#search, skip-link focus, 320px layout and both themes.
+Agent built HTTP checks cannot prove focus/reflow. Git metadata is read-only;
+master push and exact resulting development-preview delivery remain external to
+this session. Production and mobile are excluded. Next feature ticket remains
+persisted feed batches/dismissals with separately reviewed schema and isolation.
+
 ### 2026-11-23 — M1-04a personalized Discover and README checkpoint
 
 Owner authorizes subject-aware Discover implementation and master push, then

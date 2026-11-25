@@ -12,6 +12,11 @@ import {
   isFeedPageForRequest,
   type FeedPage,
   type FeedRequest,
+  dismissalQuery,
+  isDismissalPage,
+  isDismissalChange,
+  type FeedDismissalPage,
+  type FeedDismissalChange,
 } from '@polymatik/domain-types/feed';
 import { isCatalogResource } from '@polymatik/domain-types/catalog-resource';
 import { readBoundedBody } from '@polymatik/domain-types/bounded-body';
@@ -119,6 +124,8 @@ export function createApiClient(options: ApiClientOptions) {
       | '/v1/interests'
       | `/v1/library/${string}`
       | `/v2/library?${string}`
+      | `/v2/feed/dismissals?${string}`
+      | `/v2/feed/dismissals/${string}`
       | `/v2/library/${string}`,
     validate: (value: unknown) => value is T,
     signal?: AbortSignal,
@@ -186,6 +193,35 @@ export function createApiClient(options: ApiClientOptions) {
     );
   }
   return {
+    feedDismissals: (cursor?: string, token?: string, signal?: AbortSignal) => {
+      const params = new URLSearchParams(
+        cursor !== undefined ? { cursor } : {},
+      );
+      const after = dismissalQuery(params);
+      return get(
+        params.size ? `/v2/feed/dismissals?${params}` : '/v2/feed/dismissals',
+        (v): v is FeedDismissalPage => isDismissalPage(v, after),
+        signal,
+        token,
+      );
+    },
+    changeFeedDismissal: (
+      id: string,
+      dismissed: boolean,
+      token?: string,
+      signal?: AbortSignal,
+    ) => {
+      if (!/^[a-z][a-z0-9-]{0,47}$/.test(id) || typeof dismissed !== 'boolean')
+        throw new TypeError('Invalid set-aside change.');
+      return get(
+        `/v2/feed/dismissals/${encodeURIComponent(id)}`,
+        (v): v is FeedDismissalChange =>
+          isDismissalChange(v) && v.id === id && v.dismissed === dismissed,
+        signal,
+        token,
+        dismissed ? 'PUT' : 'DELETE',
+      );
+    },
     feed: (input: FeedRequest = {}, token?: string, signal?: AbortSignal) => {
       const body = feedInput(input);
       if (!body) throw new TypeError('Invalid feed request.');

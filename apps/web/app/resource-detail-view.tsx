@@ -34,12 +34,7 @@ export default function ResourceDetailView({
   onSave: () => void;
   feedback: ReactNode;
 }) {
-  const destination =
-    returnTo === 'library'
-      ? 'Library'
-      : returnTo === 'search'
-        ? 'Search'
-        : 'Discover';
+  const destination = returnTo === 'library' ? 'Library' : 'Discover';
   return (
     <article
       className="resource-detail"

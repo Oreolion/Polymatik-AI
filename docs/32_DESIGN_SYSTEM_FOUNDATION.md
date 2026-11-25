@@ -1,5 +1,15 @@
 # Living Atlas - design audit and foundation proposal
 
+**23 November — web search consolidation:** catalog search is an action inside
+Discover / Explore all, not a second primary destination. For you retains its
+recommendation purpose; Library search explicitly says it filters device saves.
+Old Search links restore their filters and focus the catalog input in Discover.
+Desktop and mobile web navigation share the same three working destinations,
+with the existing unavailable Learn placeholder. Mobile grid now has four slots.
+Native navigation is unchanged. Tokens, themes and typography remain; no new
+visual assets. Rendered/theme/focus acceptance remains distinct from built HTTP
+checks. Decision: docs/22; results and limitations: docs/24.
+
 **14 November UI-07:** optional subject choices extend Profile with numbered
 editorial rows, native multiselect checkboxes, a selected count, explicit Save/
 Skip/Clear actions and a browsing exit. Selection uses text/control state plus

@@ -19,7 +19,7 @@ features, local implementation, owner confirmations and remaining acceptance wor
 
 | Area | Current capability |
 | --- | --- |
-| Discover and Search | Reviewed catalog, subject/format filters, pagination and explicit recovery states |
+| Discover | Reviewed catalog, integrated search, subject/format filters, pagination and explicit recovery states |
 | Resource details | Attributed description, clickable breadcrumbs and an **Open source** action |
 | Library | Browser-local saves plus a separate private account Library with explicit copying |
 | Accounts | Google sign-in through Neon-managed Auth; the API independently revalidates sessions |
@@ -34,9 +34,14 @@ The legacy four-resource API remains compatible.
 
 For you prioritizes explicitly selected interests and offers a varied start when
 choices are skipped or unmatched. It ranks at most 100 reviewed candidates;
-**Explore all** remains the complete catalog. Dismissals last for the visit, and
+**Explore all** remains the complete catalog, with visit-only dismissal controls, and
 Discover saves stay in the current browser. Account Library actions are separate.
 Neither saves nor interests establish knowledge or mastery.
+
+Search is part of Discover's Explore all view rather than a separate primary
+tab. Library search only filters device saves. Old Search links still open the
+catalog search and restore their previous filters. For you remains the explicit
+personalized selection; use Explore all to search the complete reviewed catalog.
 
 New welcome, resource presentation, fourteen-subject and For you changes require
 checkpoint delivery and the remaining browser/hosted acceptance checks before
@@ -44,8 +49,14 @@ being described as verified on the preview. See the
 [experience guide](docs/46_WELCOME_AND_RESOURCE_EXPERIENCE.md),
 [taxonomy migration](docs/47_SUBJECT_TAXONOMY_MIGRATION.md) and
 [personalized Discover scope](docs/48_PERSONALIZED_DISCOVER.md).
-Granular topic/thinker onboarding, persistent feed batches, cross-device
-dismissals, research memory, retrieval and learning assessments remain future work.
+Granular topic/thinker onboarding, research
+memory, retrieval and learning assessments remain future work.
+
+The [feed persistence foundation](docs/49_FEED_PERSISTENCE.md), migration
+0005, passed on isolated and shared development with restricted-login verification.
+The new API slice reuses a private 24-hour selection across verified sessions;
+For you now includes account-backed Set aside, Undo and individual restore controls.
+Live combined API/database, rendered UI and hosted delivery checks remain open.
 
 ## Architecture
 

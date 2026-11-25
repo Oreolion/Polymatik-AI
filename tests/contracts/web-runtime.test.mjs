@@ -263,6 +263,13 @@ test('configured expanded account BFF uses the real built Worker and mocked Neon
     ).json();
     const priorIds = new Set(matching.items.map((item) => item.resource.id));
     assert.ok(continued.items.every((item) => !priorIds.has(item.resource.id)));
+    const storedWrites = fixture.api.feedBatches.writes();
+    assert.deepEqual(await (await readSelection()).json(), matching);
+    assert.equal(
+      fixture.api.feedBatches.writes(),
+      storedWrites,
+      'a fresh BFF request reuses the private account batch',
+    );
     assert.equal(
       (await call('/api/account/v2/feed', 'POST', {}, 'bob', 'alice')).status,
       409,
@@ -491,7 +498,7 @@ function assertResourceShell(html) {
   assert.ok(markup.includes('class="atlas-app"'), 'shared Living Atlas shell');
   assert.ok(markup.includes('Skip to content'));
   assert.ok(markup.includes('id="main-content"'));
-  for (const view of ['discover', 'search', 'library'])
+  for (const view of ['discover', 'library'])
     assert.ok(markup.includes(`href="/#${view}"`), `${view} is reachable`);
   assert.ok(markup.includes('aria-label="Switch to dark appearance"'));
   for (const anchor of markup.matchAll(
@@ -643,6 +650,21 @@ test('Discover renders source-attributed preview content before hydration', asyn
     assert.ok(html.includes(text), text);
   assert.ok(html.includes('https://www.feynmanlectures.caltech.edu/I_01.html'));
   assert.ok(!html.includes('data-testid="counter"'));
+  const menus = [
+    ...html.matchAll(
+      /<nav\b[^>]*aria-label="(?:Primary|Mobile primary)"[^>]*>([\s\S]*?)<\/nav>/g,
+    ),
+  ];
+  // Streaming SSR includes both the fallback shell and its replacement.
+  assert.ok(menus.length >= 2);
+  assert.equal(menus.length % 2, 0);
+  for (const menu of menus) {
+    assert.ok(menu[1]);
+    assert.doesNotMatch(menu[1], /href="\/?#search"|<span>Search<\/span>/);
+    for (const label of ['Discover', 'Library', 'Profile'])
+      assert.ok(menu[1].includes(label), label);
+  }
+  assert.ok(html.includes('Search the collection'));
   assert.ok(
     /<main\b(?=[^>]*\bid="main-content")(?=[^>]*\btabindex="-1")[^>]*>/i.test(
       html,
@@ -683,6 +705,17 @@ test('built account Library BFF has protected routes and rejects foreign writes 
 });
 
 test('resource details render backend metadata, safe return navigation and original links', async () => {
+  const oldSearchDetail = await (
+    await request('/resource/atoms?from=search')
+  ).text();
+  assert.ok(oldSearchDetail.includes('href="/#search"'));
+  const oldSearchText = oldSearchDetail
+    .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, '')
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ');
+  assert.match(oldSearchText, /Back to Discover/);
+  assert.doesNotMatch(oldSearchText, /Back to Search/);
   for (const resource of resources) {
     const response = await request(`/resource/${resource.id}?from=library`);
     assert.equal(response.status, 200);

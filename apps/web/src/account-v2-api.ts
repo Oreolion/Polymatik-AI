@@ -4,7 +4,7 @@ import {
   libraryBodyError,
 } from '@polymatik/domain-types/library-request';
 import { interestsInput } from '@polymatik/domain-types/interests';
-import { feedRequestBody } from '@polymatik/domain-types/feed';
+import { feedRequestBody, dismissalQuery } from '@polymatik/domain-types/feed';
 import {
   libraryQuery,
   type LibraryPageInput,
@@ -15,16 +15,18 @@ const headers = {
   'cache-control': 'no-store',
   'x-content-type-options': 'nosniff',
 };
-const failure = (status: number, feedChanged = false) =>
+const failure = (status: number, feedChanged = false, dismissalLimit = false) =>
   Response.json(
     {
-      code: feedChanged
-        ? 'FEED_CHANGED'
-        : status === 401
-          ? 'UNAUTHORIZED'
-          : status === 409
-            ? 'ACCOUNT_CHANGED'
-            : 'ACCOUNT_UNAVAILABLE',
+      code: dismissalLimit
+        ? 'DISMISSAL_LIMIT'
+        : feedChanged
+          ? 'FEED_CHANGED'
+          : status === 401
+            ? 'UNAUTHORIZED'
+            : status === 409
+              ? 'ACCOUNT_CHANGED'
+              : 'ACCOUNT_UNAVAILABLE',
       message: 'Account access could not be completed.',
     },
     { status, headers },
@@ -37,7 +39,14 @@ export async function accountV2Request(
   const url = new URL(request.url);
   const interests = url.pathname === '/api/account/v2/interests';
   const feed = url.pathname === '/api/account/v2/feed';
-  const target = libraryTarget(url.pathname, '/api/account/v2/library');
+  const dismissal = libraryTarget(
+    url.pathname,
+    '/api/account/v2/feed/dismissals',
+  );
+  const dismissalRoute = dismissal.kind !== 'missing';
+  const target = dismissalRoute
+    ? dismissal
+    : libraryTarget(url.pathname, '/api/account/v2/library');
   if (!interests && !feed && target.kind === 'missing') return failure(404);
   if (target.kind === 'invalid') return failure(422);
   const methods = feed
@@ -65,7 +74,9 @@ export async function accountV2Request(
     return failure(422);
   let input: LibraryPageInput = {};
   try {
-    if (!interests && target.kind === 'list') {
+    if (dismissalRoute && target.kind === 'list') {
+      dismissalQuery(url.searchParams);
+    } else if (!interests && target.kind === 'list') {
       libraryQuery(url.searchParams);
       if (url.searchParams.has('limit'))
         input.limit = Number(url.searchParams.get('limit'));
@@ -94,30 +105,45 @@ export async function accountV2Request(
         return (options.fetch ?? fetch)(url, { ...init, headers: next });
       },
     });
-    const result = feed
-      ? await client.feed(feedBody?.value ?? {}, undefined, request.signal)
-      : interests
-        ? request.method === 'GET'
-          ? await client.interestsV2(undefined, request.signal)
-          : request.method === 'DELETE'
-            ? await client.resetInterestsV2(undefined, request.signal)
-            : 'value' in parsed && parsed.value
-              ? await client.updateInterestsV2(
-                  parsed.value,
+    const result = dismissalRoute
+      ? target.kind === 'list'
+        ? await client.feedDismissals(
+            url.searchParams.get('cursor') ?? undefined,
+            undefined,
+            request.signal,
+          )
+        : target.kind === 'item'
+          ? await client.changeFeedDismissal(
+              target.id,
+              request.method === 'PUT',
+              undefined,
+              request.signal,
+            )
+          : undefined
+      : feed
+        ? await client.feed(feedBody?.value ?? {}, undefined, request.signal)
+        : interests
+          ? request.method === 'GET'
+            ? await client.interestsV2(undefined, request.signal)
+            : request.method === 'DELETE'
+              ? await client.resetInterestsV2(undefined, request.signal)
+              : 'value' in parsed && parsed.value
+                ? await client.updateInterestsV2(
+                    parsed.value,
+                    undefined,
+                    request.signal,
+                  )
+                : undefined
+          : target.kind === 'list'
+            ? await client.libraryPage(input, undefined, request.signal)
+            : target.kind === 'item'
+              ? await client.changeLibrary(
+                  target.id,
+                  request.method === 'PUT',
                   undefined,
                   request.signal,
                 )
-              : undefined
-        : target.kind === 'list'
-          ? await client.libraryPage(input, undefined, request.signal)
-          : target.kind === 'item'
-            ? await client.changeLibrary(
-                target.id,
-                request.method === 'PUT',
-                undefined,
-                request.signal,
-              )
-            : undefined;
+              : undefined;
     if (!result) return failure(422);
     if (result.error)
       return failure(
@@ -129,9 +155,11 @@ export async function accountV2Request(
             not_found: 404,
             validation_error: 422,
             feed_changed: 409,
+            dismissal_limit: 409,
           } as Record<string, number>
         )[result.error.error.code] ?? 503,
         result.error.error.code === 'feed_changed',
+        result.error.error.code === 'dismissal_limit',
       );
     return Response.json(result.data, { headers });
   } catch {

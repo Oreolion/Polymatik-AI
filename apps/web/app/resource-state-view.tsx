@@ -21,12 +21,7 @@ export default function ResourceStateView({
   state: ResourceState;
   returnTo: CollectionView;
 }) {
-  const destination =
-    returnTo === 'library'
-      ? 'Library'
-      : returnTo === 'search'
-        ? 'Search'
-        : 'Discover';
+  const destination = returnTo === 'library' ? 'Library' : 'Discover';
   return (
     <section className="resource-state" aria-labelledby="resource-state-title">
       <p className="eyebrow">THE PREVIEW COLLECTION</p>

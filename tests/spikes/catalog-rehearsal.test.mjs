@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
+import { EventEmitter } from 'node:events';
 import {
   branchConnection,
   inspectRehearsalBaseline,
@@ -8,6 +9,7 @@ import {
   rehearseCatalog,
   rehearsalTarget,
   safeRehearsalCode,
+  runNeon,
   validateRehearsalBranch,
 } from '../../scripts/catalog-rehearsal.mjs';
 import {
@@ -163,7 +165,7 @@ test('Windows CLI bridge accepts only safe argument tokens and never credential 
     'win32',
   );
   assert.deepEqual(command.args.slice(0, 3), ['/d', '/s', '/c']);
-  assert.ok(command.args[3].startsWith('npx.cmd --yes neon@8.23.1 '));
+  assert.ok(command.args[3].startsWith('npx.cmd --offline --yes neon@8.23.1 '));
   for (const value of [
     'hello&whoami',
     'a b',
@@ -174,6 +176,42 @@ test('Windows CLI bridge accepts only safe argument tokens and never credential 
   ])
     assert.throws(() => neonProcessSpec([value], 'win32'));
   assert.equal(neonProcessSpec(['branches', 'list'], 'linux').file, 'npx');
+  assert.deepEqual(
+    neonProcessSpec(['branches', 'list'], 'linux').args.slice(0, 3),
+    ['--offline', '--yes', 'neon@8.23.1'],
+  );
+});
+
+test('CLI failures distinguish cache, transport, access and timeout without leaking output', async () => {
+  for (const [stderr, killed, expected] of [
+    ['npm error code ENOTCACHED fixture-secret', false, 'NEON_CLI_NOT_CACHED'],
+    ['request failed ECONNRESET fixture-secret', false, 'NEON_NETWORK_FAILED'],
+    ['EACCES fixture-secret', false, 'NEON_CREDENTIAL_ACCESS'],
+    ['authentication required fixture-secret', false, 'NEON_LOGIN_REQUIRED'],
+    ['', true, 'NEON_CLI_TIMEOUT'],
+    ['unknown fixture-secret', false, 'NEON_CLI_FAILED'],
+  ]) {
+    const spawnFixture = (_file, _args, options) => {
+      assert.equal(options.timeout, 60000);
+      const child = new EventEmitter();
+      child.stdout = new EventEmitter();
+      child.stderr = new EventEmitter();
+      child.killed = killed;
+      queueMicrotask(() => {
+        child.stderr.emit('data', stderr);
+        child.emit('close', killed ? null : 1);
+      });
+      return child;
+    };
+    await assert.rejects(
+      runNeon(['branches', 'list'], spawnFixture),
+      (error) => {
+        assert.equal(safeRehearsalCode(error), expected);
+        assert.doesNotMatch(error.message, /fixture-secret/);
+        return true;
+      },
+    );
+  }
 });
 
 function fixture({

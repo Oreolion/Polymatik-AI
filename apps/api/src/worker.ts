@@ -5,6 +5,7 @@ import { postgresCatalogV2, postgresFeedCandidates } from './catalog-v2';
 import { workerLibrary } from './library';
 import { workerLibraryV2 } from './library-v2';
 import { workerInterests } from './interests';
+import { workerFeedStorage } from './feed-storage';
 
 const unavailable = () =>
   Response.json(
@@ -34,6 +35,7 @@ export default {
     const interests = workerInterests(env, ctx);
     const libraryV2 = workerLibraryV2(env, ctx);
     const interestsV2 = workerInterests(env, ctx, true);
+    const feedStorage = workerFeedStorage(env, ctx);
     return createApi({
       allowedOrigins,
       verifySession: createManagedSessionVerifier(env),
@@ -43,6 +45,8 @@ export default {
       ...(interests ? { interests } : {}),
       ...(libraryV2 ? { libraryV2 } : {}),
       ...(interestsV2 ? { interestsV2 } : {}),
+      ...(feedStorage ? { feedStorage } : {}),
+      ...(feedStorage ? { feedDismissals: feedStorage } : {}),
       ...(catalogV2Query
         ? { feedCandidates: postgresFeedCandidates(catalogV2Query) }
         : {}),

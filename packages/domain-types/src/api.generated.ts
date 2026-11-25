@@ -1,5 +1,5 @@
 // Generated from openapi/v1.json by openapi-typescript. Do not edit.
-// Schema SHA-256: 5f0087f969ed94466613b558acf995250c393149d724a19758951a76f40f7c5c
+// Schema SHA-256: c93eb8b551370285b3a0ef8f914f6fe22dc67c4882a704e1ff8defe0f43a060e
 export interface paths {
   '/v1/health': {
     parameters: {
@@ -269,10 +269,54 @@ export interface paths {
     put?: never;
     /**
      * Read a private subject-aware discovery page
-     * @description Read-only POST keeps session exclusions out of URLs. Managed identity, exact origin and interests:read are rechecked. Up to 100 reviewed candidates; deterministic relevance/diversity. Changed account, preferences, filters or candidates invalidate continuation with 409 feed_changed. No database writes or AI calls.
+     * @description POST keeps visit exclusions out of URLs. Managed identity, exact origin and interests:read are rechecked. The first page reuses or creates one private 24-hour batch of at most 100 reviewed IDs/reasons per account; continuation only reads that stored batch. Verified session rotation retains it. Changed account, preferences, filters, candidates, expiry or a replaced batch invalidate continuation with 409 feed_changed. Storage failure returns 503 without an ephemeral fallback. No AI calls or durable dismissal mutation.
      */
     post: operations['readFeedV2'];
     delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/v2/feed/dismissals': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Read ten own set-aside resources
+     * @description Verified managed identity and interests:read required. Reviewed public title/source only; unavailable rows have null labels. Cursor is a bounded own-list offset, not authorization. No caller-selected user or other query fields.
+     */
+    get: operations['readFeedDismissalsV2'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/v2/feed/dismissals/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    /**
+     * Set aside a resource in the account
+     * @description Exact origin, independently verified identity and interests:write required. No body/query or client-selected user. Idempotent own-account acknowledgement. New dismissal requires a public reviewed canonical ID and enforces the 500 cap; restoration does not require current publication.
+     */
+    put: operations['dismissFeedResourceV2'];
+    post?: never;
+    /**
+     * Restore an own set-aside resource
+     * @description Exact origin, independently verified identity and interests:write required. No body/query or client-selected user. Idempotent own-account acknowledgement. New dismissal requires a public reviewed canonical ID and enforces the 500 cap; restoration does not require current publication.
+     */
+    delete: operations['restoreFeedResourceV2'];
     options?: never;
     head?: never;
     patch?: never;
@@ -598,6 +642,20 @@ export interface components {
       basis: 'interests' | 'cold_start' | 'no_matches';
       /** @description True if the reviewed candidate selection is bounded; Explore all remains the complete catalog. */
       limited: boolean;
+    };
+    /** @description Private set-aside metadata, sorted by canonical resource ID. Unavailable resources retain an ID with null title/source so an owner can restore them. Both labels are null together. Non-null cursor matches the last of ten rows. */
+    FeedDismissalPage: {
+      items: {
+        id: string;
+        title: string | null;
+        source: string | null;
+      }[];
+      next_cursor: string | null;
+    };
+    /** @description Idempotent, confirmed own-account change. Restoring also works after resource withdrawal. */
+    FeedDismissalChange: {
+      id: string;
+      dismissed: boolean;
     };
   };
   responses: {
@@ -2741,6 +2799,345 @@ export interface operations {
         };
       };
       /** @description Feed selection changed; refresh, or authenticated account precondition failed. */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Feed JSON exceeds 8192 bytes. */
+      413: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description POST requires application/json. */
+      415: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Invalid query, body, subject or selection status. */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Identity or persistence unavailable; no fallback. */
+      503: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+    };
+  };
+  readFeedDismissalsV2: {
+    parameters: {
+      query?: {
+        cursor?: string;
+      };
+      header?: {
+        /** @description Optional precondition matched against the independently verified account; never selects identity. */
+        'X-Polymatik-Account'?: string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Private account result; no-store. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['FeedDismissalPage'];
+        };
+      };
+      /** @description Verified identity required. */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Origin or scope denied. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Resource is not currently public/reviewed when setting aside; restoration remains available. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Only POST is supported. */
+      405: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Request body deadline exceeded. */
+      408: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Authenticated account precondition failed, or dismissal_limit: restore one of the maximum 500 before adding another. */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Feed JSON exceeds 8192 bytes. */
+      413: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description POST requires application/json. */
+      415: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Invalid query, body, subject or selection status. */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Identity or persistence unavailable; no fallback. */
+      503: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+    };
+  };
+  dismissFeedResourceV2: {
+    parameters: {
+      query?: never;
+      header?: {
+        /** @description Optional precondition matched against the independently verified account; never selects identity. */
+        'X-Polymatik-Account'?: string;
+      };
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Private account result; no-store. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['FeedDismissalChange'];
+        };
+      };
+      /** @description Verified identity required. */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Origin or scope denied. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Resource is not currently public/reviewed when setting aside; restoration remains available. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Only POST is supported. */
+      405: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Request body deadline exceeded. */
+      408: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Authenticated account precondition failed, or dismissal_limit: restore one of the maximum 500 before adding another. */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Feed JSON exceeds 8192 bytes. */
+      413: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description POST requires application/json. */
+      415: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Invalid query, body, subject or selection status. */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Identity or persistence unavailable; no fallback. */
+      503: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+    };
+  };
+  restoreFeedResourceV2: {
+    parameters: {
+      query?: never;
+      header?: {
+        /** @description Optional precondition matched against the independently verified account; never selects identity. */
+        'X-Polymatik-Account'?: string;
+      };
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Private account result; no-store. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['FeedDismissalChange'];
+        };
+      };
+      /** @description Verified identity required. */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Origin or scope denied. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Resource is not currently public/reviewed when setting aside; restoration remains available. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Only POST is supported. */
+      405: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Request body deadline exceeded. */
+      408: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Authenticated account precondition failed, or dismissal_limit: restore one of the maximum 500 before adding another. */
       409: {
         headers: {
           [name: string]: unknown;

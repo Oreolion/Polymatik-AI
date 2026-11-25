@@ -4,6 +4,51 @@
 
 ## Current owner priority - web resource details and backend checkpoint
 
+**25 November — durable account dismissals:** API/BFF/client and For you Set
+aside, Undo and paginated individual restoration are prepared against existing
+0005. No migration is needed. Root/affected-package types, OpenAPI, lint/format
+and four focused contracts pass after correcting a test tuple type. Final web
+build, built-Worker and rendered/live acceptance remain open; do not advance to
+another feature or claim this milestone delivered yet. See docs/50 and docs/24.
+
+**24 November — persisted batch API slice:** owner reports 0005 applied and
+verified on shared development, rehearsal child unchanged and private data
+preserved. The new Worker feed uses the private restricted Hyperdrive repository,
+retains its response contract/ranking, reuses a 24h batch across verified sessions
+and only reads on continuation. Changed/expired input returns refresh; unavailable
+storage fails closed. No repeated SQL or approval. Durable dismiss/restore
+contract/UI follows as a separate smallest ticket. Live API/hosted acceptance is
+still required; this is not inferred from migration or deterministic fixtures.
+Implementation/evidence/limits: docs/49 and docs/24.
+
+**23 November — M1-04b feed storage foundation:** owner requests continuation.
+Prepared additive 0005, one 24h/100-item active batch per account, private capped
+dismissals/individual restore, reviewed-only loads preserving original positions,
+transaction-scoped identity/serialization and restricted grants. Repository is
+unmounted. No automatic schema/setup/deploy action or active endpoint/UI change.
+Owner's 24 November rehearsal reports 0005 applied and verified on the isolated
+child, source unchanged and private data preserved. Shared development unchanged.
+Prepared a separate explicit shared-development operation, requiring the accepted
+child checksum before DDL and restricted SQL/preservation checks afterward.
+Owner authorized shared application by running the command; it stopped at branch
+inventory with NEON_CLI_FAILED before SQL. Updated runner uses the cached pinned
+CLI without npm downloads and distinguishes failure categories. Retry the same
+approved operation; live shared acceptance remains open. Earlier CLI
+failure cause remains unknown and does not require repeating the accepted child.
+Existing search cleanup is preserved. Review/commands: docs/49; tests: docs/24.
+Next: approved shared-development rollout and live verification, then private
+API/BFF/UI integration and rendered cross-visit/account-isolation verification.
+
+**23 November — web navigation simplification:** owner asks the next implementation
+and why Search duplicates the existing catalog input. The next bounded UI ticket
+consolidates it into Discover / Explore all, keeps device Library search scoped,
+preserves old Search return links/filter state, and updates mobile web navigation.
+No change to feed ranking/persistence, APIs, auth, migrations or native screens.
+Current source baseline is 1a7dc96; no hosted delivery is inferred from local Git.
+Decision/evidence: docs/22 and docs/24. Follow with the persisted-feed/dismissal
+ticket after current rendered/development-preview acceptance, not a second
+speculative search service.
+
 **23 November — M1-04a subject-aware Discover:** owner authorizes implementation
 and a master push, and requests a standard README. For you uses independently
 verified account interests, bounded deterministic relevance/diversity, reasons,
