@@ -81,6 +81,7 @@ export function expandedAccountFixture(origin = 'https://app.test') {
               'library:write',
               'interests:read',
               'interests:write',
+              'research:read',
             ],
           }
         : null;

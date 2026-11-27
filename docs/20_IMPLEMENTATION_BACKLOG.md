@@ -4,6 +4,32 @@
 
 ## Current owner priority - web resource details and backend checkpoint
 
+**27 November — connected resource research checkpoint:** owner clarifies that
+substantial work means a complete product workflow rather than more isolated
+helpers. M2-01c/M2-04a connects resource questions through web/BFF/API/Python,
+short-lived body-bound gateway identity, shared OpenAPI/runtime validation and
+attributed source inspection with cancel/retry and account recovery. Local
+package/runtime and connected workerd/HTTP verification use synthetic evidence;
+real rights-cleared corpus, PostgreSQL FTS/pgvector and a Python deployment target
+remain dependencies. No inferred permissions, production change or model call.
+Full M2 remains incomplete. Scope/commands/rollback: docs/53; actual checks: docs/24.
+
+**27 November — M2-01b resource evidence boundary:** owner continues implementation
+and asks for copyable commands when execution is blocked. Add a protected Python
+resource-scoped evidence read, server-only repository contract and read-only
+catalog rights inventory. No real corpus permission is inferred from the ten
+staging permission-verified labels. Gateway identity, reviewed text/labels and
+Neon FTS/pgvector adapter remain unimplemented; earlier live/rendered gates remain
+open. Scope/commands: docs/52; actual checks: docs/24.
+
+**27 November — owner authorizes M2 evidence foundation:** implement the related
+registry, artifact/locator integrity, citation and offline reference retrieval
+slices as M2-01a. No model/provider/index deployment or live corpus import. Current
+work does not accept earlier rendered/live Library or dismissal gates. Full
+M2-01/02 remain incomplete until rights-cleared corpus review, human labels,
+measured FTS/pgvector retrieval and generation. Scope and next sequence: docs/51;
+actual checks: docs/24.
+
 **25 November — owner authorizes a related Library journey bundle:** implement
 resource-to-account Save, dedicated account Library navigation and safe detail
 return links against the existing private API. Six focused checks, root 299/299,

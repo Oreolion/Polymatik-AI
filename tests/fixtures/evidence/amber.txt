@@ -1,0 +1,1 @@
+This is a synthetic fixture. Amber stores daylight in sealed cells.

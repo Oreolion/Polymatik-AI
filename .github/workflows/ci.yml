@@ -59,8 +59,12 @@ jobs:
       - run: uv run --locked ruff check .
       - run: uv run --locked ruff format --check .
       - run: uv run --locked pytest
+      - name: Verify connected research journey with local Python and workerd
+        run: pnpm test:research
       - name: Evaluate deterministic agent baseline without keys
         run: uv run --locked python tests/evaluation/run_baseline.py --output .cache/m0-05-evaluation.json
+      - name: Evaluate offline evidence integrity and reference retrieval without keys
+        run: uv run --locked python tests/evaluation/run_evidence.py --output .cache/evidence-evaluation.json
 
   deploy-preview:
     name: Deploy Cloudflare development preview

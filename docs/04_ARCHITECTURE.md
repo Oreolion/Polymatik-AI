@@ -2,6 +2,31 @@
 
 ## Architecture style
 
+**Connected resource research, 27 November:** the web resource panel now crosses
+the same-origin BFF and independently authenticated product API before reaching
+Python with a 30-second body-bound HMAC delegation. Browser cookies never reach
+Python. Shared OpenAPI/runtime validation, current catalog membership and source
+rights control the read. The explicit loopback package runtime is for development;
+PostgreSQL FTS/pgvector remains the persistent retrieval target. No production
+adapter, model, corpus permission or hosting provider is selected. Actual connected
+workerd/Python HTTP proof and remaining gates: docs/53 and docs/24. The older
+unconnected boundary entry below describes the preceding checkpoint.
+
+**Resource evidence boundary, 27 November:** Python now has a protected
+`evidence-read-v1` read contract and server-owned repository protocol. It rechecks
+resource associations/current rights, returns capped source quotations and fails
+closed when unconfigured. No public Worker route, live corpus, persistent adapter,
+model or schema is connected. Gateway identity and SQL/index proof remain separate
+gates; browser cookies are not a Python service credential. See docs/52.
+
+**Evidence foundation, 27 November:** local source/artifact validation and citation
+primitives are implemented separately from catalog metadata and the agent's HTTP
+baseline. Discovery approval grants no full-text indexing rights. Every retrieval
+and citation read needs current source-version/rights checks; source existence
+does not prove claim support. No live corpus/index/provider or database change.
+PostgreSQL FTS + pgvector remains the deployed retrieval target; the Python lexical
+reference is offline test infrastructure. Scope, bounds and next gates: docs/51.
+
 **Subject taxonomy rollout, 22 November:** keep the canonical v2 browse and
 account subject order shared, but expand writable API/UI contracts only after
 the additive PostgreSQL constraint migration passes on an isolated child and

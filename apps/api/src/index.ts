@@ -5,6 +5,15 @@ import type {
   PreviewResource,
 } from '@polymatik/domain-types';
 import type { CatalogRepository } from './catalog';
+import {
+  evidenceBody,
+  isEvidenceResponse,
+  type EvidenceResponse,
+} from '@polymatik/domain-types/evidence';
+import {
+  EvidenceServiceError,
+  type evidenceGateway,
+} from './evidence-gateway.ts';
 import type { CatalogV2Repository } from './catalog-v2';
 import {
   catalogQuery,
@@ -67,6 +76,7 @@ type RequestLog = {
   duration_ms: number;
 };
 type Options = {
+  evidence?: ReturnType<typeof evidenceGateway>;
   allowedOrigins?: readonly string[];
   // Server-only dependency. Never selected through an HTTP header or environment flag.
   verifyBearer?: (token: string) => Promise<Principal | null>;
@@ -106,23 +116,29 @@ export function createApi(options: Options = {}) {
       const libraryRoute = library.kind !== 'missing';
       const interestsV2Route = url.pathname === '/v2/interests';
       const feedRoute = url.pathname === '/v2/feed';
+      const evidenceRoute = url.pathname === '/v2/evidence/search';
       const dismissal = libraryTarget(url.pathname, '/v2/feed/dismissals');
       const dismissalRoute = dismissal.kind !== 'missing';
       const interestsRoute =
         url.pathname === '/v1/interests' || interestsV2Route;
       const privateRoute =
-        libraryRoute || interestsRoute || feedRoute || dismissalRoute;
-      const methods = feedRoute
-        ? ['POST']
-        : dismissalRoute
-          ? dismissal.kind === 'list'
-            ? ['GET']
-            : ['PUT', 'DELETE']
-          : interestsRoute
-            ? ['GET', 'PUT', 'DELETE']
-            : library.kind === 'item' || library.kind === 'invalid'
-              ? ['PUT', 'DELETE']
-              : ['GET'];
+        libraryRoute ||
+        interestsRoute ||
+        feedRoute ||
+        dismissalRoute ||
+        evidenceRoute;
+      const methods =
+        feedRoute || evidenceRoute
+          ? ['POST']
+          : dismissalRoute
+            ? dismissal.kind === 'list'
+              ? ['GET']
+              : ['PUT', 'DELETE']
+            : interestsRoute
+              ? ['GET', 'PUT', 'DELETE']
+              : library.kind === 'item' || library.kind === 'invalid'
+                ? ['PUT', 'DELETE']
+                : ['GET'];
       const knownRoute =
         ['/v1/health', '/v1/me', '/v1/resources'].includes(url.pathname) ||
         resourceMatch !== null ||
@@ -156,6 +172,7 @@ export function createApi(options: Options = {}) {
           | FeedPage
           | FeedDismissalPage
           | FeedDismissalChange
+          | EvidenceResponse
           | { items: readonly PreviewResource[] },
         status = 200,
       ) => Response.json(body, { status, headers });
@@ -237,21 +254,23 @@ export function createApi(options: Options = {}) {
               'A verified identity is required.',
             );
           }
-          const scope = dismissalRoute
-            ? request.method === 'GET'
-              ? 'interests:read'
-              : 'interests:write'
-            : feedRoute
-              ? 'interests:read'
-              : interestsRoute
-                ? request.method === 'GET'
-                  ? 'interests:read'
-                  : 'interests:write'
-                : !libraryRoute
-                  ? 'profile:read'
-                  : request.method === 'GET'
-                    ? 'library:read'
-                    : 'library:write';
+          const scope = evidenceRoute
+            ? 'research:read'
+            : dismissalRoute
+              ? request.method === 'GET'
+                ? 'interests:read'
+                : 'interests:write'
+              : feedRoute
+                ? 'interests:read'
+                : interestsRoute
+                  ? request.method === 'GET'
+                    ? 'interests:read'
+                    : 'interests:write'
+                  : !libraryRoute
+                    ? 'profile:read'
+                    : request.method === 'GET'
+                      ? 'library:read'
+                      : 'library:write';
           if (!principal.scopes.includes(scope)) {
             return error(403, 'forbidden', 'Required permission is missing.');
           }
@@ -265,6 +284,54 @@ export function createApi(options: Options = {}) {
               'account_changed',
               'The signed-in account changed. Reload before continuing.',
             );
+        }
+        if (evidenceRoute && principal) {
+          const input = await evidenceBody(request);
+          if (input.error || !input.value)
+            return error(
+              input.error ?? 422,
+              'validation_error',
+              'Use the supported resource question format.',
+            );
+          try {
+            const resource = options.catalogV2
+              ? await options.catalogV2.get(input.value.resource_id)
+              : options.catalog
+                ? await options.catalog.get(input.value.resource_id)
+                : getResource(input.value.resource_id);
+            if (!resource)
+              return error(404, 'not_found', 'Resource is not available.');
+            // Canonical resource IDs only; aliases cannot widen the evidence association.
+            if (resource.id !== input.value.resource_id)
+              return error(
+                422,
+                'validation_error',
+                'Use the canonical resource ID.',
+              );
+            if (!options.evidence)
+              return error(
+                503,
+                'evidence_unavailable',
+                'Source evidence is not configured yet.',
+                true,
+              );
+            const page = await options.evidence(
+              principal.userId,
+              input.value,
+              request.signal,
+            );
+            if (!isEvidenceResponse(page, resource.id)) throw new TypeError();
+            return json({ ...page, request_id: requestId });
+          } catch (failure) {
+            const status =
+              failure instanceof EvidenceServiceError ? failure.status : 503;
+            return error(
+              status,
+              status === 504 ? 'evidence_timeout' : 'evidence_unavailable',
+              'Source evidence could not be reached.',
+              true,
+            );
+          }
         }
         if (catalogV2Route) {
           let query;

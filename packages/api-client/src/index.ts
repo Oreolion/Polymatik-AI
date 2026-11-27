@@ -1,3 +1,8 @@
+import {
+  evidenceInput,
+  isEvidenceResponse,
+  type EvidenceInput,
+} from '@polymatik/domain-types/evidence';
 import type {
   ApiError,
   Health,
@@ -131,7 +136,7 @@ export function createApiClient(options: ApiClientOptions) {
     signal?: AbortSignal,
     token?: string,
     method: 'GET' | 'PUT' | 'DELETE' | 'POST' = 'GET',
-    body?: InterestUpdate | InterestUpdateV2 | FeedRequest,
+    body?: InterestUpdate | InterestUpdateV2 | FeedRequest | EvidenceInput,
   ): Promise<Result<T>> {
     const controller = new AbortController();
     const abort = () => controller.abort();
@@ -279,6 +284,21 @@ export function createApiClient(options: ApiClientOptions) {
     },
     resetInterestsV2: (token?: string, signal?: AbortSignal) =>
       get('/v2/interests', isInterestsV2, signal, token, 'DELETE'),
+    evidence: (input: EvidenceInput, token?: string, signal?: AbortSignal) => {
+      const value = evidenceInput(input);
+      if (!value) throw new TypeError('Invalid resource question.');
+      return get(
+        '/v2/evidence/search',
+        (
+          page,
+        ): page is import('@polymatik/domain-types/evidence').EvidenceResponse =>
+          isEvidenceResponse(page, value.resource_id),
+        signal,
+        token,
+        'POST',
+        value,
+      );
+    },
     health: (signal?: AbortSignal) => get('/v1/health', isHealth, signal),
     // Server adapters may supply the session cookie through their trusted fetch.
     me: (token?: string, signal?: AbortSignal) =>

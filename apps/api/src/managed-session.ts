@@ -114,6 +114,7 @@ export function createManagedSessionVerifier(
           'library:write',
           'interests:read',
           'interests:write',
+          'research:read',
         ],
       };
     } finally {

@@ -18,6 +18,7 @@
     "./library-request": "./src/library-request.ts",
     "./interests": "./src/interests.ts",
     "./account-v2": "./src/account-v2.ts",
-    "./feed": "./src/feed.ts"
+    "./feed": "./src/feed.ts",
+    "./evidence": "./src/evidence.ts"
   }
 }

@@ -1,0 +1,31 @@
+{
+  "protocol_version": "evidence-read-v1",
+  "resource_id": "atoms",
+  "status": "evidence",
+  "citations": [
+    {
+      "passage_id": "b270ca5cf4860a32eda270c22766f30e208f9c8bba1accc370e273fa2f08d862",
+      "source_id": "synthetic-amber",
+      "title": "Invented amber fixture",
+      "author": "Polymatik test fixture",
+      "url": "https://example.org/fixtures/amber",
+      "license_label": "Synthetic fixture only",
+      "license_url": null,
+      "attribution_notice": "Invented Polymatik test text; not a product source.",
+      "changes_notice": "Original synthetic text. Excerpt; normalized with nfc-lf-v1.",
+      "version": "fixture-v1",
+      "checksum": "88572b98bc905f4813449d426c1695cb0c9681dcd0d2e5f452e7def994c33289",
+      "normalization_version": "nfc-lf-v1",
+      "start": 0,
+      "end": 68,
+      "line_start": 1,
+      "line_end": 1,
+      "quote": "This is a synthetic fixture. Amber stores daylight in sealed cells."
+    }
+  ],
+  "retriever_version": "lexical-overlap-v1",
+  "limitations": [
+    "Reference lexical retrieval only; these quotations are not a generated answer or a claim-support assessment."
+  ],
+  "request_id": "a7239ae1-9642-44a3-8fbf-453fe1c356cd"
+}

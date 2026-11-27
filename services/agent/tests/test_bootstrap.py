@@ -38,6 +38,13 @@ def deny_external_effects(event, args):
 
 sys.addaudithook(deny_external_effects)
 import polymatik_agent
+import polymatik_agent.evidence
+import polymatik_agent.evidence_cli
+import polymatik_agent.evidence_service
+import polymatik_agent.evidence_gateway
+import polymatik_agent.evidence_runtime
+import polymatik_agent.catalog_evidence_review
+import polymatik_agent.json_input
 assert polymatik_agent.__file__ is not None
 """,
             ],

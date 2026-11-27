@@ -1,0 +1,26 @@
+{
+  "sources": [
+    {
+      "source_id": "synthetic-amber",
+      "title": "Invented amber fixture",
+      "author": "Polymatik test fixture",
+      "canonical_uri": "https://example.org/fixtures/amber",
+      "version": "fixture-v1",
+      "sha256": "88572b98bc905f4813449d426c1695cb0c9681dcd0d2e5f452e7def994c33289",
+      "visibility": "public",
+      "rights": {
+        "status": "approved",
+        "mode": "full_text",
+        "license_label": "Synthetic fixture only",
+        "attribution_notice": "Invented Polymatik test text; not a product source.",
+        "changes_notice": "Original synthetic text.",
+        "reference": "Invented text supplied only to exercise the local validator. Not a reviewed product source or a scientific claim.",
+        "reviewed_by": "automated-fixture-author",
+        "reviewed_on": "2026-11-27",
+        "max_index_chars": 1000,
+        "max_quote_chars": 100
+      }
+    }
+  ],
+  "artifacts": [{ "source_id": "synthetic-amber", "path": "amber.txt" }]
+}

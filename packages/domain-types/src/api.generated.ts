@@ -1,5 +1,5 @@
 // Generated from openapi/v1.json by openapi-typescript. Do not edit.
-// Schema SHA-256: c93eb8b551370285b3a0ef8f914f6fe22dc67c4882a704e1ff8defe0f43a060e
+// Schema SHA-256: 263483334db771e2469d2feaf4325cadf5c72ed2c5dc6b3faac498fb387afcf6
 export interface paths {
   '/v1/health': {
     parameters: {
@@ -317,6 +317,23 @@ export interface paths {
      * @description Exact origin, independently verified identity and interests:write required. No body/query or client-selected user. Idempotent own-account acknowledgement. New dismissal requires a public reviewed canonical ID and enforces the 500 cap; restoration does not require current publication.
      */
     delete: operations['restoreFeedResourceV2'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/v2/evidence/search': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Find reviewed quotations for one public resource; no generated answer */
+    post: operations['searchResourceEvidence'];
+    delete?: never;
     options?: never;
     head?: never;
     patch?: never;
@@ -656,6 +673,86 @@ export interface components {
     FeedDismissalChange: {
       id: string;
       dismissed: boolean;
+    };
+    /** EvidenceInput */
+    EvidenceInput: {
+      /** Resource Id */
+      resource_id: string;
+      /** Query */
+      query: string;
+    };
+    /** Citation */
+    EvidenceCitation: {
+      /** Passage Id */
+      passage_id: string;
+      /** Source Id */
+      source_id: string;
+      /** Title */
+      title: string;
+      /** Author */
+      author: string;
+      /** Url */
+      url: string;
+      /** License Label */
+      license_label: string;
+      /** License Url */
+      license_url: string | null;
+      /** Attribution Notice */
+      attribution_notice: string;
+      /** Changes Notice */
+      changes_notice: string;
+      /** Version */
+      version: string;
+      /** Checksum */
+      checksum: string;
+      /** Normalization Version */
+      normalization_version: string;
+      /** Start */
+      start: number;
+      /** End */
+      end: number;
+      /** Line Start */
+      line_start: number;
+      /** Line End */
+      line_end: number;
+      /** Quote */
+      quote: string;
+    };
+    /** EvidenceResponse */
+    EvidenceResponse: {
+      /**
+       * Protocol Version
+       * @default evidence-read-v1
+       * @constant
+       */
+      protocol_version: 'evidence-read-v1';
+      /** Resource Id */
+      resource_id: string;
+      /**
+       * Status
+       * @enum {string}
+       */
+      status: 'evidence' | 'no_evidence' | 'quotation_unavailable';
+      /** Citations */
+      citations: components['schemas']['EvidenceCitation'][];
+      /**
+       * Retriever Version
+       * @default lexical-overlap-v1
+       * @enum {string}
+       */
+      retriever_version: 'lexical-overlap-v1';
+      /**
+       * Limitations
+       * @default [
+       *       "Reference lexical retrieval only; these quotations are not a generated answer or a claim-support assessment."
+       *     ]
+       */
+      limitations: string[];
+      /**
+       * Request Id
+       * Format: uuid
+       */
+      request_id: string;
     };
   };
   responses: {
@@ -3175,6 +3272,111 @@ export interface operations {
       };
       /** @description Identity or persistence unavailable; no fallback. */
       503: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+    };
+  };
+  searchResourceEvidence: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['EvidenceInput'];
+      };
+    };
+    responses: {
+      /** @description Validated source quotations or explicit absence */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['EvidenceResponse'];
+        };
+      };
+      /** @description Verified identity required */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Origin or scope denied */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Resource unavailable */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Account changed */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Body too large */
+      413: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description JSON required */
+      415: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Invalid request */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Evidence unavailable */
+      503: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiError'];
+        };
+      };
+      /** @description Evidence deadline */
+      504: {
         headers: {
           [name: string]: unknown;
         };

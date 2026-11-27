@@ -1,6 +1,23 @@
 # 10 — RAG, Evidence, Cross-Domain Connections and Retrieval Evaluation
 
 ## Separate three retrieval jobs
+
+**27 November connected development checkpoint:** resource questions now reach
+the existing reader through authenticated web/API/Python boundaries and return
+validated quotations to a source-inspection UI. Excerpts include a matching word
+while retaining exact-substring/rights checks and stable passage identity. This is
+lexical evidence lookup, not generated claim support. Real package withdrawal is
+verified over HTTP; synthetic evaluations do not establish corpus relevance,
+entailment or hybrid quality. Persistent FTS/pgvector and reviewed corpus/labels
+remain required. Configuration, limits and rollout: docs/53.
+
+**27 November implementation:** [M2-01a](51_EVIDENCE_FOUNDATION.md) adds offline
+rights-aware sources, byte-checked text normalization/passages, exact citation
+resolution, lexical reference retrieval and bounded rank fusion. It does not
+implement live FTS/vector storage, semantic chunking or evidence-bound generation.
+Invented fixtures verify structure; human-reviewed relevance/claim-support labels
+and actual corpus rights remain prerequisites for product research.
+
 1. **Content discovery:** search global licensed metadata/approved summaries to recommend videos, posts, articles.
 2. **Evidence-grounded research:** retrieve source passages and original references for cited answers.
 3. **Personal memory:** retrieve user-authorized preferences and state. Never mix private memory into a global corpus.

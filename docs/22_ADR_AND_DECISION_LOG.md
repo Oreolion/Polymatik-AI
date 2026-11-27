@@ -2,6 +2,24 @@
 
 ## ADR status vocabulary
 
+### 27 November — connected resource research workflow (Accepted implementation scope)
+
+The owner clarifies that substantial implementation means a coherent product
+capability, not more disconnected helpers. Connect the existing evidence boundary
+to resource-page questions, API/BFF validation and source inspection, including
+cancellation/retry and changed-account handling. Use short-lived body-bound HMAC
+delegations from the independently verified API to Python; never forward Neon
+browser credentials or grant model/tool scopes. This public-only read cannot be
+reused for private memory without a new authorization design.
+
+The alternative was another storage-only slice. Complete the connected development
+journey now while retaining PostgreSQL FTS/pgvector as the persistent target. An
+explicit local package runtime and synthetic fixture harness do not replace that
+architecture or approve source rights. No embedding model, new provider, production
+SQL or remote Python host is selected. Missing optional configuration reports
+unavailable; no fixture fallback or invented answer reaches the app. Exact tests,
+risks, remaining gates and rollback are in docs/53 and docs/24.
+
 ### 25 November — account Library journey (Accepted implementation scope)
 
 Owner requests a coherent batch of small related implementations while rendered
@@ -20,6 +38,44 @@ presentation/client slice while retaining existing saves and database schema.
 `Proposed`, `Accepted`, `Superseded`, `Rejected`. Accepted ADRs require context, alternatives, consequences, tests and rollback path. Update index when chosen; do not silently reverse.
 
 ## Accepted development-workflow decisions
+
+### 2026-11-27 — resource-scoped evidence read before a live corpus cutover
+
+Owner continuation authorizes the next dependent implementation. Catalog inspection
+finds ten permission-verified labels without artifact-specific text grants or
+license references. Preserve catalog bytes and treat them as review candidates;
+do not silently import or upgrade rights. Add a read-only inventory and typed
+Python read boundary against a server-configured repository, with separate
+`research:read` authority, current rights and exact resource association checks.
+Return capped quotations and limitations, not generated explanations.
+
+Alternatives: expose the global in-memory corpus (resource leakage), return raw
+passages (quotation-budget bypass), use browser cookies as Python authority
+(unimplemented identity trust), or return empty success after storage errors
+(misleading uncertainty). Reject each. Repository lookup receives only the public
+resource ID and has an explicit deadline/cancellation contract. Private sources
+remain unsupported. Gateway/SQL/model integration is a separate ticket; no provider,
+schema, deployment or live-data action follows from ASGI/synthetic acceptance.
+Rollback the read route/modules/audit only; no stored state changes. See docs/52.
+
+### 2026-11-27 — separate source rights and offline evidence from catalog discovery
+
+Owner requests continuing related implementation batches. Implement M2-01a's
+source/artifact/citation primitives and lexical reference evaluation without
+provisioning or connecting a model. Public discovery metadata approval does not
+authorize full-text ingestion. Require reviewed artifact bytes, explicit permitted
+uses/budgets, stable normalized locators and current policy/version rechecks.
+Keep private corpora unsupported until authenticated storage/deletion is designed.
+
+Alternatives: automatically ingest catalog URLs (rights and retrieval-quality gaps),
+choose an embedding provider/dimension before review (premature commitment), or
+add a second production search store (architecture drift). Retain PostgreSQL
+FTS + pgvector as the planned index. Offline lexical overlap and RRF are bounded
+reference primitives; no semantic/retrieval quality claim follows from synthetic
+tests. Citation existence/quotation is distinct from claim support and source truth.
+No source fetcher, HTTP contract, graph behavior, DB/schema or deployment changes.
+Rollback removes only these new primitives/fixtures and CI evaluation step.
+Evidence, limits and staged next dependencies: docs/51 and docs/24.
 
 ### 2026-11-24 — account-owned feed batches retain the existing page contract
 

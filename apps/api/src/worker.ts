@@ -6,6 +6,7 @@ import { workerLibrary } from './library';
 import { workerLibraryV2 } from './library-v2';
 import { workerInterests } from './interests';
 import { workerFeedStorage } from './feed-storage';
+import { evidenceGateway } from './evidence-gateway';
 
 const unavailable = () =>
   Response.json(
@@ -36,9 +37,17 @@ export default {
     const libraryV2 = workerLibraryV2(env, ctx);
     const interestsV2 = workerInterests(env, ctx, true);
     const feedStorage = workerFeedStorage(env, ctx);
+    // Misconfigured optional research must not take down the catalog or accounts.
+    let evidence;
+    try {
+      evidence = evidenceGateway(env);
+    } catch {
+      evidence = undefined;
+    }
     return createApi({
       allowedOrigins,
       verifySession: createManagedSessionVerifier(env),
+      ...(evidence ? { evidence } : {}),
       ...(catalog ? { catalog } : {}),
       ...(catalogV2 ? { catalogV2 } : {}),
       ...(library ? { library } : {}),

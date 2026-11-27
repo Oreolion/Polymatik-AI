@@ -17,15 +17,16 @@ The hosted preview is a development environment, not a production release.
 The [verification ledger](docs/24_IMPLEMENTATION_LOG.md) separates deployed
 features, local implementation, owner confirmations and remaining acceptance work.
 
-| Area | Current capability |
-| --- | --- |
-| Discover | Reviewed catalog, integrated search, subject/format filters, pagination and explicit recovery states |
-| Resource details | Attributed description, clickable breadcrumbs and an **Open source** action |
-| Library | Dedicated private account Library, direct account saving from resource pages, and separate browser saves with explicit copying |
-| Accounts | Google sign-in through Neon-managed Auth; the API independently revalidates sessions |
-| Interests | Optional welcome, skip and later editing in Profile; fourteen subjects, up to three selected |
-| For you | New local checkpoint: deterministic subject-aware selection, varied exploration and explanations |
-| Appearance | Light/dark controls using a sun/moon toggle |
+| Area              | Current capability                                                                                                                                        |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Discover          | Reviewed catalog, integrated search, subject/format filters, pagination and explicit recovery states                                                      |
+| Resource details  | Attributed description, clickable breadcrumbs and an **Open source** action                                                                               |
+| Library           | Dedicated private account Library, direct account saving from resource pages, and separate browser saves with explicit copying                            |
+| Accounts          | Google sign-in through Neon-managed Auth; the API independently revalidates sessions                                                                      |
+| Interests         | Optional welcome, skip and later editing in Profile; fourteen subjects, up to three selected                                                              |
+| For you           | New local checkpoint: deterministic subject-aware selection, varied exploration and explanations                                                          |
+| Appearance        | Light/dark controls using a sun/moon toggle                                                                                                               |
+| Resource research | New local question-to-source workspace, authenticated web/API/Python lookup, attributed passages and cancel/retry; live corpus/service setup remains open |
 
 The expanded development catalog contains **54 public resources across seven
 subjects and six formats**. Six drafts remain held for artwork corrections.
@@ -51,8 +52,18 @@ being described as verified on the preview. See the
 [experience guide](docs/46_WELCOME_AND_RESOURCE_EXPERIENCE.md),
 [taxonomy migration](docs/47_SUBJECT_TAXONOMY_MIGRATION.md) and
 [personalized Discover scope](docs/48_PERSONALIZED_DISCOVER.md).
-Granular topic/thinker onboarding, research memory, retrieval and learning
-assessments remain future work.
+Granular topic/thinker onboarding, research memory, deployed hybrid retrieval and
+learning assessments remain future work. The [evidence foundation](docs/51_EVIDENCE_FOUNDATION.md)
+provides file-only corpus validation and synthetic offline tests. Catalog approval
+does not grant permission to ingest the linked sources' full text.
+The [resource evidence boundary](docs/52_RESOURCE_EVIDENCE_BOUNDARY.md) adds a
+typed, authenticated source-quotation read and a read-only catalog rights report.
+The [connected research workspace](docs/53_RESOURCE_RESEARCH_WORKSPACE.md) now
+connects resource pages, the authenticated gateway and Python reader. It returns
+reviewed quotations with source/version/license details, without generating an
+answer. The complete HTTP path passes with local synthetic sources. No real corpus,
+PostgreSQL evidence repository or hosted Python service is configured yet; the
+preview reports research as unavailable until those dependencies are ready.
 
 The [feed persistence foundation](docs/49_FEED_PERSISTENCE.md), migration
 0005, passed on isolated and shared development with restricted-login verification.
@@ -69,17 +80,18 @@ Browser → Web Worker (vinext) → Product API Worker → Hyperdrive → Neon P
 
 Expo client → shared API contracts
 Python agent service → FastAPI / LangGraph baseline
+Resource research → verified API delegation → Python evidence reader
 ```
 
-| Layer | Stack |
-| --- | --- |
-| Web | React, Next.js App Router APIs through vinext, Vite, Cloudflare Workers |
-| Product API | TypeScript Worker, OpenAPI and validated shared client |
-| Database | Neon PostgreSQL; Worker SQL through Cloudflare Hyperdrive |
-| Authentication | Neon-managed Better Auth with Google sign-in |
-| Agent baseline | Python, FastAPI, LangGraph; opt-in LangSmith tracing |
-| Mobile | Expo SDK 58, React Native, Expo Router |
-| Shared packages | Domain contracts, API client, metadata and design tokens |
+| Layer           | Stack                                                                   |
+| --------------- | ----------------------------------------------------------------------- |
+| Web             | React, Next.js App Router APIs through vinext, Vite, Cloudflare Workers |
+| Product API     | TypeScript Worker, OpenAPI and validated shared client                  |
+| Database        | Neon PostgreSQL; Worker SQL through Cloudflare Hyperdrive               |
+| Authentication  | Neon-managed Better Auth with Google sign-in                            |
+| Agent baseline  | Python, FastAPI, LangGraph; opt-in LangSmith tracing                    |
+| Mobile          | Expo SDK 58, React Native, Expo Router                                  |
+| Shared packages | Domain contracts, API client, metadata and design tokens                |
 
 PostgreSQL with pgvector is the planned initial semantic index; vector retrieval
 is not yet an implemented product feature. The interface follows **The Living
@@ -156,22 +168,22 @@ Avoid concurrent installs or manual changes to generated dependency links.
 
 ## Commands
 
-| Command | Purpose |
-| --- | --- |
-| `pnpm dev:web` | Start the web development server |
-| `pnpm dev:api` | Start the API, using verified development SQL when configured |
-| `pnpm build` | Build web and package API locally; does not deploy |
-| `pnpm build:web` | Build web Worker and client assets |
-| `pnpm preview:web` | Serve the built web Worker locally |
-| `pnpm check` | Lint, workspace typechecks and root tests/evaluation |
-| `pnpm check:api` | Detect OpenAPI/generated-type drift |
-| `pnpm test:api:runtime` | Exercise the API in a local Worker runtime |
-| `pnpm test:web` | Exercise the built web Worker; build web first |
-| `pnpm build:api:check` | Package the API without uploading |
-| `pnpm build:preview:check` | Check isolated preview packaging without deploying |
-| `pnpm dev:mobile` | Start Expo Go over LAN |
-| `pnpm test:mobile` | Run native JavaScript integration tests |
-| `pnpm build:mobile:check` | Export iOS/Android JavaScript and Hermes bundles |
+| Command                    | Purpose                                                       |
+| -------------------------- | ------------------------------------------------------------- |
+| `pnpm dev:web`             | Start the web development server                              |
+| `pnpm dev:api`             | Start the API, using verified development SQL when configured |
+| `pnpm build`               | Build web and package API locally; does not deploy            |
+| `pnpm build:web`           | Build web Worker and client assets                            |
+| `pnpm preview:web`         | Serve the built web Worker locally                            |
+| `pnpm check`               | Lint, workspace typechecks and root tests/evaluation          |
+| `pnpm check:api`           | Detect OpenAPI/generated-type drift                           |
+| `pnpm test:api:runtime`    | Exercise the API in a local Worker runtime                    |
+| `pnpm test:web`            | Exercise the built web Worker; build web first                |
+| `pnpm build:api:check`     | Package the API without uploading                             |
+| `pnpm build:preview:check` | Check isolated preview packaging without deploying            |
+| `pnpm dev:mobile`          | Start Expo Go over LAN                                        |
+| `pnpm test:mobile`         | Run native JavaScript integration tests                       |
+| `pnpm build:mobile:check`  | Export iOS/Android JavaScript and Hermes bundles              |
 
 ### Optional agent service
 

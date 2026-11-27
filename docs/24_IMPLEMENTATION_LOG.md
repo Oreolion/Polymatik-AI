@@ -1,5 +1,217 @@
 # 24 — Implementation Status and Evidence Ledger
 
+### 2026-11-27 — connected resource research workflow
+
+Owner clarifies that substantial work means an integrated product capability.
+Inspected README/source of truth, working tree, backlog, design/prompt,
+catalog/auth/API/client, Python reader and migration helpers. Preserved the
+uncommitted evidence foundation. Chose to connect the resource journey instead
+of adding another isolated storage helper; architecture/dependencies remain in
+docs/53. No dependency install, schema/grant change, source fetch/approval, provider
+selection, local secret mutation, Git write or deployment ran.
+
+Implemented the Living Atlas resource question/quotation workspace; strict shared
+OpenAPI/domain/client contract; origin/cookie/account-guarded web BFF; verified
+API session/scope/current catalog lookup; body-bound 30-second HMAC delegation to
+Python; explicit read-only loopback package runtime. Current policy/checksums are
+reloaded and withdrawn/corrupt evidence never becomes stale successful data.
+Source quotations retain license/attribution/version/locators, with no model answer
+or internal review fields. A late-matching-word test exposed prefix-only excerpts;
+the correction returns an exact nearby substring within existing quote budgets.
+Malformed new verifier-digest fields also failed red tests before shape validation.
+Final contract review also caught an overbroad numeric-host rejection: a red/green
+fixture now permits DNS names beginning with a digit while still denying IP-literal
+links. `.cache/research-url-red.txt` and `.cache/research-wire-tests.txt` record it.
+
+Agent-run Windows, Node **24.22.1**, Python **3.12.6**, installed pinned dependencies:
+
+- New gateway/import tests failed before their modules existed; late-match and
+  malformed-verifier regressions failed before implementation. Local red evidence:
+  `.cache/research-identity-red.txt`; earlier missing-module/late-match output was
+  observed directly, not fabricated as an artifact file.
+- Full Node **304/304**, no skips; `.cache/research-root-tests.txt`. Concurrency two
+  reduces local process pressure without changing test selection or assertions.
+- Full Python **94/94**, no skips; `.cache/research-python-tests.txt`. Ruff check
+  and format pass; `.cache/research-python-quality.txt` and
+  `.cache/research-python-format.txt`.
+- Root/API/web/domain/API-client TypeScript checks pass. Domain self-import fixed
+  to the existing exported subpath after package checks caught a disallowed `.ts`
+  extension. No config/typecheck relaxation. Outputs: `.cache/research-*-types.txt`.
+- Real connected journey plus wire/security contracts **6/6**, no skips:
+  `.cache/research-connected-runtime.txt`. Browser-client function calls the
+  **actual built web workerd**, API workerd and real Python HTTP with a random
+  test-only delegation key. Only Neon/catalog data are doubles. Quote retrieval,
+  absence, signature interoperability, revocation, changed account, actual file
+  policy withdrawal and corrupt-storage denial pass. All test services stop.
+  This is HTTP integration, not a rendered-browser or live PostgreSQL claim.
+- API and built web suites **25/25** in explicit Miniflare/workerd mode:
+  `.cache/research-built-runtime.txt`. Includes real resource SSR research shell,
+  new BFF route, unavailable setup, origin/body/account rejection and prior flows.
+- Full five-stage web build passes: `.cache/research-web-build.txt`. New route
+  `/api/account/evidence` is present. Existing upstream sourcemap/chunk warnings
+  remain; no production Web Vitals/p95 claim. Research queries run on explicit
+  submit, with capped reads; no model call is added to feed scrolling.
+- Evidence evaluation **20/20**, seven absence cases, synthetic source Recall@5
+  and MRR **1.0**, unchanged from the preceding synthetic baseline; no semantic
+  quality improvement claimed. `.cache/research-evidence-evaluation.json` binds
+  dataset/retriever/reader/runner hashes. Existing graph **10/10**:
+  `.cache/research-baseline-evaluation.json`. No network/model/paid evaluation calls.
+- Repository ESLint, maintained-source Prettier and generated OpenAPI checks pass;
+  `.cache/research-eslint.txt`, `.cache/research-format.txt` and
+  `.cache/research-generation.txt`. Secret/config/cache/environment ignore checks
+  pass; final diff is reviewed without staging. No immutable catalog CSV/art changed.
+- Agent standard Wrangler packaging hit ancestor-directory Access denied:
+  `.cache/research-api-package.txt`. The owner subsequently reports the normal-terminal
+  `build:api:check` dry run passed with Wrangler **4.152.0**: **280.04 KiB /
+  59.21 KiB gzip**, ending `--dry-run: exiting now.` This closes packaging only;
+  nothing was deployed and live research remains unconfigured.
+- Synthetic actual-form harness builds. Browser host is unavailable; native Chrome
+  approval previously timed out. A later browser check was rejected by automatic
+  review because the only available Chrome window contained unrelated eStories
+  content. No workaround or UI input ran. Owner started the port-5191 harness;
+  its standalone `use client` warnings did not prevent startup. No new visual
+  screenshot, keyboard/reflow/theme or screen
+  reader acceptance is claimed. Copyable harness command and review cases: docs/53.
+
+Files: resource research component/styles; BFF/client/route; API routing/gateway/
+scope; OpenAPI/generated/domain/client; Python verifier/runtime/reader/app/tests;
+connected and synthetic-browser helpers; CI check plus package script; README,
+architecture/ADR/backlog/ledger/checkpoint and docs/53. CI deployment conditions,
+provider bindings/secrets and DB remain unchanged. Git metadata is read-only;
+scoped owner commit/push commands are provided, not represented as executed.
+
+Security/limits: questions stay out of URLs/storage/logs; no browser cookie reaches
+Python; current public resource/source policy is rechecked and malformed data is
+denied. HMAC read replay within its short lifetime is allowed. Existing Worker date
+does not enable disconnect signals by default, so UI cancellation/explicit signals
+and fixed deadlines are proved, not full disconnect-driven server cancellation.
+OS file reads are also not preemptible. The package runtime is development-only;
+real corpus permission, PostgreSQL FTS/pgvector, reviewed relevance/support labels,
+service deployment/concurrency/cost and visual/live gates remain open. Rollback and
+next dependency are in docs/53. No full M2 or production readiness claim follows.
+
+### 2026-11-27 — M2-01b resource evidence read, public attribution and review inventory
+
+Owner continues implementation and requires copyable commands for blocked work.
+Preserved the uncommitted M2-01a foundation, inspected current app/tests, catalog,
+migrations and architecture, and found no artifact-specific license references
+in staging's ten permission-verified records. No automatic rights upgrade/import.
+
+Implemented `POST /v1/evidence/search` in the Python service, with strict
+`EvidenceInput`/`EvidencePage`/`EvidenceResponse` models and server-configured
+`EvidenceRepository`/`EvidenceReader`. Independent verification plus `research:read`
+is required; default startup denies access. Current resource association and
+rights are rechecked even if a repository returns broad data. Quotations obey
+cumulative source budgets, 240 characters/snippet and five citations. Return
+explicit no-evidence/quotation-unavailable states; unavailable storage never
+becomes empty success. Specific missing-resource error avoids converting backend
+KeyError into 404. Deadline/cancellation, concurrency isolation, no-store responses
+and fixed-route redacted logging are covered. No model answer is produced.
+
+Shared bounded body/auth helpers preserve existing baseline behavior while denying
+ambiguous authorization, duplicate JSON keys and non-JSON constants. The new
+read-only staging audit records its source digest, 60 records, counts 10/4/12/34
+for permission-verified/recheck/unknown/restricted, and zero inferred evidence
+approvals. It does not inspect live publication or separate evidence registries.
+
+Read official MDN/Oscar Levin/Jiří Lebl license statements (links and exact
+remaining review in docs/52). Added required public license, attribution and
+change notices to rights/citations, optional validated license URLs, automatic
+excerpt/normalization notice and exclusion of internal review references. Existing
+fictional records updated; no actual source artifact was ingested, permission
+approved, migration applied or staging byte changed. No conclusion about licensing
+embeddings or artwork follows from those publisher statements.
+
+Final agent-run Windows, Python 3.12.6 / Node 24.22.1 evidence:
+
+- New service/audit imports and public-attribution test failed before implementation.
+- Full Python suite **88/88**, zero skips; `.cache/resource-evidence-python-tests.txt`.
+  Includes configured ASGI synthetic identities, wrong scope, malformed/oversized
+  bodies, source injection, concurrent resources, rights withdrawal, quote caps,
+  storage errors, timeout, request cancellation and continued health. These are
+  in-process ASGI tests, not live gateway/PostgreSQL or browser acceptance.
+- Ruff check/format: pass, 20 Python files; `.cache/resource-evidence-python-quality.txt`.
+- Offline evidence **20/20**, seven absence/denial cases, zero external calls;
+  `.cache/resource-evidence-evaluation.json`. Broad snapshots deliberately include
+  another resource matching all negative terms. Resource scope, quotation budgets,
+  public attribution and reference behavior pass. Synthetic source Recall@5/MRR
+  remain 1.0; no semantic improvement or real-corpus quality claim. Report binds
+  dataset, retriever, service and evaluation-runner hashes. New boundary baseline
+  has no prior comparable result; delta null.
+- Existing graph baseline **10/10**; `.cache/resource-evidence-control-flow.json`.
+- Fictional package: one document/passage, zero writes/network calls, unpublished;
+  `.cache/resource-evidence-package.txt`. Staging inventory saved privately as UTF-8
+  in `.cache/catalog-evidence-review.json`; catalog bytes unchanged.
+- Repository ESLint (`--max-warnings 0`) and maintained-source Prettier pass;
+  `.cache/resource-evidence-repository-quality.txt`. Final `git diff --check` passes.
+
+Files: app/shared JSON boundary, evidence reader/registry/CLI/audit and their tests;
+expanded evaluation/fixture, README/service/evaluation guidance, docs/04/20/22/24/
+51/52 and checkpoint. Existing CI evidence command now exercises the read boundary;
+deployment conditions are unchanged. No new dependency, schema, public Worker API,
+gateway identity, source fetcher, embedding/model or frontend was connected.
+No TS/web build rerun or new screenshot is represented here. Prior UI/live gates
+remain open. Rollback removes this read/audit and restores prior helpers; no data
+state to undo. Next: reviewed pilot corpus/human labels and isolated FTS/pgvector
+repository proof, then gateway and evidence-bound research UI. Git remains
+read-only in this session; owner normal-terminal checkpoint commands are needed.
+
+### 2026-11-27 — M2-01a offline evidence foundation
+
+Owner asks to continue the remaining roadmap in coherent batches. Inspected the
+clean working tree, README/source of truth, current backlog, architecture/RAG/
+agent/evaluation documents, existing Python graph/tests and CI before changes.
+The agent remains a two-node deterministic baseline without a research route.
+Earlier rendered and combined live Library/dismissal checks remain open.
+
+Implemented related offline slices: immutable rights-aware source registry,
+byte-checksummed UTF-8/NFC/LF ingestion, bounded stable passages/locators,
+current-policy citation/quote resolution, lexical reference search, bounded RRF,
+and a file-only corpus package validator. No new dependency. The validator checks
+paths/duplicates/bytes and prints only counts/IDs; it never fetches URLs, runs SQL,
+writes artifacts or publishes entries. Private/unapproved sources are excluded.
+Current policy/version changes invalidate stored evidence. Citation provenance
+and exact quotation are distinct from truth/entailment. The old catalog's metadata
+approval is not full-text permission. Scope/limits/rollback/next gates: docs/51.
+
+Tests were red at the missing evidence/CLI module boundaries before implementation.
+Final agent-run Windows / Python 3.12.6 checks:
+
+- `.venv/Scripts/python.exe -m pytest -q`: **58/58**, zero skips; includes 31
+  new evidence/CLI cases plus the existing baseline. Output:
+  `.cache/evidence-python-tests.txt`.
+- Ruff check and format over the repository: pass, 15 Python files formatted;
+  `.cache/evidence-python-quality.txt`.
+- `python tests/evaluation/run_evidence.py --output .cache/evidence-evaluation.json`:
+  **20/20 invented structural cases**, seven absence/denial cases, source Recall@5
+  and MRR 1.0 on these fixtures; zero external calls. No prior comparable baseline
+  (delta null), human-reviewed semantic/claim-support metric or production quality
+  estimate. Report binds dataset/implementation hashes and runtime.
+- Existing `run_baseline.py`: **10/10**, `.cache/evidence-control-flow-evaluation.json`.
+- Checked-in fictional package validates as one document/one passage, local
+  validation only, zero writes/network calls and published false:
+  `.cache/evidence-package-check.txt`.
+- Node 24.22.1 `node --test tests/foundation/*.test.mjs`: **25/25**, zero skips;
+  `.cache/evidence-foundation-tests.txt`. The CI checks job adds only the new
+  offline evaluation command; deployment authority/conditions are unchanged.
+- Repository ESLint (`--max-warnings 0`) and maintained-source Prettier check
+  pass: `.cache/evidence-repository-quality.txt`. Final `git diff --check` passes.
+
+Changed files: new evidence/CLI modules and tests, fictional package/evaluation
+fixtures and runner; bootstrap import-side-effect coverage; CI evaluation step;
+README/service/evaluation guidance, docs/04/10/20/22/24/51 and checkpoint notes.
+No public API, schema, model, ranking, browser presentation or provider cutover.
+Existing TypeScript/build/runtime acceptance is not represented as rerun here.
+No browser workflow changed, so no screenshot is required for this slice.
+
+Remaining: actual source-rights review and catalog association, human-reviewed
+development/holdout labels, explicit embedding/provider/runtime decisions, isolated
+PostgreSQL FTS/pgvector migration and query proofs, evidence-bound generation and
+saved-resource research UI. Real corpus acceptance and earlier UI/delivery gates
+remain separate. Rollback removes these additions and CI step; no DB state changes.
+No migration, dependency install, Git write, push or deployment ran. Git metadata
+is read-only in this session; do not bypass it with an alternate repository.
+
 ### 2026-11-25 — owner-authorized account Library journey bundle
 
 Owner asks for consecutive related small implementations rather than stopping

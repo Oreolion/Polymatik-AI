@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import type { WebResource } from '../src/catalog';
 import ResourceArt from './resource-art';
 import ResourceAccountSave from './resource-account-save';
+import ResourceResearch from './resource-research';
 import type { CollectionView } from '../src/resource-navigation';
 import { resourceReturnHref } from '../src/resource-navigation';
 
@@ -137,6 +138,7 @@ export default function ResourceDetailView({
           </a>
         </aside>
       </div>
+      {accountSaving && <ResourceResearch id={resource.id} />}
       <footer className="detail-privacy">
         <p>
           Browser saves stay here. Account saves are separate and require

@@ -172,6 +172,12 @@ test('configured expanded account BFF uses the real built Worker and mocked Neon
     );
     assert.ok(accountDetail.includes('Save in this browser'));
     assert.ok(accountDetail.includes('Checking account saving'));
+    for (const text of [
+      'Look closer.',
+      'READ WITH A QUESTION',
+      'Checking research access',
+    ])
+      assert.ok(accountDetail.includes(text), text);
     const welcome = await fetch(`${fixture.origin}/onboarding`);
     assert.equal(welcome.status, 200);
     const welcomeHtml = await welcome.text();
@@ -213,6 +219,53 @@ test('configured expanded account BFF uses the real built Worker and mocked Neon
     const me = await call('/api/account/me');
     assert.equal(me.status, 200);
     assert.equal((await me.json()).user_id, 'alice');
+    const evidenceBody = { resource_id: 'fixture-0', query: 'synthetic' };
+    const unavailableEvidence = await call(
+      '/api/account/evidence',
+      'POST',
+      evidenceBody,
+    );
+    assert.equal(unavailableEvidence.status, 503);
+    assert.equal(unavailableEvidence.headers.get('cache-control'), 'no-store');
+    assert.equal(
+      (await call('/api/account/evidence', 'POST', evidenceBody, 'forged'))
+        .status,
+      401,
+    );
+    assert.equal(
+      (
+        await call(
+          '/api/account/evidence',
+          'POST',
+          evidenceBody,
+          'bob',
+          'alice',
+        )
+      ).status,
+      409,
+    );
+    assert.equal(
+      (
+        await call('/api/account/evidence', 'POST', {
+          ...evidenceBody,
+          user_id: 'bob',
+        })
+      ).status,
+      422,
+    );
+    assert.equal(
+      (
+        await fetch(`${fixture.origin}/api/account/evidence`, {
+          method: 'POST',
+          headers: {
+            origin: 'https://foreign.test',
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify(evidenceBody),
+        })
+      ).status,
+      403,
+    );
     const first = await call('/api/account/v2/library');
     assert.equal(first.status, 200);
     const page = await first.json();

@@ -3,9 +3,11 @@
 This file is normative when placed in the repository root. Applies to Codex, Claude Code, other coding agents, and humans. Read `README.md` and `docs/00_SOURCE_OF_TRUTH.md` before changing code.
 
 ## Objective
+
 Deliver a trustworthy and aesthetically excellent discovery-first, cross-platform AI learning product with a Cloudflare edge layer, Next.js web UI, Expo mobile UI, shared contracts, PostgreSQL, Python FastAPI + LangGraph agent backend, and LangSmith evaluation.
 
 ## Non-negotiable workflow
+
 1. **Inspect → plan → test → implement → run tests → report.** Inspect git status and existing files before edits; never assume blank repository.
 2. Work on **one smallest acceptance-testable ticket** at a time in dependency order (`docs/20_IMPLEMENTATION_BACKLOG.md`). No unsanctioned extra features.
 3. Every functional change requires unit/contract/integration tests as relevant; any agent/prompt/retrieval/ranking change additionally requires offline evaluation evidence, using a deterministic baseline where possible.
@@ -18,6 +20,7 @@ Deliver a trustworthy and aesthetically excellent discovery-first, cross-platfor
 10. Keep user-facing recommendations diverse, attributable, manageable, and under user control. User bookmarks remain private.
 
 ## Definition of done (minimum)
+
 - Meets ticket acceptance tests; includes failure paths, authz, input validation, and observability.
 - `lint`, `typecheck`, relevant unit + integration tests pass **with captured output**; E2E/UI/evals where applicable.
 - No critical/high known issues; no cross-tenant leaks; privacy controls addressed.
@@ -25,15 +28,19 @@ Deliver a trustworthy and aesthetically excellent discovery-first, cross-platfor
 - Deployment is not considered complete until its real staging URL/build is smoke-tested.
 
 ## Mandatory stop conditions
+
 Stop and ask for an explicit decision when a paid account/key is required; existing user data could be deleted; terms of service are uncertain; a component needs a new external provider; scientific verification is unavailable; a privileged action is requested; tests uncover a security incident; or the planned release violates a quality gate.
 
 ## Branch and commit hygiene
+
 Small coherent diffs, no secrets, no rewriting unrelated code, no disabling tests to obtain green CI, pin/lock dependencies, review dependency licensing. Use ADRs for architecture reversals.
 
 ## Communication
+
 At beginning: summarize understood ticket, files inspected, plan and test design. At end: report file list, test commands/output, evaluation deltas, screenshots if UI, unresolved concerns and the next specific ticket. Include source links for new platform-dependent decisions.
 
 ## Continuity without AI Sync
+
 The owner retired AI Sync on 22 October 2026. Do not recreate `.ai-sync/` or
 apply its skill unless the owner explicitly requests it. Use the existing
 backlog for tasks, ADR register for decisions and implementation ledger for
@@ -45,7 +52,45 @@ evidence path. Update the checkpoint below only when its status, blocker or
 next action materially changes. Run checks appropriate to actual changes;
 ordinary questions require neither a full suite nor a checkpoint rewrite.
 
-## Current checkpoint — 25 November 2026
+## Current checkpoint — 27 November 2026
+
+- **Connected resource research workflow:** owner clarifies substantial means a
+  coherent product capability. Resource questions now cross same-origin BFF,
+  independently verified API identity/current catalog and a short-lived body-bound
+  HMAC delegation to Python. Shared contract/client and source inspection UI cover
+  attribution, cancellation, retry and account changes. Actual workerd/Python HTTP
+  verifies synthetic quotations, session revocation, account guards, package
+  withdrawal and corrupt-storage denial. Root 304/304, Python 94/94, offline
+  evidence 20/20 and graph baseline 10/10 pass. No live corpus, model, provider,
+  SQL, hosting config, push or deployment. PostgreSQL FTS/pgvector remains the
+  persistent target. Browser host unavailable; inspecting the unrelated Chrome
+  window was rejected by automatic review. Owner harness starts; no visual
+  acceptance. Web build, 25/25 API/built-web and 6/6 connected checks pass. Standard
+  Owner normal-terminal API dry run passes (280.04 KiB / 59.21 KiB gzip), closing
+  the sandbox packaging blocker without a deployment or live research claim.
+  Build/runtime results and remaining gates: docs/24 and 53. Preserve
+  the combined uncommitted evidence foundation; Git metadata remains read-only.
+- **M2-01b resource evidence boundary:** protected Python read now requires
+  research:read, exact resource association and current source/rights checks.
+  Returns capped quotations with public license/attribution/change notices;
+  internal review details stay private. Server-only repository protocol exists,
+  but no persistent adapter/gateway/corpus/model is connected. Read-only staging
+  audit counts 60 records and never upgrades catalog labels into text permission.
+  Python 88/88, Ruff/format, evidence 20/20, graph baseline 10/10 and repository
+  ESLint/Prettier pass. Synthetic/ASGI proofs are not live SQL or browser acceptance.
+  Next is reviewed pilot corpus/human labels and isolated FTS/pgvector proof.
+  No dependency, SQL, provider, Git write or deployment. Exact results/commands:
+  docs/24 and 52. Preserve the uncommitted foundation; Git metadata is read-only.
+- **M2-01a offline evidence foundation:** owner requests proceeding through the
+  roadmap in coherent batches. Registry/rights, reviewed-byte ingestion, stable
+  passages/locators, current-policy citations/quote budgets, lexical reference,
+  bounded RRF and file-only package validator are implemented without mounting a
+  research endpoint. Python 58/58, Ruff/format, synthetic evidence 20/20, original
+  control flow 10/10 and Node foundation 25/25 pass. Catalog metadata approval is
+  not full-text rights; synthetic recall/citation existence is not claim support.
+  Next: rights-cleared corpus/human labels, explicit model/runtime decisions and
+  isolated FTS/pgvector persistence proof. No schema, install, provider, push or
+  deployment. Prior rendered/live gates remain open. Evidence/limits: docs/24/51.
 - **Owner-authorized Library journey bundle:** owner requests consecutive related
   small implementations while rendered dismissal acceptance stays open. Direct
   account saving from canonical resource details, dedicated `/library`, explicit
@@ -61,7 +106,7 @@ ordinary questions require neither a full suite nor a checkpoint rewrite.
   connector crashes; native Computer Use refuses this browser because URL-policy
   enforcement is unsupported. No bypass. Rendered and combined live SQL/API
   gates remain open; owner continuation defers these without accepting them.
-  No new SQL or deployment. Details: docs/50 and .cache/dismissal-*.
+  No new SQL or deployment. Details: docs/50 and .cache/dismissal-\*.
 - **Shared 0005 accepted; batch API slice:** owner reports checksum-guarded shared
   apply verified on br-noisy-poetry-zaka8dav, child unchanged and private data
   preserved. No repeat SQL/approval. API now mounts restricted Hyperdrive batches

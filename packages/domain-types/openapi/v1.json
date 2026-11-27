@@ -3522,6 +3522,129 @@
         "summary": "Restore an own set-aside resource",
         "description": "Exact origin, independently verified identity and interests:write required. No body/query or client-selected user. Idempotent own-account acknowledgement. New dismissal requires a public reviewed canonical ID and enforces the 500 cap; restoration does not require current publication."
       }
+    },
+    "/v2/evidence/search": {
+      "post": {
+        "operationId": "searchResourceEvidence",
+        "summary": "Find reviewed quotations for one public resource; no generated answer",
+        "security": [
+          {
+            "managedSession": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvidenceInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Validated source quotations or explicit absence",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvidenceResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Verified identity required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin or scope denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Account changed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Body too large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "JSON required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Evidence unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Evidence deadline",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -4414,6 +4537,201 @@
           }
         },
         "description": "Idempotent, confirmed own-account change. Restoring also works after resource withdrawal."
+      },
+      "EvidenceInput": {
+        "additionalProperties": false,
+        "properties": {
+          "resource_id": {
+            "pattern": "^[a-z][a-z0-9-]{0,47}$",
+            "title": "Resource Id",
+            "type": "string"
+          },
+          "query": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Query",
+            "type": "string"
+          }
+        },
+        "required": ["resource_id", "query"],
+        "title": "EvidenceInput",
+        "type": "object"
+      },
+      "EvidenceCitation": {
+        "additionalProperties": false,
+        "properties": {
+          "passage_id": {
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Passage Id",
+            "type": "string"
+          },
+          "source_id": {
+            "pattern": "^[a-z0-9][a-z0-9_-]{0,79}$",
+            "title": "Source Id",
+            "type": "string"
+          },
+          "title": {
+            "maxLength": 300,
+            "minLength": 1,
+            "title": "Title",
+            "type": "string"
+          },
+          "author": {
+            "maxLength": 300,
+            "minLength": 1,
+            "title": "Author",
+            "type": "string"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          },
+          "license_label": {
+            "maxLength": 300,
+            "minLength": 1,
+            "title": "License Label",
+            "type": "string"
+          },
+          "license_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "License Url"
+          },
+          "attribution_notice": {
+            "title": "Attribution Notice",
+            "type": "string"
+          },
+          "changes_notice": {
+            "title": "Changes Notice",
+            "type": "string"
+          },
+          "version": {
+            "pattern": "^[a-z0-9][a-z0-9_-]{0,79}$",
+            "title": "Version",
+            "type": "string"
+          },
+          "checksum": {
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Checksum",
+            "type": "string"
+          },
+          "normalization_version": {
+            "title": "Normalization Version",
+            "type": "string"
+          },
+          "start": {
+            "title": "Start",
+            "type": "integer"
+          },
+          "end": {
+            "title": "End",
+            "type": "integer"
+          },
+          "line_start": {
+            "title": "Line Start",
+            "type": "integer"
+          },
+          "line_end": {
+            "title": "Line End",
+            "type": "integer"
+          },
+          "quote": {
+            "title": "Quote",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240
+          }
+        },
+        "required": [
+          "passage_id",
+          "source_id",
+          "title",
+          "author",
+          "url",
+          "license_label",
+          "license_url",
+          "attribution_notice",
+          "changes_notice",
+          "version",
+          "checksum",
+          "normalization_version",
+          "start",
+          "end",
+          "line_start",
+          "line_end",
+          "quote"
+        ],
+        "title": "Citation",
+        "type": "object"
+      },
+      "EvidenceResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "protocol_version": {
+            "const": "evidence-read-v1",
+            "default": "evidence-read-v1",
+            "title": "Protocol Version",
+            "type": "string"
+          },
+          "resource_id": {
+            "pattern": "^[a-z0-9][a-z0-9_-]{0,79}$",
+            "title": "Resource Id",
+            "type": "string"
+          },
+          "status": {
+            "enum": ["evidence", "no_evidence", "quotation_unavailable"],
+            "title": "Status",
+            "type": "string"
+          },
+          "citations": {
+            "items": {
+              "$ref": "#/components/schemas/EvidenceCitation"
+            },
+            "maxItems": 5,
+            "title": "Citations",
+            "type": "array"
+          },
+          "retriever_version": {
+            "default": "lexical-overlap-v1",
+            "title": "Retriever Version",
+            "type": "string",
+            "enum": ["lexical-overlap-v1"]
+          },
+          "limitations": {
+            "default": [
+              "Reference lexical retrieval only; these quotations are not a generated answer or a claim-support assessment."
+            ],
+            "items": {
+              "type": "string"
+            },
+            "title": "Limitations",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 5
+          },
+          "request_id": {
+            "format": "uuid",
+            "title": "Request Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "protocol_version",
+          "resource_id",
+          "status",
+          "citations",
+          "retriever_version",
+          "limitations",
+          "request_id"
+        ],
+        "title": "EvidenceResponse",
+        "type": "object"
       }
     },
     "responses": {
